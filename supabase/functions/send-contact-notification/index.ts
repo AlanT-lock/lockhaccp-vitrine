@@ -155,7 +155,7 @@ const handler = async (req: Request): Promise<Response> => {
         <table style="width: 100%;">
           <tr>
             <td style="vertical-align: middle; padding-right: 20px;">
-              <img src="https://aemloipixiuoxscdgpqu.supabase.co/storage/v1/object/public/assets//LogoLockHACCP-removebg-preview.png" alt="LockHACCP" style="width: 100px; height: auto;" />
+              <img src="https://lockhaccp.fr/logo-color.png" alt="LockHACCP" style="width: 100px; height: auto;" />
             </td>
             <td style="vertical-align: middle;">
               <p style="margin: 0; font-weight: bold; color: #003F83; font-size: 16px;">LockHACCP</p>

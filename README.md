@@ -40,7 +40,7 @@ Les variables d'env sont à configurer dans le dashboard Vercel pour chaque envi
 
 ## Backend
 
-- **Base & auth** : Supabase projet `aemloipixiuoxscdgpqu`
+- **Base & auth** : Supabase projet principal LockHACCP (`ndoxvlikhmmixvhuqczs`)
 - **Edge functions** :
   - `create-checkout` : création d'une session Stripe Checkout pour les abonnements
   - `send-contact-notification` : notification + confirmation email via Resend
