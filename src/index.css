@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts loaded via <link> in index.html (non-blocking, parallel fetch) */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 211 100% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 211 100% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 211 100% 15%;
+
+    --primary: 211 100% 26%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 20 82% 65%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 211 30% 45%;
+
+    --accent: 20 82% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 211 100% 26%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --primary-light: 211 100% 96%;
+    --secondary-light: 20 82% 95%;
+    --gradient-primary: linear-gradient(135deg, hsl(211 100% 26%) 0%, hsl(211 100% 35%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(20 82% 65%) 0%, hsl(20 82% 55%) 100%);
+    --gradient-hero: hsl(220 20% 97%);
+    --shadow-card: 0 4px 24px -4px hsl(211 100% 26% / 0.08);
+    --shadow-card-hover: 0 8px 32px -4px hsl(211 100% 26% / 0.12);
+    --shadow-button: 0 4px 14px -2px hsl(211 100% 26% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 211 50% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 211 50% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 211 50% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 211 100% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 20 82% 65%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 211 30% 18%;
+    --muted-foreground: 211 20% 65%;
+
+    --accent: 20 82% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 211 30% 20%;
+    --input: 211 30% 20%;
+    --ring: 211 100% 55%;
+
+    --primary-light: 211 50% 15%;
+    --secondary-light: 20 50% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-secondary {
+    background-image: var(--gradient-secondary);
+  }
+
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shadow-button {
+    box-shadow: var(--shadow-button);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
