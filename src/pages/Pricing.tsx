@@ -8,6 +8,7 @@ import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
+import { TrustBadges } from "@/components/TrustBadges";
 
 const FAQS = [
   {
@@ -146,9 +147,8 @@ const Pricing = () => {
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            {/* Trial Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-              <span className="text-sm font-semibold text-secondary">🎉 Essai gratuit de 3 mois</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
+              <span className="text-sm font-semibold text-primary">Essai gratuit de 3 mois</span>
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
@@ -164,6 +164,12 @@ const Pricing = () => {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="py-8 bg-background border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <TrustBadges />
         </div>
       </section>
 

@@ -3,12 +3,42 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowLeft, CheckCircle, AlertTriangle, FileText } from "lucide-react";
 import { Seo } from "@/components/Seo";
-import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { FaqSection } from "@/components/FaqSection";
+import { RelatedLinks } from "@/components/RelatedLinks";
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
+
+const FAQS = [
+  {
+    question: "Quels sont les affichages obligatoires dans un restaurant en 2026 ?",
+    answer:
+      "Les principaux affichages obligatoires sont : prix TTC en vitrine et en salle, mention des allergènes (14 catégories), origine des viandes bovines/porc/volaille/ovine, présence ou non d'alcool, fait maison, interdiction de vapoter, conditions d'évacuation, et règlement intérieur si plus de 11 salariés.",
+  },
+  {
+    question: "Quelle est l'amende en cas de défaut d'affichage des prix ?",
+    answer:
+      "Le défaut d'affichage des prix est sanctionné par une amende administrative pouvant atteindre 3 000€ pour une personne physique et 15 000€ pour une personne morale (DGCCRF). Les contrôles sont fréquents en zone touristique.",
+  },
+  {
+    question: "Faut-il afficher tous les allergènes individuellement ?",
+    answer:
+      "Non, l'information sur les 14 allergènes majeurs peut être donnée par écrit (carte, panneau, classeur) ou oralement si une affiche le précise clairement. Mais l'information doit être accessible avant la commande et tenue à jour.",
+  },
+  {
+    question: "L'affichage 'Fait maison' est-il obligatoire ?",
+    answer:
+      "L'affichage de la mention 'fait maison' n'est obligatoire que pour les plats qui le sont, via le pictogramme officiel (une casserole avec un toit de maison). Les plats non-faits-maison n'ont pas d'obligation d'affichage spécifique.",
+  },
+  {
+    question: "Où trouver les modèles officiels d'affichage ?",
+    answer:
+      "Les modèles officiels sont disponibles sur les sites de la DGCCRF, du Ministère de la Santé (interdiction de fumer/vapoter), et de la Préfecture (consignes d'évacuation). Pour les affichages obligatoires complets, des kits payants existent (UMIH, syndicats professionnels).",
+  },
+];
 
 const BlogAffichageObligatoire = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Affichages obligatoires en restaurant : guide complet 2026" description="Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles." path="/blog/affichages-obligatoires-restaurant-2026" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Affichages obligatoires",path:"/blog/affichages-obligatoires-restaurant-2026"}]), articleJsonLd({title:"Affichages obligatoires en restaurant : guide complet 2026",description:"Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles.",path:"/blog/affichages-obligatoires-restaurant-2026",datePublished:"2026-04-01"})]} />
+      <Seo title="Affichages obligatoires en restaurant : guide complet 2026" description="Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles." path="/blog/affichages-obligatoires-restaurant-2026" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Affichages obligatoires",path:"/blog/affichages-obligatoires-restaurant-2026"}]), articleJsonLd({title:"Affichages obligatoires en restaurant : guide complet 2026",description:"Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles.",path:"/blog/affichages-obligatoires-restaurant-2026",datePublished:"2026-04-01"}), faqJsonLd(FAQS)]} />
       <Navbar />
       
       {/* Hero Section */}
@@ -300,6 +330,15 @@ const BlogAffichageObligatoire = () => {
         </div>
       </article>
 
+      <FaqSection items={FAQS} title="Questions fréquentes sur les affichages obligatoires" />
+      <RelatedLinks
+        title="Pour aller plus loin"
+        items={[
+          { to: "/blog/methode-haccp-guide-complet", label: "La méthode HACCP expliquée", description: "Les 7 principes pour démarrer." },
+          { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Restez conforme sans effort." },
+          { to: "/tarifs", label: "Découvrir LockHACCP", description: "À partir de 14,90€/mois." },
+        ]}
+      />
       <Footer />
     </div>
   );
