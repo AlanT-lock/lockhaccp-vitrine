@@ -7,18 +7,18 @@ import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const blogPosts = [
   {
-    id: "affichage-obligatoire-restaurant",
-    title: "Affichage obligatoire en restaurant",
-    excerpt: "Découvrez tout ce que vous devez savoir sur les affichages obligatoires dans votre établissement de restauration : réglementation, avantages et mise en conformité.",
+    id: "affichages-obligatoires-restaurant-2026",
+    title: "Affichages obligatoires en restaurant : guide 2026",
+    excerpt: "Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles.",
     date: "13 décembre 2024",
     readTime: "8 min",
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
     category: "Réglementation"
   },
   {
-    id: "methode-haccp",
-    title: "La méthode HACCP",
-    excerpt: "Guide complet sur la méthode HACCP : toutes les démarches à mettre en place pour garantir la sécurité alimentaire dans votre restaurant.",
+    id: "methode-haccp-guide-complet",
+    title: "Méthode HACCP : les 7 principes expliqués simplement",
+    excerpt: "Guide complet sur la méthode HACCP : les 7 principes avec exemples concrets pour les restaurateurs. Application pratique, schémas, modèles téléchargeables.",
     date: "12 décembre 2024",
     readTime: "10 min",
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
