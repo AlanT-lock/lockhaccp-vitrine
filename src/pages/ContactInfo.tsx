@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { contactInfoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const ContactInfo = () => {
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
@@ -106,7 +107,7 @@ const ContactInfo = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Contact - LockHACCP" description="Contactez l'équipe LockHACCP pour toute question. Réponse sous 24h. Téléphone, email, formulaire en ligne." path="/contact" />
+      <Seo title="Contacter LockHACCP : devis logiciel HACCP gratuit" description="Contactez LockHACCP par email ou téléphone (06.46.64.00.23). Devis gratuit, réponse sous 24h, accompagnement personnalisé." path="/contact" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Contact",path:"/contact"}])} />
       <Navbar />
 
       {/* Hero Section */}

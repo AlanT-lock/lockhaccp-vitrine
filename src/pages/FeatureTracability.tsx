@@ -1,10 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileSearch, QrCode, History, Search, FileText, Shield, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureTracability = () => {
@@ -62,7 +64,7 @@ const FeatureTracability = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Traçabilité alimentaire HACCP - LockHACCP" description="Suivez l'origine de chaque produit. Numéros de lots, DLC, fournisseurs : la traçabilité totale en un clic." path="/fonctionnalites/tracabilite" />
+      <Seo title="Traçabilité alimentaire HACCP : conforme & instantanée - LockHACCP" description="Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit." path="/fonctionnalites/tracabilite" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Traçabilité",path:"/fonctionnalites/tracabilite"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -263,6 +265,7 @@ const FeatureTracability = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.tracabilite]} />
       <Footer />
     </div>
   );

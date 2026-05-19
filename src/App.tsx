@@ -73,6 +73,10 @@ const App = () => (
               <Route path="/contact-entreprise" element={<ContactEntreprise />} />
               <Route path="/demander-demo" element={<ContactDemo />} />
               <Route path="/avantages-ia" element={<AIFeatures />} />
+              <Route path="/blog" element={<Resources />} />
+              <Route path="/blog/affichages-obligatoires-restaurant-2026" element={<BlogAffichageObligatoire />} />
+              <Route path="/blog/methode-haccp-guide-complet" element={<BlogMethodeHACCP />} />
+              {/* Legacy redirects handled by vercel.json; React-side fallback */}
               <Route path="/ressources" element={<Resources />} />
               <Route path="/ressources/affichage-obligatoire-restaurant" element={<BlogAffichageObligatoire />} />
               <Route path="/ressources/methode-haccp" element={<BlogMethodeHACCP />} />

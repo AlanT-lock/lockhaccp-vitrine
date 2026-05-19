@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Calendar, Bell, Users, CheckSquare, BarChart3, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import nettoyageImg from "@/assets/screenshots/nettoyage.png";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 const FeatureCleaning = () => {
   const {
@@ -63,7 +65,7 @@ const FeatureCleaning = () => {
     status: "À faire"
   }];
   return <div className="min-h-screen bg-background">
-      <Seo title="Plan de nettoyage HACCP - LockHACCP" description="Planifiez et suivez vos tâches de nettoyage. Rappels, validation, historique pour les contrôles sanitaires." path="/fonctionnalites/nettoyage" />
+      <Seo title="Plan de nettoyage cuisine HACCP : suivi et rappels - LockHACCP" description="Plan de nettoyage HACCP : planning personnalisé, rappels automatiques, validation des tâches. Conforme aux exigences sanitaires." path="/fonctionnalites/nettoyage" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Plan de nettoyage",path:"/fonctionnalites/nettoyage"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -226,6 +228,7 @@ const FeatureCleaning = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.nettoyage]} />
       <Footer />
     </div>;
 };

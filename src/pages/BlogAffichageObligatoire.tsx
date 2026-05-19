@@ -3,11 +3,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowLeft, CheckCircle, AlertTriangle, FileText } from "lucide-react";
 import { Seo } from "@/components/Seo";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const BlogAffichageObligatoire = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Affichages obligatoires en restaurant : guide complet 2026" description="Tous les affichages obligatoires pour les restaurants en France : règles d'hygiène, allergènes, origines des viandes, prix." path="/ressources/affichage-obligatoire-restaurant" />
+      <Seo title="Affichages obligatoires en restaurant : guide complet 2026" description="Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles." path="/blog/affichages-obligatoires-restaurant-2026" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Affichages obligatoires",path:"/blog/affichages-obligatoires-restaurant-2026"}]), articleJsonLd({title:"Affichages obligatoires en restaurant : guide complet 2026",description:"Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles.",path:"/blog/affichages-obligatoires-restaurant-2026",datePublished:"2026-04-01"})]} />
       <Navbar />
       
       {/* Hero Section */}
@@ -15,7 +16,7 @@ const BlogAffichageObligatoire = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Link 
-              to="/ressources" 
+              to="/blog" 
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />

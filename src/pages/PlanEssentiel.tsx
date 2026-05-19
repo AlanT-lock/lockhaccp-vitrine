@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const PlanEssentiel = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -86,7 +87,7 @@ const PlanEssentiel = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Plan Essentiel à 14,90€/mois - LockHACCP" description="Le plan Essentiel LockHACCP : toutes les fonctionnalités HACCP de base pour un restaurant individuel à 14,90€/mois. Sans engagement." path="/tarifs/essentiel" />
+      <Seo title="Plan Essentiel à 14,90€/mois - LockHACCP" description="Plan Essentiel LockHACCP à 14,90€/mois : logiciel HACCP complet pour un restaurant. Toutes les fonctionnalités de base, essai gratuit 3 mois." path="/tarifs/essentiel" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Tarifs",path:"/tarifs"},{name:"Plan Essentiel",path:"/tarifs/essentiel"}])} />
       <Navbar />
 
       {/* Hero Section */}

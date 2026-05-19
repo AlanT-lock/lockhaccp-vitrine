@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const PlanPro = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -78,7 +79,7 @@ const PlanPro = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Plan Pro à 29,90€/mois - LockHACCP" description="Le plan Pro LockHACCP : toutes les fonctionnalités HACCP avec automatisations, rapports et support prioritaire à 29,90€/mois." path="/tarifs/pro" />
+      <Seo title="Plan Pro à 29,90€/mois - LockHACCP" description="Plan Pro LockHACCP à 29,90€/mois : logiciel HACCP avec automatisations, rapports hebdomadaires et support prioritaire. Essai gratuit 3 mois." path="/tarifs/pro" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Tarifs",path:"/tarifs"},{name:"Plan Pro",path:"/tarifs/pro"}])} />
       <Navbar />
 
       {/* Hero Section */}

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const blogPosts = [
   {
@@ -28,7 +29,7 @@ const blogPosts = [
 const Resources = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Ressources HACCP - LockHACCP" description="Guides, modèles et articles pour comprendre et appliquer la méthode HACCP en restauration." path="/ressources" />
+      <Seo title="Ressources HACCP : guides, modèles, articles - LockHACCP" description="Guides pratiques HACCP, modèles téléchargeables, conseils d'experts pour les restaurateurs. Tout pour comprendre et appliquer la méthode HACCP." path="/blog" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -51,7 +52,7 @@ const Resources = () => {
             {blogPosts.map((post) => (
               <Link
                 key={post.id}
-                to={`/ressources/${post.id}`}
+                to={`/blog/${post.id}`}
                 className="group bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border"
               >
                 <div className="relative overflow-hidden">

@@ -3,6 +3,11 @@
   "framework": "vite",
   "buildCommand": "vite build",
   "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/ressources", "destination": "/blog", "permanent": true },
+    { "source": "/ressources/affichage-obligatoire-restaurant", "destination": "/blog/affichages-obligatoires-restaurant-2026", "permanent": true },
+    { "source": "/ressources/methode-haccp", "destination": "/blog/methode-haccp-guide-complet", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],

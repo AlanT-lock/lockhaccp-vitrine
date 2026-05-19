@@ -59,6 +59,65 @@ export function breadcrumbJsonLd(
   };
 }
 
+export function articleJsonLd(opts: {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.title,
+    description: opts.description,
+    image: opts.image ?? "https://lockhaccp.fr/og-image.png",
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified ?? opts.datePublished,
+    author: {
+      "@type": "Organization",
+      name: opts.authorName ?? "LockHACCP",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LockHACCP",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://lockhaccp.fr/logo-color.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://lockhaccp.fr${opts.path}`,
+    },
+  };
+}
+
+export function productJsonLd(opts: {
+  name: string;
+  description: string;
+  price: string;
+  priceCurrency?: string;
+  url: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: opts.name,
+    description: opts.description,
+    brand: { "@type": "Brand", name: "LockHACCP" },
+    offers: {
+      "@type": "Offer",
+      price: opts.price,
+      priceCurrency: opts.priceCurrency ?? "EUR",
+      url: opts.url,
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
 export function faqJsonLd(
   items: { question: string; answer: string }[],
 ): Record<string, unknown> {

@@ -13,7 +13,7 @@ const Footer = () => {
     company: [
       { label: "Demander une démo", href: "/demander-demo" },
       { label: "Contact", href: "/contact" },
-      { label: "Ressources", href: "/ressources" },
+      { label: "Ressources", href: "/blog" },
     ],
     legal: [
       { label: "Mentions légales", href: "/mentions-legales" },

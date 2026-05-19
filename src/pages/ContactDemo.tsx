@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import { contactDemoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const ContactDemo = () => {
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
@@ -144,7 +145,7 @@ const ContactDemo = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Demander une démo gratuite - LockHACCP" description="Réservez une démonstration personnalisée du logiciel HACCP LockHACCP. 30 minutes pour découvrir comment digitaliser vos contrôles." path="/demander-demo" />
+      <Seo title="Demander une démo gratuite du logiciel HACCP - LockHACCP" description="Réservez 30 min de démonstration personnalisée du logiciel HACCP LockHACCP. Découvrez comment digitaliser vos contrôles sanitaires dès demain." path="/demander-demo" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Demander une démo",path:"/demander-demo"}])} />
       <Navbar />
 
       {/* Hero Section */}

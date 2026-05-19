@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { validateEmail, validatePhone, validateRequired } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const ContactEntreprise = () => {
   const [formData, setFormData] = useState({
@@ -117,7 +118,7 @@ const ContactEntreprise = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Solution multi-établissements - LockHACCP" description="Contactez notre équipe commerciale pour une solution HACCP multi-restaurants : tableaux de bord consolidés, accompagnement dédié." path="/contact-entreprise" />
+      <Seo title="Logiciel HACCP multi-restaurants : devis - LockHACCP" description="Solution HACCP multi-établissements LockHACCP : tableaux de bord consolidés, gestion centralisée, accompagnement dédié. Devis sur mesure." path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Solution Entreprise",path:"/contact-entreprise"}])} />
       <Navbar />
 
       {/* Hero Section */}

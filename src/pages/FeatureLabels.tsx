@@ -1,10 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Tag, Printer, QrCode, Calendar, Edit, Wifi, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureLabels = () => {
@@ -56,7 +58,7 @@ const FeatureLabels = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Étiquettes de production HACCP - LockHACCP" description="Imprimez vos étiquettes de production en un instant. Dates de fabrication, DLC, allergènes : tout est automatique." path="/fonctionnalites/etiquettes" />
+      <Seo title="Étiquettes de production HACCP : DLC, allergènes - LockHACCP" description="Imprimez vos étiquettes de production HACCP : DLC, n° de lot, allergènes. Étiqueteuse connectée et modèles personnalisables." path="/fonctionnalites/etiquettes" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Étiquettes",path:"/fonctionnalites/etiquettes"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -273,6 +275,7 @@ const FeatureLabels = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.etiquettes]} />
       <Footer />
     </div>
   );

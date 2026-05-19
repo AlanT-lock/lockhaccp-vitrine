@@ -81,7 +81,7 @@ const AdminDashboard = () => {
   if (!authChecked) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-muted/30">
-      <Seo title="Administration" description="Espace d'administration LockHACCP." path="/admin/dashboard" noindex />
+      <Seo title="Administration LockHACCP" description="Espace d'administration LockHACCP." path="/admin/dashboard" noindex />
         <p className="text-muted-foreground">Vérification de la session…</p>
       </div>
     );

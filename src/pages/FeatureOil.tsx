@@ -1,10 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Droplets, Gauge, History, AlertTriangle, FileText, TrendingDown, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureOil = () => {
@@ -65,7 +67,7 @@ const FeatureOil = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Suivi de l'huile de friture - LockHACCP" description="Contrôlez la qualité de votre huile de friture. Mesures, alertes, historique conforme aux exigences sanitaires." path="/fonctionnalites/huiles" />
+      <Seo title="Contrôle huile de friture HACCP - LockHACCP" description="Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort." path="/fonctionnalites/huiles" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Huiles",path:"/fonctionnalites/huiles"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -275,6 +277,7 @@ const FeatureOil = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.huiles]} />
       <Footer />
     </div>
   );

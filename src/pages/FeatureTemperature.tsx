@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Thermometer, Wifi, Bell, BarChart3, Shield, Clock, Smartphone, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import temperaturesImg from "@/assets/screenshots/temperatures.png";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 const FeatureTemperature = () => {
   const {
@@ -47,7 +49,7 @@ const FeatureTemperature = () => {
   }];
   const sensorBenefits = ["Surveillance continue 24h/24, 7j/7", "Élimination des erreurs de saisie manuelle", "Détection immédiate des pannes d'équipement", "Réduction des pertes de marchandises", "Historique automatique sans intervention", "Compatible avec tous types de chambres froides"];
   return <div className="min-h-screen bg-background">
-      <Seo title="Relevés de température HACCP - LockHACCP" description="Digitalisez vos relevés de température en cuisine. Rappels automatiques, alertes en cas de dépassement, historique consultable." path="/fonctionnalites/temperatures" />
+      <Seo title="Relevé de température HACCP : logiciel + capteurs - LockHACCP" description="Relevé de température HACCP automatisé pour vos enceintes froides. Rappels, alertes, historique conforme DDPP. Avec ou sans capteurs connectés." path="/fonctionnalites/temperatures" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Températures",path:"/fonctionnalites/temperatures"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -220,6 +222,7 @@ const FeatureTemperature = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.temperatures]} />
       <Footer />
     </div>;
 };

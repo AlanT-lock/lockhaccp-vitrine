@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const AIFeatures = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -57,7 +58,7 @@ const AIFeatures = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Intelligence artificielle pour la restauration - LockHACCP" description="Automatisations intelligentes pour la conformité HACCP : analyse prédictive, détection d'anomalies, rapports automatiques." path="/avantages-ia" />
+      <Seo title="Intelligence artificielle HACCP : automatisez vos contrôles - LockHACCP" description="IA pour la restauration : OCR bons de livraison, traçabilité automatique, détection d'anomalies. Le futur de la conformité HACCP, dès aujourd'hui." path="/avantages-ia" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Avantages IA",path:"/avantages-ia"}])} />
       <Navbar />
 
       {/* Hero Section */}

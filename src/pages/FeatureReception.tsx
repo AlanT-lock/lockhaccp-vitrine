@@ -1,10 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Package, Thermometer, Calendar, Camera, FileText, AlertTriangle, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureReception = () => {
@@ -70,7 +72,7 @@ const FeatureReception = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Contrôle à réception des marchandises - LockHACCP" description="Vérifiez vos livraisons en quelques clics. Contrôle des températures, photos, traçabilité automatique des fournisseurs." path="/fonctionnalites/receptions" />
+      <Seo title="Contrôle à réception HACCP : conforme et rapide - LockHACCP" description="Contrôle des marchandises HACCP en quelques clics : températures, photos de non-conformité, traçabilité fournisseurs automatique." path="/fonctionnalites/receptions" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Contrôle réception",path:"/fonctionnalites/receptions"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -225,6 +227,7 @@ const FeatureReception = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.receptions]} />
       <Footer />
     </div>
   );

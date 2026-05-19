@@ -5,7 +5,37 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
+import { FaqSection } from "@/components/FaqSection";
+
+const FAQS = [
+  {
+    question: "Combien coûte LockHACCP ?",
+    answer:
+      "Le plan Essentiel est à 14,90€/mois pour un restaurant. Le plan Pro est à 29,90€/mois et inclut les automatisations, rapports hebdomadaires et le support prioritaire. L'offre Entreprise multi-établissements est sur devis.",
+  },
+  {
+    question: "Y a-t-il un essai gratuit ?",
+    answer:
+      "Oui, LockHACCP propose 3 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
+  },
+  {
+    question: "LockHACCP est-il conforme aux exigences de la DDPP ?",
+    answer:
+      "Oui. LockHACCP suit les principes de la méthode HACCP et permet de générer des rapports conformes aux contrôles sanitaires de la DDPP (Direction Départementale de la Protection des Populations).",
+  },
+  {
+    question: "Faut-il du matériel spécifique ?",
+    answer:
+      "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. Pour automatiser certains contrôles (températures, étiquettes), nous proposons des équipements connectés en option.",
+  },
+  {
+    question: "Mes données sont-elles sécurisées et hébergées en France ?",
+    answer:
+      "Oui, vos données sont hébergées en Europe (Supabase) et nous respectons strictement le RGPD. Vous restez propriétaire de vos données à tout moment.",
+  },
+];
 
 const Pricing = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -96,7 +126,15 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Tarifs - LockHACCP" description="À partir de 14,90€/mois. Essai gratuit 3 mois sans engagement. Plan Essentiel pour 1 restaurant, plan Pro avec automatisations." path="/tarifs" />
+      <Seo
+        title="Tarifs LockHACCP : logiciel HACCP à partir de 14,90€/mois"
+        description="Tarifs LockHACCP : 14,90€/mois (Essentiel) ou 29,90€/mois (Pro). Essai gratuit 3 mois sans engagement. Offre Entreprise multi-établissements sur devis."
+        path="/tarifs"
+        jsonLd={[
+          breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Tarifs", path: "/tarifs" }]),
+          faqJsonLd(FAQS),
+        ]}
+      />
       <Navbar />
       
       {/* Hero Section */}
@@ -296,6 +334,12 @@ const Pricing = () => {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        items={FAQS}
+        title="Questions fréquentes sur les tarifs"
+        description="Tout ce qu'il faut savoir avant de choisir votre formule."
+      />
 
       {/* CTA Section */}
       <section className="py-20 bg-primary">

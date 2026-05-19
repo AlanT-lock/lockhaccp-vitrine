@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Avantages IA", href: "/avantages-ia" },
-    { label: "Ressources", href: "/ressources" },
+    { label: "Ressources", href: "/blog" },
     { label: "Tarifs", href: "/tarifs" },
     { label: "Contact", href: "/contact" },
   ];

@@ -3,11 +3,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowLeft, CheckCircle, ClipboardList, Thermometer, Shield, ArrowRight } from "lucide-react";
 import { Seo } from "@/components/Seo";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
 const BlogMethodeHACCP = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="La méthode HACCP : guide pratique pour les restaurateurs" description="Comprendre les 7 principes HACCP et les appliquer concrètement dans son restaurant. Guide pratique avec exemples." path="/ressources/methode-haccp" />
+      <Seo title="Méthode HACCP : les 7 principes expliqués simplement" description="Méthode HACCP : les 7 principes expliqués avec des exemples concrets pour les restaurateurs. Application pratique, schémas, modèles téléchargeables." path="/blog/methode-haccp-guide-complet" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Méthode HACCP",path:"/blog/methode-haccp-guide-complet"}]), articleJsonLd({title:"Méthode HACCP : les 7 principes expliqués simplement",description:"Méthode HACCP : les 7 principes expliqués avec des exemples concrets pour les restaurateurs. Application pratique, schémas, modèles téléchargeables.",path:"/blog/methode-haccp-guide-complet",datePublished:"2026-04-01"})]} />
       <Navbar />
       
       {/* Hero Section */}
@@ -15,7 +16,7 @@ const BlogMethodeHACCP = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Link 
-              to="/ressources" 
+              to="/blog" 
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />

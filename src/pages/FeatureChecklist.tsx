@@ -1,10 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ClipboardCheck, Settings, Users, Bell, BarChart3, FileText, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
+import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureChecklist = () => {
@@ -68,7 +70,7 @@ const FeatureChecklist = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Check-lists personnalisées - LockHACCP" description="Créez vos propres check-lists d'ouverture, fermeture, contrôles. Suivez l'avancement en temps réel." path="/fonctionnalites/checklist" />
+      <Seo title="Check-list HACCP personnalisée : ouverture, fermeture - LockHACCP" description="Créez vos check-lists HACCP sur mesure : ouverture, fermeture, service. Suivi temps réel, validation, historique consultable." path="/fonctionnalites/checklist" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Check-lists",path:"/fonctionnalites/checklist"}])} />
       <Navbar />
       
       {/* Hero Section */}
@@ -270,6 +272,7 @@ const FeatureChecklist = () => {
         </div>
       </section>
 
+      <RelatedLinks items={[...FEATURE_RELATED.checklist]} />
       <Footer />
     </div>
   );

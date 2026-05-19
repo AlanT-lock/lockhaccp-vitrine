@@ -36,7 +36,7 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Seo title="Administration" description="Espace d'administration LockHACCP." path="/admin" noindex />
+      <Seo title="Administration LockHACCP" description="Espace d'administration LockHACCP." path="/admin" noindex />
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
