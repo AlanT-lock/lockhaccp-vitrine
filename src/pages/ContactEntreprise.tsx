@@ -118,7 +118,7 @@ const ContactEntreprise = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Logiciel HACCP multi-restaurants : devis - LockHACCP" description="Solution HACCP multi-établissements LockHACCP : tableaux de bord consolidés, gestion centralisée, accompagnement dédié. Devis sur mesure." path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Solution Entreprise",path:"/contact-entreprise"}])} />
+      <Seo title="Logiciel HACCP multi-établissements - LockHACCP" description="LockHACCP pour les groupes de plusieurs restaurants : 24,90€/mois pour le premier établissement, puis 12,90€/mois par établissement supplémentaire. Contactez notre équipe pour être accompagné dans la mise en place." path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}])} />
       <Navbar />
 
       {/* Hero Section */}
@@ -130,12 +130,29 @@ const ContactEntreprise = () => {
               <span className="text-sm font-semibold text-primary">Solution Multi-établissements</span>
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Solution <span className="text-primary">Entreprise</span>
+              Un tarif simple pour <span className="text-primary">tous vos établissements</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Vous gérez plusieurs établissements ? Découvrez notre offre sur-mesure 
-              avec tableaux de bord consolidés et accompagnement personnalisé.
+              Vous gérez plusieurs établissements ? LockHACCP est à 24,90€/mois pour le premier,
+              puis 12,90€/mois pour chaque établissement supplémentaire, avec un tableau de bord
+              consolidé sur l'ensemble de vos sites. Notre équipe vous accompagne dans la mise en place.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Summary */}
+      <section className="pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
+              <p className="text-sm text-muted-foreground mb-1">Premier établissement</p>
+              <p className="font-heading text-3xl font-bold text-foreground">24,90€<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
+            </div>
+            <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
+              <p className="text-sm text-muted-foreground mb-1">Chaque établissement supplémentaire</p>
+              <p className="font-heading text-3xl font-bold text-foreground">12,90€<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
+            </div>
           </div>
         </div>
       </section>
@@ -146,7 +163,7 @@ const ContactEntreprise = () => {
           <div className="max-w-2xl mx-auto">
             <div className="bg-card rounded-2xl border border-border shadow-card p-8">
               <h2 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">
-                Demandez un devis personnalisé
+                Parlez-nous de votre groupe de restaurants
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -268,7 +285,7 @@ const ContactEntreprise = () => {
                 </div>
 
                 <Button type="submit" variant="hero" size="xl" className="w-full" disabled={loading}>
-                  {loading ? "Envoi en cours..." : "Demander un devis"}
+                  {loading ? "Envoi en cours..." : "Envoyer ma demande"}
                   <ArrowRight className="w-5 h-5" />
                 </Button>
 
@@ -286,7 +303,7 @@ const ContactEntreprise = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Pourquoi choisir l'offre Entreprise ?
+              Pourquoi choisir LockHACCP pour plusieurs établissements ?
             </h2>
           </div>
           
@@ -320,10 +337,11 @@ const ContactEntreprise = () => {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                Tarifs dégressifs
+                Un tarif clair
               </h3>
               <p className="text-sm text-muted-foreground">
-                Bénéficiez de tarifs préférentiels adaptés au nombre de vos établissements.
+                24,90€/mois pour le premier établissement, puis 12,90€/mois pour chaque
+                établissement supplémentaire. Pas de négociation, pas de surprise.
               </p>
             </div>
           </div>

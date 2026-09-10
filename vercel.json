@@ -6,7 +6,10 @@
   "redirects": [
     { "source": "/ressources", "destination": "/blog", "permanent": true },
     { "source": "/ressources/affichage-obligatoire-restaurant", "destination": "/blog/affichages-obligatoires-restaurant-2026", "permanent": true },
-    { "source": "/ressources/methode-haccp", "destination": "/blog/methode-haccp-guide-complet", "permanent": true }
+    { "source": "/ressources/methode-haccp", "destination": "/blog/methode-haccp-guide-complet", "permanent": true },
+    { "source": "/avantages-ia", "destination": "/tarifs", "permanent": true },
+    { "source": "/tarifs/essentiel", "destination": "/tarifs", "permanent": true },
+    { "source": "/tarifs/pro", "destination": "/tarifs", "permanent": true }
   ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }

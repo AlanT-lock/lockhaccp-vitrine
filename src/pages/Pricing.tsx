@@ -66,7 +66,7 @@ const Pricing = () => {
     {
       id: "multi",
       name: "Établissement supplémentaire",
-      description: "Pour les groupes de plusieurs restaurants",
+      description: "S'ajoute à votre abonnement LockHACCP existant, pour chaque établissement en plus",
       price: "12,90€",
       features: [
         "Toutes les fonctionnalités, sur chaque site",
@@ -234,14 +234,22 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <a href={APP_URL} className="mt-auto">
-                  <Button
-                    className="w-full"
-                    variant={plan.highlighted ? "accent" : "outline"}
-                  >
-                    Essayer 1 mois gratuit
-                  </Button>
-                </a>
+                {plan.id === "multi" ? (
+                  <Link to="/contact" className="mt-auto">
+                    <Button className="w-full" variant="outline">
+                      Ajouter un établissement
+                    </Button>
+                  </Link>
+                ) : (
+                  <a href={APP_URL} className="mt-auto">
+                    <Button
+                      className="w-full"
+                      variant={plan.highlighted ? "accent" : "outline"}
+                    >
+                      Essayer 1 mois gratuit
+                    </Button>
+                  </a>
+                )}
               </div>
             ))}
           </div>
