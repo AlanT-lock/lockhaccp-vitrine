@@ -336,7 +336,7 @@ const BlogAffichageObligatoire = () => {
         items={[
           { to: "/blog/methode-haccp-guide-complet", label: "La méthode HACCP expliquée", description: "Les 7 principes pour démarrer." },
           { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Restez conforme sans effort." },
-          { to: "/tarifs", label: "Découvrir LockHACCP", description: "À partir de 14,90€/mois." },
+          { to: "/tarifs", label: "Découvrir LockHACCP", description: "24,90€/mois, tout inclus." },
         ]}
       />
       <Footer />

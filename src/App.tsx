@@ -24,8 +24,6 @@ const ContactEntreprise = lazy(() => import("./pages/ContactEntreprise"));
 const Resources = lazy(() => import("./pages/Resources"));
 const BlogAffichageObligatoire = lazy(() => import("./pages/BlogAffichageObligatoire"));
 const BlogMethodeHACCP = lazy(() => import("./pages/BlogMethodeHACCP"));
-const PlanEssentiel = lazy(() => import("./pages/PlanEssentiel"));
-const PlanPro = lazy(() => import("./pages/PlanPro"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const LegalNotice = lazy(() => import("./pages/LegalNotice"));
@@ -66,8 +64,8 @@ const App = () => (
               <Route path="/fonctionnalites/etiquettes" element={<FeatureLabels />} />
               <Route path="/fonctionnalites/checklist" element={<FeatureChecklist />} />
               <Route path="/tarifs" element={<Pricing />} />
-              <Route path="/tarifs/essentiel" element={<PlanEssentiel />} />
-              <Route path="/tarifs/pro" element={<PlanPro />} />
+              <Route path="/tarifs/essentiel" element={<Navigate to="/tarifs" replace />} />
+              <Route path="/tarifs/pro" element={<Navigate to="/tarifs" replace />} />
               <Route path="/contact" element={<ContactInfo />} />
               <Route path="/contact-entreprise" element={<ContactEntreprise />} />
               <Route path="/demander-demo" element={<ContactDemo />} />

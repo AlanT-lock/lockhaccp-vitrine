@@ -12,8 +12,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="LockHACCP - Logiciel HACCP pour restaurants à 14,90€/mois"
-        description="Logiciel HACCP n°1 simplifié pour la restauration : températures, traçabilité, plan de nettoyage, étiquettes. Essai gratuit 3 mois sans engagement."
+        title="LockHACCP - Logiciel HACCP pour restaurants à 24,90€/mois"
+        description="Logiciel HACCP n°1 simplifié pour la restauration : températures, traçabilité, plan de nettoyage, étiquettes. Essai gratuit 1 mois sans engagement."
         path="/"
         jsonLd={[organizationJsonLd, softwareAppJsonLd]}
       />

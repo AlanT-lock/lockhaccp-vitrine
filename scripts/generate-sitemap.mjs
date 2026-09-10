@@ -12,8 +12,6 @@ const SITE_URL = "https://lockhaccp.fr";
 const routes = [
   { path: "/", changefreq: "weekly", priority: 1.0 },
   { path: "/tarifs", changefreq: "monthly", priority: 0.9 },
-  { path: "/tarifs/essentiel", changefreq: "monthly", priority: 0.8 },
-  { path: "/tarifs/pro", changefreq: "monthly", priority: 0.8 },
   { path: "/demander-demo", changefreq: "monthly", priority: 0.9 },
   { path: "/contact", changefreq: "monthly", priority: 0.6 },
   { path: "/contact-entreprise", changefreq: "monthly", priority: 0.7 },

@@ -30,14 +30,8 @@ export const softwareAppJsonLd = {
   offers: [
     {
       "@type": "Offer",
-      name: "Essentiel",
-      price: "14.90",
-      priceCurrency: "EUR",
-    },
-    {
-      "@type": "Offer",
-      name: "Pro",
-      price: "29.90",
+      name: "LockHACCP",
+      price: "24.90",
       priceCurrency: "EUR",
     },
   ],

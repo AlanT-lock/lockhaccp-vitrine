@@ -128,7 +128,7 @@ const ContactDemo = () => {
     },
     {
       icon: Users,
-      title: "Essai gratuit de 3 mois",
+      title: "Essai gratuit de 1 mois",
       description: "Testez LockHACCP sans engagement avec toutes les fonctionnalités.",
     },
     {
@@ -153,7 +153,7 @@ const ContactDemo = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-              <span className="text-sm font-semibold text-secondary">🎁 Essai gratuit de 3 mois inclus</span>
+              <span className="text-sm font-semibold text-secondary">🎁 Essai gratuit de 1 mois inclus</span>
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
               Demandez votre <span className="text-primary">démo gratuite</span>

@@ -58,7 +58,7 @@ export const contactInfoSchema = z.object({
 // Checkout email schema
 export const checkoutEmailSchema = z.object({
   email: z.string().trim().email("Invalid email").max(255),
-  planId: z.enum(["essentiel", "pro"]),
+  billingCycle: z.enum(["mensuel", "annuel"]),
 });
 
 export type ContactDemoForm = z.infer<typeof contactDemoSchema>;

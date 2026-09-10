@@ -14,12 +14,12 @@ const FAQS = [
   {
     question: "Combien coûte LockHACCP ?",
     answer:
-      "Le plan Essentiel est à 14,90€/mois pour un restaurant. Le plan Pro est à 29,90€/mois et inclut les automatisations, rapports hebdomadaires et le support prioritaire. L'offre Entreprise multi-établissements est sur devis.",
+      "LockHACCP est à 24,90€/mois pour un établissement, toutes fonctionnalités incluses. Chaque établissement supplémentaire est à 12,90€/mois. En paiement annuel, vous ne payez que dix mois sur douze.",
   },
   {
     question: "Y a-t-il un essai gratuit ?",
     answer:
-      "Oui, LockHACCP propose 3 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
+      "Oui, LockHACCP propose 1 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
   },
   {
     question: "LockHACCP est-il conforme aux exigences de la DDPP ?",
@@ -45,45 +45,34 @@ const Pricing = () => {
 
   const plans = [
     {
-      id: "essentiel",
-      name: "Essentiel",
-      description: "Pour un restaurant individuel",
-      price: "14,90€",
+      id: "lockhaccp",
+      name: "LockHACCP",
+      description: "Toutes les fonctionnalités, pour un établissement",
+      price: "24,90€",
       features: [
-        "Relevé de température (avec rappel)",
+        "Relevé de température, avec rappels",
         "Contrôle à réception",
         "Traçabilité",
-        "Plan de nettoyage (avec rappel)",
-        "T° produit (refroidissement, congélation, réchauffement)",
+        "Plan de nettoyage, avec rappels",
+        "T° produit : refroidissement, congélation, réchauffement",
         "Huile de friture",
         "CheckList personnalisée",
-      ],
-      highlighted: false,
-    },
-    {
-      id: "pro",
-      name: "Pro",
-      description: "Tout l'Essentiel + automatisations",
-      price: "29,90€",
-      features: [
-        "Toutes les fonctionnalités Essentiel",
-        "Support client prioritaire",
-        "Notifications de rappels avancées",
-        "Rapports hebdomadaires automatiques",
-        "Compatible équipements connectés",
+        "Production et impression d'étiquettes",
+        "Historique complet et rapport de contrôle DDPP",
+        "Rapport hebdomadaire par email",
       ],
       highlighted: true,
     },
     {
-      id: "entreprise",
-      name: "Entreprise",
-      description: "Multi-établissements",
-      price: "Sur devis",
+      id: "multi",
+      name: "Établissement supplémentaire",
+      description: "Pour les groupes de plusieurs restaurants",
+      price: "12,90€",
       features: [
-        "Toutes les fonctionnalités Pro",
-        "Solution multi-restaurants",
-        "Tableaux de bord consolidés",
-        "Accompagnement personnalisé",
+        "Toutes les fonctionnalités, sur chaque site",
+        "Vue consolidée sur l'ensemble de vos établissements",
+        "Un seul abonnement, une seule facture",
+        "Ajout ou retrait d'un site à tout moment",
       ],
       highlighted: false,
     },
@@ -128,8 +117,8 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Tarifs LockHACCP : logiciel HACCP à partir de 14,90€/mois"
-        description="Tarifs LockHACCP : 14,90€/mois (Essentiel) ou 29,90€/mois (Pro). Essai gratuit 3 mois sans engagement. Offre Entreprise multi-établissements sur devis."
+        title="Tarifs LockHACCP : logiciel HACCP à 24,90€/mois"
+        description="LockHACCP à 24,90€/mois par établissement, toutes fonctionnalités incluses, et 12,90€ par établissement supplémentaire. Essai gratuit 1 mois sans engagement."
         path="/tarifs"
         jsonLd={[
           breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Tarifs", path: "/tarifs" }]),
@@ -148,14 +137,14 @@ const Pricing = () => {
             }`}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
-              <span className="text-sm font-semibold text-primary">Essai gratuit de 3 mois</span>
+              <span className="text-sm font-semibold text-primary">Essai gratuit de 1 mois</span>
             </div>
-            
+
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
               Des tarifs adaptés à <span className="text-primary">votre établissement</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Commencez gratuitement pendant 3 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez l'offre qui vous convient.
+              Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez l'offre qui vous convient.
             </p>
             <Link to="/demander-demo">
               <Button variant="hero" size="xl">
@@ -176,9 +165,9 @@ const Pricing = () => {
       {/* Pricing Plans */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
+          <div
             ref={plansRef}
-            className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
           >
             {plans.map((plan, index) => (
               <div
@@ -198,13 +187,11 @@ const Pricing = () => {
                   </div>
                 )}
                 
-                <Link to={plan.id !== "entreprise" ? `/tarifs/${plan.id}` : "/contact"}>
-                  <h3 className={`font-heading text-xl font-bold mb-2 hover:underline ${
-                    plan.highlighted ? "text-primary-foreground" : "text-foreground"
-                  }`}>
-                    {plan.name}
-                  </h3>
-                </Link>
+                <h3 className={`font-heading text-xl font-bold mb-2 ${
+                  plan.highlighted ? "text-primary-foreground" : "text-foreground"
+                }`}>
+                  {plan.name}
+                </h3>
                 <p className={`text-sm mb-4 ${
                   plan.highlighted ? "text-primary-foreground/80" : "text-muted-foreground"
                 }`}>
@@ -217,13 +204,11 @@ const Pricing = () => {
                   }`}>
                     {plan.price}
                   </span>
-                  {plan.price !== "Sur devis" && (
-                    <span className={`text-sm ${
-                      plan.highlighted ? "text-primary-foreground/60" : "text-muted-foreground"
-                    }`}>
-                      /mois
-                    </span>
-                  )}
+                  <span className={`text-sm ${
+                    plan.highlighted ? "text-primary-foreground/60" : "text-muted-foreground"
+                  }`}>
+                    /mois
+                  </span>
                 </div>
 
                 {plan.engagement && (
@@ -249,22 +234,14 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                {plan.id === "entreprise" ? (
-                  <Link to="/contact-entreprise" className="mt-auto">
-                    <Button className="w-full" variant="outline">
-                      Nous contacter
-                    </Button>
-                  </Link>
-                ) : (
-                  <a href={APP_URL} className="mt-auto">
-                    <Button
-                      className="w-full"
-                      variant={plan.highlighted ? "accent" : "outline"}
-                    >
-                      Essayer 3 mois gratuits
-                    </Button>
-                  </a>
-                )}
+                <a href={APP_URL} className="mt-auto">
+                  <Button
+                    className="w-full"
+                    variant={plan.highlighted ? "accent" : "outline"}
+                  >
+                    Essayer 1 mois gratuit
+                  </Button>
+                </a>
               </div>
             ))}
           </div>
@@ -354,7 +331,7 @@ const Pricing = () => {
             Prêt à simplifier votre conformité HACCP ?
           </h2>
           <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Profitez de 3 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien.
+            Profitez de 1 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien.
           </p>
           <Link to="/demander-demo">
             <Button variant="accent" size="xl">

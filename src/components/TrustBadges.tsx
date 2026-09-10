@@ -19,7 +19,7 @@ const BADGES = [
   {
     icon: Sparkles,
     label: "Sans engagement",
-    description: "3 mois d'essai gratuit",
+    description: "1 mois d'essai gratuit",
   },
 ];
 

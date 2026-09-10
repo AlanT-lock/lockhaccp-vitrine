@@ -21,7 +21,7 @@ const FAQS = [
   {
     question: "Combien coûte la mise en place du HACCP ?",
     answer:
-      "Une mise en place manuelle (classeur papier + formation) coûte généralement entre 500€ et 1500€ la première année. Un logiciel HACCP comme LockHACCP démarre à 14,90€/mois (180€/an), formation incluse, et automatise les contrôles quotidiens.",
+      "Une mise en place manuelle (classeur papier + formation) coûte généralement entre 500€ et 1500€ la première année. Un logiciel HACCP comme LockHACCP est à 24,90€/mois, soit 249€/an, formation incluse, et automatise les contrôles quotidiens.",
   },
   {
     question: "Que risque-t-on en cas de non-respect du HACCP ?",
@@ -357,7 +357,7 @@ const BlogMethodeHACCP = () => {
         items={[
           { to: "/blog/affichages-obligatoires-restaurant-2026", label: "Affichages obligatoires en restaurant", description: "Tout savoir sur les affichages 2026." },
           { to: "/fonctionnalites/temperatures", label: "Relevés de température HACCP", description: "Le pilier de votre conformité." },
-          { to: "/tarifs", label: "Découvrir les tarifs", description: "À partir de 14,90€/mois." },
+          { to: "/tarifs", label: "Découvrir les tarifs", description: "24,90€/mois, tout inclus." },
         ]}
       />
       <Footer />

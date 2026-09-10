@@ -24,15 +24,14 @@ const getCorsHeaders = (origin: string | null) => {
   };
 };
 
-// Price IDs for each plan (Stripe).
-// Note: the `avance` plan was removed from the public pricing page; keep its
-// price ID here only if you still need to support legacy subscribers.
+// Offre unique depuis le 2026-09-10. Les identifiants doivent être
+// strictement les mêmes que ceux de lib/stripe_prices.dart côté app.
 const PRICE_IDS = {
-  essentiel: "price_1Se5QHDN28Q6QaZHZ9RBWyGS",
-  pro: "price_1Se5T5DN28Q6QaZHskoe0q9L",
+  mensuel: "REMPLACER_PAR_BASE_MENSUEL",
+  annuel: "REMPLACER_PAR_BASE_ANNUEL",
 } as const;
 
-type PlanId = keyof typeof PRICE_IDS;
+type BillingCycle = keyof typeof PRICE_IDS;
 
 // Email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -58,13 +57,14 @@ serve(async (req) => {
     logStep("Stripe key verified");
 
     const body = await req.json();
-    const { planId, email } = body;
-    
-    // Validate planId
-    if (!planId || !(planId in PRICE_IDS)) {
-      logStep("Invalid plan", { planId });
+    const { billingCycle: requestedBillingCycle, email } = body;
+    const billingCycle = requestedBillingCycle || "mensuel";
+
+    // Validate billingCycle
+    if (!(billingCycle in PRICE_IDS)) {
+      logStep("Invalid billing cycle", { billingCycle });
       return new Response(
-        JSON.stringify({ error: "Invalid plan selected" }),
+        JSON.stringify({ error: "Invalid billing cycle selected" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
       );
     }
@@ -78,7 +78,7 @@ serve(async (req) => {
       );
     }
 
-    const priceId = PRICE_IDS[planId as PlanId];
+    const priceId = PRICE_IDS[billingCycle as BillingCycle];
     logStep("Price ID resolved", { priceId });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
@@ -110,7 +110,7 @@ serve(async (req) => {
       allow_promotion_codes: true,
       billing_address_collection: "required",
       subscription_data: {
-        trial_period_days: 90,
+        trial_period_days: 30,
       },
     });
 
