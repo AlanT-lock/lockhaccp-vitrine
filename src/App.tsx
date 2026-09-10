@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteTracker from "./components/RouteTracker";
 import Index from "./pages/Index";
@@ -21,7 +21,6 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const ContactInfo = lazy(() => import("./pages/ContactInfo"));
 const ContactDemo = lazy(() => import("./pages/ContactDemo"));
 const ContactEntreprise = lazy(() => import("./pages/ContactEntreprise"));
-const AIFeatures = lazy(() => import("./pages/AIFeatures"));
 const Resources = lazy(() => import("./pages/Resources"));
 const BlogAffichageObligatoire = lazy(() => import("./pages/BlogAffichageObligatoire"));
 const BlogMethodeHACCP = lazy(() => import("./pages/BlogMethodeHACCP"));
@@ -72,7 +71,7 @@ const App = () => (
               <Route path="/contact" element={<ContactInfo />} />
               <Route path="/contact-entreprise" element={<ContactEntreprise />} />
               <Route path="/demander-demo" element={<ContactDemo />} />
-              <Route path="/avantages-ia" element={<AIFeatures />} />
+              <Route path="/avantages-ia" element={<Navigate to="/tarifs" replace />} />
               <Route path="/blog" element={<Resources />} />
               <Route path="/blog/affichages-obligatoires-restaurant-2026" element={<BlogAffichageObligatoire />} />
               <Route path="/blog/methode-haccp-guide-complet" element={<BlogMethodeHACCP />} />

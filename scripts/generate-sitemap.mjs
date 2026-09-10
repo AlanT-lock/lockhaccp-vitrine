@@ -17,7 +17,6 @@ const routes = [
   { path: "/demander-demo", changefreq: "monthly", priority: 0.9 },
   { path: "/contact", changefreq: "monthly", priority: 0.6 },
   { path: "/contact-entreprise", changefreq: "monthly", priority: 0.7 },
-  { path: "/avantages-ia", changefreq: "monthly", priority: 0.7 },
   { path: "/fonctionnalites/temperatures", changefreq: "monthly", priority: 0.8 },
   { path: "/fonctionnalites/receptions", changefreq: "monthly", priority: 0.8 },
   { path: "/fonctionnalites/tracabilite", changefreq: "monthly", priority: 0.8 },

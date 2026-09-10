@@ -7,7 +7,6 @@ const Footer = () => {
   const footerLinks = {
     application: [
       { label: "Solution HACCP", href: "/" },
-      { label: "Avantages IA", href: "/avantages-ia" },
       { label: "Tarifs", href: "/tarifs" },
     ],
     company: [
