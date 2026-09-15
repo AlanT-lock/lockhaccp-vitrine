@@ -25,16 +25,22 @@ const LaunchBanner = () => {
 
   return (
     <div className="bg-secondary text-secondary-foreground">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-xs sm:text-sm font-medium">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-1 sm:py-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center text-[11px] leading-tight sm:text-sm sm:leading-normal font-medium">
         <Sparkles className="hidden sm:block w-4 h-4 flex-shrink-0" aria-hidden="true" />
-        <span>
+        {/* Formulation courte : seule visible sous le point de rupture sm (écrans mobiles). */}
+        <span className="sm:hidden font-semibold">Offre de lancement</span>
+        {/* Formulation longue : réservée aux écrans moyens et plus, où la place ne manque pas. */}
+        <span className="hidden sm:inline">
           Offre de lancement : tarif garanti à vie pour toute souscription avant le{" "}
           {LAUNCH_OFFER_END_LABEL}.
         </span>
         <span className="font-semibold whitespace-nowrap">
           Fin dans {days}&nbsp;j {hours}&nbsp;h {minutes}&nbsp;min
         </span>
-        <Link to="/tarifs" className="underline underline-offset-2 hover:no-underline whitespace-nowrap">
+        <Link
+          to="/tarifs"
+          className="hidden sm:inline underline underline-offset-2 hover:no-underline whitespace-nowrap"
+        >
           Voir les tarifs
         </Link>
       </div>
