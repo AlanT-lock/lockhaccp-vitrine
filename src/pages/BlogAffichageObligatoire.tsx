@@ -6,6 +6,7 @@ import { Seo } from "@/components/Seo";
 import { FaqSection } from "@/components/FaqSection";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
+import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const FAQS = [
   {
@@ -36,6 +37,8 @@ const FAQS = [
 ];
 
 const BlogAffichageObligatoire = () => {
+  const pricing = getActivePricing();
+
   return (
     <div className="min-h-screen bg-background">
       <Seo title="Affichages obligatoires en restaurant : guide complet 2026" description="Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles." path="/blog/affichages-obligatoires-restaurant-2026" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Affichages obligatoires",path:"/blog/affichages-obligatoires-restaurant-2026"}]), articleJsonLd({title:"Affichages obligatoires en restaurant : guide complet 2026",description:"Tous les affichages obligatoires en restaurant en 2026 : règles d'hygiène, allergènes, origines des viandes, prix. Liste, sanctions, modèles.",path:"/blog/affichages-obligatoires-restaurant-2026",datePublished:"2026-04-01"}), faqJsonLd(FAQS)]} />
@@ -336,7 +339,7 @@ const BlogAffichageObligatoire = () => {
         items={[
           { to: "/blog/methode-haccp-guide-complet", label: "La méthode HACCP expliquée", description: "Les 7 principes pour démarrer." },
           { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Restez conforme sans effort." },
-          { to: "/tarifs", label: "Découvrir LockHACCP", description: "24,90€/mois, tout inclus." },
+          { to: "/tarifs", label: "Découvrir LockHACCP", description: `${formatPriceEUR(pricing.mainMonthly)}/mois, tout inclus.` },
         ]}
       />
       <Footer />

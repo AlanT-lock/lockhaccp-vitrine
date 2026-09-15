@@ -1,5 +1,7 @@
 // Reusable JSON-LD blocks for SEO rich results.
 
+import { getActivePricing } from "@/lib/launch";
+
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -19,24 +21,31 @@ export const organizationJsonLd = {
   sameAs: [],
 };
 
-export const softwareAppJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "LockHACCP",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web, iOS, Android",
-  description:
-    "Logiciel HACCP pour restaurants : relevés de température, traçabilité, plan de nettoyage, étiquettes de production.",
-  offers: [
-    {
-      "@type": "Offer",
-      name: "LockHACCP",
-      price: "24.90",
-      priceCurrency: "EUR",
-    },
-  ],
-  aggregateRating: undefined,
-};
+// Le prix annoncé aux moteurs de recherche doit être celui réellement en
+// vigueur à l'instant de la génération de la page : c'est une fonction, pas
+// une constante figée, pour rester exact avant et après la bascule tarifaire.
+export function softwareAppJsonLd(): Record<string, unknown> {
+  const pricing = getActivePricing();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "LockHACCP",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web, iOS, Android",
+    description:
+      "Logiciel HACCP pour restaurants : relevés de température, traçabilité, plan de nettoyage, étiquettes de production.",
+    offers: [
+      {
+        "@type": "Offer",
+        name: "LockHACCP",
+        price: pricing.mainMonthly.toFixed(2),
+        priceCurrency: "EUR",
+      },
+    ],
+    aggregateRating: undefined,
+  };
+}
 
 export function breadcrumbJsonLd(
   items: { name: string; path: string }[],

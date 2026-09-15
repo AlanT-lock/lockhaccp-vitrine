@@ -7,15 +7,18 @@ import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import { organizationJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
 import { TrustBadges } from "@/components/TrustBadges";
+import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const Index = () => {
+  const pricing = getActivePricing();
+
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="LockHACCP - Logiciel HACCP pour restaurants à 24,90€/mois"
+        title={`LockHACCP - Logiciel HACCP pour restaurants à ${formatPriceEUR(pricing.mainMonthly)}/mois`}
         description="Logiciel HACCP n°1 simplifié pour la restauration : températures, traçabilité, plan de nettoyage, étiquettes. Essai gratuit 1 mois sans engagement."
         path="/"
-        jsonLd={[organizationJsonLd, softwareAppJsonLd]}
+        jsonLd={[organizationJsonLd, softwareAppJsonLd()]}
       />
       <Navbar />
       <main>

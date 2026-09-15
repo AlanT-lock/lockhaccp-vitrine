@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoColor from "@/assets/logo-color.png";
 import { APP_URL } from "@/lib/links";
+import LaunchBanner from "@/components/LaunchBanner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +32,9 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <div className="fixed top-0 left-0 right-0 z-50">
+    <LaunchBanner />
+    <nav className="bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -209,6 +212,7 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+    </div>
     <span id="main-content" tabIndex={-1} className="sr-only">
       Contenu principal
     </span>

@@ -6,36 +6,39 @@ import { Seo } from "@/components/Seo";
 import { FaqSection } from "@/components/FaqSection";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
-
-const FAQS = [
-  {
-    question: "Qu'est-ce que la méthode HACCP en restauration ?",
-    answer:
-      "La méthode HACCP (Hazard Analysis and Critical Control Points) est une démarche d'analyse des risques sanitaires obligatoire pour tous les établissements de restauration commerciale en France. Elle repose sur 7 principes : analyse des dangers, identification des points critiques (CCP), seuils critiques, surveillance, actions correctives, vérification, documentation.",
-  },
-  {
-    question: "Le plan HACCP est-il obligatoire pour mon restaurant ?",
-    answer:
-      "Oui, tout établissement servant des denrées alimentaires doit mettre en place un Plan de Maîtrise Sanitaire (PMS) basé sur la méthode HACCP — y compris les food trucks, dark kitchens, traiteurs et restaurants associatifs. Le PMS doit être présenté en cas de contrôle DDPP.",
-  },
-  {
-    question: "Combien coûte la mise en place du HACCP ?",
-    answer:
-      "Une mise en place manuelle (classeur papier + formation) coûte généralement entre 500€ et 1500€ la première année. Un logiciel HACCP comme LockHACCP est à 24,90€/mois, soit 249€/an, formation incluse, et automatise les contrôles quotidiens.",
-  },
-  {
-    question: "Que risque-t-on en cas de non-respect du HACCP ?",
-    answer:
-      "Les sanctions vont de l'avertissement à la fermeture administrative immédiate en passant par une amende jusqu'à 1500€ par infraction. En cas d'intoxication avérée, des poursuites pénales sont possibles. Au-delà du juridique, c'est la réputation et la confiance client qui sont en jeu.",
-  },
-  {
-    question: "Quelle est la différence entre HACCP et PMS ?",
-    answer:
-      "Le PMS (Plan de Maîtrise Sanitaire) est le document global de maîtrise des risques sanitaires. Il comprend 3 volets : les bonnes pratiques d'hygiène (GBPH), le plan HACCP, et la traçabilité/gestion des non-conformités. HACCP est donc un sous-ensemble du PMS.",
-  },
-];
+import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const BlogMethodeHACCP = () => {
+  const pricing = getActivePricing();
+
+  const FAQS = [
+    {
+      question: "Qu'est-ce que la méthode HACCP en restauration ?",
+      answer:
+        "La méthode HACCP (Hazard Analysis and Critical Control Points) est une démarche d'analyse des risques sanitaires obligatoire pour tous les établissements de restauration commerciale en France. Elle repose sur 7 principes : analyse des dangers, identification des points critiques (CCP), seuils critiques, surveillance, actions correctives, vérification, documentation.",
+    },
+    {
+      question: "Le plan HACCP est-il obligatoire pour mon restaurant ?",
+      answer:
+        "Oui, tout établissement servant des denrées alimentaires doit mettre en place un Plan de Maîtrise Sanitaire (PMS) basé sur la méthode HACCP — y compris les food trucks, dark kitchens, traiteurs et restaurants associatifs. Le PMS doit être présenté en cas de contrôle DDPP.",
+    },
+    {
+      question: "Combien coûte la mise en place du HACCP ?",
+      answer:
+        `Une mise en place manuelle (classeur papier + formation) coûte généralement entre 500€ et 1500€ la première année. Un logiciel HACCP comme LockHACCP est à ${formatPriceEUR(pricing.mainMonthly)}/mois, soit ${formatPriceEUR(pricing.mainYearly)}/an, formation incluse, et automatise les contrôles quotidiens.`,
+    },
+    {
+      question: "Que risque-t-on en cas de non-respect du HACCP ?",
+      answer:
+        "Les sanctions vont de l'avertissement à la fermeture administrative immédiate en passant par une amende jusqu'à 1500€ par infraction. En cas d'intoxication avérée, des poursuites pénales sont possibles. Au-delà du juridique, c'est la réputation et la confiance client qui sont en jeu.",
+    },
+    {
+      question: "Quelle est la différence entre HACCP et PMS ?",
+      answer:
+        "Le PMS (Plan de Maîtrise Sanitaire) est le document global de maîtrise des risques sanitaires. Il comprend 3 volets : les bonnes pratiques d'hygiène (GBPH), le plan HACCP, et la traçabilité/gestion des non-conformités. HACCP est donc un sous-ensemble du PMS.",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Seo title="Méthode HACCP : les 7 principes expliqués simplement" description="Méthode HACCP : les 7 principes expliqués avec des exemples concrets pour les restaurateurs. Application pratique, schémas, modèles téléchargeables." path="/blog/methode-haccp-guide-complet" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Ressources",path:"/blog"},{name:"Méthode HACCP",path:"/blog/methode-haccp-guide-complet"}]), articleJsonLd({title:"Méthode HACCP : les 7 principes expliqués simplement",description:"Méthode HACCP : les 7 principes expliqués avec des exemples concrets pour les restaurateurs. Application pratique, schémas, modèles téléchargeables.",path:"/blog/methode-haccp-guide-complet",datePublished:"2026-04-01"}), faqJsonLd(FAQS)]} />
@@ -357,7 +360,7 @@ const BlogMethodeHACCP = () => {
         items={[
           { to: "/blog/affichages-obligatoires-restaurant-2026", label: "Affichages obligatoires en restaurant", description: "Tout savoir sur les affichages 2026." },
           { to: "/fonctionnalites/temperatures", label: "Relevés de température HACCP", description: "Le pilier de votre conformité." },
-          { to: "/tarifs", label: "Découvrir les tarifs", description: "24,90€/mois, tout inclus." },
+          { to: "/tarifs", label: "Découvrir les tarifs", description: `${formatPriceEUR(pricing.mainMonthly)}/mois, tout inclus.` },
         ]}
       />
       <Footer />

@@ -12,8 +12,10 @@ import { validateEmail, validatePhone, validateRequired } from "@/lib/validation
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const ContactEntreprise = () => {
+  const pricing = getActivePricing();
   const [formData, setFormData] = useState({
     contactName: "",
     email: "",
@@ -118,7 +120,7 @@ const ContactEntreprise = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Logiciel HACCP multi-établissements - LockHACCP" description="LockHACCP pour les groupes de plusieurs restaurants : 24,90€/mois pour le premier établissement, puis 12,90€/mois par établissement supplémentaire. Contactez notre équipe pour être accompagné dans la mise en place." path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}])} />
+      <Seo title="Logiciel HACCP multi-établissements - LockHACCP" description={`LockHACCP pour les groupes de plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement supplémentaire. Contactez notre équipe pour être accompagné dans la mise en place.`} path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}])} />
       <Navbar />
 
       {/* Hero Section */}
@@ -133,8 +135,8 @@ const ContactEntreprise = () => {
               Un tarif simple pour <span className="text-primary">tous vos établissements</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Vous gérez plusieurs établissements ? LockHACCP est à 24,90€/mois pour le premier,
-              puis 12,90€/mois pour chaque établissement supplémentaire, avec un tableau de bord
+              Vous gérez plusieurs établissements ? LockHACCP est à {formatPriceEUR(pricing.mainMonthly)}/mois pour le premier,
+              puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire, avec un tableau de bord
               consolidé sur l'ensemble de vos sites. Notre équipe vous accompagne dans la mise en place.
             </p>
           </div>
@@ -147,11 +149,11 @@ const ContactEntreprise = () => {
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
               <p className="text-sm text-muted-foreground mb-1">Premier établissement</p>
-              <p className="font-heading text-3xl font-bold text-foreground">24,90€<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
+              <p className="font-heading text-3xl font-bold text-foreground">{formatPriceEUR(pricing.mainMonthly)}<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
             </div>
             <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
               <p className="text-sm text-muted-foreground mb-1">Chaque établissement supplémentaire</p>
-              <p className="font-heading text-3xl font-bold text-foreground">12,90€<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
+              <p className="font-heading text-3xl font-bold text-foreground">{formatPriceEUR(pricing.extraMonthly)}<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
             </div>
           </div>
         </div>
@@ -340,7 +342,7 @@ const ContactEntreprise = () => {
                 Un tarif clair
               </h3>
               <p className="text-sm text-muted-foreground">
-                24,90€/mois pour le premier établissement, puis 12,90€/mois pour chaque
+                {formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque
                 établissement supplémentaire. Pas de négociation, pas de surprise.
               </p>
             </div>

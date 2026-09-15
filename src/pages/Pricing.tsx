@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Headphones, RefreshCw, Thermometer, Printer, Tablet } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Check, ArrowRight, Headphones, RefreshCw, Thermometer, Printer, Tablet, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,72 +10,152 @@ import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
 import { TrustBadges } from "@/components/TrustBadges";
+import {
+  isLaunchOfferActive,
+  LAUNCH_PRICING,
+  CURRENT_PRICING,
+  LAUNCH_OFFER_END_LABEL,
+  CURRENT_PRICING_START_LABEL,
+  formatPriceEUR,
+  type PricingGrid,
+} from "@/lib/launch";
 
-const FAQS = [
-  {
-    question: "Combien coûte LockHACCP ?",
-    answer:
-      "LockHACCP est à 24,90€/mois pour un établissement, toutes fonctionnalités incluses. Chaque établissement supplémentaire est à 12,90€/mois. En paiement annuel, vous ne payez que dix mois sur douze.",
-  },
-  {
-    question: "Y a-t-il un essai gratuit ?",
-    answer:
-      "Oui, LockHACCP propose 1 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
-  },
-  {
-    question: "LockHACCP est-il conforme aux exigences de la DDPP ?",
-    answer:
-      "Oui. LockHACCP suit les principes de la méthode HACCP et permet de générer des rapports conformes aux contrôles sanitaires de la DDPP (Direction Départementale de la Protection des Populations).",
-  },
-  {
-    question: "Faut-il du matériel spécifique ?",
-    answer:
-      "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. Pour automatiser certains contrôles (températures, étiquettes), nous proposons des équipements connectés en option.",
-  },
-  {
-    question: "Mes données sont-elles sécurisées et hébergées en France ?",
-    answer:
-      "Oui, vos données sont hébergées en Europe (Supabase) et nous respectons strictement le RGPD. Vous restez propriétaire de vos données à tout moment.",
-  },
+const MAIN_FEATURES = [
+  "Relevé de température, avec rappels",
+  "Contrôle à réception",
+  "Traçabilité",
+  "Plan de nettoyage, avec rappels",
+  "T° produit : refroidissement, congélation, réchauffement",
+  "Huile de friture",
+  "CheckList personnalisée",
+  "Production et impression d'étiquettes",
+  "Historique complet et rapport de contrôle DDPP",
+  "Rapport hebdomadaire par email",
 ];
+
+interface PricingGridCardProps {
+  pricing: PricingGrid;
+  title: string;
+  badgeLabel: string;
+  note: string;
+  highlighted: boolean;
+  showCta: boolean;
+}
+
+const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta }: PricingGridCardProps) => (
+  <div
+    className={`relative rounded-2xl p-6 flex flex-col ${
+      highlighted
+        ? "bg-primary text-primary-foreground shadow-xl border-2 border-secondary z-10"
+        : "bg-card border border-border shadow-card"
+    }`}
+  >
+    <Badge
+      className="w-fit mb-3"
+      variant={highlighted ? "secondary" : "outline"}
+    >
+      {badgeLabel}
+    </Badge>
+
+    <h3 className={`font-heading text-xl font-bold mb-1 ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
+      {title}
+    </h3>
+    <p className={`text-sm mb-6 ${highlighted ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+      {note}
+    </p>
+
+    <div className="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+          Établissement principal
+        </p>
+        <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
+          {formatPriceEUR(pricing.mainMonthly)}
+          <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+            /mois
+          </span>
+        </p>
+        <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+          {formatPriceEUR(pricing.mainYearly)}/an
+        </p>
+      </div>
+      <div>
+        <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+          Établissement supplémentaire
+        </p>
+        <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
+          {formatPriceEUR(pricing.extraMonthly)}
+          <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+            /mois
+          </span>
+        </p>
+        <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+          {formatPriceEUR(pricing.extraYearly)}/an
+        </p>
+      </div>
+    </div>
+
+    <p className={`text-xs mb-6 p-2 rounded-lg ${highlighted ? "bg-primary-foreground/10 text-primary-foreground/80" : "bg-muted text-muted-foreground"}`}>
+      Paiement annuel : {pricing.annualDiscountLabel}
+    </p>
+
+    <ul className="space-y-2 mb-6 flex-grow">
+      {MAIN_FEATURES.map((feature) => (
+        <li key={feature} className="flex items-start gap-2">
+          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${highlighted ? "text-secondary" : "text-primary"}`} />
+          <span className={`text-sm ${highlighted ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
+            {feature}
+          </span>
+        </li>
+      ))}
+    </ul>
+
+    {showCta && (
+      <a href={APP_URL} className="mt-auto">
+        <Button className="w-full" variant={highlighted ? "accent" : "outline"}>
+          Essayer 1 mois gratuit
+        </Button>
+      </a>
+    )}
+  </div>
+);
 
 const Pricing = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: plansRef, isVisible: plansVisible } = useScrollAnimation();
   const { ref: optionsRef, isVisible: optionsVisible } = useScrollAnimation();
 
-  const plans = [
+  const launchActive = isLaunchOfferActive();
+  const activePricing = launchActive ? LAUNCH_PRICING : CURRENT_PRICING;
+
+  const pricingFaqAnswer = launchActive
+    ? `LockHACCP est à ${formatPriceEUR(LAUNCH_PRICING.mainMonthly)}/mois pour un établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(LAUNCH_PRICING.extraMonthly)}/mois par établissement supplémentaire. C'est le tarif de l'offre de lancement : il est garanti à vie pour toute souscription avant le ${LAUNCH_OFFER_END_LABEL}, y compris si vous ajoutez un établissement plus tard. À partir du ${CURRENT_PRICING_START_LABEL}, le tarif standard sera de ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}/mois.`
+    : `LockHACCP est à ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}/mois pour un établissement, toutes fonctionnalités incluses. Chaque établissement supplémentaire est à ${formatPriceEUR(CURRENT_PRICING.extraMonthly)}/mois. En paiement annuel, profitez de ${CURRENT_PRICING.annualDiscountLabel}.`;
+
+  const FAQS = [
     {
-      id: "lockhaccp",
-      name: "LockHACCP",
-      description: "Toutes les fonctionnalités, pour un établissement",
-      price: "24,90€",
-      features: [
-        "Relevé de température, avec rappels",
-        "Contrôle à réception",
-        "Traçabilité",
-        "Plan de nettoyage, avec rappels",
-        "T° produit : refroidissement, congélation, réchauffement",
-        "Huile de friture",
-        "CheckList personnalisée",
-        "Production et impression d'étiquettes",
-        "Historique complet et rapport de contrôle DDPP",
-        "Rapport hebdomadaire par email",
-      ],
-      highlighted: true,
+      question: "Combien coûte LockHACCP ?",
+      answer: pricingFaqAnswer,
     },
     {
-      id: "multi",
-      name: "Établissement supplémentaire",
-      description: "S'ajoute à votre abonnement LockHACCP existant, pour chaque établissement en plus",
-      price: "12,90€",
-      features: [
-        "Toutes les fonctionnalités, sur chaque site",
-        "Vue consolidée sur l'ensemble de vos établissements",
-        "Un seul abonnement, une seule facture",
-        "Ajout ou retrait d'un site à tout moment",
-      ],
-      highlighted: false,
+      question: "Y a-t-il un essai gratuit ?",
+      answer:
+        "Oui, LockHACCP propose 1 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
+    },
+    {
+      question: "LockHACCP est-il conforme aux exigences de la DDPP ?",
+      answer:
+        "Oui. LockHACCP suit les principes de la méthode HACCP et permet de générer des rapports conformes aux contrôles sanitaires de la DDPP (Direction Départementale de la Protection des Populations).",
+    },
+    {
+      question: "Faut-il du matériel spécifique ?",
+      answer:
+        "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. Pour automatiser certains contrôles (températures, étiquettes), nous proposons des équipements connectés en option.",
+    },
+    {
+      question: "Mes données sont-elles sécurisées et hébergées en France ?",
+      answer:
+        "Oui, vos données sont hébergées en Europe (Supabase) et nous respectons strictement le RGPD. Vous restez propriétaire de vos données à tout moment.",
     },
   ];
 
@@ -117,8 +198,8 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Tarifs LockHACCP : logiciel HACCP à 24,90€/mois"
-        description="LockHACCP à 24,90€/mois par établissement, toutes fonctionnalités incluses, et 12,90€ par établissement supplémentaire. Essai gratuit 1 mois sans engagement."
+        title={`Tarifs LockHACCP : logiciel HACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois`}
+        description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois par établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(activePricing.extraMonthly)} par établissement supplémentaire. Essai gratuit 1 mois sans engagement.`}
         path="/tarifs"
         jsonLd={[
           breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Tarifs", path: "/tarifs" }]),
@@ -126,11 +207,11 @@ const Pricing = () => {
         ]}
       />
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
+          <div
             ref={headerRef}
             className={`text-center max-w-3xl mx-auto transition-all duration-700 ${
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -167,91 +248,54 @@ const Pricing = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div
             ref={plansRef}
-            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+            className={`grid gap-6 mx-auto transition-all duration-500 ${
+              plansVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            } ${launchActive ? "md:grid-cols-2 max-w-4xl" : "max-w-md"}`}
           >
-            {plans.map((plan, index) => (
-              <div
-                key={plan.name}
-                className={`relative rounded-2xl p-6 transition-all duration-500 flex flex-col ${
-                  plansVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                } ${
-                  plan.highlighted
-                    ? "bg-primary text-primary-foreground shadow-xl lg:scale-105 border-2 border-secondary z-10"
-                    : "bg-card border border-border shadow-card"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-secondary text-secondary-foreground text-sm font-semibold rounded-full whitespace-nowrap">
-                    Le plus populaire
-                  </div>
-                )}
-                
-                <h3 className={`font-heading text-xl font-bold mb-2 ${
-                  plan.highlighted ? "text-primary-foreground" : "text-foreground"
-                }`}>
-                  {plan.name}
-                </h3>
-                <p className={`text-sm mb-4 ${
-                  plan.highlighted ? "text-primary-foreground/80" : "text-muted-foreground"
-                }`}>
-                  {plan.description}
-                </p>
-                
-                <div className="mb-4">
-                  <span className={`text-3xl font-bold ${
-                    plan.highlighted ? "text-primary-foreground" : "text-foreground"
-                  }`}>
-                    {plan.price}
-                  </span>
-                  <span className={`text-sm ${
-                    plan.highlighted ? "text-primary-foreground/60" : "text-muted-foreground"
-                  }`}>
-                    /mois
-                  </span>
-                </div>
+            {launchActive ? (
+              <>
+                <PricingGridCard
+                  pricing={LAUNCH_PRICING}
+                  title="Offre de lancement"
+                  badgeLabel="Garanti à vie"
+                  note={`Jusqu'au ${LAUNCH_OFFER_END_LABEL} inclus`}
+                  highlighted
+                  showCta
+                />
+                <PricingGridCard
+                  pricing={CURRENT_PRICING}
+                  title="Tarif à venir"
+                  badgeLabel={`À partir du ${CURRENT_PRICING_START_LABEL}`}
+                  note="Grille standard, après l'offre de lancement"
+                  highlighted={false}
+                  showCta={false}
+                />
+              </>
+            ) : (
+              <PricingGridCard
+                pricing={CURRENT_PRICING}
+                title="LockHACCP"
+                badgeLabel="Toutes fonctionnalités incluses"
+                note="Pour votre établissement"
+                highlighted
+                showCta
+              />
+            )}
+          </div>
 
-                {plan.engagement && (
-                  <p className={`text-xs mb-4 p-2 rounded-lg ${
-                    plan.highlighted ? "bg-primary-foreground/10 text-primary-foreground/80" : "bg-muted text-muted-foreground"
-                  }`}>
-                    {plan.engagement}
-                  </p>
-                )}
+          {launchActive && (
+            <div className="max-w-4xl mx-auto mt-6 flex items-start gap-3 rounded-2xl border border-secondary/30 bg-secondary-light p-4">
+              <ShieldCheck className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-foreground">
+                <strong>Engagement de lancement :</strong> cette offre se termine le {LAUNCH_OFFER_END_LABEL}. Le tarif de lancement reste acquis à vie à tout restaurateur qui souscrit avant cette date — y compris si vous ajoutez un établissement supplémentaire plus tard.
+              </p>
+            </div>
+          )}
 
-                <ul className="space-y-2 mb-6 flex-grow">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
-                        plan.highlighted ? "text-secondary" : "text-primary"
-                      }`} />
-                      <span className={`text-sm ${
-                        plan.highlighted ? "text-primary-foreground/90" : "text-muted-foreground"
-                      }`}>
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {plan.id === "multi" ? (
-                  <Link to="/contact" className="mt-auto">
-                    <Button className="w-full" variant="outline">
-                      Ajouter un établissement
-                    </Button>
-                  </Link>
-                ) : (
-                  <a href={APP_URL} className="mt-auto">
-                    <Button
-                      className="w-full"
-                      variant={plan.highlighted ? "accent" : "outline"}
-                    >
-                      Essayer 1 mois gratuit
-                    </Button>
-                  </a>
-                )}
-              </div>
-            ))}
+          <div className="max-w-4xl mx-auto mt-6 text-center">
+            <Link to="/contact-entreprise" className="text-sm text-primary hover:underline">
+              Plusieurs établissements à équiper ? Parlez-en à notre équipe →
+            </Link>
           </div>
         </div>
       </section>
@@ -264,12 +308,12 @@ const Pricing = () => {
               Options équipements connectés
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Automatisez encore plus vos contrôles avec nos équipements connectés. 
+              Automatisez encore plus vos contrôles avec nos équipements connectés.
               SAV inclus et remplacement rapide garantis.
             </p>
           </div>
 
-          <div 
+          <div
             ref={optionsRef}
             className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
           >
@@ -284,7 +328,7 @@ const Pricing = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
                   <option.icon className="w-6 h-6 text-primary" />
                 </div>
-                
+
                 <h3 className="font-heading text-lg font-bold text-foreground mb-2">
                   {option.name}
                 </h3>
