@@ -24,7 +24,11 @@ const LaunchBanner = () => {
   const { days, hours, minutes } = countdown;
 
   return (
-    <div className="bg-secondary text-secondary-foreground">
+    <Link
+      to="/tarifs"
+      aria-label="Voir les tarifs de l'offre de lancement"
+      className="block bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-1 sm:py-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center text-[11px] leading-tight sm:text-sm sm:leading-normal font-medium">
         <Sparkles className="hidden sm:block w-4 h-4 flex-shrink-0" aria-hidden="true" />
         {/* Formulation courte : seule visible sous le point de rupture sm (écrans mobiles). */}
@@ -37,14 +41,13 @@ const LaunchBanner = () => {
         <span className="font-semibold whitespace-nowrap">
           Fin dans {days}&nbsp;j {hours}&nbsp;h {minutes}&nbsp;min
         </span>
-        <Link
-          to="/tarifs"
-          className="hidden sm:inline underline underline-offset-2 hover:no-underline whitespace-nowrap"
-        >
+        {/* Simple texte, pas un <Link> : la bannière entière est déjà le lien, imbriquer
+            un second lien à l'intérieur serait invalide en HTML et casserait l'accessibilité. */}
+        <span className="hidden sm:inline underline underline-offset-2 whitespace-nowrap">
           Voir les tarifs
-        </Link>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
