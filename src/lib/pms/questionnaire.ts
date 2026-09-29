@@ -7,6 +7,7 @@ import { QUESTIONS } from "./genere/questions";
 import { TYPES_EQUIPEMENTS_FROIDS } from "./genere/equipements";
 import { EQUIPEMENTS_PROPOSES, PRODUITS_EXEMPLES, ZONES_PROPOSEES } from "./genere/suggestions";
 import type { ElementListe, MetierId, Question, Reponses } from "./genere/types";
+import { VERSION_REFERENTIEL } from "./genere/version";
 
 export const ETAPES = [
   { titre: "Votre métier", sousTitre: "Votre PMS sera entièrement adapté à votre activité." },
@@ -52,7 +53,47 @@ export function nettoyerReponses(r: Reponses): Reponses {
   return propre;
 }
 
+// Mêmes bornes que la validation du serveur (lockhaccp/.../_shared/pms/validation.ts).
+const NOM_MAX = 80;
+const LISTE_MAX = 30;
+const FROIDS_MAX = 20;
+const SURFACES_MAX = 150;
+const USAGE_MAX = 80;
+const DILUTION_MAX = 40;
+
 const nomValide = (e: ElementListe) => typeof e.nom === "string" && e.nom.trim() !== "";
+const nomTropLong = (e: ElementListe) => String(e.nom).trim().length > NOM_MAX;
+const nombre = (x: unknown) => typeof x === "number" && Number.isFinite(x);
+const tropLong = (x: unknown, max: number) => typeof x === "string" && x.trim().length > max;
+
+function erreurListe(q: Question, liste: ElementListe[]): string | null {
+  if (!liste.every(nomValide)) return "Donnez un nom à chaque élément.";
+  if (liste.some(nomTropLong)) return `${NOM_MAX} caractères au plus par nom.`;
+  if (q.type === "liste_equipements_froids") {
+    if (liste.length > FROIDS_MAX) return `${FROIDS_MAX} équipements au plus.`;
+    if (!liste.every((e) => nombre(e.consigne_max))) return "Indiquez la consigne de chaque équipement.";
+    return null;
+  }
+  if (liste.length > LISTE_MAX) return `${LISTE_MAX} éléments au plus.`;
+  if (q.type === "liste_zones") {
+    const surfaces = (z: ElementListe) => (Array.isArray(z.surfaces) ? (z.surfaces as ElementListe[]) : []);
+    if (!liste.every((z) => surfaces(z).length > 0 && surfaces(z).every(nomValide))) {
+      return "Chaque zone doit avoir au moins une surface nommée.";
+    }
+    if (liste.some((z) => surfaces(z).length > LISTE_MAX || surfaces(z).some(nomTropLong))) {
+      return `${LISTE_MAX} surfaces au plus par zone, ${NOM_MAX} caractères au plus par nom.`;
+    }
+    const total = liste.reduce((n, z) => n + surfaces(z).length, 0);
+    if (total > SURFACES_MAX) return `${SURFACES_MAX} surfaces au plus au total.`;
+  }
+  if (q.type === "liste_produits_entretien") {
+    if (liste.some((p) => tropLong(p.usage, USAGE_MAX))) return `Usage : ${USAGE_MAX} caractères au plus.`;
+    if (liste.some((p) => tropLong(p.dilution, DILUTION_MAX))) return `Dilution : ${DILUTION_MAX} caractères au plus.`;
+    const tempsKo = (t: unknown) => t !== undefined && !(Number.isInteger(t) && (t as number) >= 0 && (t as number) <= 1440);
+    if (liste.some((p) => tempsKo(p.temps_action_min))) return "Temps d'action : minutes entières, 1440 au plus.";
+  }
+  return null;
+}
 
 function erreurQuestion(q: Question, v: unknown): string | null {
   const vide = v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
@@ -66,13 +107,7 @@ function erreurQuestion(q: Question, v: unknown): string | null {
   }
   if (q.type === "nombre" && !(Number.isInteger(v) && (v as number) >= 0)) return "Indiquez un nombre entier.";
   if (q.type === "texte" && String(v).trim().length > 200) return "200 caractères au plus.";
-  if (q.type.startsWith("liste_")) {
-    const liste = v as ElementListe[];
-    if (!liste.every(nomValide)) return "Donnez un nom à chaque élément.";
-    if (q.type === "liste_zones" && !liste.every((z) => Array.isArray(z.surfaces) && (z.surfaces as ElementListe[]).length > 0 && (z.surfaces as ElementListe[]).every(nomValide))) {
-      return "Chaque zone doit avoir au moins une surface nommée.";
-    }
-  }
+  if (q.type.startsWith("liste_")) return erreurListe(q, v as ElementListe[]);
   return null;
 }
 
@@ -99,9 +134,36 @@ export function erreursEtape(etape: number, r: Reponses): Record<string, string>
   return erreurs;
 }
 
+/** Première étape encore incomplète (contrôle final avant l'envoi), ou null. */
+export function premiereEtapeEnErreur(r: Reponses): number | null {
+  for (let etape = 1; etape <= ETAPES.length; etape++) {
+    if (Object.keys(erreursEtape(etape, r)).length > 0) return etape;
+  }
+  return null;
+}
+
+/**
+ * Erreurs renvoyées par le serveur (« id : raison ») rangées sous leur
+ * question, avec l'étape la plus en amont à rouvrir (null si aucune n'est reconnue).
+ */
+export function repartirErreursServeur(erreurs: string[]): { etape: number | null; erreurs: Record<string, string> } {
+  const etapes = new Map(QUESTIONS.map((q) => [q.id, q.etape as number]));
+  const rangees: Record<string, string> = {};
+  let etape: number | null = null;
+  for (const e of erreurs) {
+    const i = e.indexOf(" : ");
+    const id = i > 0 ? e.slice(0, i) : "";
+    const n = etapes.get(id);
+    if (n === undefined) continue;
+    rangees[id] = e.slice(i + 3);
+    etape = etape === null ? n : Math.min(etape, n);
+  }
+  return { etape, erreurs: rangees };
+}
+
 export function sauverBrouillon(reponses: Reponses, etape: number): void {
   try {
-    localStorage.setItem(CLE_BROUILLON, JSON.stringify({ reponses, etape }));
+    localStorage.setItem(CLE_BROUILLON, JSON.stringify({ version: VERSION_REFERENTIEL, reponses, etape }));
   } catch {
     // Navigation privée ou stockage bloqué : le questionnaire fonctionne sans brouillon.
   }
@@ -112,7 +174,10 @@ export function lireBrouillon(): { reponses: Reponses; etape: number } | null {
     const brut = localStorage.getItem(CLE_BROUILLON);
     if (!brut) return null;
     const b = JSON.parse(brut);
-    return b && b.reponses?.metier ? b : null;
+    // Un brouillon d'une autre version du questionnaire pourrait contenir des
+    // réponses que le serveur refuserait : on repart de zéro.
+    if (!b || b.version !== VERSION_REFERENTIEL || !b.reponses?.metier) return null;
+    return { reponses: b.reponses, etape: b.etape };
   } catch {
     return null;
   }

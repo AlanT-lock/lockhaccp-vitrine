@@ -12,7 +12,8 @@ export interface Resume {
 }
 
 export class ErreurPms extends Error {
-  constructor(public statut: number, message: string) {
+  /** `erreurs` : détail renvoyé par le serveur pour un 400 (« id : raison »). */
+  constructor(public statut: number, message: string, public erreurs: string[] = []) {
     super(message);
   }
 }
@@ -36,7 +37,7 @@ async function appeler(reponses: Reponses, apercu: boolean, siteWeb = ""): Promi
     const message = reponse.status === 409
       ? "Le questionnaire a été mis à jour : rechargez la page (vos réponses sont conservées)."
       : (corps.message as string) || "Une erreur est survenue. Réessayez dans quelques minutes.";
-    throw new ErreurPms(reponse.status, message);
+    throw new ErreurPms(reponse.status, message, Array.isArray(corps.erreurs) ? (corps.erreurs as string[]) : []);
   }
   return { lien: corps.lien as string, resume: corps.resume as Resume };
 }

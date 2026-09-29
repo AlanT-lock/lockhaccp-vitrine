@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  ETAPES, erreursEtape, lireBrouillon, nettoyerReponses, questionsDeLEtape, reponsesInitiales, sauverBrouillon,
+  ETAPES, erreursEtape, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur, questionsDeLEtape, repartirErreursServeur,
+  reponsesInitiales, sauverBrouillon,
 } from "./questionnaire";
 import type { Reponses } from "./genere/types";
 
@@ -63,6 +64,46 @@ describe("contrôle par étape", () => {
     const r = reponsesInitiales("restauration_commerciale");
     expect(Object.keys(erreursEtape(3, r))).toContain("prep.viande_bovine");
   });
+
+  it("étape 4 : consigne manquante et plus de 20 équipements refusés, comme sur le serveur (revue finale I7)", () => {
+    const sansConsigne = { ...complet(), "equipements.froids": [{ nom: "Frigo", type: "refrigerateur" }] } as Reponses;
+    expect(erreursEtape(4, sansConsigne)["equipements.froids"]).toMatch(/consigne/i);
+    const trop = Array.from({ length: 21 }, (_, i) => ({ nom: `F${i}`, type: "refrigerateur", consigne_max: 4 }));
+    expect(erreursEtape(4, { ...complet(), "equipements.froids": trop } as Reponses)["equipements.froids"]).toMatch(/20/);
+    const nomLong = [{ nom: "N".repeat(81), type: "refrigerateur", consigne_max: 4 }];
+    expect(erreursEtape(4, { ...complet(), "equipements.froids": nomLong } as Reponses)["equipements.froids"]).toMatch(/80/);
+  });
+
+  it("étape 5 : produits et surfaces bornés comme sur le serveur (revue finale I7)", () => {
+    for (const mauvais of [{ usage: "u".repeat(81) }, { dilution: "d".repeat(41) }, { temps_action_min: 2.5 }, { temps_action_min: 1441 }]) {
+      const r = { ...complet(), "nettoyage.produits": [{ nom: "Produit", ...mauvais }] } as Reponses;
+      expect(erreursEtape(5, r)["nettoyage.produits"], JSON.stringify(mauvais)).toBeTruthy();
+    }
+    const surfaces = Array.from({ length: 30 }, (_, i) => ({ nom: `S${i}`, frequence: "Hebdo" }));
+    const zones = Array.from({ length: 6 }, (_, i) => ({ nom: `Z${i}`, surfaces }));
+    expect(erreursEtape(5, { ...complet(), "nettoyage.zones": zones } as Reponses)["nettoyage.zones"]).toMatch(/150/);
+  });
+});
+
+describe("avant l'envoi (revue finale I7)", () => {
+  it("renvoie la première étape incomplète", () => {
+    expect(premiereEtapeEnErreur(reponsesInitiales("restauration_commerciale"))).toBe(2);
+    expect(premiereEtapeEnErreur({} as Reponses)).toBe(1);
+  });
+
+  it("erreurs du serveur rangées sous leur question, on revient à la plus en amont", () => {
+    const r = repartirErreursServeur([
+      "coordonnees.email : adresse e-mail invalide",
+      "prep.viande_bovine : réponse manquante",
+      "Métier inconnu",
+    ]);
+    expect(r.etape).toBe(3);
+    expect(r.erreurs).toEqual({
+      "coordonnees.email": "adresse e-mail invalide",
+      "prep.viande_bovine": "réponse manquante",
+    });
+    expect(repartirErreursServeur(["Demande illisible"]).etape).toBeNull();
+  });
 });
 
 describe("nettoyage des réponses", () => {
@@ -93,6 +134,14 @@ describe("brouillon (Review Focus 5)", () => {
     sauverBrouillon(r, 4);
     expect(lireBrouillon()).toEqual({ reponses: r, etape: 4 });
     expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("brouillon d'une ancienne version du questionnaire ignoré (revue finale I7)", () => {
+    sauverBrouillon(reponsesInitiales("traiteur"), 4);
+    const brut = JSON.parse(stock["lockhaccp-pms-brouillon"]);
+    expect(brut.version).toBeTruthy();
+    stock["lockhaccp-pms-brouillon"] = JSON.stringify({ ...brut, version: "2020.0" });
+    expect(lireBrouillon()).toBeNull();
   });
 
   it("stockage indisponible : aucune erreur", () => {

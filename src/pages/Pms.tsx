@@ -13,7 +13,8 @@ import { trackEvent } from "@/lib/analytics";
 import { ErreurPms, genererPms } from "@/lib/pms/api";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import {
-  ETAPES, effacerBrouillon, erreursEtape, lireBrouillon, nettoyerReponses, questionsDeLEtape, reponsesInitiales, sauverBrouillon,
+  ETAPES, effacerBrouillon, erreursEtape, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur, questionsDeLEtape,
+  repartirErreursServeur, reponsesInitiales, sauverBrouillon,
 } from "@/lib/pms/questionnaire";
 import type { MetierId, Reponses, ValeurReponse } from "@/lib/pms/genere/types";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ const Pms = () => {
   const [montrerErreurs, setMontrerErreurs] = useState(false);
   const [envoi, setEnvoi] = useState(false);
   const [erreurEnvoi, setErreurEnvoi] = useState<string | null>(null);
+  const [erreursServeur, setErreursServeur] = useState<Record<string, string>>({});
   const [lien, setLien] = useState<string | null>(null);
   const [siteWeb, setSiteWeb] = useState("");
 
@@ -42,8 +44,15 @@ const Pms = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [etape]);
 
-  const erreurs = useMemo(() => erreursEtape(etape, reponses), [etape, reponses]);
   const questions = useMemo(() => questionsDeLEtape(etape, reponses), [etape, reponses]);
+  const erreurs = useMemo(() => {
+    // Les erreurs renvoyées par le serveur s'ajoutent à celles de l'étape
+    // jusqu'à ce que le visiteur modifie la réponse concernée.
+    const duServeur = Object.fromEntries(
+      Object.entries(erreursServeur).filter(([id]) => questions.some((q) => q.id === id)),
+    );
+    return { ...duServeur, ...erreursEtape(etape, reponses) };
+  }, [etape, reponses, questions, erreursServeur]);
 
   const choisirMetier = (m: MetierId) => {
     if (m !== reponses.metier) setReponses(reponsesInitiales(m));
@@ -53,6 +62,11 @@ const Pms = () => {
   };
 
   const repondre = (id: string, v: ValeurReponse | undefined) => {
+    setErreursServeur((e) => {
+      if (!(id in e)) return e;
+      const { [id]: _corrigee, ...reste } = e;
+      return reste;
+    });
     setReponses((r) => {
       const suivant = { ...r } as Reponses;
       if (v === undefined) delete suivant[id];
@@ -67,11 +81,16 @@ const Pms = () => {
       return;
     }
     setMontrerErreurs(false);
+    setErreurEnvoi(null);
     setEtape((e) => Math.min(DERNIERE, e + 1));
   };
 
   const generer = async () => {
-    if (Object.keys(erreurs).length > 0) {
+    // Contrôle de tout le questionnaire : un brouillon repris ou un retour en
+    // arrière a pu laisser une étape antérieure incomplète.
+    const incomplete = premiereEtapeEnErreur(reponses);
+    if (incomplete !== null) {
+      setEtape(incomplete);
       setMontrerErreurs(true);
       return;
     }
@@ -83,6 +102,14 @@ const Pms = () => {
       effacerBrouillon();
       setLien(r.lien);
     } catch (e) {
+      const aCorriger = e instanceof ErreurPms && e.statut === 400 ? repartirErreursServeur(e.erreurs) : null;
+      if (aCorriger?.etape) {
+        setErreursServeur(aCorriger.erreurs);
+        setEtape(aCorriger.etape);
+        setMontrerErreurs(true);
+        setErreurEnvoi("Certaines réponses doivent être corrigées : elles sont signalées ci-dessous.");
+        return;
+      }
       setErreurEnvoi(e instanceof ErreurPms ? e.message : "Une erreur est survenue. Réessayez dans quelques minutes.");
     } finally {
       setEnvoi(false);
