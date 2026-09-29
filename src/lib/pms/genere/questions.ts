@@ -445,7 +445,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "coordonnees.consentement",
     etape: 8,
-    texte: "J'accepte que LockHACCP me contacte au sujet de mon PMS et de l'application.",
+    texte: "J'accepte que LockHACCP me contacte par e-mail ou par téléphone au sujet de mon PMS et de l'application.",
     type: "oui_non",
     metiers: "tous",
     condition: TOUJOURS,

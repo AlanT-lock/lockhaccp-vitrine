@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
           <h1 className="font-heading text-4xl font-bold text-foreground mb-4">
             Politique de confidentialité
           </h1>
-          <p className="text-muted-foreground mb-12">Date de mise à jour : 09/06/2025</p>
+          <p className="text-muted-foreground mb-12">Date de mise à jour : 29/09/2026</p>
 
           <div className="prose prose-lg max-w-none space-y-8">
             <section>
@@ -69,6 +69,9 @@ const PrivacyPolicy = () => {
                 Les données sont strictement destinées à LockHACCP. Elles peuvent être temporairement transmises à des sous-traitants techniques (ex. : hébergement, outil d'emailing), dans la limite nécessaire à leur mission.
               </p>
               <p className="text-muted-foreground mt-4">
+                Exception : les coordonnées saisies dans le générateur de PMS gratuit sont également transmises à notre partenaire SF FORMATION (voir la section 10).
+              </p>
+              <p className="text-muted-foreground mt-4">
                 Aucun transfert de données hors UE n'est effectué, sauf dans le cadre de l'hébergement (ex. : FlutterFlow), dans ce cas protégés par des clauses contractuelles types (SCC) ou un encadrement équivalent.
               </p>
             </section>
@@ -114,7 +117,36 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">10. Modification de la politique</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">10. Générateur de PMS gratuit</h2>
+              <p className="text-muted-foreground">
+                Lorsque vous demandez votre Plan de Maîtrise Sanitaire (PMS) gratuit sur lockhaccp.fr/pms, nous collectons :
+              </p>
+              <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
+                <li>le nom et l'adresse de votre établissement, votre adresse e-mail et votre numéro de téléphone ;</li>
+                <li>vos réponses au questionnaire (activité, équipements, nettoyage, personnel).</li>
+              </ul>
+              <p className="text-muted-foreground mt-4">Ces données servent à :</p>
+              <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
+                <li>produire votre PMS et vous l'envoyer par e-mail ;</li>
+                <li>vous recontacter par e-mail ou par téléphone au sujet de votre PMS, de l'application LockHACCP et, le cas échéant, des formations en hygiène alimentaire ;</li>
+                <li>pré-configurer l'application LockHACCP si vous vous y inscrivez.</li>
+              </ul>
+              <p className="text-muted-foreground mt-4">
+                <strong>Base légale :</strong> votre accord, donné en cochant la case prévue avant l'envoi, et notre intérêt légitime à présenter à des professionnels des métiers de bouche des services liés à leur activité.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                <strong>Destinataires :</strong> LockHACCP et son partenaire SF FORMATION (SASU, siège à Cannes, SIRET 841 840 390 00022), organisme de formation à l'hygiène alimentaire, dans l'outil de gestion des contacts duquel vos coordonnées et un résumé de vos réponses sont enregistrés. Nos sous-traitants techniques (hébergement des données et envoi des e-mails) n'y accèdent que pour leur mission.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                <strong>Durée de conservation :</strong> 3 ans à compter de notre dernier échange avec vous. Le lien de téléchargement de votre PMS expire au bout de 30 jours.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                <strong>Vous opposer à être recontacté :</strong> à tout moment et sans justification, en cliquant sur le lien de désinscription de nos e-mails, en le disant lors d'un appel ou en écrivant à contact@lockhaccp.fr. Vos droits décrits à la section 8 s'appliquent aussi à ces données.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">11. Modification de la politique</h2>
               <p className="text-muted-foreground">
                 Cette politique peut être modifiée à tout moment pour rester conforme à la réglementation. Toute mise à jour sera indiquée sur cette page avec sa date.
               </p>
