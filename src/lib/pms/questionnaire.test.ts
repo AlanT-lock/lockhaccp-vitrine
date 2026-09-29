@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  ETAPES, erreursEtape, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur, questionsDeLEtape, repartirErreursServeur,
+  ETAPES, ecransEtape, erreursEcran, erreursEtape, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur, questionsDeLEtape, repartirErreursServeur,
   reponsesInitiales, sauverBrouillon,
 } from "./questionnaire";
-import type { Reponses } from "./genere/types";
+import type { ElementListe, Reponses } from "./genere/types";
 
 describe("étapes du questionnaire", () => {
   it("8 étapes, titres en français", () => {
@@ -30,10 +30,10 @@ describe("réponses initiales", () => {
     expect(eqs.find((e) => e.type === "vitrine_poisson")).toMatchObject({ consigne_min: 0, consigne_max: 2 });
   });
 
-  it("zones et produits pré-remplis", () => {
+  it("zones précochées pré-remplies, plus de liste de produits (v2)", () => {
     const r = reponsesInitiales("restauration_commerciale");
-    expect((r["nettoyage.zones"] as unknown[]).length).toBeGreaterThanOrEqual(2);
-    expect((r["nettoyage.produits"] as unknown[]).length).toBeGreaterThanOrEqual(3);
+    expect((r["nettoyage.zones"] as unknown[]).length).toBe(5);
+    expect(r["nettoyage.produits"]).toBeUndefined();
   });
 });
 
@@ -74,11 +74,7 @@ describe("contrôle par étape", () => {
     expect(erreursEtape(4, { ...complet(), "equipements.froids": nomLong } as Reponses)["equipements.froids"]).toMatch(/80/);
   });
 
-  it("étape 5 : produits et surfaces bornés comme sur le serveur (revue finale I7)", () => {
-    for (const mauvais of [{ usage: "u".repeat(81) }, { dilution: "d".repeat(41) }, { temps_action_min: 2.5 }, { temps_action_min: 1441 }]) {
-      const r = { ...complet(), "nettoyage.produits": [{ nom: "Produit", ...mauvais }] } as Reponses;
-      expect(erreursEtape(5, r)["nettoyage.produits"], JSON.stringify(mauvais)).toBeTruthy();
-    }
+  it("étape 5 : surfaces bornées comme sur le serveur (revue finale I7)", () => {
     const surfaces = Array.from({ length: 30 }, (_, i) => ({ nom: `S${i}`, frequence: "Hebdo" }));
     const zones = Array.from({ length: 6 }, (_, i) => ({ nom: `Z${i}`, surfaces }));
     expect(erreursEtape(5, { ...complet(), "nettoyage.zones": zones } as Reponses)["nettoyage.zones"]).toMatch(/150/);
@@ -148,5 +144,43 @@ describe("brouillon (Review Focus 5)", () => {
     vi.stubGlobal("localStorage", { getItem: () => { throw new Error("bloqué"); }, setItem: () => { throw new Error("bloqué"); } });
     expect(() => sauverBrouillon(reponsesInitiales("traiteur"), 2)).not.toThrow();
     expect(lireBrouillon()).toBeNull();
+  });
+});
+
+describe("étape 5 : un écran par zone (v2)", () => {
+  const r = () => ({ ...reponsesInitiales("restauration_commerciale") }) as Reponses;
+
+  it("écrans : choix des zones, une page par zone, puis le produit", () => {
+    const e = ecransEtape(5, r());
+    expect(e[0]).toEqual({ type: "zones" });
+    expect(e.slice(1, 6)).toEqual([0, 1, 2, 3, 4].map((index) => ({ type: "zone", index })));
+    expect(e[6]).toEqual({ type: "questions" });
+    expect(ecransEtape(3, r())).toEqual([{ type: "questions" }]);
+  });
+
+  it("écran des zones : au moins une zone", () => {
+    const vide = { ...r(), "nettoyage.zones": [] } as Reponses;
+    expect(erreursEcran(5, { type: "zones" }, vide)["nettoyage.zones"]).toMatch(/zone/i);
+    expect(erreursEcran(5, { type: "zones" }, r())).toEqual({});
+  });
+
+  it("écran d'une zone : au moins une surface, seulement pour cette zone", () => {
+    const zones = r()["nettoyage.zones"] as ElementListe[];
+    zones[1] = { ...zones[1], surfaces: [] };
+    const x = { ...r(), "nettoyage.zones": zones } as Reponses;
+    expect(erreursEcran(5, { type: "zone", index: 1 }, x)["nettoyage.zones"]).toMatch(/surface/i);
+    expect(erreursEcran(5, { type: "zone", index: 0 }, x)).toEqual({});
+  });
+
+  it("écran final de l'étape 5 : le produit est facultatif, les zones n'y sont pas contrôlées", () => {
+    const zones = r()["nettoyage.zones"] as ElementListe[];
+    zones[1] = { ...zones[1], surfaces: [] };
+    expect(erreursEcran(5, { type: "questions" }, { ...r(), "nettoyage.zones": zones } as Reponses)).toEqual({});
+  });
+
+  it("une zone sans surface bloque toujours l'envoi final", () => {
+    const zones = r()["nettoyage.zones"] as ElementListe[];
+    zones[0] = { ...zones[0], surfaces: [] };
+    expect(Object.keys(erreursEtape(5, { ...r(), "nettoyage.zones": zones } as Reponses))).toContain("nettoyage.zones");
   });
 });

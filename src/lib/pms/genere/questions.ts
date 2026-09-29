@@ -152,6 +152,18 @@ export const QUESTIONS: Question[] = [
     obligatoire: true,
   },
   {
+    id: "prep.poisson_cru_assaini",
+    etape: 3,
+    texte: "Votre fournisseur vous livre-t-il ce poisson déjà assaini ?",
+    aide:
+      "C'est le cas si l'étiquette ou le bon de livraison indique « traité par congélation », « assaini » " +
+      "ou « apte à la consommation crue ». Répondez non si vous le congelez vous-même.",
+    type: "oui_non",
+    metiers: ["restauration_commerciale", "traiteur", "poissonnerie"],
+    condition: { question: "prep.poisson_cru", egal: true },
+    obligatoire: true,
+  },
+  {
     id: "prep.coquillages",
     etape: 3,
     texte: "Servez-vous ou vendez-vous des coquillages vivants ?",
@@ -335,33 +347,24 @@ export const QUESTIONS: Question[] = [
     etape: 5,
     texte: "Quelles sont les zones de votre établissement et les surfaces à nettoyer ?",
     aide:
-      "Nous vous proposons des zones habituelles pour votre métier : gardez celles qui existent " +
-      "chez vous, renommez-les et indiquez la fréquence de nettoyage de chaque surface.",
+      "Cochez les zones de votre établissement, puis, zone par zone, les surfaces à nettoyer et leur " +
+      "fréquence. Chaque zone aura son tableau dans le plan de nettoyage et sa fiche de traçabilité.",
     type: "liste_zones",
     metiers: "tous",
     condition: TOUJOURS,
     obligatoire: true,
   },
   {
-    id: "nettoyage.produits",
+    id: "nettoyage.produit",
     etape: 5,
-    texte: "Quels produits d'entretien utilisez-vous ?",
+    texte: "Quel produit détergent-désinfectant utilisez-vous ?",
     aide:
-      "Pour chaque produit : son nom, son usage (dégraissant, désinfectant…), sa dilution " +
-      "(« prêt à l'emploi » ou dose indiquée sur l'étiquette), son temps d'action et s'il faut rincer.",
-    type: "liste_produits_entretien",
+      "Son nom commercial, tel qu'il figure sur le bidon. Il sera indiqué dans votre plan de nettoyage. " +
+      "Laissez vide pour le compléter à la main.",
+    type: "texte",
     metiers: "tous",
     condition: TOUJOURS,
-    obligatoire: true,
-  },
-  {
-    id: "nettoyage.prestataire_nuisibles",
-    etape: 5,
-    texte: "Avez-vous un contrat avec une entreprise de lutte contre les nuisibles ?",
-    type: "oui_non",
-    metiers: "tous",
-    condition: TOUJOURS,
-    obligatoire: true,
+    obligatoire: false,
   },
 
   // ─── Étape 6 : votre personnel ──────────────────────────────────────────

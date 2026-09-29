@@ -2,8 +2,6 @@
 import type { ElementListe, Question, ValeurReponse } from "@/lib/pms/genere/types";
 import { BoutonChoix, champTexte } from "./Choix";
 import { ListeEquipements, ListeNoms } from "./ListeEquipements";
-import { ListeProduits } from "./ListeProduits";
-import { ListeZones } from "./ListeZones";
 
 const JOURS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
@@ -57,12 +55,7 @@ export function ChampQuestion(props: {
     case "liste_friteuses":
       champ = <ListeNoms valeur={v as ElementListe[]} onChange={onChange} exemple="Friteuse frites" libelleAjout="Ajouter une friteuse" />;
       break;
-    case "liste_zones":
-      champ = <ListeZones valeur={v as ElementListe[]} onChange={onChange} />;
-      break;
-    case "liste_produits_entretien":
-      champ = <ListeProduits valeur={v as ElementListe[]} onChange={onChange} />;
-      break;
+    // Les zones du nettoyage ont leurs propres écrans (ChoixZones, SurfacesZone).
   }
 
   if (q.id === "coordonnees.consentement") {

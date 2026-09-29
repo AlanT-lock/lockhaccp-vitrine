@@ -5,7 +5,8 @@
 import { questionsVisibles } from "./genere/moteur";
 import { QUESTIONS } from "./genere/questions";
 import { TYPES_EQUIPEMENTS_FROIDS } from "./genere/equipements";
-import { EQUIPEMENTS_PROPOSES, PRODUITS_EXEMPLES, ZONES_PROPOSEES } from "./genere/suggestions";
+import { EQUIPEMENTS_PROPOSES } from "./genere/suggestions";
+import { zonesInitiales } from "./nettoyage";
 import type { ElementListe, MetierId, Question, Reponses } from "./genere/types";
 import { VERSION_REFERENTIEL } from "./genere/version";
 
@@ -14,7 +15,7 @@ export const ETAPES = [
   { titre: "Votre activité", sousTitre: "Jours d'ouverture, services et façons de vendre." },
   { titre: "Ce que vous préparez", sousTitre: "Pour n'inclure que les dangers qui vous concernent." },
   { titre: "Vos équipements", sousTitre: "Chaque équipement froid aura sa ligne dans votre tableau HACCP." },
-  { titre: "Votre nettoyage", sousTitre: "Vos zones, vos surfaces et vos produits d'entretien." },
+  { titre: "Votre nettoyage", sousTitre: "Zone par zone, les surfaces à nettoyer et leur fréquence." },
   { titre: "Votre personnel", sousTitre: "Pour les affichages et le registre de formation." },
   { titre: "Récapitulatif", sousTitre: "Vérifiez ce que contiendra votre PMS." },
   { titre: "Vos coordonnées", sousTitre: "Ces informations apparaîtront sur vos affiches et vos registres." },
@@ -40,8 +41,7 @@ export function reponsesInitiales(metier: MetierId): Reponses {
     "activite.jours_ouverture": [],
     "activite.modes_vente": [],
     "equipements.froids": froids,
-    "nettoyage.zones": ZONES_PROPOSEES[metier].map((z) => ({ nom: z.nom, surfaces: z.surfaces.map((s) => ({ ...s })) })),
-    "nettoyage.produits": PRODUITS_EXEMPLES.map((p) => ({ ...p })),
+    "nettoyage.zones": zonesInitiales(metier),
   } as Reponses;
 }
 
@@ -132,6 +132,47 @@ export function erreursEtape(etape: number, r: Reponses): Record<string, string>
     }
   }
   return erreurs;
+}
+
+/**
+ * Écrans d'une étape. L'étape 5 (nettoyage) en compte plusieurs : le choix des
+ * zones, une page par zone retenue, puis ses autres questions (produit).
+ */
+export type Ecran = { type: "questions" } | { type: "zones" } | { type: "zone"; index: number };
+
+const ZONES = "nettoyage.zones";
+
+export function ecransEtape(etape: number, r: Reponses): Ecran[] {
+  if (etape !== 5) return [{ type: "questions" }];
+  const zones = Array.isArray(r[ZONES]) ? (r[ZONES] as ElementListe[]) : [];
+  return [{ type: "zones" }, ...zones.map((_, index) => ({ type: "zone" as const, index })), { type: "questions" }];
+}
+
+/** Questions affichées sur un écran « questions » (les zones ont leurs propres écrans). */
+export function questionsDeLEcran(etape: number, r: Reponses): Question[] {
+  return questionsDeLEtape(etape, r).filter((q) => q.id !== ZONES);
+}
+
+/** Erreurs de l'écran courant (vide = on peut passer à l'écran suivant). */
+export function erreursEcran(etape: number, ecran: Ecran, r: Reponses): Record<string, string> {
+  const zones = Array.isArray(r[ZONES]) ? (r[ZONES] as ElementListe[]) : [];
+  if (ecran.type === "zones") {
+    if (zones.length === 0) return { [ZONES]: "Cochez au moins une zone." };
+    if (zones.some((z) => !nomValide(z))) return { [ZONES]: "Donnez un nom à chaque zone." };
+    return {};
+  }
+  if (ecran.type === "zone") {
+    const z = zones[ecran.index];
+    if (!z) return {};
+    if (!nomValide(z)) return { [ZONES]: "Donnez un nom à cette zone." };
+    const surfaces = Array.isArray(z.surfaces) ? (z.surfaces as ElementListe[]) : [];
+    if (surfaces.length === 0) return { [ZONES]: "Cochez au moins une surface à nettoyer dans cette zone." };
+    const q = QUESTIONS.find((x) => x.id === ZONES)!;
+    const e = erreurListe(q, [z]);
+    return e ? { [ZONES]: e } : {};
+  }
+  const { [ZONES]: _zones, ...autres } = erreursEtape(etape, r);
+  return autres;
 }
 
 /** Première étape encore incomplète (contrôle final avant l'envoi), ou null. */

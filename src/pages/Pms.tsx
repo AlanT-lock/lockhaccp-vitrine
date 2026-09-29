@@ -7,16 +7,18 @@ import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ChampQuestion } from "@/components/pms/ChampQuestion";
+import { ChoixZones } from "@/components/pms/ChoixZones";
+import { SurfacesZone } from "@/components/pms/SurfacesZone";
 import { PageFin } from "@/components/pms/PageFin";
 import { Recapitulatif } from "@/components/pms/Recapitulatif";
 import { trackEvent } from "@/lib/analytics";
 import { ErreurPms, genererPms } from "@/lib/pms/api";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import {
-  ETAPES, effacerBrouillon, erreursEtape, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur, questionsDeLEtape,
-  repartirErreursServeur, reponsesInitiales, sauverBrouillon,
+  ETAPES, ecransEtape, effacerBrouillon, erreursEcran, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur,
+  questionsDeLEcran, repartirErreursServeur, reponsesInitiales, sauverBrouillon,
 } from "@/lib/pms/questionnaire";
-import type { MetierId, Reponses, ValeurReponse } from "@/lib/pms/genere/types";
+import type { ElementListe, MetierId, Reponses, ValeurReponse } from "@/lib/pms/genere/types";
 import { cn } from "@/lib/utils";
 
 const DERNIERE = ETAPES.length;
@@ -24,6 +26,8 @@ const DERNIERE = ETAPES.length;
 const Pms = () => {
   const [reponses, setReponses] = useState<Reponses>({} as Reponses);
   const [etape, setEtape] = useState(1);
+  // Écran dans l'étape : l'étape 5 (nettoyage) en compte un par zone.
+  const [ecran, setEcran] = useState(0);
   const [brouillon, setBrouillon] = useState<ReturnType<typeof lireBrouillon>>(null);
   const [montrerErreurs, setMontrerErreurs] = useState(false);
   const [envoi, setEnvoi] = useState(false);
@@ -42,23 +46,31 @@ const Pms = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [etape]);
+  }, [etape, ecran]);
 
-  const questions = useMemo(() => questionsDeLEtape(etape, reponses), [etape, reponses]);
+  const ecrans = useMemo(() => ecransEtape(etape, reponses), [etape, reponses]);
+  const ecranCourant = ecrans[Math.min(ecran, ecrans.length - 1)];
+  const questions = useMemo(() => questionsDeLEcran(etape, reponses), [etape, reponses]);
+  const zones = (Array.isArray(reponses["nettoyage.zones"]) ? reponses["nettoyage.zones"] : []) as ElementListe[];
   const erreurs = useMemo(() => {
-    // Les erreurs renvoyées par le serveur s'ajoutent à celles de l'étape
+    // Les erreurs renvoyées par le serveur s'ajoutent à celles de l'écran
     // jusqu'à ce que le visiteur modifie la réponse concernée.
-    const duServeur = Object.fromEntries(
-      Object.entries(erreursServeur).filter(([id]) => questions.some((q) => q.id === id)),
-    );
-    return { ...duServeur, ...erreursEtape(etape, reponses) };
-  }, [etape, reponses, questions, erreursServeur]);
+    const affichees = (id: string) =>
+      ecranCourant.type === "questions" ? questions.some((q) => q.id === id) : id === "nettoyage.zones";
+    const duServeur = Object.fromEntries(Object.entries(erreursServeur).filter(([id]) => affichees(id)));
+    return { ...duServeur, ...erreursEcran(etape, ecranCourant, reponses) };
+  }, [etape, ecranCourant, reponses, questions, erreursServeur]);
+
+  const allerA = (e: number, indexEcran = 0) => {
+    setEtape(e);
+    setEcran(indexEcran);
+  };
 
   const choisirMetier = (m: MetierId) => {
     if (m !== reponses.metier) setReponses(reponsesInitiales(m));
     trackEvent("pms_metier_choisi", { metier: m });
     setMontrerErreurs(false);
-    setEtape(2);
+    allerA(2);
   };
 
   const repondre = (id: string, v: ValeurReponse | undefined) => {
@@ -82,7 +94,18 @@ const Pms = () => {
     }
     setMontrerErreurs(false);
     setErreurEnvoi(null);
-    setEtape((e) => Math.min(DERNIERE, e + 1));
+    if (ecran < ecrans.length - 1) setEcran(ecran + 1);
+    else allerA(Math.min(DERNIERE, etape + 1));
+  };
+
+  const retour = () => {
+    setMontrerErreurs(false);
+    if (ecran > 0) {
+      setEcran(ecran - 1);
+      return;
+    }
+    const precedente = Math.max(1, etape - 1);
+    allerA(precedente, ecransEtape(precedente, reponses).length - 1);
   };
 
   const generer = async () => {
@@ -90,7 +113,7 @@ const Pms = () => {
     // arrière a pu laisser une étape antérieure incomplète.
     const incomplete = premiereEtapeEnErreur(reponses);
     if (incomplete !== null) {
-      setEtape(incomplete);
+      allerA(incomplete);
       setMontrerErreurs(true);
       return;
     }
@@ -105,7 +128,7 @@ const Pms = () => {
       const aCorriger = e instanceof ErreurPms && e.statut === 400 ? repartirErreursServeur(e.erreurs) : null;
       if (aCorriger?.etape) {
         setErreursServeur(aCorriger.erreurs);
-        setEtape(aCorriger.etape);
+        allerA(aCorriger.etape);
         setMontrerErreurs(true);
         setErreurEnvoi("Certaines réponses doivent être corrigées : elles sont signalées ci-dessous.");
         return;
@@ -122,7 +145,7 @@ const Pms = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="PMS gratuit personnalisé pour votre établissement — LockHACCP"
-        description="Générez gratuitement votre Plan de Maîtrise Sanitaire : affichages obligatoires, tableau HACCP et registres adaptés à votre métier, en 10 minutes."
+        description="Générez gratuitement votre Plan de Maîtrise Sanitaire : tableau HACCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires adaptés à votre métier, en 10 minutes."
         path="/pms"
       />
       <Navbar />
@@ -136,7 +159,8 @@ const Pms = () => {
                 <div className="text-center mb-8">
                   <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Votre PMS gratuit, adapté à votre établissement</h1>
                   <p className="text-muted-foreground">
-                    Affichages obligatoires, tableau HACCP et registres, prêts à imprimer. Environ 10 minutes.
+                    Tableau HACCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires, prêts à imprimer.
+                    Environ 10 minutes.
                     Réalisé avec l'expertise de SF FORMATION, organisme de formation à l'hygiène alimentaire.
                   </p>
                 </div>
@@ -146,7 +170,7 @@ const Pms = () => {
                 <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 p-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
                   <span className="text-sm">Vous aviez commencé votre PMS. Reprendre où vous en étiez ?</span>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="hero" onClick={() => { setReponses(brouillon.reponses); setEtape(Math.max(2, brouillon.etape)); setBrouillon(null); }}>Reprendre</Button>
+                    <Button size="sm" variant="hero" onClick={() => { setReponses(brouillon.reponses); allerA(Math.max(2, brouillon.etape)); setBrouillon(null); }}>Reprendre</Button>
                     <Button size="sm" variant="outline" onClick={() => { effacerBrouillon(); setBrouillon(null); }}>Recommencer</Button>
                   </div>
                 </div>
@@ -176,9 +200,22 @@ const Pms = () => {
                 </div>
               )}
 
-              {etape === 7 && <Recapitulatif reponses={reponses} allerA={setEtape} />}
+              {etape === 7 && <Recapitulatif reponses={reponses} allerA={(e) => allerA(e)} />}
 
-              {etape !== 1 && etape !== 7 && (
+              {ecranCourant.type === "zones" && (
+                <ChoixZones metier={reponses.metier} zones={zones}
+                  erreur={montrerErreurs ? erreurs["nettoyage.zones"] : undefined}
+                  onChange={(z) => repondre("nettoyage.zones", z)} />
+              )}
+
+              {ecranCourant.type === "zone" && zones[ecranCourant.index] && (
+                <SurfacesZone key={ecranCourant.index} metier={reponses.metier} zone={zones[ecranCourant.index]}
+                  numero={ecranCourant.index + 1} total={zones.length}
+                  erreur={montrerErreurs ? erreurs["nettoyage.zones"] : undefined}
+                  onChange={(z) => repondre("nettoyage.zones", zones.map((x, i) => (i === ecranCourant.index ? z : x)))} />
+              )}
+
+              {etape !== 1 && etape !== 7 && ecranCourant.type === "questions" && (
                 <div className="space-y-4">
                   {questions.map((q) => (
                     <ChampQuestion key={q.id} question={q} valeur={reponses[q.id]}
@@ -200,7 +237,7 @@ const Pms = () => {
 
               {etape > 1 && (
                 <div className="mt-8 flex justify-between gap-3">
-                  <Button variant="outline" onClick={() => setEtape((e) => Math.max(1, e - 1))} disabled={envoi} className="gap-2">
+                  <Button variant="outline" onClick={retour} disabled={envoi} className="gap-2">
                     <ArrowLeft className="h-4 w-4" /> Retour
                   </Button>
                   {etape < DERNIERE ? (

@@ -23,8 +23,9 @@ export function Recapitulatif(props: { reponses: Reponses; allerA: (etape: numbe
       <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
         {resume ? (
           <p className="text-foreground">
-            Votre PMS contiendra <strong>{resume.affiches} affiches</strong>, un <strong>tableau HACCP de {resume.ccp} lignes</strong> et{" "}
-            <strong>{resume.registres} registres</strong>, tous adaptés à vos réponses.
+            Votre dossier PMS contiendra un <strong>tableau HACCP de {resume.ccp} lignes</strong>, votre{" "}
+            <strong>plan de nettoyage</strong>, <strong>{resume.registres} fiches de traçabilité</strong> et{" "}
+            <strong>{resume.affiches} affiches</strong>, tous adaptés à vos réponses.
           </p>
         ) : erreur ? (
           <p className="text-muted-foreground">{erreur} Vous pouvez tout de même continuer.</p>
