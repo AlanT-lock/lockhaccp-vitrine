@@ -79,6 +79,12 @@ const HeroSection = () => {
                 </Button>
               </Link>
             </div>
+            <p className="mb-10 -mt-6 text-sm text-muted-foreground text-center lg:text-left">
+              Pas encore prêt ?{" "}
+              <Link to="/pms" className="font-semibold text-primary underline underline-offset-4">
+                Générez gratuitement votre PMS personnalisé
+              </Link>
+            </p>
 
             <div
               className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start animate-fade-up"

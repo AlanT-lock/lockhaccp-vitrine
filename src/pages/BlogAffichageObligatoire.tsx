@@ -58,6 +58,13 @@ const BlogAffichageObligatoire = () => {
             <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
               Réglementation
             </span>
+            <div className="mt-6 rounded-xl border border-primary/30 bg-background p-4">
+              <p className="text-foreground">
+                <strong>Gagnez du temps :</strong> recevez gratuitement toutes les affiches obligatoires de votre établissement,
+                déjà à votre nom, avec votre PMS personnalisé.{" "}
+                <Link to="/pms" className="font-semibold text-primary underline underline-offset-4">Générer mon PMS gratuit</Link>
+              </p>
+            </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-6">
               Affichage obligatoire en restaurant : Guide complet 2024
             </h1>

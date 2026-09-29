@@ -20,6 +20,7 @@ const FeatureChecklist = lazy(() => import("./pages/FeatureChecklist"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const ContactInfo = lazy(() => import("./pages/ContactInfo"));
 const ContactDemo = lazy(() => import("./pages/ContactDemo"));
+const Pms = lazy(() => import("./pages/Pms"));
 const ContactEntreprise = lazy(() => import("./pages/ContactEntreprise"));
 const Resources = lazy(() => import("./pages/Resources"));
 const BlogAffichageObligatoire = lazy(() => import("./pages/BlogAffichageObligatoire"));
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/contact" element={<ContactInfo />} />
               <Route path="/contact-entreprise" element={<ContactEntreprise />} />
               <Route path="/demander-demo" element={<ContactDemo />} />
+              <Route path="/pms" element={<Pms />} />
               <Route path="/avantages-ia" element={<Navigate to="/tarifs" replace />} />
               <Route path="/blog" element={<Resources />} />
               <Route path="/blog/affichages-obligatoires-restaurant-2026" element={<BlogAffichageObligatoire />} />

@@ -17,7 +17,7 @@ export class ErreurPms extends Error {
   }
 }
 
-async function appeler(reponses: Reponses, apercu: boolean): Promise<{ lien: string; resume: Resume }> {
+async function appeler(reponses: Reponses, apercu: boolean, siteWeb = ""): Promise<{ lien: string; resume: Resume }> {
   let reponse: Response;
   try {
     reponse = await fetch(`${URL_FONCTION}${apercu ? "?apercu=1" : ""}`, {
@@ -26,7 +26,7 @@ async function appeler(reponses: Reponses, apercu: boolean): Promise<{ lien: str
         "Content-Type": "application/json",
         ...(CLE_ANON ? { apikey: CLE_ANON, Authorization: `Bearer ${CLE_ANON}` } : {}),
       },
-      body: JSON.stringify({ version: VERSION_REFERENTIEL, reponses, site_web: "" }),
+      body: JSON.stringify({ version: VERSION_REFERENTIEL, reponses, site_web: siteWeb }),
     });
   } catch {
     throw new ErreurPms(0, "Connexion impossible. Vérifiez votre accès à Internet et réessayez.");
@@ -42,4 +42,5 @@ async function appeler(reponses: Reponses, apercu: boolean): Promise<{ lien: str
 }
 
 export const obtenirApercu = (reponses: Reponses) => appeler(reponses, true).then((r) => r.resume);
-export const genererPms = (reponses: Reponses) => appeler(reponses, false);
+/** `siteWeb` : champ piège invisible, rempli seulement par les robots. */
+export const genererPms = (reponses: Reponses, siteWeb: string) => appeler(reponses, false, siteWeb);

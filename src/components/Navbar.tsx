@@ -22,6 +22,7 @@ const Navbar = () => {
   ];
 
   const navLinks = [
+    { label: "PMS gratuit", href: "/pms" },
     { label: "Ressources", href: "/blog" },
     { label: "Tarifs", href: "/tarifs" },
     { label: "Contact", href: "/contact" },

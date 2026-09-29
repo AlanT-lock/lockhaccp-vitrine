@@ -237,6 +237,16 @@ const Pricing = () => {
         </div>
       </section>
 
+      <section className="py-6 bg-primary/5 border-t border-border">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-foreground">
+            <strong>Nouveau :</strong> générez gratuitement le Plan de Maîtrise Sanitaire de votre établissement —
+            affichages obligatoires, tableau HACCP et registres.{" "}
+            <Link to="/pms" className="font-semibold text-primary underline underline-offset-4">Créer mon PMS gratuit</Link>
+          </p>
+        </div>
+      </section>
+
       <section className="py-8 bg-background border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <TrustBadges />
