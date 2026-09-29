@@ -1,5 +1,6 @@
 // Affiche une question du référentiel selon son type, avec son aide et son erreur.
 import type { ElementListe, Question, ValeurReponse } from "@/lib/pms/genere/types";
+import { valeurSaisie } from "@/lib/pms/questionnaire";
 import { BoutonChoix, champTexte } from "./Choix";
 import { ListeEquipements, ListeNoms } from "./ListeEquipements";
 
@@ -37,7 +38,7 @@ export function ChampQuestion(props: {
         <input className={champTexte} maxLength={200} value={typeof v === "string" ? v : ""}
           type={q.id === "coordonnees.email" ? "email" : q.id === "coordonnees.telephone" ? "tel" : "text"}
           autoComplete={q.id === "coordonnees.email" ? "email" : q.id === "coordonnees.telephone" ? "tel" : q.id === "coordonnees.code_postal" ? "postal-code" : q.id === "coordonnees.nom" ? "organization" : undefined}
-          onChange={(e) => onChange(e.target.value)} />
+          onChange={(e) => onChange(valeurSaisie(q, e.target.value))} />
       );
       break;
     case "jours":

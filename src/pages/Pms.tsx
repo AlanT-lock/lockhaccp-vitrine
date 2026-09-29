@@ -15,7 +15,7 @@ import { trackEvent } from "@/lib/analytics";
 import { ErreurPms, genererPms } from "@/lib/pms/api";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import {
-  ETAPES, ecransEtape, effacerBrouillon, erreursEcran, lireBrouillon, nettoyerReponses, premiereEtapeEnErreur,
+  ETAPES, ecranDesErreurs, ecransEtape, effacerBrouillon, erreursEcran, lireBrouillon, nettoyerReponses, premierEcranEnErreur,
   questionsDeLEcran, repartirErreursServeur, reponsesInitiales, sauverBrouillon,
 } from "@/lib/pms/questionnaire";
 import type { ElementListe, MetierId, Reponses, ValeurReponse } from "@/lib/pms/genere/types";
@@ -111,9 +111,9 @@ const Pms = () => {
   const generer = async () => {
     // Contrôle de tout le questionnaire : un brouillon repris ou un retour en
     // arrière a pu laisser une étape antérieure incomplète.
-    const incomplete = premiereEtapeEnErreur(reponses);
-    if (incomplete !== null) {
-      allerA(incomplete);
+    const incomplet = premierEcranEnErreur(reponses);
+    if (incomplet !== null) {
+      allerA(incomplet.etape, incomplet.ecran);
       setMontrerErreurs(true);
       return;
     }
@@ -128,7 +128,7 @@ const Pms = () => {
       const aCorriger = e instanceof ErreurPms && e.statut === 400 ? repartirErreursServeur(e.erreurs) : null;
       if (aCorriger?.etape) {
         setErreursServeur(aCorriger.erreurs);
-        allerA(aCorriger.etape);
+        allerA(aCorriger.etape, ecranDesErreurs(aCorriger.etape, Object.keys(aCorriger.erreurs), reponses));
         setMontrerErreurs(true);
         setErreurEnvoi("Certaines réponses doivent être corrigées : elles sont signalées ci-dessous.");
         return;

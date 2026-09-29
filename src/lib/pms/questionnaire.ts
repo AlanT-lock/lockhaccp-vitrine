@@ -57,6 +57,8 @@ export function nettoyerReponses(r: Reponses): Reponses {
 const NOM_MAX = 80;
 const LISTE_MAX = 30;
 const FROIDS_MAX = 20;
+const FRITEUSES_MAX = 5;
+export const ZONES_MAX = 15;
 const SURFACES_MAX = 150;
 const USAGE_MAX = 80;
 const DILUTION_MAX = 40;
@@ -75,6 +77,8 @@ function erreurListe(q: Question, liste: ElementListe[]): string | null {
     return null;
   }
   if (liste.length > LISTE_MAX) return `${LISTE_MAX} éléments au plus.`;
+  if (q.type === "liste_friteuses" && liste.length > FRITEUSES_MAX) return `${FRITEUSES_MAX} friteuses au plus.`;
+  if (q.type === "liste_zones" && liste.length > ZONES_MAX) return `${ZONES_MAX} zones au plus.`;
   if (q.type === "liste_zones") {
     const surfaces = (z: ElementListe) => (Array.isArray(z.surfaces) ? (z.surfaces as ElementListe[]) : []);
     if (!liste.every((z) => surfaces(z).length > 0 && surfaces(z).every(nomValide))) {
@@ -158,6 +162,7 @@ export function erreursEcran(etape: number, ecran: Ecran, r: Reponses): Record<s
   const zones = Array.isArray(r[ZONES]) ? (r[ZONES] as ElementListe[]) : [];
   if (ecran.type === "zones") {
     if (zones.length === 0) return { [ZONES]: "Cochez au moins une zone." };
+    if (zones.length > ZONES_MAX) return { [ZONES]: `${ZONES_MAX} zones au plus : regroupez les petites zones.` };
     if (zones.some((z) => !nomValide(z))) return { [ZONES]: "Donnez un nom à chaque zone." };
     return {};
   }
@@ -173,6 +178,33 @@ export function erreursEcran(etape: number, ecran: Ecran, r: Reponses): Record<s
   }
   const { [ZONES]: _zones, ...autres } = erreursEtape(etape, r);
   return autres;
+}
+
+/** Valeur à enregistrer pour une saisie de texte : un texte facultatif effacé devient « pas de réponse ». */
+export function valeurSaisie(q: Question, texte: string): string | undefined {
+  return !q.obligatoire && texte.trim() === "" ? undefined : texte;
+}
+
+/** Premier écran incomplet de tout le questionnaire (contrôle final avant l'envoi), ou null. */
+export function premierEcranEnErreur(r: Reponses): { etape: number; ecran: number } | null {
+  for (let etape = 1; etape <= ETAPES.length; etape++) {
+    const ecrans = ecransEtape(etape, r);
+    const i = ecrans.findIndex((e) => Object.keys(erreursEcran(etape, e, r)).length > 0);
+    if (i !== -1) return { etape, ecran: i };
+    if (Object.keys(erreursEtape(etape, r)).length > 0) return { etape, ecran: 0 };
+  }
+  return null;
+}
+
+/** Écran de l'étape où s'affichent les erreurs (identifiants de questions) renvoyées par le serveur. */
+export function ecranDesErreurs(etape: number, ids: string[], r: Reponses): number {
+  const ecrans = ecransEtape(etape, r);
+  if (ids.includes(ZONES)) {
+    const i = ecrans.findIndex((e) => e.type !== "questions" && Object.keys(erreursEcran(etape, e, r)).length > 0);
+    return Math.max(0, i);
+  }
+  const i = ecrans.findIndex((e) => e.type === "questions" && questionsDeLEcran(etape, r).some((q) => ids.includes(q.id)));
+  return Math.max(0, i);
 }
 
 /** Première étape encore incomplète (contrôle final avant l'envoi), ou null. */
@@ -202,6 +234,9 @@ export function repartirErreursServeur(erreurs: string[]): { etape: number | nul
   return { etape, erreurs: rangees };
 }
 
+/** Versions dont les brouillons restent utilisables (même format de réponses). */
+const VERSIONS_REPRISES = ["2026.1"];
+
 export function sauverBrouillon(reponses: Reponses, etape: number): void {
   try {
     localStorage.setItem(CLE_BROUILLON, JSON.stringify({ version: VERSION_REFERENTIEL, reponses, etape }));
@@ -215,10 +250,12 @@ export function lireBrouillon(): { reponses: Reponses; etape: number } | null {
     const brut = localStorage.getItem(CLE_BROUILLON);
     if (!brut) return null;
     const b = JSON.parse(brut);
-    // Un brouillon d'une autre version du questionnaire pourrait contenir des
-    // réponses que le serveur refuserait : on repart de zéro.
-    if (!b || b.version !== VERSION_REFERENTIEL || !b.reponses?.metier) return null;
-    return { reponses: b.reponses, etape: b.etape };
+    if (!b || !b.reponses?.metier) return null;
+    if (b.version === VERSION_REFERENTIEL) return { reponses: b.reponses, etape: b.etape };
+    // Versions compatibles : on garde les réponses aux questions encore posées
+    // (les nouvelles seront demandées au contrôle final). Autres : on repart de zéro.
+    if (VERSIONS_REPRISES.includes(b.version)) return { reponses: nettoyerReponses(b.reponses), etape: b.etape };
+    return null;
   } catch {
     return null;
   }
