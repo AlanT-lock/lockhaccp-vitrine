@@ -32,7 +32,7 @@ describe("réponses initiales", () => {
 
   it("zones précochées pré-remplies, plus de liste de produits (v2)", () => {
     const r = reponsesInitiales("restauration_commerciale");
-    expect((r["nettoyage.zones"] as unknown[]).length).toBe(5);
+    expect((r["nettoyage.zones"] as unknown[]).length).toBe(4);
     expect(r["nettoyage.produits"]).toBeUndefined();
   });
 });
@@ -164,8 +164,8 @@ describe("étape 5 : un écran par zone (v2)", () => {
   it("écrans : choix des zones, une page par zone, puis le produit", () => {
     const e = ecransEtape(5, r());
     expect(e[0]).toEqual({ type: "zones" });
-    expect(e.slice(1, 6)).toEqual([0, 1, 2, 3, 4].map((index) => ({ type: "zone", index })));
-    expect(e[6]).toEqual({ type: "questions" });
+    expect(e.slice(1, 5)).toEqual([0, 1, 2, 3].map((index) => ({ type: "zone", index })));
+    expect(e[5]).toEqual({ type: "questions" });
     expect(ecransEtape(3, r())).toEqual([{ type: "questions" }]);
   });
 

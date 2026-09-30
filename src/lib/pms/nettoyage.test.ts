@@ -11,7 +11,7 @@ const surfaces = (z: ElementListe) => (z.surfaces ?? []) as ElementListe[];
 describe("zones initiales", () => {
   it("seules les zones précochées, avec leurs surfaces courantes", () => {
     const z = zones();
-    expect(z.map((x) => x.nom)).toEqual(["Cuisine", "Plonge", "Réserve", "Salle", "Sanitaires"]);
+    expect(z.map((x) => x.nom)).toEqual(["Cuisine", "Plonge", "Réserve", "Sanitaires"]);
     const cuisine = surfaces(z[0]).map((s) => s.nom);
     expect(cuisine).toContain("Plans de travail");
     expect(cuisine).not.toContain("Trancheuse");
@@ -36,7 +36,7 @@ describe("cocher et décocher", () => {
   it("l'ordre du catalogue est respecté quand on recoche une zone", () => {
     const sans = basculerZone(zones(), "restauration_commerciale", "Plonge", false);
     const avec = basculerZone(sans, "restauration_commerciale", "Plonge", true);
-    expect(avec.map((z) => z.nom)).toEqual(["Cuisine", "Plonge", "Réserve", "Salle", "Sanitaires"]);
+    expect(avec.map((z) => z.nom)).toEqual(["Cuisine", "Plonge", "Réserve", "Sanitaires"]);
   });
 
   it("surfaces : cocher une surface facultative, changer une fréquence, décocher", () => {

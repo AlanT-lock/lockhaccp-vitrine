@@ -62,17 +62,9 @@ const CATALOGUE: Record<string, SurfaceProposee[]> = {
     ["Sols", M], ["Étagères et clayettes", M], ["Murs et plafond", M], ["Joints et poignées de porte", M],
     ["Dégivrage complet", M, false],
   ]),
-  "Salle": surfaces([
-    ["Tables", Q], ["Chaises", H], ["Sols", Q], ["Comptoir", Q], ["Poignées de porte", Q],
-    ["Menus et cartes", H, false], ["Vitres", M, false], ["Banquettes", H, false],
-  ]),
   "Bar": surfaces([
     ["Comptoir", Q], ["Machine à café", Q], ["Évier du bar", Q], ["Sols", Q], ["Réfrigérateurs du bar", H],
     ["Tireuse à bière", H, false], ["Machine à glaçons", M, false], ["Étagères à verres", H, false],
-  ]),
-  "Salle de restauration": surfaces([
-    ["Tables", Q], ["Chaises", H], ["Sols", Q], ["Self et rampes", Q], ["Plateaux", Q],
-    ["Fontaines à eau", H, false], ["Vitres", M, false],
   ]),
   "Fournil": surfaces([
     ["Pétrin", Q], ["Plans de travail", Q], ["Sols", Q], ["Four (extérieur)", H], ["Murs", M],
@@ -132,7 +124,7 @@ const zone = (type: string, precochee: boolean, nom = type): ZoneProposee => ({
 
 export const ZONES_PROPOSEES: Record<MetierId, ZoneProposee[]> = {
   restauration_commerciale: [
-    zone("Cuisine", true), zone("Plonge", true), zone("Réserve", true), zone("Salle", true), zone("Sanitaires", true),
+    zone("Cuisine", true), zone("Plonge", true), zone("Réserve", true), zone("Sanitaires", true),
     zone("Chambre froide positive", false), zone("Chambre froide négative", false), zone("Bar", false),
     zone("Vestiaires", false), zone("Local poubelles", false),
   ],
@@ -144,7 +136,7 @@ export const ZONES_PROPOSEES: Record<MetierId, ZoneProposee[]> = {
   ],
   restauration_collective: [
     zone("Cuisine", true), zone("Légumerie", true), zone("Plonge", true), zone("Réserve", true),
-    zone("Chambre froide positive", true), zone("Chambre froide négative", true), zone("Salle de restauration", true),
+    zone("Chambre froide positive", true), zone("Chambre froide négative", true),
     zone("Sanitaires", true), zone("Vestiaires", true), zone("Local poubelles", true), zone("Zone de livraison", false),
   ],
   boulangerie_patisserie: [
@@ -171,7 +163,7 @@ export const ZONES_PROPOSEES: Record<MetierId, ZoneProposee[]> = {
   ],
   glacier_chocolatier: [
     zone("Laboratoire glacier", true, "Laboratoire"), zone("Magasin", true), zone("Réserve", true),
-    zone("Sanitaires", true), zone("Plonge", false), zone("Salle", false),
+    zone("Sanitaires", true), zone("Plonge", false),
   ],
 };
 
