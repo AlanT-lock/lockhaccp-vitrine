@@ -33,16 +33,21 @@ export function PageFin(props: { lien: string; email: string }) {
             <Gift className="h-4 w-4" /> Notre cadeau
           </p>
           <h3 className="text-xl sm:text-2xl font-bold text-foreground">2 mois d'essai offerts à l'application LockHACCP</h3>
-          <p className="text-muted-foreground">
-            Fini les fiches papier : relevés de température, nettoyage zone par zone, traçabilité en photo, sur tablette ou
-            téléphone. Votre essai offert court <strong className="text-foreground">jusqu'au {finEssai}</strong> : plus
-            vous installez l'application tôt, plus vous en profitez.
+          <p className="text-base font-semibold text-primary">
+            Votre période d'essai démarre dès aujourd'hui et se termine le {finEssai}.
           </p>
+          <p className="text-muted-foreground">
+            Téléchargez l'application dès maintenant pour profiter pleinement de vos 2 mois offerts : relevés de
+            température, nettoyage zone par zone, traçabilité en photo, sur tablette ou téléphone. Fini les fiches papier.
+          </p>
+        </div>
+        <div className="space-y-3">
+          <p className="font-semibold text-foreground">Téléchargez LockHACCP maintenant</p>
+          <BlocApplication />
           <p className="text-sm text-foreground">
             Créez votre compte avec la même adresse e-mail : <strong>{props.email}</strong>
           </p>
         </div>
-        <BlocApplication />
       </div>
     </div>
   );
