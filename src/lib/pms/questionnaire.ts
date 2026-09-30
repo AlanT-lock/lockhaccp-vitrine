@@ -12,7 +12,7 @@ import { VERSION_REFERENTIEL } from "./genere/version";
 
 export const ETAPES = [
   { titre: "Votre métier", sousTitre: "Votre PMS sera entièrement adapté à votre activité." },
-  { titre: "Votre activité", sousTitre: "Services, façons de vendre et publics." },
+  { titre: "Votre activité", sousTitre: "Services et façons de vendre." },
   { titre: "Ce que vous préparez", sousTitre: "Pour n'inclure que les dangers qui vous concernent." },
   { titre: "Vos équipements", sousTitre: "Chaque équipement froid aura sa ligne dans votre tableau HACCP." },
   { titre: "Votre nettoyage", sousTitre: "Zone par zone, les surfaces à nettoyer et leur fréquence." },
