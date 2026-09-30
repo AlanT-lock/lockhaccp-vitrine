@@ -12,7 +12,7 @@ import { VERSION_REFERENTIEL } from "./genere/version";
 
 export const ETAPES = [
   { titre: "Votre métier", sousTitre: "Votre PMS sera entièrement adapté à votre activité." },
-  { titre: "Votre activité", sousTitre: "Jours d'ouverture, services et façons de vendre." },
+  { titre: "Votre activité", sousTitre: "Services, façons de vendre et publics." },
   { titre: "Ce que vous préparez", sousTitre: "Pour n'inclure que les dangers qui vous concernent." },
   { titre: "Vos équipements", sousTitre: "Chaque équipement froid aura sa ligne dans votre tableau HACCP." },
   { titre: "Votre nettoyage", sousTitre: "Zone par zone, les surfaces à nettoyer et leur fréquence." },
@@ -149,7 +149,8 @@ const ZONES = "nettoyage.zones";
 export function ecransEtape(etape: number, r: Reponses): Ecran[] {
   if (etape !== 5) return [{ type: "questions" }];
   const zones = Array.isArray(r[ZONES]) ? (r[ZONES] as ElementListe[]) : [];
-  return [{ type: "zones" }, ...zones.map((_, index) => ({ type: "zone" as const, index })), { type: "questions" }];
+  const autres: Ecran[] = questionsDeLEcran(5, r).length > 0 ? [{ type: "questions" }] : [];
+  return [{ type: "zones" }, ...zones.map((_, index) => ({ type: "zone" as const, index })), ...autres];
 }
 
 /** Questions affichées sur un écran « questions » (les zones ont leurs propres écrans). */
@@ -235,7 +236,7 @@ export function repartirErreursServeur(erreurs: string[]): { etape: number | nul
 }
 
 /** Versions dont les brouillons restent utilisables (même format de réponses). */
-const VERSIONS_REPRISES = ["2026.1"];
+const VERSIONS_REPRISES = ["2026.1", "2026.2"];
 
 export function sauverBrouillon(reponses: Reponses, etape: number): void {
   try {

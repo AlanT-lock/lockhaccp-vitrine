@@ -143,6 +143,12 @@ describe("brouillon (Review Focus 5)", () => {
   it("brouillon de la version 2026.1 repris, sans les réponses supprimées (revue finale I4)", () => {
     const ancien = { ...reponsesInitiales("traiteur"), "nettoyage.produits": [{ nom: "Javel" }], "nettoyage.prestataire_nuisibles": true };
     stock["lockhaccp-pms-brouillon"] = JSON.stringify({ version: "2026.1", reponses: ancien, etape: 6 });
+    expect(lireBrouillon()?.etape).toBe(6);
+    stock["lockhaccp-pms-brouillon"] = JSON.stringify({ version: "2026.2", reponses: { ...ancien, "activite.volume_jour": 80 }, etape: 6 });
+    const b2 = lireBrouillon();
+    expect(b2?.etape).toBe(6);
+    expect(b2?.reponses["activite.volume_jour"]).toBeUndefined();
+    stock["lockhaccp-pms-brouillon"] = JSON.stringify({ version: "2026.1", reponses: ancien, etape: 6 });
     const b = lireBrouillon();
     expect(b?.etape).toBe(6);
     expect(b?.reponses.metier).toBe("traiteur");
@@ -161,11 +167,9 @@ describe("brouillon (Review Focus 5)", () => {
 describe("étape 5 : un écran par zone (v2)", () => {
   const r = () => ({ ...reponsesInitiales("restauration_commerciale") }) as Reponses;
 
-  it("écrans : choix des zones, une page par zone, puis le produit", () => {
+  it("écrans : choix des zones puis une page par zone (plus de question sur le produit)", () => {
     const e = ecransEtape(5, r());
-    expect(e[0]).toEqual({ type: "zones" });
-    expect(e.slice(1, 5)).toEqual([0, 1, 2, 3].map((index) => ({ type: "zone", index })));
-    expect(e[5]).toEqual({ type: "questions" });
+    expect(e).toEqual([{ type: "zones" }, ...[0, 1, 2, 3].map((index) => ({ type: "zone", index }))]);
     expect(ecransEtape(3, r())).toEqual([{ type: "questions" }]);
   });
 
@@ -183,12 +187,6 @@ describe("étape 5 : un écran par zone (v2)", () => {
     expect(erreursEcran(5, { type: "zone", index: 0 }, x)).toEqual({});
   });
 
-  it("écran final de l'étape 5 : le produit est facultatif, les zones n'y sont pas contrôlées", () => {
-    const zones = r()["nettoyage.zones"] as ElementListe[];
-    zones[1] = { ...zones[1], surfaces: [] };
-    expect(erreursEcran(5, { type: "questions" }, { ...r(), "nettoyage.zones": zones } as Reponses)).toEqual({});
-  });
-
   it("une zone sans surface bloque toujours l'envoi final", () => {
     const zones = r()["nettoyage.zones"] as ElementListe[];
     zones[0] = { ...zones[0], surfaces: [] };
@@ -200,16 +198,11 @@ describe("erreurs sur le bon écran (revue finale I1)", () => {
   const complet = () => ({ ...reponsesInitiales("restauration_commerciale") }) as Reponses;
 
   it("texte facultatif effacé : non envoyé ; obligatoire : conservé", () => {
-    const produit = QUESTIONS_ETAPE5().find((q) => q.id === "nettoyage.produit")!;
+    const produit = { ...QUESTIONS_ETAPE8().find((q) => q.id === "coordonnees.nom")!, obligatoire: false };
     expect(valeurSaisie(produit, "   ")).toBeUndefined();
     expect(valeurSaisie(produit, "Javel")).toBe("Javel");
     const nom = { ...produit, obligatoire: true };
     expect(valeurSaisie(nom, "")).toBe("");
-  });
-
-  it("erreur serveur sur le produit : dernier écran de l'étape 5", () => {
-    const r = complet();
-    expect(ecranDesErreurs(5, ["nettoyage.produit"], r)).toBe(ecransEtape(5, r).length - 1);
   });
 
   it("zone sans surface : écran de cette zone", () => {
@@ -226,8 +219,8 @@ describe("erreurs sur le bon écran (revue finale I1)", () => {
   });
 });
 
-function QUESTIONS_ETAPE5() {
-  return questionsDeLEtape(5, reponsesInitiales("restauration_commerciale"));
+function QUESTIONS_ETAPE8() {
+  return questionsDeLEtape(8, reponsesInitiales("restauration_commerciale"));
 }
 
 describe("plafonds alignés sur le serveur (revue finale I3)", () => {

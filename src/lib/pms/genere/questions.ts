@@ -26,15 +26,6 @@ const CONGELATION: MetierId[] = [
 export const QUESTIONS: Question[] = [
   // ─── Étape 2 : votre activité ───────────────────────────────────────────
   {
-    id: "activite.jours_ouverture",
-    etape: 2,
-    texte: "Quels jours êtes-vous ouvert ?",
-    type: "jours",
-    metiers: "tous",
-    condition: TOUJOURS,
-    obligatoire: true,
-  },
-  {
     id: "activite.services_par_jour",
     etape: 2,
     texte: "Combien de services faites-vous par jour ?",
@@ -54,15 +45,6 @@ export const QUESTIONS: Question[] = [
       { valeur: "emporter", libelle: "À emporter" },
       { valeur: "livraison", libelle: "Livraison" },
     ],
-    metiers: "tous",
-    condition: TOUJOURS,
-    obligatoire: true,
-  },
-  {
-    id: "activite.volume_jour",
-    etape: 2,
-    texte: "Combien de couverts ou de clients servez-vous par jour, en moyenne ?",
-    type: "nombre",
     metiers: "tous",
     condition: TOUJOURS,
     obligatoire: true,
@@ -331,15 +313,6 @@ export const QUESTIONS: Question[] = [
     condition: TOUJOURS,
     obligatoire: false,
   },
-  {
-    id: "equipements.cellule_refroidissement",
-    etape: 4,
-    texte: "Avez-vous une cellule de refroidissement rapide ?",
-    type: "oui_non",
-    metiers: CUISSON_AVANCE,
-    condition: { question: "prep.cuisson_avance", egal: true },
-    obligatoire: true,
-  },
 
   // ─── Étape 5 : votre nettoyage ──────────────────────────────────────────
   {
@@ -353,18 +326,6 @@ export const QUESTIONS: Question[] = [
     metiers: "tous",
     condition: TOUJOURS,
     obligatoire: true,
-  },
-  {
-    id: "nettoyage.produit",
-    etape: 5,
-    texte: "Quel produit détergent-désinfectant utilisez-vous ?",
-    aide:
-      "Son nom commercial, tel qu'il figure sur le bidon. Il sera indiqué dans votre plan de nettoyage. " +
-      "Laissez vide pour le compléter à la main.",
-    type: "texte",
-    metiers: "tous",
-    condition: TOUJOURS,
-    obligatoire: false,
   },
 
   // ─── Étape 6 : votre personnel ──────────────────────────────────────────
