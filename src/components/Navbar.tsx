@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, LogIn } from "lucide-react";
+import { Menu, X, ChevronDown, LogIn, Download } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoColor from "@/assets/logo-color.png";
 import { APP_URL } from "@/lib/links";
+import { lienTelechargement } from "@/lib/app-store";
 import LaunchBanner from "@/components/LaunchBanner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionOpen, setIsSolutionOpen] = useState(false);
   const location = useLocation();
+  // Sur téléphone : lien direct vers l'App Store ou Google Play.
+  const lienApp = typeof navigator === "undefined" ? "/app" : lienTelechargement(navigator.userAgent, navigator.maxTouchPoints ?? 0);
 
   const featureLinks = [
     { label: "Températures", href: "/fonctionnalites/temperatures" },
@@ -119,10 +122,18 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile : télécharger l'application + menu */}
+          <div className="md:hidden flex items-center gap-1">
+          <a href={lienApp}>
+            <Button variant="hero" size="sm" className="gap-1.5 px-3">
+              <Download className="h-4 w-4" />
+              <span className="hidden min-[400px]:inline">Télécharger l'app</span>
+              <span className="min-[400px]:hidden">L'app</span>
+            </Button>
+          </a>
           <button
             type="button"
-            className="md:hidden p-2 text-foreground"
+            className="p-2 text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={isMenuOpen}
@@ -130,6 +141,7 @@ const Navbar = () => {
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}

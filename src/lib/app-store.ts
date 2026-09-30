@@ -14,3 +14,8 @@ export function storePourAgent(agent: string, pointsDeContact: number): string |
   if (/macintosh/i.test(agent) && pointsDeContact > 1) return LIEN_APP_STORE;
   return null;
 }
+
+/** Lien du bouton « Télécharger l'app » : le store du téléphone, sinon la page de choix. */
+export function lienTelechargement(agent: string, pointsDeContact: number): string {
+  return storePourAgent(agent, pointsDeContact) ?? "/app";
+}
