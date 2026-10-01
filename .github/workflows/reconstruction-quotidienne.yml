@@ -1,0 +1,19 @@
+name: Reconstruction quotidienne
+# Le HTML est figé à la construction : on reconstruit chaque nuit pour que les
+# prix (bascule du 01/11/2026), le bandeau et la date du sitemap restent à jour.
+# 23:15 UTC = 00:15 à Paris en hiver, 01:15 en été.
+on:
+  schedule:
+    - cron: "15 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  redeployer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher le deploy hook Vercel
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          test -n "$HOOK" || { echo "Secret VERCEL_DEPLOY_HOOK_URL manquant"; exit 1; }
+          curl -fsS -X POST "$HOOK"
