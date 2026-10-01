@@ -63,11 +63,11 @@
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "/_shell.html"
+      "destination": "/_shell"
     },
     {
       "source": "/admin/(.*)",
-      "destination": "/_shell.html"
+      "destination": "/_shell"
     }
   ],
   "headers": [
@@ -120,6 +120,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(_shell|admin|admin/.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
