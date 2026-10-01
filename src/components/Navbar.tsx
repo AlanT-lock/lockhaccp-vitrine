@@ -6,13 +6,18 @@ import logoColor from "@/assets/logo-color.png";
 import { APP_URL } from "@/lib/links";
 import { lienTelechargement } from "@/lib/app-store";
 import LaunchBanner from "@/components/LaunchBanner";
+import { useApresMontage } from "@/hooks/useApresMontage";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionOpen, setIsSolutionOpen] = useState(false);
   const location = useLocation();
-  // Sur téléphone : lien direct vers l'App Store ou Google Play.
-  const lienApp = typeof navigator === "undefined" ? "/app" : lienTelechargement(navigator.userAgent, navigator.maxTouchPoints ?? 0);
+  const apresMontage = useApresMontage();
+  // Sur téléphone : lien direct vers l'App Store ou Google Play (calculé après
+  // hydratation ; avant, /app redirige déjà côté serveur selon l'appareil).
+  const lienApp = apresMontage
+    ? lienTelechargement(navigator.userAgent, navigator.maxTouchPoints ?? 0)
+    : "/app";
 
   const featureLinks = [
     { label: "Températures", href: "/fonctionnalites/temperatures" },

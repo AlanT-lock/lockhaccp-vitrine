@@ -16,7 +16,8 @@ export const supabase = createClient<Database>(
   SUPABASE_PUBLISHABLE_KEY,
   {
     auth: {
-      storage: localStorage,
+      // Pré-génération (Node) : pas de localStorage, la session n'est pas persistée.
+      storage: typeof window !== "undefined" ? window.localStorage : undefined,
       persistSession: true,
       autoRefreshToken: true,
     },

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
+import { useApresMontage } from "@/hooks/useApresMontage";
 import { getCountdown, LAUNCH_OFFER_END_LABEL, type CountdownParts } from "@/lib/launch";
 
 const REFRESH_INTERVAL_MS = 60_000; // 1 minute
 
 const LaunchBanner = () => {
+  const apresMontage = useApresMontage();
   const [countdown, setCountdown] = useState<CountdownParts | null>(() => getCountdown());
 
   useEffect(() => {
+    setCountdown(getCountdown());
     const intervalId = window.setInterval(() => {
       setCountdown(getCountdown());
     }, REFRESH_INTERVAL_MS);
@@ -38,9 +41,13 @@ const LaunchBanner = () => {
           Offre de lancement : tarif garanti à vie pour toute souscription avant le{" "}
           {LAUNCH_OFFER_END_LABEL}.
         </span>
-        <span className="font-semibold whitespace-nowrap">
-          Fin dans {days}&nbsp;j {hours}&nbsp;h {minutes}&nbsp;min
-        </span>
+        {/* Compte à rebours affiché après hydratation : il diffère forcément entre la
+            pré-génération et la visite. */}
+        {apresMontage && (
+          <span className="font-semibold whitespace-nowrap">
+            Fin dans {days}&nbsp;j {hours}&nbsp;h {minutes}&nbsp;min
+          </span>
+        )}
         {/* Simple texte, pas un <Link> : la bannière entière est déjà le lien, imbriquer
             un second lien à l'intérieur serait invalide en HTML et casserait l'accessibilité. */}
         <span className="hidden sm:inline underline underline-offset-2 whitespace-nowrap">

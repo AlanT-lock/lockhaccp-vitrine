@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
+import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
 import { TrustBadges } from "@/components/TrustBadges";
@@ -202,6 +202,7 @@ const Pricing = () => {
         description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois par établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(activePricing.extraMonthly)} par établissement supplémentaire. Essai gratuit 1 mois sans engagement.`}
         path="/tarifs"
         jsonLd={[
+          softwareAppJsonLd(),
           breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Tarifs", path: "/tarifs" }]),
           faqJsonLd(FAQS),
         ]}

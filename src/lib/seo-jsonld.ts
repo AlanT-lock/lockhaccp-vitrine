@@ -24,8 +24,8 @@ export const organizationJsonLd = {
 // Le prix annoncé aux moteurs de recherche doit être celui réellement en
 // vigueur à l'instant de la génération de la page : c'est une fonction, pas
 // une constante figée, pour rester exact avant et après la bascule tarifaire.
-export function softwareAppJsonLd(): Record<string, unknown> {
-  const pricing = getActivePricing();
+export function softwareAppJsonLd(now: Date = new Date()): Record<string, unknown> {
+  const pricing = getActivePricing(now);
 
   return {
     "@context": "https://schema.org",
