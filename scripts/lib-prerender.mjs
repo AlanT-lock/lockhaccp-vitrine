@@ -20,6 +20,11 @@ export function retirerBalisesSeo(gabarit) {
     .replace(/[ \t]*<meta name="twitter:(?!site")[^"]*"[^>]*>\s*\n?/g, "");
 }
 
+/** Instant de construction, relu à l'hydratation (src/lib/maintenant.ts, META_INSTANT). */
+export function metaInstant(date) {
+  return `<meta name="lhc-instant" content="${date.toISOString()}" />`;
+}
+
 export function injecter(gabarit, head, html) {
   const racineVide = '<div id="root"></div>';
   if (!gabarit.includes(racineVide) || !gabarit.includes("</head>")) {

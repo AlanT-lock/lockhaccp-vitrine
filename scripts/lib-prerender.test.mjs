@@ -115,3 +115,11 @@ describe("verifierPage", () => {
     expect(verifierPage(ok("/x", '<meta name="robots" content="noindex,nofollow"/>'), null)).toEqual([]);
   });
 });
+
+describe("metaInstant", () => {
+  it("écrit l'instant de construction lisible par instantDeRendu", async () => {
+    const { metaInstant } = await import("./lib-prerender.mjs");
+    expect(metaInstant(new Date("2026-10-31T23:15:00Z")))
+      .toBe('<meta name="lhc-instant" content="2026-10-31T23:15:00.000Z" />');
+  });
+});

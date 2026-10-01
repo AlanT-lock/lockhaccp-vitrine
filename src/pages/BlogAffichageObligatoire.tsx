@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowLeft, CheckCircle, AlertTriangle, FileText } from "lucide-react";
@@ -37,7 +38,8 @@ const FAQS = [
 ];
 
 const BlogAffichageObligatoire = () => {
-  const pricing = getActivePricing();
+  const maintenant = useMaintenant();
+  const pricing = getActivePricing(maintenant);
 
   return (
     <div className="min-h-screen bg-background">

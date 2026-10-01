@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { useApresMontage } from "@/hooks/useApresMontage";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import { getCountdown, LAUNCH_OFFER_END_LABEL, type CountdownParts } from "@/lib/launch";
 
 const REFRESH_INTERVAL_MS = 60_000; // 1 minute
 
 const LaunchBanner = () => {
   const apresMontage = useApresMontage();
-  const [countdown, setCountdown] = useState<CountdownParts | null>(() => getCountdown());
+  const maintenant = useMaintenant();
+  const [countdown, setCountdown] = useState<CountdownParts | null>(() => getCountdown(maintenant));
 
   useEffect(() => {
     setCountdown(getCountdown());

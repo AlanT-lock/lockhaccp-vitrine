@@ -5,6 +5,10 @@ name: Reconstruction quotidienne
 on:
   schedule:
     - cron: "15 23 * * *"
+    # Fin de l'offre de lancement (src/lib/launch.ts : 2026-10-31T23:00:00Z) :
+    # deux déclenchements juste après la bascule, au cas où le premier serait retardé.
+    - cron: "1 23 31 10 *"
+    - cron: "20 23 31 10 *"
   workflow_dispatch:
 
 jobs:

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,7 +16,8 @@ import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const ContactEntreprise = () => {
-  const pricing = getActivePricing();
+  const maintenant = useMaintenant();
+  const pricing = getActivePricing(maintenant);
   const [formData, setFormData] = useState({
     contactName: "",
     email: "",

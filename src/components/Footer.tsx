@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import logoWhite from "@/assets/logo-white.png";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMaintenant().getFullYear();
 
   const footerLinks = {
     application: [

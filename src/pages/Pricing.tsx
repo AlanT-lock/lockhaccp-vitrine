@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import { Badge } from "@/components/ui/badge";
 import { Check, ArrowRight, Headphones, RefreshCw, Thermometer, Printer, Tablet, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -125,7 +126,8 @@ const Pricing = () => {
   const { ref: plansRef, isVisible: plansVisible } = useScrollAnimation();
   const { ref: optionsRef, isVisible: optionsVisible } = useScrollAnimation();
 
-  const launchActive = isLaunchOfferActive();
+  const maintenant = useMaintenant();
+  const launchActive = isLaunchOfferActive(maintenant);
   const activePricing = launchActive ? LAUNCH_PRICING : CURRENT_PRICING;
 
   const pricingFaqAnswer = launchActive
@@ -202,7 +204,7 @@ const Pricing = () => {
         description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois par établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(activePricing.extraMonthly)} par établissement supplémentaire. Essai gratuit 1 mois sans engagement.`}
         path="/tarifs"
         jsonLd={[
-          softwareAppJsonLd(),
+          softwareAppJsonLd(maintenant),
           breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Tarifs", path: "/tarifs" }]),
           faqJsonLd(FAQS),
         ]}

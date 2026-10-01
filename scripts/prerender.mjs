@@ -4,7 +4,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
-  extraireDescription, fichierPour, genererLlms, genererSitemap, injecter, retirerBalisesSeo,
+  extraireDescription, fichierPour, metaInstant, genererLlms, genererSitemap, injecter, retirerBalisesSeo,
 } from "./lib-prerender.mjs";
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -13,10 +13,14 @@ const { render, PAGES_PUBLIQUES, getActivePricing } = await import(
   pathToFileURL(join(racine, "dist-ssr", "entry-server.js")).href
 );
 
+// Un seul instant pour tout le build : rendu serveur et hydratation l'utilisent tous deux.
+const instant = new Date();
+globalThis.__LHC_INSTANT__ = instant;
+
 const gabarit = readFileSync(join(dist, "index.html"), "utf8");
 // Coquille vide pour l'admin (rendu client uniquement).
 writeFileSync(join(dist, "_shell.html"), gabarit);
-const base = retirerBalisesSeo(gabarit);
+const base = retirerBalisesSeo(gabarit).replace("</head>", () => `${metaInstant(instant)}\n</head>`);
 
 const ecrire = (fichier, contenu) => {
   const cible = join(dist, fichier);
@@ -34,7 +38,7 @@ for (const page of PAGES_PUBLIQUES) {
 const introuvable = await render("/__page-introuvable__");
 ecrire("404.html", injecter(base, introuvable.head, introuvable.html));
 
-ecrire("sitemap.xml", genererSitemap(PAGES_PUBLIQUES, new Date().toISOString().slice(0, 10)));
-ecrire("llms.txt", genererLlms({ pages: PAGES_PUBLIQUES, descriptions, prix: getActivePricing() }));
+ecrire("sitemap.xml", genererSitemap(PAGES_PUBLIQUES, instant.toISOString().slice(0, 10)));
+ecrire("llms.txt", genererLlms({ pages: PAGES_PUBLIQUES, descriptions, prix: getActivePricing(instant) }));
 
 console.log(`✓ ${PAGES_PUBLIQUES.length} pages pré-générées + 404, sitemap.xml, llms.txt`);

@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import BenefitsSection from "@/components/BenefitsSection";
@@ -10,7 +11,8 @@ import { TrustBadges } from "@/components/TrustBadges";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const Index = () => {
-  const pricing = getActivePricing();
+  const maintenant = useMaintenant();
+  const pricing = getActivePricing(maintenant);
 
   return (
     <div className="min-h-screen bg-background">
@@ -18,7 +20,7 @@ const Index = () => {
         title={`LockHACCP - Logiciel HACCP pour restaurants à ${formatPriceEUR(pricing.mainMonthly)}/mois`}
         description="Logiciel HACCP n°1 simplifié pour la restauration : températures, traçabilité, plan de nettoyage, étiquettes. Essai gratuit 1 mois sans engagement."
         path="/"
-        jsonLd={[organizationJsonLd, softwareAppJsonLd()]}
+        jsonLd={[organizationJsonLd, softwareAppJsonLd(maintenant)]}
       />
       <Navbar />
       <main>

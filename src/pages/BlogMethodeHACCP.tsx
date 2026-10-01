@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useMaintenant } from "@/hooks/useMaintenant";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar, Clock, ArrowLeft, CheckCircle, ClipboardList, Thermometer, Shield, ArrowRight } from "lucide-react";
@@ -9,7 +10,8 @@ import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const BlogMethodeHACCP = () => {
-  const pricing = getActivePricing();
+  const maintenant = useMaintenant();
+  const pricing = getActivePricing(maintenant);
 
   const FAQS = [
     {
