@@ -1,48 +1,126 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "vite build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
   "redirects": [
-    { "source": "/app", "has": [{ "type": "header", "key": "user-agent", "value": ".*(iPhone|iPad|iPod).*" }], "destination": "https://apps.apple.com/fr/app/lockhaccp/id6747192726", "permanent": false },
-    { "source": "/app", "has": [{ "type": "header", "key": "user-agent", "value": ".*Android.*" }], "destination": "https://play.google.com/store/apps/details?id=fr.lockhaccp.app", "permanent": false },
-    { "source": "/ressources", "destination": "/blog", "permanent": true },
-    { "source": "/ressources/affichage-obligatoire-restaurant", "destination": "/blog/affichages-obligatoires-restaurant-2026", "permanent": true },
-    { "source": "/ressources/methode-haccp", "destination": "/blog/methode-haccp-guide-complet", "permanent": true },
-    { "source": "/avantages-ia", "destination": "/tarifs", "permanent": true },
-    { "source": "/tarifs/essentiel", "destination": "/tarifs", "permanent": true },
-    { "source": "/tarifs/pro", "destination": "/tarifs", "permanent": true }
+    {
+      "source": "/app",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(iPhone|iPad|iPod).*"
+        }
+      ],
+      "destination": "https://apps.apple.com/fr/app/lockhaccp/id6747192726",
+      "permanent": false
+    },
+    {
+      "source": "/app",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*Android.*"
+        }
+      ],
+      "destination": "https://play.google.com/store/apps/details?id=fr.lockhaccp.app",
+      "permanent": false
+    },
+    {
+      "source": "/ressources",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/ressources/affichage-obligatoire-restaurant",
+      "destination": "/blog/affichages-obligatoires-restaurant-2026",
+      "permanent": true
+    },
+    {
+      "source": "/ressources/methode-haccp",
+      "destination": "/blog/methode-haccp-guide-complet",
+      "permanent": true
+    },
+    {
+      "source": "/avantages-ia",
+      "destination": "/tarifs",
+      "permanent": true
+    },
+    {
+      "source": "/tarifs/essentiel",
+      "destination": "/tarifs",
+      "permanent": true
+    },
+    {
+      "source": "/tarifs/pro",
+      "destination": "/tarifs",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/admin",
+      "destination": "/_shell.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/_shell.html"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/videos/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
-      "source": "/(favicon.*|apple-touch-icon\\.png|robots\\.txt|sitemap\\.xml)",
+      "source": "/(favicon.*|apple-touch-icon\\.png|robots\\.txt|sitemap\\.xml|llms\\.txt)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     }
   ]
