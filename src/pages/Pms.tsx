@@ -144,7 +144,7 @@ const Pms = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="PMS gratuit personnalisé pour votre établissement — LockHACCP"
+        title="Créer mon PMS gratuit : questionnaire en 10 minutes — LockHACCP"
         description="Générez gratuitement votre Plan de Maîtrise Sanitaire : tableau HACCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires adaptés à votre métier, en 10 minutes."
         path="/pms"
       />

@@ -81,8 +81,8 @@ const HeroSection = () => {
             </div>
             <p className="mb-10 -mt-6 text-sm text-muted-foreground text-center lg:text-left">
               Pas encore prêt ?{" "}
-              <Link to="/pms" className="font-semibold text-primary underline underline-offset-4">
-                Générez gratuitement votre PMS personnalisé
+              <Link to="/plan-de-maitrise-sanitaire" className="font-semibold text-primary underline underline-offset-4">
+                Obtenez gratuitement votre Plan de Maîtrise Sanitaire
               </Link>
             </p>
 

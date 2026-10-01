@@ -187,3 +187,13 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Classeur PMS : la section choisie arrive comme une feuille qu'on pose. */
+@keyframes classeur-feuillets {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.classeur-feuillets { animation: classeur-feuillets 320ms cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) {
+  .classeur-feuillets { animation: none; }
+}

@@ -1,6 +1,7 @@
 [
   { "path": "/", "fil": "Accueil", "sitemap": { "changefreq": "weekly", "priority": 1.0 }, "llms": true },
   { "path": "/tarifs", "fil": "Tarifs", "sitemap": { "changefreq": "monthly", "priority": 0.9 }, "llms": true },
+  { "path": "/plan-de-maitrise-sanitaire", "fil": "Plan de Maîtrise Sanitaire", "sitemap": { "changefreq": "monthly", "priority": 0.9 }, "llms": true },
   { "path": "/pms", "fil": "Générateur de PMS gratuit", "sitemap": { "changefreq": "monthly", "priority": 0.9 }, "llms": true },
   { "path": "/demander-demo", "fil": "Demander une démo", "sitemap": { "changefreq": "monthly", "priority": 0.9 }, "llms": true },
   { "path": "/contact", "fil": "Contact", "sitemap": { "changefreq": "monthly", "priority": 0.6 }, "llms": true },

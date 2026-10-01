@@ -9,6 +9,7 @@ const Footer = () => {
     application: [
       { label: "Solution HACCP", href: "/" },
       { label: "Tarifs", href: "/tarifs" },
+      { label: "Plan de Maîtrise Sanitaire gratuit", href: "/plan-de-maitrise-sanitaire" },
     ],
     company: [
       { label: "Demander une démo", href: "/demander-demo" },

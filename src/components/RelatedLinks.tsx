@@ -70,12 +70,12 @@ export const FEATURE_RELATED = {
   tracabilite: [
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Capturez les infos à la source." },
     { to: "/fonctionnalites/etiquettes", label: "Étiquettes de production", description: "DLC et n° de lot conformes." },
-    { to: "/blog/affichages-obligatoires-restaurant-2026", label: "Affichages obligatoires", description: "Le guide complet 2026." },
+    { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
   ],
   nettoyage: [
     { to: "/fonctionnalites/checklist", label: "Check-lists personnalisées", description: "Ouverture, fermeture, service." },
     { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
-    { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
+    { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
   ],
   huiles: [
     { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
