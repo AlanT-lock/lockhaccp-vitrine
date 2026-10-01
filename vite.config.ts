@@ -1,13 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { articles } from "./scripts/blog/plugin-articles.mjs";
 
 export default defineConfig(({ isSsrBuild }) => ({
   server: {
     host: "::",
     port: 8080,
   },
-  plugins: [react()],
+  plugins: [articles(), react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
