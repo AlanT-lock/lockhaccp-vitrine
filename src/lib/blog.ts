@@ -45,3 +45,27 @@ export function articlesPublies(articles: Article[], instant: Date): Article[] {
 
 export const trouverArticle = (slug: string, instant: Date = instantDeRendu()) =>
   articlesPublies(TOUS_LES_ARTICLES, instant).find((a) => a.slug === slug);
+
+const texteBrut = (html: string) =>
+  html.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
+
+/** Questions/réponses de la section « Questions fréquentes » (h3 + premier paragraphe). */
+export function extraireFaq(html: string): { question: string; answer: string }[] {
+  const debut = html.indexOf('<h2 id="questions-frequentes">');
+  if (debut < 0) return [];
+  const suite = html.slice(debut + 1);
+  const fin = suite.search(/<h2[\s>]/);
+  const section = fin < 0 ? suite : suite.slice(0, fin);
+  const faq: { question: string; answer: string }[] = [];
+  const motif = /<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g;
+  let m: RegExpExecArray | null;
+  while ((m = motif.exec(section))) faq.push({ question: texteBrut(m[1]), answer: texteBrut(m[2]) });
+  return faq;
+}
+
+/** « 2026-10-02 » → « 2 octobre 2026 » (identique côté serveur et navigateur). */
+export const dateLongue = (date: string) =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString("fr-FR", {
+    day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris",
+  });

@@ -46,3 +46,23 @@ describe("PAGES_PUBLIQUES", () => {
     expect(app?.sitemap).toBeNull();
   });
 });
+
+describe("pagesPubliques", () => {
+  const article = (slug: string, date: string) =>
+    ({ slug, meta: { titre: `Titre ${slug}`, date } }) as unknown as import("./blog").Article;
+  it("ajoute les articles publiés et ignore ceux à venir", async () => {
+    const { pagesPubliques } = await import("./pages");
+    const pages = pagesPubliques(new Date("2026-10-03T12:00:00Z"), [
+      article("deja-la", "2026-10-02"),
+      article("a-venir", "2026-10-09"),
+    ]);
+    const blog = pages.filter((p) => p.path.startsWith("/blog/"));
+    expect(blog).toEqual([
+      { path: "/blog/deja-la", fil: "Titre deja-la", sitemap: { changefreq: "monthly", priority: 0.6 }, llms: true },
+    ]);
+  });
+  it("contient la page auteur", async () => {
+    const { PAGES_FIXES } = await import("./pages");
+    expect(PAGES_FIXES.some((p) => p.path === "/auteur/alan-touati")).toBe(true);
+  });
+});

@@ -7,7 +7,8 @@ import { fichierPour, verifierPage } from "./lib-prerender.mjs";
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(racine, "dist");
-const pages = JSON.parse(readFileSync(join(racine, "src", "pages-publiques.json"), "utf8"));
+// Écrite par prerender.mjs : pages fixes + articles publiés au moment du build.
+const pages = JSON.parse(readFileSync(join(racine, "dist-ssr", "pages.json"), "utf8"));
 
 const erreurs = [];
 const titres = new Map();

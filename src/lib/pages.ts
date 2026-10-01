@@ -1,5 +1,8 @@
 // Source unique des pages publiques : routeur, pré-génération, sitemap, llms.txt.
+// Pages fixes (pages-publiques.json) + articles du blog publiés à l'instant de rendu.
 import liste from "@/pages-publiques.json";
+import { articlesPublies, TOUS_LES_ARTICLES, type Article } from "@/lib/blog";
+import { instantDeRendu } from "@/lib/maintenant";
 
 export interface PagePublique {
   path: string;
@@ -10,7 +13,22 @@ export interface PagePublique {
   llms: boolean;
 }
 
-export const PAGES_PUBLIQUES: PagePublique[] = liste;
+/** Pages qui ont chacune leur composant dans src/routes.tsx. */
+export const PAGES_FIXES: PagePublique[] = liste;
+
+export function pagesPubliques(instant: Date, articles: Article[] = TOUS_LES_ARTICLES): PagePublique[] {
+  return [
+    ...PAGES_FIXES,
+    ...articlesPublies(articles, instant).map((a) => ({
+      path: `/blog/${a.slug}`,
+      fil: a.meta.titre,
+      sitemap: { changefreq: "monthly", priority: 0.6 },
+      llms: true,
+    })),
+  ];
+}
+
+export const PAGES_PUBLIQUES: PagePublique[] = pagesPubliques(instantDeRendu());
 
 /** Fil d'Ariane d'une page : accueil, pages intermédiaires existantes, page courante. */
 export function filAriane(

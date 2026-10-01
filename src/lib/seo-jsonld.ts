@@ -137,3 +137,49 @@ export function faqJsonLd(
     })),
   };
 }
+
+const SITE = "https://lockhaccp.fr";
+
+export function personJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${SITE}/auteur/alan-touati#personne`,
+    name: "Alan Touati",
+    url: `${SITE}/auteur/alan-touati`,
+    jobTitle: "Formateur en hygiène alimentaire",
+    worksFor: { "@type": "Organization", name: "SF FORMATION" },
+    knowsAbout: ["Hygiène alimentaire", "HACCP", "Plan de Maîtrise Sanitaire", "Restauration commerciale"],
+  };
+}
+
+export function blogPostingJsonLd(opts: {
+  titre: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified?: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: opts.titre,
+    description: opts.description,
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified ?? opts.datePublished,
+    inLanguage: "fr-FR",
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}${opts.path}` },
+    author: {
+      "@type": "Person",
+      "@id": `${SITE}/auteur/alan-touati#personne`,
+      name: "Alan Touati",
+      url: `${SITE}/auteur/alan-touati`,
+      jobTitle: "Formateur en hygiène alimentaire",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LockHACCP",
+      logo: { "@type": "ImageObject", url: `${SITE}/logo-color.png` },
+    },
+  };
+}

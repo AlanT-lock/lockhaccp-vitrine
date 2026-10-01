@@ -23,3 +23,27 @@ describe("articlesPublies", () => {
     expect(articlesPublies(liste, new Date("2026-10-03T12:00:00Z")).map((a) => a.slug)).toEqual(["b", "a"]);
   });
 });
+
+describe("extraireFaq", () => {
+  it("lit les questions (h3) et leur première réponse sous « Questions fréquentes »", async () => {
+    const { extraireFaq } = await import("./blog");
+    const html = '<h2 id="intro">Intro</h2><p>x</p><h2 id="questions-frequentes">Questions fréquentes</h2>' +
+      '<h3 id="q1">Faut-il un thermomètre ?</h3>\n<p>Oui, à <strong>sonde</strong>.</p>\n<h3 id="q2">Et le papier ?</h3><p>Ça marche.</p>' +
+      '<h2 id="sources">Sources</h2><ul><li>a</li></ul>';
+    expect(extraireFaq(html)).toEqual([
+      { question: "Faut-il un thermomètre ?", answer: "Oui, à sonde." },
+      { question: "Et le papier ?", answer: "Ça marche." },
+    ]);
+  });
+  it("renvoie une liste vide sans section FAQ", async () => {
+    const { extraireFaq } = await import("./blog");
+    expect(extraireFaq("<h2>Autre</h2><p>x</p>")).toEqual([]);
+  });
+});
+
+describe("dateLongue", () => {
+  it("affiche la date en français", async () => {
+    const { dateLongue } = await import("./blog");
+    expect(dateLongue("2026-10-02")).toBe("2 octobre 2026");
+  });
+});

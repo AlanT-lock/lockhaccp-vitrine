@@ -7,8 +7,8 @@ import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteTracker from "./components/RouteTracker";
-import { PAGES_PUBLIQUES } from "./lib/pages";
-import { AdminDashboard, AdminLogin, COMPOSANTS, NotFound } from "./routes";
+import { PAGES_FIXES } from "./lib/pages";
+import { AdminDashboard, AdminLogin, BlogArticle, COMPOSANTS, NotFound } from "./routes";
 
 const RouteFallback = () => (
   <div className="flex min-h-screen items-center justify-center">
@@ -47,10 +47,11 @@ export const AppContenu = () => (
     <RouteTracker />
     <Suspense fallback={<RouteFallback />}>
       <Routes>
-        {PAGES_PUBLIQUES.map(({ path }) => {
+        {PAGES_FIXES.map(({ path }) => {
           const Page = COMPOSANTS[path];
           return <Route key={path} path={path} element={<Page />} />;
         })}
+        <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="*" element={<NotFound />} />
