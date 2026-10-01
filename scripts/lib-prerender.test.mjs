@@ -123,3 +123,11 @@ describe("metaInstant", () => {
       .toBe('<meta name="lhc-instant" content="2026-10-31T23:15:00.000Z" />');
   });
 });
+
+describe("liensInternesCasses", () => {
+  it("signale un lien interne vers une page qui n'est pas générée", async () => {
+    const { liensInternesCasses } = await import("./lib-prerender.mjs");
+    const html = '<div id="root"><a href="/pms">a</a><a href="/blog/futur">b</a><a href="https://x.fr/y">c</a><a href="#ancre">d</a><a href="/tarifs#faq">e</a><a href="/admin">f</a></div>';
+    expect(liensInternesCasses(html, new Set(["/pms", "/tarifs"]))).toEqual(["/blog/futur"]);
+  });
+});

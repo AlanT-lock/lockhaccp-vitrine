@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { fichierPour, verifierPage } from "./lib-prerender.mjs";
+import { fichierPour, liensInternesCasses, verifierPage } from "./lib-prerender.mjs";
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(racine, "dist");
@@ -12,11 +12,13 @@ const pages = JSON.parse(readFileSync(join(racine, "dist-ssr", "pages.json"), "u
 
 const erreurs = [];
 const titres = new Map();
+const generes = new Set(pages.map((p) => p.path));
 for (const { path } of pages) {
   const fichier = join(dist, fichierPour(path));
   if (!existsSync(fichier)) { erreurs.push(`${path} : fichier ${fichierPour(path)} absent`); continue; }
   const html = readFileSync(fichier, "utf8");
   for (const e of verifierPage(html, path)) erreurs.push(`${path} : ${e}`);
+  for (const l of liensInternesCasses(html, generes)) erreurs.push(`${path} : lien vers ${l}, page inexistante`);
   const titre = html.match(/<title[^>]*>([^<]*)<\/title>/)?.[1];
   if (titre && titres.has(titre)) erreurs.push(`${path} : titre identique à ${titres.get(titre)}`);
   if (titre) titres.set(titre, path);

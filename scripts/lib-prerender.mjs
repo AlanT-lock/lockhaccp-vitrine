@@ -106,3 +106,15 @@ export function verifierPage(html, path, { texteMin = 300 } = {}) {
   if (texte.length < texteMin) erreurs.push(`texte trop court (${texte.length} < ${texteMin})`);
   return erreurs;
 }
+
+/** Liens internes d'une page qui ne pointent vers aucune page générée (ex. article pas encore publié). */
+export function liensInternesCasses(html, cheminsGeneres) {
+  const casses = new Set();
+  for (const [, href] of html.matchAll(/href="(\/[^"]*)"/g)) {
+    if (href.startsWith("//")) continue;
+    const chemin = href.split(/[?#]/)[0] || "/";
+    if (chemin.startsWith("/admin") || /\.[a-z0-9]+$/i.test(chemin)) continue;
+    if (!cheminsGeneres.has(chemin)) casses.add(chemin);
+  }
+  return [...casses];
+}
