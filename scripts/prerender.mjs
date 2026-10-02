@@ -11,7 +11,8 @@ const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(racine, "dist");
 // Un seul instant pour tout le build : rendu serveur et hydratation l'utilisent tous deux.
 // Fixé AVANT l'import du rendu serveur : la liste des articles publiés en dépend.
-const instant = globalThis.__LHC_INSTANT__ ?? new Date();
+// LHC_INSTANT=2026-11-07T12:00:00Z permet de simuler une date future (contrôle des articles programmés).
+const instant = globalThis.__LHC_INSTANT__ ?? (process.env.LHC_INSTANT ? new Date(process.env.LHC_INSTANT) : new Date());
 globalThis.__LHC_INSTANT__ = instant;
 
 const { render, PAGES_PUBLIQUES, getActivePricing } = await import(
