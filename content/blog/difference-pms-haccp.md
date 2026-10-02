@@ -9,7 +9,7 @@ illustration: plan-nettoyage
 
 C'est sans doute la question qu'on me pose le plus en début de formation, juste après « c'est obligatoire ? ». Et je comprends la confusion : les deux sigles circulent partout, souvent l'un pour l'autre. Un fournisseur vous vend « un classeur HACCP », un autre « un PMS », et vous recevez à peu près la même chose.
 
-Pourtant ce ne sont pas deux noms pour un même document. L'un est une façon de raisonner, l'autre un dossier.
+Pourtant ce ne sont pas deux noms pour un même document. L'HACCP sert à raisonner, le PMS à tout ranger.
 
 ## L'HACCP, c'est une méthode
 
@@ -48,7 +48,7 @@ Donc la réponse honnête : le titre n'est pas obligatoire, le contenu l'est.
 
 Si vous n'avez rien, ne commencez pas par l'analyse des dangers sur une page blanche. Partez de ce qui existe pour votre métier : le guide de bonnes pratiques d'hygiène de votre secteur, validé par l'administration, fait une grande partie du travail. Ensuite, adaptez-le à votre cuisine réelle : vos équipements froids, vos préparations, vos zones de nettoyage.
 
-C'est exactement ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez un [Plan de Maîtrise Sanitaire gratuit](/plan-de-maitrise-sanitaire) avec le tableau des CCP, le plan de nettoyage zone par zone et une fiche de relevé par équipement. Il ne vous restera qu'à le faire vivre.
+C'est ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez [votre Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) avec le tableau des CCP, le plan de nettoyage zone par zone et une fiche de relevé par équipement. Reste à le remplir au quotidien.
 
 ## Questions fréquentes
 

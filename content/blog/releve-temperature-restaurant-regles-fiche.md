@@ -9,7 +9,7 @@ illustration: releve-temperature
 
 Si je ne devais garder qu'un seul enregistrement dans une cuisine, ce serait celui-là. Le relevé de température, c'est la fiche que l'inspecteur demande presque à chaque fois, et c'est aussi celle qu'on oublie le plus vite quand le service s'emballe.
 
-Le principe tient en une phrase : vous notez la température de vos frigos et congélateurs à heures fixes, et vous écrivez ce que vous faites quand elle n'est pas bonne. Le reste, ce sont des détails. Mais ce sont ces détails qui font la différence entre une fiche utile et une fiche qui ne prouve rien.
+Le principe tient en une phrase : vous notez la température de vos frigos et congélateurs à heures fixes, et vous écrivez ce que vous faites quand elle n'est pas bonne. Le reste tient à quelques détails, et c'est là qu'une fiche devient utile ou non.
 
 ## Quelles températures, pour quels produits
 
@@ -18,7 +18,7 @@ Les seuils viennent de l'arrêté du 21 décembre 2009. Pour une cuisine de rest
 | Produits | Température maximale |
 |---|---|
 | Viande hachée | +2 °C |
-| Poissons, crustacés et coquillages frais | +2 °C |
+| Produits de la pêche frais (hors coquillages et crustacés vivants) | +2 °C |
 | Abats | +3 °C |
 | Plats cuisinés élaborés à l'avance | +3 °C |
 | Volailles, viandes découpées, préparations de viande, autres denrées très périssables | +4 °C |
@@ -51,7 +51,7 @@ Les initiales comptent plus qu'on ne croit. Elles montrent que quelqu'un a vraim
 
 ## Et quand ça dépasse ?
 
-C'est la partie que tout le monde saute, et c'est la plus importante. Une fiche où toutes les valeurs sont parfaites pendant six mois, l'inspecteur n'y croit pas. Une fiche avec un dépassement à 7 °C, suivi d'une ligne « porte mal fermée, produits contrôlés à 4 °C à cœur, recontrôle à 11 h : 3 °C », ça montre une cuisine qui maîtrise.
+On l'oublie souvent, c'est pourtant ce qui compte le plus. Une fiche où toutes les valeurs sont parfaites pendant six mois, l'inspecteur n'y croit pas. Une fiche avec un dépassement à 7 °C, suivi d'une ligne « porte mal fermée, produits contrôlés à 4 °C à cœur, recontrôle à 11 h : 3 °C », ça montre une cuisine qui maîtrise.
 
 Quand vous constatez un écart, la marche à suivre est toujours la même. D'abord, cherchez la cause évidente : porte ouverte, livraison en cours de rangement, joint abîmé. Ensuite, contrôlez la température à cœur de quelques produits sensibles. Puis recontrôlez l'appareil un peu plus tard. Si ça ne redescend pas, transférez les produits dans un autre froid, jetez ceux qui ont trop chauffé, et appelez le frigoriste. À chaque étape, une ligne sur la fiche.
 
@@ -59,7 +59,7 @@ Quand vous constatez un écart, la marche à suivre est toujours la même. D'abo
 
 Les deux sont acceptés. Le papier a un avantage : il ne tombe jamais en panne. Il a aussi deux défauts : on l'oublie, et on le remplit parfois d'un coup en fin de semaine, ce qui se voit. Sur téléphone, avec [l'application LockHACCP](/fonctionnalites/temperatures), ces deux défauts disparaissent : un rappel à l'heure prévue, un relevé en trois secondes, et l'historique prêt à montrer en cas de [contrôle sanitaire](/blog/controle-sanitaire-restaurant-inspecteur-ddpp).
 
-Si vous partez de zéro, vous pouvez aussi [générer gratuitement votre Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) : vous y trouverez une fiche de relevé prête à imprimer pour chacun de vos équipements froids, avec sa consigne.
+Si vous partez de zéro, le [Plan de Maîtrise Sanitaire gratuit de LockHACCP](/plan-de-maitrise-sanitaire) contient une fiche de relevé prête à imprimer pour chacun de vos équipements froids, avec sa consigne.
 
 ## Sources
 

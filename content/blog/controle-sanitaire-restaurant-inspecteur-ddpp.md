@@ -29,7 +29,7 @@ Il s'intéresse aussi au personnel : la tenue, les cheveux, le lave-mains (avec 
 
 ## Les papiers qu'il va demander
 
-C'est la deuxième partie du contrôle, et c'est souvent là que tout se joue. L'inspecteur veut voir comment vous maîtrisez les risques au quotidien, ce qui passe par votre [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) et les enregistrements qui vont avec. En pratique, on vous demandera le plus souvent :
+C'est la deuxième partie du contrôle, et c'est souvent là que tout se joue. L'inspecteur veut voir comment vous maîtrisez les risques au quotidien, ce qui passe par vos procédures et vos enregistrements, réunis le plus souvent dans un [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire). En pratique, on vous demandera le plus souvent :
 
 - les relevés de température des enceintes froides, sur les dernières semaines ;
 - le plan de nettoyage et la preuve qu'il est suivi ;
@@ -38,7 +38,7 @@ C'est la deuxième partie du contrôle, et c'est souvent là que tout se joue. L
 - l'attestation de formation en hygiène alimentaire ;
 - l'information sur les allergènes et l'origine des viandes en salle.
 
-Un détail qui ne trompe personne : des relevés de température tous écrits avec le même stylo, la même écriture régulière, et des valeurs toujours identiques. L'inspecteur sait reconnaître une fiche remplie le vendredi pour toute la semaine. Mieux vaut une fiche avec un trou et une action corrective notée qu'une fiche parfaite qui sonne faux.
+Un détail ne trompe personne : des relevés tous écrits avec le même stylo, d'une écriture régulière, avec des valeurs identiques d'un jour à l'autre. L'inspecteur reconnaît une fiche remplie le vendredi pour toute la semaine.
 
 ## La note sur Alim'confiance
 
@@ -57,13 +57,13 @@ Le résultat reste affiché un an. Vos clients peuvent le consulter avant de ré
 
 Tout dépend de la gravité. Pour des écarts mineurs, vous recevez un courrier qui les liste, et il vous suffit de corriger. Pour des écarts plus sérieux, c'est une mise en demeure : un délai pour vous mettre en conformité, et souvent une nouvelle visite. Si la santé des clients est menacée, le préfet peut ordonner la fermeture administrative de l'établissement, jusqu'à ce que les travaux ou les corrections soient faits. Un procès-verbal peut aussi être transmis au procureur.
 
-Ce que j'observe, c'est que la différence entre « satisfaisant » et « à améliorer » tient rarement à l'état de la cuisine. Elle tient à la capacité à montrer, papiers en main, que les contrôles sont faits.
+La différence entre « satisfaisant » et « à améliorer » tient souvent autant aux papiers qu'à la cuisine : montrer, documents en main, que les contrôles sont faits pèse lourd.
 
 ## Ce que je ferais cette semaine
 
 Si vous n'avez pas été contrôlé depuis longtemps, prenez une heure et mettez-vous à la place de l'inspecteur. Ouvrez vos frigos avec un thermomètre fiable. Cherchez un produit entamé sans date. Demandez à votre second où sont les relevés du mois dernier. Vérifiez que l'attestation de formation est bien rangée quelque part.
 
-Et si votre dossier est incomplet, ou si vous n'en avez jamais eu, vous pouvez [créer gratuitement votre PMS](/plan-de-maitrise-sanitaire) : le tableau des CCP, le plan de nettoyage et les fiches de relevé sont adaptés à votre activité. Pour comprendre la logique derrière, l'article sur [la méthode HACCP](/blog/methode-haccp-guide-complet) reprend les sept principes avec des exemples de cuisine.
+Et si votre dossier est incomplet, ou inexistant, [un PMS adapté à votre cuisine](/plan-de-maitrise-sanitaire) se génère en dix minutes : le tableau des CCP, le plan de nettoyage et les fiches de relevé sont adaptés à votre activité. Pour comprendre la logique derrière, l'article sur [la méthode HACCP](/blog/methode-haccp-guide-complet) reprend les sept principes avec des exemples de cuisine.
 
 ## Sources
 
@@ -71,3 +71,5 @@ Et si votre dossier est incomplet, ou si vous n'en avez jamais eu, vous pouvez [
 - [Règlement (CE) n° 852/2004 relatif à l'hygiène des denrées alimentaires](https://eur-lex.europa.eu/eli/reg/2004/852/oj)
 - [Article L233-4 du code rural et de la pêche maritime (formation en hygiène alimentaire)](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000022657498/)
 - [Arrêté du 21 décembre 2009 relatif aux règles sanitaires applicables aux activités de commerce de détail](https://www.legifrance.gouv.fr/loda/id/LEGITEXT000021676844/)
+- [Règlement (CE) n° 853/2004, annexe III : étiquetage et conservation des coquillages](https://eur-lex.europa.eu/eli/reg/2004/853/oj)
+- [Décret n° 2008-184 du 26 février 2008, article 8 : huiles de friture (composés polaires)](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000018191070)

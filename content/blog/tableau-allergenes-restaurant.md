@@ -56,19 +56,19 @@ Les traces, justement : aucun texte n'oblige à les signaler. Mais si vous savez
 
 ## Et en salle
 
-Le meilleur tableau du monde ne sert à rien si l'équipe de salle ne sait pas où il est. Montrez-le à chaque nouveau serveur, et donnez une consigne simple : en cas de doute, on ne devine pas, on va vérifier. Un client qui signale une allergie grave doit pouvoir parler à quelqu'un qui connaît la recette.
+Un tableau ne sert à rien si l'équipe de salle ne sait pas où il est. Montrez-le à chaque nouveau serveur, et donnez une consigne simple : en cas de doute, on ne devine pas, on va vérifier. Un client qui signale une allergie grave doit pouvoir parler à quelqu'un qui connaît la recette.
 
 L'inspecteur de la DDPP, lui, vérifie que l'information écrite existe et qu'elle est accessible. C'est un des points qu'il regarde en salle, comme je l'explique dans [l'article sur le contrôle sanitaire](/blog/controle-sanitaire-restaurant-inspecteur-ddpp). Pour la liste complète de ce qui doit être affiché, voyez [les affichages obligatoires en restaurant](/blog/affichages-obligatoires-restaurant-2026).
 
 ## Un modèle prêt à remplir
 
-Le tableau que vous voyez en haut de cet article fait partie du dossier PMS que génère LockHACCP : un format A4 paysage, les 14 allergènes en colonnes, une ligne par plat. Vous le recevez avec le reste de votre [Plan de Maîtrise Sanitaire gratuit](/plan-de-maitrise-sanitaire), prêt à imprimer.
+Le tableau que vous voyez en haut de cet article fait partie du dossier PMS que génère LockHACCP : un format A4 paysage, les 14 allergènes en colonnes, une ligne par plat. Il est livré avec le reste du [dossier PMS gratuit](/plan-de-maitrise-sanitaire), prêt à imprimer.
 
 ## Questions fréquentes
 
 ### Un QR code vers la liste des allergènes suffit-il ?
 
-Il complète, il ne remplace pas. Le décret demande une information écrite, accessible directement dans la salle. Un client sans téléphone, ou sans réseau, doit pouvoir la consulter.
+Oui en complément, pas seul. Le décret demande une information écrite, accessible directement dans la salle. Un client sans téléphone, ou sans réseau, doit pouvoir la consulter.
 
 ### Faut-il signaler les allergènes du plat du jour ?
 

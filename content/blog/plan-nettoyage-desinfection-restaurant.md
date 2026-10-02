@@ -7,7 +7,7 @@ resume: "Un plan de nettoyage répond à cinq questions pour chaque surface : qu
 illustration: plan-nettoyage
 ---
 
-Le plan de nettoyage, c'est souvent le document le plus mal fichu d'un dossier d'hygiène. Pas parce qu'il est difficile à faire, mais parce qu'on le recopie d'un modèle trouvé en ligne, avec des surfaces qui n'existent pas dans la cuisine et des fréquences que personne ne respecte. Au bout de deux semaines, il ne correspond plus à rien.
+Le plan de nettoyage, c'est souvent le document le plus mal fichu d'un dossier d'hygiène. Souvent, on l'a recopié d'un modèle trouvé en ligne, avec des surfaces qui n'existent pas dans la cuisine et des fréquences que personne ne respecte. Au bout de deux semaines, il ne correspond plus à rien.
 
 Un bon plan de nettoyage colle à votre cuisine réelle, et il est assez court pour que l'équipe le suive vraiment.
 
@@ -49,7 +49,7 @@ Le plan dit ce qu'il faut faire. La fiche de suivi prouve que c'est fait. Une fi
 
 L'inspecteur ne vérifie pas seulement que la fiche existe. Il regarde si ce qu'elle dit correspond à ce qu'il voit : une fiche cochée tous les jours pour la hotte, et une hotte qui goutte de graisse, c'est pire que pas de fiche du tout.
 
-## Les erreurs que je vois le plus souvent
+## Ce qui traîne dans beaucoup de cuisines
 
 Le torchon qui sert à tout, du plan de travail aux mains : il transporte les bactéries d'un endroit à l'autre. Préférez le papier à usage unique, ou des lavettes changées à chaque service et lavées à 60 °C minimum. L'éponge qui traîne dans l'évier depuis une semaine, même problème.
 
