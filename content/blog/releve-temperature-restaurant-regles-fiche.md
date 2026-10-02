@@ -57,7 +57,7 @@ Quand vous constatez un écart, la marche à suivre est toujours la même. D'abo
 
 ## Papier ou application ?
 
-Les deux sont acceptés. Le papier a un avantage : il ne tombe jamais en panne. Il a aussi deux défauts : on l'oublie, et on le remplit parfois d'un coup en fin de semaine, ce qui se voit. Sur téléphone, avec [l'application LockHACCP](/fonctionnalites/temperatures), ces deux défauts disparaissent : un rappel à l'heure prévue, un relevé en trois secondes, et l'historique prêt à montrer en cas de [contrôle sanitaire](/blog/controle-sanitaire-restaurant-inspecteur-ddpp).
+Les deux sont acceptés. Le papier a un avantage : il ne tombe jamais en panne. Il a aussi deux défauts : on l'oublie, et on le remplit parfois d'un coup en fin de semaine, ce qui se voit. Sur téléphone, avec [l'application LockHACCP](/fonctionnalites/temperatures), ces deux défauts disparaissent : un rappel à l'heure prévue, un relevé en quelques secondes, et l'historique prêt à montrer en cas de [contrôle sanitaire](/blog/controle-sanitaire-restaurant-inspecteur-ddpp).
 
 Si vous partez de zéro, le [Plan de Maîtrise Sanitaire gratuit de LockHACCP](/plan-de-maitrise-sanitaire) contient une fiche de relevé prête à imprimer pour chacun de vos équipements froids, avec sa consigne.
 

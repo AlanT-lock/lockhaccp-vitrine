@@ -7,8 +7,8 @@ const benefits = [
     icon: Clock,
     title: "Gain de temps",
     description: "Un relevé se fait en quelques secondes sur téléphone, sans fiche papier à remplir ni à ranger.",
-    stat: "3 s",
-    statLabel: "par relevé",
+    stat: "0",
+    statLabel: "fiche papier",
   },
   {
     icon: Shield,
@@ -28,8 +28,8 @@ const benefits = [
     icon: Smartphone,
     title: "Mobilité totale",
     description: "Effectuez vos contrôles sur téléphone, tablette ou ordinateur, chacun avec son code personnel.",
-    stat: "0",
-    statLabel: "papier",
+    stat: "1",
+    statLabel: "code par employé",
   },
 ];
 
