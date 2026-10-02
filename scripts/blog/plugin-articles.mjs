@@ -48,11 +48,15 @@ export function articles() {
   return {
     name: "lockhaccp-articles",
     enforce: "pre",
+    // « x.md?meta » → en-tête, sommaire et temps de lecture (léger, chargé partout) ;
+    // « x.md » → article complet avec le HTML (chargé seulement sur la page de l'article).
     transform(source, id) {
-      if (!/\/content\/blog\/[^/]+\.md$/.test(id)) return null;
-      const slug = basename(id, ".md");
-      const article = convertirArticle(source, `content/blog/${slug}.md`);
-      return { code: `export default ${JSON.stringify({ slug, ...article })};`, map: null };
+      const m = id.match(/\/content\/blog\/([^/?]+)\.md(\?meta)?$/);
+      if (!m) return null;
+      const slug = m[1];
+      const { html, ...leger } = convertirArticle(source, `content/blog/${slug}.md`);
+      const module = m[2] ? { slug, ...leger } : { slug, ...leger, html };
+      return { code: `export default ${JSON.stringify(module)};`, map: null };
     },
   };
 }

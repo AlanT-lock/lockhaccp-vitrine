@@ -1,4 +1,5 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState, type ComponentType, type MouseEvent } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,7 +9,7 @@ import EncartAuteur from "@/components/blog/EncartAuteur";
 import Monogramme from "@/components/blog/Monogramme";
 import NotFound from "@/pages/NotFound";
 import { AUTEUR } from "@/lib/auteur";
-import { articlesEnLigne, dateLongue, extraireFaq } from "@/lib/blog";
+import { articlesEnLigne, chargeurCorps, dateLongue, extraireFaq } from "@/lib/blog";
 import { blogPostingJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import tableauCcp from "@/assets/pms/tableau-ccp.webp";
 import planNettoyage from "@/assets/pms/plan-nettoyage.webp";
@@ -32,6 +33,40 @@ const ILLUSTRATIONS: Record<string, { src: string; largeur: number; hauteur: num
 };
 
 const MARQUEUR_ENCART = "<!-- encart-pms -->";
+
+type PropsCorps = { surClic: (e: MouseEvent<HTMLDivElement>) => void };
+
+/** Corps HTML d'un article, chargé à la demande (un fichier JS par article). */
+function CorpsArticle({ html, surClic }: PropsCorps & { html: string }) {
+  const [avant, apres] = html.includes(MARQUEUR_ENCART) ? html.split(MARQUEUR_ENCART) : [html, ""];
+  const faq = extraireFaq(html);
+  return (
+    <>
+      {faq.length > 0 && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(faqJsonLd(faq))}</script>
+        </Helmet>
+      )}
+      <div className="article-corps mt-10" onClick={surClic} dangerouslySetInnerHTML={{ __html: avant }} />
+      <EncartPms />
+      {apres && <div className="article-corps" onClick={surClic} dangerouslySetInnerHTML={{ __html: apres }} />}
+    </>
+  );
+}
+
+const corpsParSlug = new Map<string, ComponentType<PropsCorps>>();
+function corpsDe(slug: string): ComponentType<PropsCorps> {
+  let C = corpsParSlug.get(slug);
+  if (!C) {
+    const charger = chargeurCorps(slug);
+    C = lazy(async () => {
+      const article = await charger!();
+      return { default: (props: PropsCorps) => <CorpsArticle html={article.html} {...props} /> };
+    });
+    corpsParSlug.set(slug, C);
+  }
+  return C;
+}
 
 /** Section du sommaire visible à l'écran (après hydratation uniquement). */
 function useSectionActive(ids: string[]): string | null {
@@ -59,30 +94,29 @@ const BlogArticle = () => {
   const navigate = useNavigate();
   const publies = articlesEnLigne();
   const article = publies.find((a) => a.slug === slug);
-  const active = useSectionActive(article ? article.sommaire.map((s) => s.id) : []);
+  const ids = useMemo(() => (article ? article.sommaire.map((s) => s.id) : []), [article]);
+  const active = useSectionActive(ids);
 
   if (!article) return <NotFound />;
 
-  const { meta, html, sommaire, lecture } = article;
+  const { meta, sommaire, lecture } = article;
+  const Corps = corpsDe(article.slug);
   const path = `/blog/${article.slug}`;
   const illustration = meta.illustration ? ILLUSTRATIONS[meta.illustration] : undefined;
-  const [avant, apres] = html.includes(MARQUEUR_ENCART) ? html.split(MARQUEUR_ENCART) : [html, ""];
-  const faq = extraireFaq(html);
   const recents = publies.filter((a) => a.slug !== article.slug).slice(0, 3);
 
   // Liens internes du texte : navigation sans rechargement.
   const surClic = (e: MouseEvent<HTMLDivElement>) => {
     const lien = (e.target as HTMLElement).closest("a");
     const href = lien?.getAttribute("href");
-    if (!lien || !href || !href.startsWith("/") || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (!lien || !href || !href.startsWith("/") || href.startsWith("//") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
     navigate(href);
   };
 
-  const jsonLd = [
-    blogPostingJsonLd({ titre: meta.titre, description: meta.description, path, datePublished: meta.date, dateModified: meta.maj }),
-    ...(faq.length ? [faqJsonLd(faq)] : []),
-  ];
+  const jsonLd = blogPostingJsonLd({
+    titre: meta.titre, description: meta.description, path, datePublished: meta.date, dateModified: meta.maj,
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -160,14 +194,9 @@ const BlogArticle = () => {
                 </figure>
               )}
 
-              <div className="article-corps mt-10" onClick={surClic} dangerouslySetInnerHTML={{ __html: avant }} />
-              {apres && (
-                <>
-                  <EncartPms />
-                  <div className="article-corps" onClick={surClic} dangerouslySetInnerHTML={{ __html: apres }} />
-                </>
-              )}
-              {!apres && <EncartPms />}
+              <Suspense fallback={<div className="mt-10 min-h-[60vh]" />}>
+                <Corps surClic={surClic} />
+              </Suspense>
 
               <div className="mt-14">
                 <EncartAuteur />

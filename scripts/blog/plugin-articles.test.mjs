@@ -40,3 +40,16 @@ describe("convertirArticle", () => {
     expect(() => convertirArticle(mauvais, "mauvais.md")).toThrow(/mauvais\.md[\s\S]*formule interdite[\s\S]*tirets[\s\S]*plan-de-maitrise-sanitaire/);
   });
 });
+
+describe("plugin articles()", () => {
+  it("la variante ?meta ne contient pas le corps de l'article", async () => {
+    const { articles } = await import("./plugin-articles.mjs");
+    const p = articles();
+    const meta = p.transform(OK, "/x/content/blog/essai.md?meta").code;
+    const complet = p.transform(OK, "/x/content/blog/essai.md").code;
+    expect(meta).toContain('"slug":"essai"');
+    expect(meta).toContain('"sommaire"');
+    expect(meta).not.toContain('"html"');
+    expect(complet).toContain('"html"');
+  });
+});

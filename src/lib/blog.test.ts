@@ -11,6 +11,14 @@ describe("estPublie", () => {
   it("la reconstruction de 23:15 UTC la veille publie l'article du jour", () => {
     expect(estPublie("2026-10-09", new Date("2026-10-08T23:15:00Z"))).toBe(true);
   });
+  it("jour du passage à l'heure d'hiver (25/10/2026) : minuit est encore en heure d'été", () => {
+    expect(estPublie("2026-10-25", new Date("2026-10-24T21:59:00Z"))).toBe(false);
+    expect(estPublie("2026-10-25", new Date("2026-10-24T22:00:00Z"))).toBe(true);
+  });
+  it("jour du passage à l'heure d'été (29/03/2026) : minuit est encore en heure d'hiver", () => {
+    expect(estPublie("2026-03-29", new Date("2026-03-28T22:59:00Z"))).toBe(false);
+    expect(estPublie("2026-03-29", new Date("2026-03-28T23:00:00Z"))).toBe(true);
+  });
   it("publie dès minuit heure de Paris (heure d'hiver)", () => {
     expect(estPublie("2026-11-06", new Date("2026-11-05T22:59:00Z"))).toBe(false);
     expect(estPublie("2026-11-06", new Date("2026-11-05T23:00:00Z"))).toBe(true);
