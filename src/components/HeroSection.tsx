@@ -35,10 +35,10 @@ const HeroSection = () => {
           >
             <div className="relative flex justify-center">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full max-w-[17.5rem] aspect-[9/16] bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/10 rounded-3xl blur-2xl scale-105" />
+                <div className="w-full max-w-[21rem] aspect-[9/16] bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/10 rounded-3xl blur-2xl scale-105" />
               </div>
 
-              <div className="relative w-full max-w-[17.5rem] aspect-[9/16] overflow-hidden rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.35),0_10px_30px_-10px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
+              <div className="relative w-full max-w-[21rem] aspect-[9/16] overflow-hidden rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.35),0_10px_30px_-10px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
                 {videoVisible && (
                 <video
                   src="/videos/hero-video.mp4"
