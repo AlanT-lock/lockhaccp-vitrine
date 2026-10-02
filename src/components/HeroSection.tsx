@@ -1,11 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, CheckCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { APP_URL } from "@/lib/links";
 
+// La vidéo n'est affichée (et téléchargée) que sur grand écran.
+const ECRAN_LARGE = "(min-width: 1024px)";
+
 const HeroSection = () => {
+  const [videoVisible, setVideoVisible] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(ECRAN_LARGE);
+    const maj = () => setVideoVisible(mq.matches);
+    maj();
+    mq.addEventListener("change", maj);
+    return () => mq.removeEventListener("change", maj);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-hero pt-20 overflow-hidden">
+    <section className="relative flex items-center bg-gradient-hero pt-32 pb-16 overflow-hidden lg:min-h-screen lg:pt-36 lg:pb-12">
       {/* Static background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -15,17 +28,18 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Video — shown first on mobile, second on desktop */}
+          {/* Vidéo : ordinateur uniquement, à droite du texte */}
           <div
-            className="relative animate-fade-up order-first lg:order-last"
+            className="relative hidden animate-fade-up lg:order-last lg:block"
             style={{ animationDelay: "0.3s" }}
           >
             <div className="relative flex justify-center">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full max-w-md aspect-[9/16] bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/10 rounded-3xl blur-2xl scale-105" />
+                <div className="w-full max-w-[17.5rem] aspect-[9/16] bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/10 rounded-3xl blur-2xl scale-105" />
               </div>
 
-              <div className="relative w-full max-w-md aspect-[9/16] overflow-hidden rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.35),0_10px_30px_-10px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
+              <div className="relative w-full max-w-[17.5rem] aspect-[9/16] overflow-hidden rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.35),0_10px_30px_-10px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
+                {videoVisible && (
                 <video
                   src="/videos/hero-video.mp4"
                   poster="/logo-color.png"
@@ -37,6 +51,7 @@ const HeroSection = () => {
                   className="w-full h-full object-cover"
                   aria-hidden="true"
                 />
+                )}
               </div>
             </div>
           </div>
