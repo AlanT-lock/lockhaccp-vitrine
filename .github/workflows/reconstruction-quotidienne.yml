@@ -1,6 +1,7 @@
 name: Reconstruction quotidienne
 # Le HTML est figé à la construction : on reconstruit chaque nuit pour que les
-# prix (bascule du 01/11/2026), le bandeau et la date du sitemap restent à jour.
+# prix (bascule du 01/11/2026), le bandeau, la date du sitemap et les articles
+# programmés du blog restent à jour.
 # 23:15 UTC = 00:15 à Paris en hiver, 01:15 en été.
 on:
   schedule:
@@ -21,3 +22,17 @@ jobs:
         run: |
           test -n "$HOOK" || { echo "Secret VERCEL_DEPLOY_HOOK_URL manquant"; exit 1; }
           curl -fsS -X POST "$HOOK"
+
+      # Un build qui échoue (article refusé, lien cassé…) ne publie rien et ne prévient
+      # personne : on vérifie que le site en ligne porte bien la date du jour. En cas
+      # d'échec, GitHub envoie un e-mail au propriétaire du dépôt.
+      - name: Vérifier que le site a bien été reconstruit
+        run: |
+          jour=$(date -u +%F)
+          for i in $(seq 1 20); do
+            sleep 30
+            if curl -fsS https://lockhaccp.fr/sitemap.xml | grep -q "<lastmod>$jour</lastmod>"; then
+              echo "Site reconstruit ($jour)"; exit 0
+            fi
+          done
+          echo "Le site n'a pas été reconstruit : vérifier le dernier déploiement sur Vercel"; exit 1
