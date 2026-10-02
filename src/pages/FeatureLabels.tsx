@@ -23,7 +23,7 @@ const FeatureLabels = () => {
     {
       icon: Printer,
       title: "Impression directe",
-      description: "Envoyez vos étiquettes directement vers votre étiqueteuse connectée."
+      description: "Envoyez vos étiquettes directement vers votre étiqueteuse, sans ordinateur."
     },
     {
       icon: Calendar,
@@ -32,18 +32,18 @@ const FeatureLabels = () => {
     },
     {
       icon: QrCode,
-      title: "QR Code intégré",
-      description: "Ajoutez des QR codes pour une traçabilité optimale de vos productions."
+      title: "N° de lot et allergènes",
+      description: "L'étiquette porte le nom du produit, la date, la DLC, l'heure, un numéro de lot et les allergènes."
     },
     {
       icon: Tag,
       title: "Multi-formats",
-      description: "Adaptez vos étiquettes à différentes tailles et types de conditionnement."
+      description: "Trois formats d'étiquettes : 29 × 62 mm, 38 × 90 mm et 50 × 80 mm."
     },
     {
       icon: Wifi,
       title: "Étiqueteuses compatibles",
-      description: "Compatible avec les principales marques d'étiqueteuses professionnelles."
+      description: "Compatible avec les étiqueteuses Brother, Zebra et Epson en réseau."
     }
   ];
 
@@ -81,7 +81,7 @@ const FeatureLabels = () => {
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Générez des étiquettes conformes pour toutes vos productions et envoyez-les 
-              directement vers votre étiqueteuse connectée.
+              directement vers votre étiqueteuse.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -207,7 +207,7 @@ const FeatureLabels = () => {
                   "Calcul automatique des DLC/DDM",
                   "Mentions obligatoires intégrées",
                   "Gestion des allergènes",
-                  "QR code de traçabilité",
+                  "Numéro de lot automatique",
                   "Impression en un clic"
                 ].map((item, index) => (
                   <div 

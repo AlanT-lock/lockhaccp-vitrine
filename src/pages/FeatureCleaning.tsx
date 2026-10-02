@@ -37,11 +37,11 @@ const FeatureCleaning = () => {
   }, {
     icon: CheckSquare,
     title: "Validation simple",
-    description: "Validez les nettoyages effectués en un clic avec signature électronique."
+    description: "Validez les nettoyages effectués en un clic : la tâche est datée et signée par la personne connectée."
   }, {
     icon: BarChart3,
     title: "Suivi de conformité",
-    description: "Visualisez le taux de réalisation de votre plan de nettoyage sur des tableaux de bord."
+    description: "Suivez ce qui a été fait et ce qui manque, dans l'application et dans le récapitulatif hebdomadaire."
   }, {
     icon: Sparkles,
     title: "Fiches techniques",
@@ -148,7 +148,7 @@ const FeatureCleaning = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div ref={demoRef} className={`transition-all duration-700 ${demoVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Visualisez l'avancement en <span className="text-secondary">temps réel</span>
+                Voyez d'un coup d'œil <span className="text-secondary">ce qui reste à faire</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Suivez la progression du plan de nettoyage par zone et par équipe. 
@@ -156,7 +156,7 @@ const FeatureCleaning = () => {
               </p>
               
               <div className="space-y-3">
-                {["Vision claire de l'avancement quotidien", "Alertes en cas de tâches non réalisées", "Historique consultable à tout moment", "Rapports pour les contrôles sanitaires"].map((item, index) => <div key={item} className={`flex items-center gap-3 transition-all duration-500 ${demoVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`} style={{
+                {["Vision claire de l'avancement quotidien", "Rappel chaque matin des tâches du jour", "Historique consultable à tout moment", "Rapports pour les contrôles sanitaires"].map((item, index) => <div key={item} className={`flex items-center gap-3 transition-all duration-500 ${demoVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`} style={{
                 transitionDelay: `${300 + index * 100}ms`
               }}>
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />

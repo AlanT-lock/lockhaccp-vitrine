@@ -64,7 +64,7 @@ export const FEATURE_RELATED = {
   ],
   receptions: [
     { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Suivi des lots et fournisseurs." },
-    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
+    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
   ],
   tracabilite: [
@@ -74,11 +74,11 @@ export const FEATURE_RELATED = {
   ],
   nettoyage: [
     { to: "/fonctionnalites/checklist", label: "Check-lists personnalisées", description: "Ouverture, fermeture, service." },
-    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
+    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
   ],
   huiles: [
-    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
+    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
   ],
@@ -89,7 +89,7 @@ export const FEATURE_RELATED = {
   ],
   checklist: [
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
-    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Automatisez vos contrôles." },
+    { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
   ],
 } as const;

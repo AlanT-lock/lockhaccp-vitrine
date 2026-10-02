@@ -17,18 +17,18 @@ const FeatureTracability = () => {
   const keyFeatures = [
     {
       icon: QrCode,
-      title: "Scan de codes-barres",
-      description: "Scannez les codes-barres et QR codes pour identifier instantanément l'origine et le parcours des produits."
+      title: "Photo des étiquettes",
+      description: "Photographiez les étiquettes des produits reçus directement depuis l'application : elles restent attachées à la réception."
     },
     {
       icon: History,
-      title: "Historique complet",
-      description: "Retrouvez l'historique de chaque produit : date de réception, fournisseur, lot, conditions de stockage."
+      title: "Historique des réceptions",
+      description: "Retrouvez chaque livraison avec sa date, son fournisseur, la température relevée et les photos."
     },
     {
       icon: Search,
-      title: "Recherche instantanée",
-      description: "Recherchez un produit par numéro de lot, date ou fournisseur en quelques secondes."
+      title: "Classement par date",
+      description: "Les enregistrements sont rangés jour par jour : retrouver une livraison précise ne prend que quelques instants."
     },
     {
       icon: FileText,
@@ -37,28 +37,28 @@ const FeatureTracability = () => {
     },
     {
       icon: Shield,
-      title: "Rappel produit facilité",
-      description: "En cas de rappel produit, identifiez immédiatement les lots concernés et leur destination."
+      title: "Rappel produit",
+      description: "En cas de rappel, retrouvez quand vous avez reçu le produit et de quel fournisseur, photo de l'étiquette à l'appui."
     },
     {
       icon: FileSearch,
-      title: "Audit trail",
-      description: "Gardez une trace de toutes les modifications avec horodatage et identification utilisateur."
+      title: "Qui a fait quoi",
+      description: "Chaque membre de l'équipe se connecte avec son code : chaque enregistrement indique qui l'a fait, et quand."
     }
   ];
 
   const benefits = [
     {
       title: "Répondez aux contrôles en quelques minutes",
-      description: "Lors d'un contrôle sanitaire, retrouvez instantanément l'origine de n'importe quel produit sans chercher dans des classeurs."
+      description: "Lors d'un contrôle sanitaire, montrez vos réceptions et vos photos d'étiquettes sans chercher dans des classeurs."
     },
     {
       title: "Gérez les rappels produits efficacement",
-      description: "En cas d'alerte sanitaire, identifiez immédiatement les lots concernés et prenez les mesures appropriées."
+      description: "En cas d'alerte sanitaire, retrouvez rapidement les livraisons concernées et prenez les mesures appropriées."
     },
     {
       title: "Renforcez la confiance de vos clients",
-      description: "Montrez à vos clients que vous maîtrisez parfaitement l'origine et la qualité de vos produits."
+      description: "Montrez que vous savez d'où viennent vos produits et que vous les contrôlez à chaque livraison."
     }
   ];
 

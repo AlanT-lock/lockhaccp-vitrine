@@ -70,7 +70,7 @@ const FeatureChecklist = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Check-list HACCP personnalisée : ouverture, fermeture - LockHACCP" description="Créez vos check-lists HACCP sur mesure : ouverture, fermeture, service. Suivi temps réel, validation, historique consultable." path="/fonctionnalites/checklist" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Check-lists",path:"/fonctionnalites/checklist"}])} />
+      <Seo title="Check-list HACCP personnalisée : ouverture, fermeture - LockHACCP" description="Créez vos check-lists HACCP sur mesure : ouverture, fermeture, service. Rappels, validation, historique consultable." path="/fonctionnalites/checklist" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Check-lists",path:"/fonctionnalites/checklist"}])} />
       <Navbar />
       
       {/* Hero Section */}

@@ -16,7 +16,7 @@ const features = [
   {
     icon: Thermometer,
     title: "Relevé de températures",
-    description: "Surveillez en temps réel les températures de vos réfrigérateurs et congélateurs avec alertes automatiques.",
+    description: "Relevez les températures de vos réfrigérateurs et congélateurs en quelques secondes, avec la consigne affichée et un rappel chaque matin.",
     color: "primary",
     link: "/fonctionnalites/temperatures"
   },
@@ -51,7 +51,7 @@ const features = [
   {
     icon: Tag,
     title: "Création d'étiquettes",
-    description: "Créez et imprimez vos étiquettes de production directement vers votre étiqueteuse connectée.",
+    description: "Créez et imprimez vos étiquettes de production directement vers votre étiqueteuse (Brother, Zebra ou Epson).",
     color: "secondary",
     link: "/fonctionnalites/etiquettes"
   },

@@ -6,16 +6,16 @@ const benefits = [
   {
     icon: Clock,
     title: "Gain de temps",
-    description: "Réduisez de 70% le temps consacré à vos contrôles quotidiens grâce à la digitalisation.",
-    stat: "70%",
-    statLabel: "de temps gagné",
+    description: "Un relevé se fait en quelques secondes sur téléphone, sans fiche papier à remplir ni à ranger.",
+    stat: "3 s",
+    statLabel: "par relevé",
   },
   {
     icon: Shield,
-    title: "Conformité garantie",
-    description: "Restez toujours en règle avec les normes HACCP grâce aux rappels et alertes automatiques.",
-    stat: "100%",
-    statLabel: "conforme",
+    title: "Rien n'est oublié",
+    description: "Chaque matin, une notification rappelle les contrôles du jour, et un récapitulatif arrive chaque semaine par e-mail.",
+    stat: "1",
+    statLabel: "rappel par jour",
   },
   {
     icon: FileCheck,
@@ -27,7 +27,7 @@ const benefits = [
   {
     icon: Smartphone,
     title: "Mobilité totale",
-    description: "Effectuez vos contrôles depuis n'importe quel appareil, même hors connexion.",
+    description: "Effectuez vos contrôles sur téléphone, tablette ou ordinateur, chacun avec son code personnel.",
     stat: "0",
     statLabel: "papier",
   },

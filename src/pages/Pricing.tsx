@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import { Badge } from "@/components/ui/badge";
-import { Check, ArrowRight, Headphones, RefreshCw, Thermometer, Printer, Tablet, ShieldCheck } from "lucide-react";
+import { Check, ArrowRight, Printer, Tablet, ShieldCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -152,7 +152,7 @@ const Pricing = () => {
     {
       question: "Faut-il du matériel spécifique ?",
       answer:
-        "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. Pour automatiser certains contrôles (températures, étiquettes), nous proposons des équipements connectés en option.",
+        "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. En option, nous louons une étiqueteuse professionnelle et une tablette protégée pour la cuisine.",
     },
     {
       question: "Mes données sont-elles sécurisées et hébergées en France ?",
@@ -163,25 +163,14 @@ const Pricing = () => {
 
   const additionalOptions = [
     {
-      icon: Thermometer,
-      name: "Capteurs de température connectés",
-      description: "Surveillez vos enceintes froides 24h/24 avec alertes automatiques",
-      includes: [
-        "Installation et configuration incluses",
-        "SAV réactif sous 24h",
-        "Remplacement rapide en cas de panne",
-        "Mises à jour automatiques",
-      ],
-    },
-    {
       icon: Printer,
-      name: "Étiqueteuse connectée",
+      name: "Étiqueteuse",
       description: "Imprimez vos étiquettes de production directement depuis l'application",
       includes: [
-        "Imprimante professionnelle incluse",
-        "Configuration et formation",
-        "SAV réactif sous 24h",
-        "Remplacement express en cas de panne",
+        "Étiqueteuse professionnelle fournie",
+        "Impression directe depuis l'application",
+        "Nom, DLC, n° de lot et allergènes sur l'étiquette",
+        "Location, sans achat de matériel",
       ],
     },
     {
@@ -189,10 +178,9 @@ const Pricing = () => {
       name: "Tablette avec protection",
       description: "Tablette professionnelle résistante pour une utilisation en cuisine",
       includes: [
-        "Tablette préconfigurée",
-        "Protection renforcée incluse",
-        "SAV réactif sous 24h",
-        "Remplacement express en cas de panne",
+        "Tablette fournie avec sa protection",
+        "Pensée pour un usage en cuisine",
+        "Location, sans achat de matériel",
       ],
     },
   ];
@@ -318,11 +306,11 @@ const Pricing = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Options équipements connectés
+              Matériel en option
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Automatisez encore plus vos contrôles avec nos équipements connectés.
-              SAV inclus et remplacement rapide garantis.
+              Une étiqueteuse et une tablette pour la cuisine, en location,
+              sans achat de matériel.
             </p>
           </div>
 
@@ -367,19 +355,6 @@ const Pricing = () => {
             ))}
           </div>
 
-          {/* Service Guarantee */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex items-center gap-8 flex-wrap justify-center">
-              <div className="flex items-center gap-3">
-                <Headphones className="w-6 h-6 text-primary" />
-                <span className="text-foreground font-medium">SAV réactif inclus</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <RefreshCw className="w-6 h-6 text-primary" />
-                <span className="text-foreground font-medium">Remplacement rapide en cas de panne</span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

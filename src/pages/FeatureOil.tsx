@@ -32,13 +32,13 @@ const FeatureOil = () => {
     },
     {
       icon: FileText,
-      title: "Rapports de conformité",
-      description: "Générez des rapports prouvant le suivi régulier de vos huiles de friture."
+      title: "Changements tracés",
+      description: "Chaque changement d'huile est enregistré avec la date et la personne qui l'a fait."
     },
     {
       icon: TrendingDown,
-      title: "Analyse des coûts",
-      description: "Suivez la durée de vie de vos huiles et optimisez vos coûts de remplacement."
+      title: "Prêt pour le contrôle",
+      description: "L'historique des tests et des changements se montre en quelques secondes à l'inspecteur."
     },
     {
       icon: Droplets,
@@ -59,9 +59,9 @@ const FeatureOil = () => {
       description: "Test à effectuer chaque jour d'utilisation"
     },
     {
-      title: "Archivage",
-      value: "5 ans",
-      description: "Durée de conservation des registres"
+      title: "Enregistrement",
+      value: "Daté",
+      description: "Chaque test et chaque changement, avec son auteur"
     }
   ];
 
@@ -90,7 +90,7 @@ const FeatureOil = () => {
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Testez, enregistrez et suivez la conformité de vos huiles de friture. 
-              Restez en règle avec la réglementation et optimisez vos coûts.
+              Restez en règle avec la réglementation, sans fiche papier.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -195,7 +195,6 @@ const FeatureOil = () => {
                   "Conformité à la réglementation HACCP",
                   "Prévention des risques pour la santé",
                   "Amélioration du goût des produits frits",
-                  "Optimisation des coûts de remplacement",
                   "Traçabilité complète pour les contrôles"
                 ].map((item, index) => (
                   <div 
