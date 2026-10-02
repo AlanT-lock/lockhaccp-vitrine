@@ -221,7 +221,11 @@
 .article-corps li::marker { color: hsl(var(--primary) / 0.55); }
 .article-corps blockquote { border-left: 3px solid hsl(var(--secondary)); padding: 0.2em 0 0.2em 1.1em; color: hsl(var(--foreground)); font-style: italic; }
 .article-corps .article-tableau { overflow-x: auto; border: 1px solid hsl(var(--border)); border-radius: 0.9rem; margin-top: 1.6em; margin-bottom: 1.6em; }
-.article-corps table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: 0.95rem; line-height: 1.5; }
+.article-corps table { width: 100%; border-collapse: collapse; font-size: 0.95rem; line-height: 1.5; }
+@media (max-width: 640px) {
+  .article-corps table { font-size: 0.875rem; }
+  .article-corps th, .article-corps td { padding: 0.6rem 0.75rem; }
+}
 .article-corps th { background: #F4F7FA; color: hsl(var(--foreground)); font-weight: 600; text-align: left; }
 .article-corps th, .article-corps td { padding: 0.7rem 1rem; border-bottom: 1px solid hsl(var(--border)); vertical-align: top; }
 .article-corps tr:last-child td { border-bottom: 0; }

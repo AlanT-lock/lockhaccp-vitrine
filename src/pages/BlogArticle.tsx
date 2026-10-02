@@ -7,9 +7,8 @@ import EncartPms from "@/components/blog/EncartPms";
 import EncartAuteur from "@/components/blog/EncartAuteur";
 import Monogramme from "@/components/blog/Monogramme";
 import NotFound from "@/pages/NotFound";
-import { useMaintenant } from "@/hooks/useMaintenant";
 import { AUTEUR } from "@/lib/auteur";
-import { articlesPublies, dateLongue, extraireFaq, TOUS_LES_ARTICLES } from "@/lib/blog";
+import { articlesEnLigne, dateLongue, extraireFaq } from "@/lib/blog";
 import { blogPostingJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import tableauCcp from "@/assets/pms/tableau-ccp.webp";
 import planNettoyage from "@/assets/pms/plan-nettoyage.webp";
@@ -57,9 +56,8 @@ function useSectionActive(ids: string[]): string | null {
 
 const BlogArticle = () => {
   const { slug = "" } = useParams();
-  const maintenant = useMaintenant();
   const navigate = useNavigate();
-  const publies = articlesPublies(TOUS_LES_ARTICLES, maintenant);
+  const publies = articlesEnLigne();
   const article = publies.find((a) => a.slug === slug);
   const active = useSectionActive(article ? article.sommaire.map((s) => s.id) : []);
 

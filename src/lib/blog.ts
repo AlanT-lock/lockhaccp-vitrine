@@ -69,3 +69,10 @@ export const dateLongue = (date: string) =>
   new Date(`${date}T12:00:00Z`).toLocaleDateString("fr-FR", {
     day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris",
   });
+
+/**
+ * Articles en ligne : ceux publiés à l'instant de CONSTRUCTION du site (meta lhc-instant),
+ * jamais selon l'horloge de l'appareil du visiteur, qui peut être déréglée. Un article
+ * apparaît avec la reconstruction de son jour de publication.
+ */
+export const articlesEnLigne = (): Article[] => articlesPublies(TOUS_LES_ARTICLES, instantDeRendu());

@@ -47,3 +47,15 @@ describe("dateLongue", () => {
     expect(dateLongue("2026-10-02")).toBe("2 octobre 2026");
   });
 });
+
+describe("articlesEnLigne", () => {
+  it("dépend de l'instant de construction, pas de l'horloge de l'appareil", async () => {
+    const { articlesEnLigne } = await import("./blog");
+    const g = globalThis as { __LHC_INSTANT__?: Date };
+    g.__LHC_INSTANT__ = new Date("2026-10-03T12:00:00Z");
+    const slugs = articlesEnLigne().map((a) => a.slug);
+    delete g.__LHC_INSTANT__;
+    expect(slugs).toContain("controle-sanitaire-restaurant-inspecteur-ddpp");
+    expect(slugs).not.toContain("difference-pms-haccp");
+  });
+});

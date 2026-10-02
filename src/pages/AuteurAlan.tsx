@@ -3,13 +3,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import Monogramme from "@/components/blog/Monogramme";
-import { useMaintenant } from "@/hooks/useMaintenant";
 import { AUTEUR } from "@/lib/auteur";
-import { articlesPublies, dateLongue, TOUS_LES_ARTICLES } from "@/lib/blog";
+import { articlesEnLigne, dateLongue } from "@/lib/blog";
 import { personJsonLd } from "@/lib/seo-jsonld";
 
 const AuteurAlan = () => {
-  const articles = articlesPublies(TOUS_LES_ARTICLES, useMaintenant());
+  const articles = articlesEnLigne();
 
   return (
     <div className="min-h-screen bg-background">
