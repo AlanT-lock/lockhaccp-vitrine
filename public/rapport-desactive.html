@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Rapport hebdomadaire désactivé · LockHACCP</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@700&display=swap">
+  <!-- Page d'arrivée du lien « Se désinscrire » du rapport hebdomadaire.
+       La fonction Supabase unsubscribe-report désactive le rapport puis
+       redirige ici avec ?statut=ok ou ?statut=invalide. -->
+  <style>
+    :root { --fond: #f3f6fa; --carte: #fff; --texte: #00264d; --doux: #4a5d73; --primaire: #003d85; --bord: #e2e8f0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --fond: #0a1420; --carte: #111f30; --texte: #f5f7fa; --doux: #a9b6c6; --primaire: #1a8cff; --bord: #1f3247; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+           padding: 24px 16px; background: var(--fond); color: var(--texte); font-family: Inter, system-ui, sans-serif; }
+    main { background: var(--carte); border: 1px solid var(--bord); border-radius: 16px; padding: 36px 28px;
+           max-width: 460px; width: 100%; text-align: center; }
+    .logo { height: 36px; margin-bottom: 20px; }
+    h1 { font-family: 'Plus Jakarta Sans', Inter, sans-serif; font-size: 22px; margin: 0 0 12px; }
+    p { color: var(--doux); font-size: 15px; line-height: 1.6; margin: 0 0 12px; }
+    a { color: var(--primaire); font-weight: 500; }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="/logo-color.png" alt="LockHACCP">
+    <section id="ok">
+      <h1>Rapport hebdomadaire désactivé</h1>
+      <p>Cet établissement ne recevra plus le rapport hebdomadaire par email.</p>
+      <p>Vous pouvez le réactiver à tout moment dans l'application : <strong>Paramètres › Notifications › Rapport hebdomadaire par email</strong>.</p>
+    </section>
+    <section id="invalide" hidden>
+      <h1>Lien non valide</h1>
+      <p>Ce lien de désinscription est incomplet ou ne correspond à aucun établissement.</p>
+      <p>Vous pouvez désactiver le rapport dans l'application : <strong>Paramètres › Notifications</strong>, ou nous écrire à <a href="mailto:support@lockhaccp.fr">support@lockhaccp.fr</a>.</p>
+    </section>
+  </main>
+  <script>
+    if (new URLSearchParams(location.search).get("statut") !== "ok") {
+      document.getElementById("ok").hidden = true;
+      document.getElementById("invalide").hidden = false;
+    }
+  </script>
+</body>
+</html>
