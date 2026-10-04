@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#003F83" />
 
-    <!-- Google tag (gtag.js) : campagne Google Ads, conversions dans src/lib/googleAds.ts -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18490045299"></script>
+    <!-- Google tag (gtag.js) : campagne Google Ads, conversions dans src/lib/googleAds.ts.
+         gtag() existe tout de suite (les appels sont mis en file dans dataLayer) ; le script
+         lui-même (~170 Ko) n'est chargé qu'une fois la page affichée, pour ne pas la ralentir. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18490045299');
+      (function () {
+        function charger() {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18490045299';
+          document.head.appendChild(s);
+        }
+        function apresAffichage() {
+          if ('requestIdleCallback' in window) requestIdleCallback(charger, { timeout: 4000 });
+          else setTimeout(charger, 1500);
+        }
+        if (document.readyState === 'complete') apresAffichage();
+        else window.addEventListener('load', apresAffichage, { once: true });
+      })();
     </script>
     <title>LockHACCP - Solution digitale de conformité HACCP pour la restauration</title>
     <meta name="description" content="LockHACCP simplifie votre conformité HACCP : relevés de températures, traçabilité, plan de nettoyage, étiquettes de production. Solution digitale pour restaurants." />
@@ -35,10 +50,6 @@
     <meta name="twitter:title" content="LockHACCP - Solution digitale de conformité HACCP pour la restauration" />
     <meta name="twitter:description" content="LockHACCP simplifie votre conformité HACCP : relevés de températures, traçabilité, plan de nettoyage, étiquettes de production. Solution digitale pour restaurants." />
     <meta name="twitter:image" content="https://lockhaccp.fr/og-image.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
 
     <link rel="dns-prefetch" href="https://ndoxvlikhmmixvhuqczs.supabase.co" />
   </head>

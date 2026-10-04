@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Building2, Mail, Phone, User, Users, MapPin, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { validateEmail, validatePhone, validateRequired } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
@@ -66,6 +65,8 @@ const ContactEntreprise = () => {
     setLoading(true);
 
     try {
+      // Client chargé à l'envoi seulement : la page s'affiche sans ses ~50 Ko.
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error: dbError } = await supabase.from("contact_requests").insert({
         contact_name: formData.contactName,
         email: formData.email,

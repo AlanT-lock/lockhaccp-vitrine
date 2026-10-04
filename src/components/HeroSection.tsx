@@ -63,36 +63,31 @@ const HeroSection = () => {
               <span className="text-sm font-medium text-primary">Solution HACCP complète</span>
             </div>
 
-            <h1
-              className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 animate-fade-up"
-              style={{ animationDelay: "0.1s" }}
-            >
+            {/* Titre et accroche sans animation d'entrée : ils sont affichés dès le premier rendu. */}
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
               Simplifiez votre conformité <span className="text-primary">HACCP</span>
             </h1>
 
-            <p
-              className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-up"
-              style={{ animationDelay: "0.2s" }}
-            >
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
               LockHACCP digitalise tous vos contrôles sanitaires : températures, réceptions,
               traçabilité, nettoyage et plus encore. Gagnez du temps et restez conforme.
             </p>
 
             <div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-fade-up"
+              className="flex flex-col items-center sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-fade-up"
               style={{ animationDelay: "0.3s" }}
             >
-              <a href={APP_URL}>
-                <Button variant="hero" size="xl">
+              <Button variant="hero" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer gratuitement
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/demander-demo">
-                <Button variant="heroOutline" size="xl">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" asChild>
+                <Link to="/demander-demo">
                   Demander une démo
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
             <p className="mb-10 -mt-6 text-sm text-muted-foreground text-center lg:text-left">
               Pas encore prêt ?{" "}

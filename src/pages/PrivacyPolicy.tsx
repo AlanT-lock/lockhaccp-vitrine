@@ -104,7 +104,7 @@ const PrivacyPolicy = () => {
                 <li>Droit à la limitation du traitement</li>
               </ul>
               <p className="text-muted-foreground mt-4">
-                Pour exercer vos droits, vous pouvez nous contacter à l'adresse : <a href="mailto:contact@lockhaccp.fr" className="text-primary hover:underline">contact@lockhaccp.fr</a>
+                Pour exercer vos droits, vous pouvez nous contacter à l'adresse : <a href="mailto:contact@lockhaccp.fr" className="text-primary underline underline-offset-2 hover:no-underline">contact@lockhaccp.fr</a>
               </p>
               <p className="text-muted-foreground mt-2">Une réponse vous sera apportée sous un délai de 15 jours maximum.</p>
             </section>

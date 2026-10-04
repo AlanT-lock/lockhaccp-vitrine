@@ -16,9 +16,9 @@ export function PageFin(props: { lien: string; email: string }) {
       </div>
       {props.lien && (
         <div className="pt-2">
-          <a href={props.lien} download>
-            <Button variant="hero" size="xl" className="gap-2"><Download className="h-5 w-5" /> Télécharger mon dossier PMS</Button>
-          </a>
+          <Button variant="hero" size="xl" className="gap-2" asChild>
+            <a href={props.lien} download><Download className="h-5 w-5" /> Télécharger mon dossier PMS</a>
+          </Button>
         </div>
       )}
       <p className="text-sm text-muted-foreground max-w-xl mx-auto">

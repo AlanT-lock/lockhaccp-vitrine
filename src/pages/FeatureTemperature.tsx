@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Thermometer, Bell, BarChart3, Shield, Clock, Smartphone, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
-import temperaturesImg from "@/assets/screenshots/temperatures.png";
+import temperaturesImg from "@/assets/screenshots/temperatures.webp";
+import temperaturesImgPetit from "@/assets/screenshots/temperatures-petit.webp";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
@@ -71,23 +72,23 @@ const FeatureTemperature = () => {
                 téléphone, avec la consigne affichée et un rappel chaque matin.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href={APP_URL}>
-                  <Button variant="hero" size="xl">
+              <div className="flex flex-col items-start sm:flex-row gap-4">
+                <Button variant="hero" size="xl" asChild>
+                  <a href={APP_URL}>
                     Essayer gratuitement
                     <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <Link to="/demander-demo">
-                  <Button variant="heroOutline" size="xl">
+                  </a>
+                </Button>
+                <Button variant="heroOutline" size="xl" asChild>
+                  <Link to="/demander-demo">
                     Demander une démo
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
 
             <div className={`relative flex justify-center transition-all duration-700 ${heroVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
-              <img src={temperaturesImg} alt="Application LockHACCP - Relevé de températures" className="max-w-sm w-full h-auto drop-shadow-2xl rounded-3xl shadow-2xl opacity-80" />
+              <img src={temperaturesImg} srcSet={`${temperaturesImgPetit} 480w, ${temperaturesImg} 768w`} sizes="(min-width: 640px) 384px, calc(100vw - 2rem)" alt="Application LockHACCP - Relevé de températures" width={384} height={831} {...{ fetchpriority: "high" }} className="max-w-sm w-full h-auto drop-shadow-2xl rounded-3xl shadow-2xl opacity-80" />
             </div>
           </div>
         </div>
@@ -131,11 +132,11 @@ const FeatureTemperature = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div ref={sensorsRef} className={`transition-all duration-700 ${sensorsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-light text-secondary font-medium text-sm mb-4">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-light text-secondary-texte font-medium text-sm mb-4">
                 Au quotidien
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Un relevé en <span className="text-secondary">quelques secondes</span>, devant l&apos;équipement
+                Un relevé en <span className="text-secondary-texte">quelques secondes</span>, devant l&apos;équipement
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Vous saisissez la température lue, l'application la compare à la consigne de l'équipement
@@ -205,18 +206,18 @@ const FeatureTemperature = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Commencez gratuitement et découvrez comment LockHACCP peut simplifier votre quotidien.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="accent" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer l'essai gratuit
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/">
-                <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/">
                   Retour à l'accueil
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

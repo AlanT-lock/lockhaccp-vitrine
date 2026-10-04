@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Pré-génère chaque page publique dans dist/, plus 404.html, _shell.html, sitemap.xml, llms.txt.
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
-  extraireDescription, fichierPour, metaInstant, genererLlms, genererSitemap, injecter, retirerBalisesSeo,
+  accelererAffichage, extraireDescription, fichierPour, metaInstant, genererLlms, genererSitemap, injecter, retirerBalisesSeo,
 } from "./lib-prerender.mjs";
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -22,7 +22,14 @@ const { render, PAGES_PUBLIQUES, getActivePricing } = await import(
 const gabarit = readFileSync(join(dist, "index.html"), "utf8");
 // Coquille vide pour l'admin (rendu client uniquement).
 writeFileSync(join(dist, "_shell.html"), gabarit);
-const base = retirerBalisesSeo(gabarit).replace("</head>", () => `${metaInstant(instant)}\n</head>`);
+const polices = readdirSync(join(dist, "assets"))
+  .filter((f) => /^(inter|plus-jakarta-sans)-latin-wght-normal-[^.]+\.woff2$/.test(f))
+  .map((f) => `/assets/${f}`);
+if (polices.length !== 2) throw new Error(`Polices latin attendues : 2, trouvées : ${polices.join(", ")}`);
+const base = accelererAffichage(
+  retirerBalisesSeo(gabarit).replace("</head>", () => `${metaInstant(instant)}\n</head>`),
+  { lireCss: (href) => readFileSync(join(dist, href), "utf8"), polices },
+);
 
 const ecrire = (fichier, contenu) => {
   const cible = join(dist, fichier);

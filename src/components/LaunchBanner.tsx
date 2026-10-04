@@ -31,8 +31,7 @@ const LaunchBanner = () => {
   return (
     <Link
       to="/tarifs"
-      aria-label="Voir les tarifs de l'offre de lancement"
-      className="block bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+      className="block bg-secondary text-foreground transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-1 sm:py-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center text-[11px] leading-tight sm:text-sm sm:leading-normal font-medium">
         <Sparkles className="hidden sm:block w-4 h-4 flex-shrink-0" aria-hidden="true" />
@@ -55,6 +54,8 @@ const LaunchBanner = () => {
         <span className="hidden sm:inline underline underline-offset-2 whitespace-nowrap">
           Voir les tarifs
         </span>
+        {/* Sur mobile, « Voir les tarifs » est masqué : on le garde pour les lecteurs d'écran. */}
+        <span className="sr-only sm:hidden">Voir les tarifs</span>
       </div>
     </Link>
   );

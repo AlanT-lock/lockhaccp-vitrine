@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import tableauCcp from "@/assets/pms/tableau-ccp.webp";
+// Affichée en petit (9 rem) : la version réduite suffit.
+import tableauCcp from "@/assets/pms/tableau-ccp-petit.webp";
 
 // Encart vers le PMS gratuit, glissé au milieu ou à la fin d'un article.
 const EncartPms = () => (
@@ -11,8 +12,8 @@ const EncartPms = () => (
     <img
       src={tableauCcp}
       alt=""
-      width={1100}
-      height={778}
+      width={600}
+      height={424}
       loading="lazy"
       decoding="async"
       className="hidden w-36 rotate-[-3deg] bg-white shadow-[0_10px_24px_-12px_rgba(0,38,77,.45)] sm:block"

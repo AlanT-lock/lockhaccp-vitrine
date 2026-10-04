@@ -104,7 +104,7 @@ const TermsOfUse = () => {
             <section>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">7. Données personnelles</h2>
               <p className="text-muted-foreground">
-                L'utilisation de l'application implique la collecte de données à caractère personnel. Celles-ci sont traitées conformément à la <a href="/politique-confidentialite" className="text-primary hover:underline">Politique de confidentialité</a>.
+                L'utilisation de l'application implique la collecte de données à caractère personnel. Celles-ci sont traitées conformément à la <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">Politique de confidentialité</a>.
               </p>
             </section>
 

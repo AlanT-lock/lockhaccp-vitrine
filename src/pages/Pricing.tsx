@@ -112,11 +112,11 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
     </ul>
 
     {showCta && (
-      <a href={APP_URL} className="mt-auto">
-        <Button className="w-full" variant={highlighted ? "accent" : "outline"}>
+      <Button className="w-full" variant={highlighted ? "accent" : "outline"} asChild>
+        <a href={APP_URL} className="mt-auto">
           Essayer 1 mois gratuit
-        </Button>
-      </a>
+        </a>
+      </Button>
     )}
   </div>
 );
@@ -218,12 +218,12 @@ const Pricing = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez l'offre qui vous convient.
             </p>
-            <Link to="/demander-demo">
-              <Button variant="hero" size="xl">
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/demander-demo">
                 Demander une démo gratuite
                 <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -247,6 +247,7 @@ const Pricing = () => {
       {/* Pricing Plans */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Nos formules</h2>
           <div
             ref={plansRef}
             className={`grid gap-6 mx-auto transition-all duration-500 ${
@@ -346,11 +347,11 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <Link to="/demander-demo">
-                  <Button variant="outline" className="w-full" size="sm">
+                <Button variant="outline" className="w-full" size="sm" asChild>
+                  <Link to="/demander-demo">
                     En savoir plus
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             ))}
           </div>
@@ -373,12 +374,12 @@ const Pricing = () => {
           <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
             Profitez de 1 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien.
           </p>
-          <Link to="/demander-demo">
-            <Button variant="accent" size="xl">
+          <Button variant="accent" size="xl" asChild>
+            <Link to="/demander-demo">
               Demander une démo gratuite
               <ArrowRight className="w-5 h-5" />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </section>
 

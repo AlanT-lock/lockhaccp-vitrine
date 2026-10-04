@@ -54,7 +54,7 @@ const Classeur = ({ titreId }: { titreId?: string }) => {
                 ].join(" ")}
               >
                 <span className="block text-sm font-semibold leading-tight">{inter.onglet}</span>
-                <span className="mt-0.5 block text-xs text-muted-foreground">
+                <span className="mt-0.5 block text-xs text-foreground/70">
                   {inter.documents} {inter.documents > 1 ? "documents" : "document"}
                 </span>
               </button>
@@ -90,6 +90,8 @@ const Classeur = ({ titreId }: { titreId?: string }) => {
                   <img
                     key={page.src}
                     src={page.src}
+                    srcSet={`${page.srcPetit} ${page.largeurPetit}w, ${page.src} ${page.largeur}w`}
+                    sizes={paysage ? "(min-width: 1024px) 520px, 80vw" : "(min-width: 1024px) 320px, 45vw"}
                     alt={rang === 0 ? page.alt : ""}
                     aria-hidden={rang === 0 ? undefined : true}
                     width={page.largeur}

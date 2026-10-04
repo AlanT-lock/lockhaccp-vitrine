@@ -96,18 +96,18 @@ const FeatureChecklist = () => {
               Ouverture, fermeture, service... ne laissez rien au hasard.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="hero" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="hero" size="xl" asChild>
+                <a href={APP_URL}>
                   Essayer gratuitement
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/demander-demo">
-                <Button variant="heroOutline" size="xl">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" asChild>
+                <Link to="/demander-demo">
                   Demander une démo
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -168,7 +168,7 @@ const FeatureChecklist = () => {
               }`}
             >
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Adaptez les contrôles à <span className="text-secondary">votre réalité</span>
+                Adaptez les contrôles à <span className="text-secondary-texte">votre réalité</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Chaque restaurant est unique. LockHACCP vous permet de créer des checklists 
@@ -255,18 +255,18 @@ const FeatureChecklist = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Commencez gratuitement et adaptez LockHACCP à vos besoins spécifiques.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="accent" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer l'essai gratuit
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/">
-                <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/">
                   Retour à l'accueil
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

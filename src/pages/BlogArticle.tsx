@@ -19,16 +19,24 @@ import reception from "@/assets/pms/reception.webp";
 import allergenes from "@/assets/pms/allergenes.webp";
 import lavageMains from "@/assets/pms/lavage-mains.webp";
 import appTemperatures from "@/assets/pms/app-temperatures.webp";
+import tableauCcpPetit from "@/assets/pms/tableau-ccp-petit.webp";
+import planNettoyagePetit from "@/assets/pms/plan-nettoyage-petit.webp";
+import releveTemperaturePetit from "@/assets/pms/releve-temperature-petit.webp";
+import huileFriturePetit from "@/assets/pms/huile-friture-petit.webp";
+import receptionPetit from "@/assets/pms/reception-petit.webp";
+import allergenesPetit from "@/assets/pms/allergenes-petit.webp";
+import lavageMainsPetit from "@/assets/pms/lavage-mains-petit.webp";
 
 // Illustrations possibles (clé `illustration` de l'en-tête d'un article).
-const ILLUSTRATIONS: Record<string, { src: string; largeur: number; hauteur: number; legende: string }> = {
-  "tableau-ccp": { src: tableauCcp, largeur: 1100, hauteur: 778, legende: "Tableau des CCP d'un dossier PMS généré par LockHACCP" },
-  "plan-nettoyage": { src: planNettoyage, largeur: 760, hauteur: 1075, legende: "Plan de nettoyage et de désinfection d'un dossier PMS LockHACCP" },
-  "releve-temperature": { src: releveTemperature, largeur: 760, hauteur: 1075, legende: "Fiche de relevé de température d'un dossier PMS LockHACCP" },
-  "huile-friture": { src: huileFriture, largeur: 760, hauteur: 1075, legende: "Fiche de suivi des huiles de friture d'un dossier PMS LockHACCP" },
-  reception: { src: reception, largeur: 760, hauteur: 1075, legende: "Registre de réception des marchandises d'un dossier PMS LockHACCP" },
-  allergenes: { src: allergenes, largeur: 1100, hauteur: 778, legende: "Tableau des allergènes d'un dossier PMS LockHACCP" },
-  "lavage-mains": { src: lavageMains, largeur: 760, hauteur: 1075, legende: "Affiche du lavage des mains d'un dossier PMS LockHACCP" },
+// `petit` : version réduite (400 px portrait, 600 px paysage) proposée aux petits écrans.
+const ILLUSTRATIONS: Record<string, { src: string; largeur: number; hauteur: number; legende: string; petit?: [string, number] }> = {
+  "tableau-ccp": { src: tableauCcp, largeur: 1100, hauteur: 778, legende: "Tableau des CCP d'un dossier PMS généré par LockHACCP", petit: [tableauCcpPetit, 600] },
+  "plan-nettoyage": { src: planNettoyage, largeur: 760, hauteur: 1075, legende: "Plan de nettoyage et de désinfection d'un dossier PMS LockHACCP", petit: [planNettoyagePetit, 400] },
+  "releve-temperature": { src: releveTemperature, largeur: 760, hauteur: 1075, legende: "Fiche de relevé de température d'un dossier PMS LockHACCP", petit: [releveTemperaturePetit, 400] },
+  "huile-friture": { src: huileFriture, largeur: 760, hauteur: 1075, legende: "Fiche de suivi des huiles de friture d'un dossier PMS LockHACCP", petit: [huileFriturePetit, 400] },
+  reception: { src: reception, largeur: 760, hauteur: 1075, legende: "Registre de réception des marchandises d'un dossier PMS LockHACCP", petit: [receptionPetit, 400] },
+  allergenes: { src: allergenes, largeur: 1100, hauteur: 778, legende: "Tableau des allergènes d'un dossier PMS LockHACCP", petit: [allergenesPetit, 600] },
+  "lavage-mains": { src: lavageMains, largeur: 760, hauteur: 1075, legende: "Affiche du lavage des mains d'un dossier PMS LockHACCP", petit: [lavageMainsPetit, 400] },
   "app-temperatures": { src: appTemperatures, largeur: 560, hauteur: 782, legende: "Relevé des températures dans l'application LockHACCP" },
 };
 
@@ -180,6 +188,8 @@ const BlogArticle = () => {
                 <figure className="mt-10">
                   <img
                     src={illustration.src}
+                    srcSet={illustration.petit && `${illustration.petit[0]} ${illustration.petit[1]}w, ${illustration.src} ${illustration.largeur}w`}
+                    sizes={illustration.largeur > illustration.hauteur ? "(min-width: 768px) 720px, 100vw" : "(min-width: 640px) 384px, 100vw"}
                     alt={illustration.legende}
                     width={illustration.largeur}
                     height={illustration.hauteur}

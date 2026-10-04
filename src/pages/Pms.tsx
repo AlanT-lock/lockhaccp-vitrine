@@ -184,7 +184,7 @@ const Pms = () => {
                   <span className="font-semibold text-foreground">{infoEtape.titre}</span>
                   <span>Étape {etape} sur {DERNIERE}</span>
                 </div>
-                <Progress value={(etape / DERNIERE) * 100} className="h-2" />
+                <Progress value={(etape / DERNIERE) * 100} aria-label={`Progression : étape ${etape} sur ${DERNIERE}`} className="h-2" />
                 <p className="text-sm text-muted-foreground mt-2">{infoEtape.sousTitre}</p>
               </div>
 

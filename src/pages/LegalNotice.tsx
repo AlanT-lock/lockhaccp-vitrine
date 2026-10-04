@@ -24,7 +24,7 @@ const LegalNotice = () => {
                 <li><strong className="text-foreground">Responsable de la publication :</strong> Alan TOUATI</li>
                 <li><strong className="text-foreground">Adresse :</strong> 20 anc. Chemin des Vallergues, 06400, Cannes</li>
                 <li><strong className="text-foreground">Téléphone :</strong> 06 46 64 00 23</li>
-                <li><strong className="text-foreground">Email :</strong> <a href="mailto:contact@lockhaccp.fr" className="text-primary hover:underline">contact@lockhaccp.fr</a></li>
+                <li><strong className="text-foreground">Email :</strong> <a href="mailto:contact@lockhaccp.fr" className="text-primary underline underline-offset-2 hover:no-underline">contact@lockhaccp.fr</a></li>
               </ul>
             </section>
 
@@ -33,7 +33,7 @@ const LegalNotice = () => {
               <ul className="text-muted-foreground list-none space-y-2">
                 <li><strong className="text-foreground">Hostinger International Ltd</strong></li>
                 <li><strong className="text-foreground">Adresse :</strong> 61 Lordou Vironos Street, 6023 Larnaca, Chypre</li>
-                <li><strong className="text-foreground">Site :</strong> <a href="https://www.hostinger.fr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://www.hostinger.fr</a></li>
+                <li><strong className="text-foreground">Site :</strong> <a href="https://www.hostinger.fr" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">https://www.hostinger.fr</a></li>
               </ul>
             </section>
 
@@ -42,7 +42,7 @@ const LegalNotice = () => {
               <ul className="text-muted-foreground list-none space-y-2">
                 <li><strong className="text-foreground">FlutterFlow Inc.</strong></li>
                 <li><strong className="text-foreground">Adresse :</strong> 340 S Lemon Ave #4104, Walnut, CA 91789, États-Unis</li>
-                <li><strong className="text-foreground">Site :</strong> <a href="https://www.flutterflow.io" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://www.flutterflow.io</a></li>
+                <li><strong className="text-foreground">Site :</strong> <a href="https://www.flutterflow.io" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">https://www.flutterflow.io</a></li>
               </ul>
             </section>
           </div>

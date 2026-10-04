@@ -86,7 +86,7 @@ const FeatureReception = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-light border border-secondary/10 mb-6">
               <Package className="w-4 h-4 text-secondary" />
-              <span className="text-sm font-medium text-secondary">Contrôle des réceptions</span>
+              <span className="text-sm font-medium text-secondary-texte">Contrôle des réceptions</span>
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
@@ -98,18 +98,18 @@ const FeatureReception = () => {
               et conservez une traçabilité complète de toutes vos réceptions.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="hero" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="hero" size="xl" asChild>
+                <a href={APP_URL}>
                   Essayer gratuitement
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/demander-demo">
-                <Button variant="heroOutline" size="xl">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" asChild>
+                <Link to="/demander-demo">
                   Demander une démo
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -210,18 +210,18 @@ const FeatureReception = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Essayez LockHACCP gratuitement et découvrez une nouvelle façon de gérer vos réceptions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="accent" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer l'essai gratuit
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/">
-                <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/">
                   Retour à l'accueil
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

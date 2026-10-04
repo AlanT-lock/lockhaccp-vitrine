@@ -72,7 +72,7 @@ const FeatureLabels = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-light border border-secondary/10 mb-6">
               <Tag className="w-4 h-4 text-secondary" />
-              <span className="text-sm font-medium text-secondary">Création d'étiquettes</span>
+              <span className="text-sm font-medium text-secondary-texte">Création d'étiquettes</span>
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
@@ -84,18 +84,18 @@ const FeatureLabels = () => {
               directement vers votre étiqueteuse.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="hero" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="hero" size="xl" asChild>
+                <a href={APP_URL}>
                   Essayer gratuitement
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/demander-demo">
-                <Button variant="heroOutline" size="xl">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" asChild>
+                <Link to="/demander-demo">
                   Demander une démo
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -195,7 +195,7 @@ const FeatureLabels = () => {
               demoVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Étiquettes conformes <span className="text-secondary">automatiquement</span>
+                Étiquettes conformes <span className="text-secondary-texte">automatiquement</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Renseignez le produit, LockHACCP calcule automatiquement la DLC selon vos règles 
@@ -238,7 +238,7 @@ const FeatureLabels = () => {
               DYMO, Brother, Zebra, et bien d'autres...
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">
+          <div className="flex flex-wrap justify-center gap-8 items-center">
             {["DYMO", "Brother", "Zebra", "TSC", "Epson"].map((brand) => (
               <span key={brand} className="text-xl font-heading font-bold text-muted-foreground">
                 {brand}
@@ -258,18 +258,18 @@ const FeatureLabels = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Essayez LockHACCP et créez vos premières étiquettes en quelques minutes.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="accent" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer l'essai gratuit
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/">
-                <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/">
                   Retour à l'accueil
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

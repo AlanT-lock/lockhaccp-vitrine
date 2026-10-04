@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Calendar, Bell, Users, CheckSquare, BarChart3, CheckCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
-import nettoyageImg from "@/assets/screenshots/nettoyage.png";
+import nettoyageImg from "@/assets/screenshots/nettoyage.webp";
+import nettoyageImgPetit from "@/assets/screenshots/nettoyage-petit.webp";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
@@ -75,7 +76,7 @@ const FeatureCleaning = () => {
             <div ref={heroRef} className={`transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-light border border-secondary/10 mb-6">
                 <Sparkles className="w-4 h-4 text-secondary" />
-                <span className="text-sm font-medium text-secondary">Plan de nettoyage</span>
+                <span className="text-sm font-medium text-secondary-texte">Plan de nettoyage</span>
               </div>
               
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
@@ -87,23 +88,23 @@ const FeatureCleaning = () => {
                 Gardez une trace irréprochable pour les contrôles sanitaires.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href={APP_URL}>
-                  <Button variant="hero" size="xl">
+              <div className="flex flex-col items-start sm:flex-row gap-4">
+                <Button variant="hero" size="xl" asChild>
+                  <a href={APP_URL}>
                     Essayer gratuitement
                     <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <Link to="/demander-demo">
-                  <Button variant="heroOutline" size="xl">
+                  </a>
+                </Button>
+                <Button variant="heroOutline" size="xl" asChild>
+                  <Link to="/demander-demo">
                     Demander une démo
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
 
             <div className={`relative flex justify-center transition-all duration-700 ${heroVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
-              <img src={nettoyageImg} alt="Application LockHACCP - Plan de nettoyage" className="max-w-sm w-full h-auto drop-shadow-2xl shadow-2xl rounded-3xl opacity-80" />
+              <img src={nettoyageImg} srcSet={`${nettoyageImgPetit} 480w, ${nettoyageImg} 768w`} sizes="(min-width: 640px) 384px, calc(100vw - 2rem)" alt="Application LockHACCP - Plan de nettoyage" width={384} height={831} {...{ fetchpriority: "high" }} className="max-w-sm w-full h-auto drop-shadow-2xl shadow-2xl rounded-3xl opacity-80" />
             </div>
           </div>
         </div>
@@ -148,7 +149,7 @@ const FeatureCleaning = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div ref={demoRef} className={`transition-all duration-700 ${demoVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Voyez d'un coup d'œil <span className="text-secondary">ce qui reste à faire</span>
+                Voyez d'un coup d'œil <span className="text-secondary-texte">ce qui reste à faire</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 Suivez la progression du plan de nettoyage par zone et par équipe. 
@@ -177,7 +178,7 @@ const FeatureCleaning = () => {
               }}>
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium text-foreground">{zone.name}</span>
-                      <span className={`text-xs px-2 py-1 rounded-full ${zone.progress === 100 ? "bg-green-100 text-green-700" : zone.progress > 0 ? "bg-secondary-light text-secondary" : "bg-muted text-muted-foreground"}`}>
+                      <span className={`text-xs px-2 py-1 rounded-full ${zone.progress === 100 ? "bg-green-100 text-green-700" : zone.progress > 0 ? "bg-secondary-light text-secondary-texte" : "bg-muted text-muted-foreground"}`}>
                         {zone.status}
                       </span>
                     </div>
@@ -211,18 +212,18 @@ const FeatureCleaning = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Fini les fiches papier perdues. Passez au digital avec LockHACCP.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={APP_URL}>
-                <Button variant="accent" size="xl">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="xl" asChild>
+                <a href={APP_URL}>
                   Démarrer l'essai gratuit
                   <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-              <Link to="/">
-                <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                </a>
+              </Button>
+              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/">
                   Retour à l'accueil
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

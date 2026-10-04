@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  canonicalAttendu, extraireDescription, fichierPour, genererLlms, genererSitemap,
+  accelererAffichage, canonicalAttendu, extraireDescription, fichierPour, genererLlms, genererSitemap,
   injecter, retirerBalisesSeo, verifierPage,
 } from "./lib-prerender.mjs";
 
@@ -130,4 +130,19 @@ describe("liensInternesCasses", () => {
     const html = '<div id="root"><a href="/pms">a</a><a href="/blog/futur">b</a><a href="https://x.fr/y">c</a><a href="#ancre">d</a><a href="/tarifs#faq">e</a><a href="/admin">f</a></div>';
     expect(liensInternesCasses(html, new Set(["/pms", "/tarifs"]))).toEqual(["/blog/futur"]);
   });
+});
+
+describe("accelererAffichage", () => {
+  const g = `<head>\n    <link rel="stylesheet" crossorigin href="/assets/index-abc.css">\n</head><body></body>`;
+  it("intègre la feuille de style et précharge les polices", () => {
+    const sortie = accelererAffichage(g, {
+      lireCss: (href) => (href === "/assets/index-abc.css" ? "body{color:red}" : ""),
+      polices: ["/assets/inter-latin-wght-normal-x.woff2"],
+    });
+    expect(sortie).toContain("<style>body{color:red}</style>");
+    expect(sortie).not.toContain('rel="stylesheet"');
+    expect(sortie).toContain('<link rel="preload" href="/assets/inter-latin-wght-normal-x.woff2" as="font" type="font/woff2" crossorigin />');
+  });
+  it("échoue si la feuille de style est introuvable", () =>
+    expect(() => accelererAffichage("<head></head>", { lireCss: () => "", polices: [] })).toThrow());
 });

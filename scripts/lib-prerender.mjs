@@ -118,3 +118,22 @@ export function liensInternesCasses(html, cheminsGeneres) {
   }
   return [...casses];
 }
+
+/**
+ * Accélère le premier affichage des pages pré-générées :
+ * - la feuille de style principale est intégrée dans la page (<style>) au lieu d'être
+ *   une requête qui bloque l'affichage ;
+ * - les polices « latin » (les seules utilisées en français) sont préchargées.
+ * `lireCss(href)` renvoie le contenu du fichier CSS ; `polices` = chemins publics des .woff2.
+ */
+export function accelererAffichage(gabarit, { lireCss, polices }) {
+  const lien = gabarit.match(/[ \t]*<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/);
+  if (!lien) throw new Error("Gabarit inattendu : feuille de style principale introuvable");
+  const css = lireCss(lien[1]).replace(/<\/style/gi, "<\\/style");
+  const precharges = polices
+    .map((p) => `<link rel="preload" href="${p}" as="font" type="font/woff2" crossorigin />`)
+    .join("\n");
+  return gabarit
+    .replace(lien[0], () => `<style>${css}</style>`)
+    .replace("</head>", () => `${precharges}\n</head>`);
+}

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, LogIn, Download } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logoColor from "@/assets/logo-color.png";
+import logoColor from "@/assets/logo-color.webp";
 import { APP_URL } from "@/lib/links";
 import { lienTelechargement } from "@/lib/app-store";
 import LaunchBanner from "@/components/LaunchBanner";
@@ -48,7 +48,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logoColor} alt="LockHACCP Logo" className="h-10 w-auto" />
+            <img src={logoColor} alt="" width={35} height={40} className="h-10 w-auto" />
             <span className="font-heading font-bold text-xl text-foreground">
               Lock<span className="text-primary">HACCP</span>
             </span>
@@ -120,22 +120,22 @@ const Navbar = () => {
               <LogIn className="h-4 w-4" />
               Connexion
             </a>
-            <Link to="/demander-demo">
-              <Button variant="hero" size="sm">
+            <Button variant="hero" size="sm" asChild>
+              <Link to="/demander-demo">
                 Demander une démo
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile : télécharger l'application + menu */}
           <div className="md:hidden flex items-center gap-1">
-          <a href={lienApp}>
-            <Button variant="hero" size="sm" className="gap-1.5 px-3">
+          <Button variant="hero" size="sm" className="gap-1.5 px-3" asChild>
+            <a href={lienApp}>
               <Download className="h-4 w-4" />
               <span className="hidden min-[400px]:inline">Télécharger l'app</span>
               <span className="min-[400px]:hidden">L'app</span>
-            </Button>
-          </a>
+            </a>
+          </Button>
           <button
             type="button"
             className="p-2 text-foreground"
@@ -219,11 +219,11 @@ const Navbar = () => {
                   <LogIn className="h-4 w-4" />
                   Connexion
                 </a>
-                <Link to="/demander-demo" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="hero" className="w-full">
+                <Button variant="hero" className="w-full" asChild>
+                  <Link to="/demander-demo" onClick={() => setIsMenuOpen(false)}>
                     Demander une démo
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

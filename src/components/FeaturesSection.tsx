@@ -92,7 +92,7 @@ const FeaturesSection = () => {
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-light text-secondary font-medium text-sm mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-light text-secondary-texte font-medium text-sm mb-4">
             Fonctionnalités
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">

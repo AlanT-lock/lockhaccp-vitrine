@@ -22,19 +22,19 @@ const NotFound = () => {
         <p className="text-muted-foreground mb-8">
           Vérifiez l'adresse ou revenez à la page d'accueil.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to="/">
-            <Button variant="hero" size="lg">
+        <div className="flex flex-col items-center sm:flex-row gap-3 justify-center">
+          <Button variant="hero" size="lg" asChild>
+            <Link to="/">
               <Home className="w-4 h-4" />
               Retour à l'accueil
-            </Button>
-          </Link>
-          <Link to="/contact">
-            <Button variant="outline" size="lg">
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/contact">
               <ArrowLeft className="w-4 h-4" />
               Nous contacter
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     </div>

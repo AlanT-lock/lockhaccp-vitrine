@@ -45,21 +45,22 @@ const CTASection = () => {
               <p className="text-lg text-primary-foreground/80 mb-8">
                 Rejoignez les centaines de professionnels de la restauration qui ont déjà digitalisé leurs contrôles sanitaires avec LockHACCP.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href={APP_URL}>
-                  <Button variant="accent" size="xl">
+              <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
+                <Button variant="accent" size="xl" asChild>
+                  <a href={APP_URL}>
                     Essayer gratuitement
                     <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <Link to="/demander-demo">
-                  <Button
-                    size="xl"
-                    className="bg-primary-foreground/10 text-primary-foreground border-2 border-primary-foreground/20 hover:bg-primary-foreground/20"
-                  >
+                  </a>
+                </Button>
+                <Button
+                  size="xl"
+                  className="bg-primary-foreground/10 text-primary-foreground border-2 border-primary-foreground/20 hover:bg-primary-foreground/20"
+                  asChild
+                >
+                  <Link to="/demander-demo">
                     Demander une démo
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

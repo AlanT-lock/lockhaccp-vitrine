@@ -9,6 +9,15 @@ import huileFriture from "@/assets/pms/huile-friture.webp";
 import reception from "@/assets/pms/reception.webp";
 import allergenes from "@/assets/pms/allergenes.webp";
 import lavageMains from "@/assets/pms/lavage-mains.webp";
+// Versions réduites (400 px portrait, 600 px paysage) servies aux petits écrans via srcset.
+// Si un aperçu change, régénérer aussi sa version « -petit ».
+import tableauCcpPetit from "@/assets/pms/tableau-ccp-petit.webp";
+import planNettoyagePetit from "@/assets/pms/plan-nettoyage-petit.webp";
+import releveTemperaturePetit from "@/assets/pms/releve-temperature-petit.webp";
+import huileFriturePetit from "@/assets/pms/huile-friture-petit.webp";
+import receptionPetit from "@/assets/pms/reception-petit.webp";
+import allergenesPetit from "@/assets/pms/allergenes-petit.webp";
+import lavageMainsPetit from "@/assets/pms/lavage-mains-petit.webp";
 
 export interface PageApercu {
   src: string;
@@ -16,6 +25,9 @@ export interface PageApercu {
   /** Dimensions réelles de l'image (évitent le décalage de mise en page). */
   largeur: number;
   hauteur: number;
+  /** Version réduite pour les petits écrans, et sa largeur en pixels. */
+  srcPetit: string;
+  largeurPetit: number;
 }
 
 export interface Intercalaire {
@@ -28,8 +40,10 @@ export interface Intercalaire {
   pages: PageApercu[];
 }
 
-const portrait = (src: string, alt: string): PageApercu => ({ src, alt, largeur: 760, hauteur: 1075 });
-const paysage = (src: string, alt: string): PageApercu => ({ src, alt, largeur: 1100, hauteur: 778 });
+const portrait = (src: string, srcPetit: string, alt: string): PageApercu =>
+  ({ src, alt, largeur: 760, hauteur: 1075, srcPetit, largeurPetit: 400 });
+const paysage = (src: string, srcPetit: string, alt: string): PageApercu =>
+  ({ src, alt, largeur: 1100, hauteur: 778, srcPetit, largeurPetit: 600 });
 
 export const INTERCALAIRES: Intercalaire[] = [
   {
@@ -39,7 +53,7 @@ export const INTERCALAIRES: Intercalaire[] = [
     titre: "Le tableau des CCP",
     texte:
       "Chaque point critique de votre activité, avec son seuil, la surveillance à faire et la mesure à prendre en cas d'écart.",
-    pages: [paysage(tableauCcp, "Tableau d'analyse des dangers (CCP) d'un restaurant : seuils critiques, surveillance et mesures correctives")],
+    pages: [paysage(tableauCcp, tableauCcpPetit, "Tableau d'analyse des dangers (CCP) d'un restaurant : seuils critiques, surveillance et mesures correctives")],
   },
   {
     id: "nettoyage",
@@ -48,7 +62,7 @@ export const INTERCALAIRES: Intercalaire[] = [
     titre: "Le plan de nettoyage et de désinfection",
     texte:
       "Zone par zone : chaque surface, sa fréquence et le type de produit à utiliser, avec une colonne pour le responsable.",
-    pages: [portrait(planNettoyage, "Plan de nettoyage et de désinfection par zone : surfaces, fréquences et types de produits")],
+    pages: [portrait(planNettoyage, planNettoyagePetit, "Plan de nettoyage et de désinfection par zone : surfaces, fréquences et types de produits")],
   },
   {
     id: "tracabilite",
@@ -58,9 +72,9 @@ export const INTERCALAIRES: Intercalaire[] = [
     texte:
       "Une fiche d'une page par équipement froid, par friteuse et par zone de nettoyage, plus la réception des marchandises et le refroidissement.",
     pages: [
-      portrait(releveTemperature, "Relevé mensuel de température d'une chambre froide, avec consigne et actions correctives"),
-      portrait(huileFriture, "Fiche de traçabilité des huiles de friture"),
-      portrait(reception, "Registre de réception des marchandises"),
+      portrait(releveTemperature, releveTemperaturePetit, "Relevé mensuel de température d'une chambre froide, avec consigne et actions correctives"),
+      portrait(huileFriture, huileFriturePetit, "Fiche de traçabilité des huiles de friture"),
+      portrait(reception, receptionPetit, "Registre de réception des marchandises"),
     ],
   },
   {
@@ -71,8 +85,8 @@ export const INTERCALAIRES: Intercalaire[] = [
     texte:
       "Tableau des allergènes, lavage des mains, origine des viandes, protection des mineurs : ce qui doit être affiché selon votre activité.",
     pages: [
-      paysage(allergenes, "Tableau des 14 allergènes à compléter pour chaque plat"),
-      portrait(lavageMains, "Affiche du lavage des mains en 9 étapes"),
+      paysage(allergenes, allergenesPetit, "Tableau des 14 allergènes à compléter pour chaque plat"),
+      portrait(lavageMains, lavageMainsPetit, "Affiche du lavage des mains en 9 étapes"),
     ],
   },
 ];

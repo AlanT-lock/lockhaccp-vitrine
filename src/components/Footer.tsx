@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useMaintenant } from "@/hooks/useMaintenant";
-import logoWhite from "@/assets/logo-white.png";
+import logoWhite from "@/assets/logo-white.webp";
 
 const Footer = () => {
   const currentYear = useMaintenant().getFullYear();
@@ -30,23 +30,23 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <img src={logoWhite} alt="LockHACCP Logo" className="h-10 w-auto" />
+              <img src={logoWhite} alt="" width={29} height={40} loading="lazy" decoding="async" className="h-10 w-auto" />
               <span className="font-heading font-bold text-xl text-primary-foreground">
                 LockHACCP
               </span>
             </Link>
-            <p className="text-primary-foreground/60 text-sm">
+            <p className="text-primary-foreground/75 text-sm">
               La solution digitale pour simplifier votre conformité HACCP.
             </p>
           </div>
 
           {/* Application links */}
           <div>
-            <h4 className="font-heading font-semibold text-primary-foreground mb-4">L'application</h4>
+            <h2 className="font-heading text-base font-semibold text-primary-foreground mb-4">L'application</h2>
             <ul className="space-y-3">
               {footerLinks.application.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm">
+                  <Link to={link.href} className="text-primary-foreground/75 hover:text-primary-foreground transition-colors text-sm">
                     {link.label}
                   </Link>
                 </li>
@@ -56,11 +56,11 @@ const Footer = () => {
 
           {/* Company links */}
           <div>
-            <h4 className="font-heading font-semibold text-primary-foreground mb-4">Entreprise</h4>
+            <h2 className="font-heading text-base font-semibold text-primary-foreground mb-4">Entreprise</h2>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm">
+                  <Link to={link.href} className="text-primary-foreground/75 hover:text-primary-foreground transition-colors text-sm">
                     {link.label}
                   </Link>
                 </li>
@@ -70,11 +70,11 @@ const Footer = () => {
 
           {/* Legal links */}
           <div>
-            <h4 className="font-heading font-semibold text-primary-foreground mb-4">Légal</h4>
+            <h2 className="font-heading text-base font-semibold text-primary-foreground mb-4">Légal</h2>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm">
+                  <Link to={link.href} className="text-primary-foreground/75 hover:text-primary-foreground transition-colors text-sm">
                     {link.label}
                   </Link>
                 </li>
@@ -85,7 +85,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-primary-foreground/10">
-          <p className="text-center text-primary-foreground/40 text-sm">
+          <p className="text-center text-primary-foreground/70 text-sm">
             © {currentYear} LockHACCP. Tous droits réservés.
           </p>
         </div>

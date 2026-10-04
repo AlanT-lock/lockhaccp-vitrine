@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { ArrowRight, CheckCircle, Mail, Phone, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -62,6 +61,8 @@ const ContactInfo = () => {
     setIsSubmitting(true);
 
     try {
+      // Client chargé à l'envoi seulement : la page s'affiche sans ses ~50 Ko.
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase.from("contact_requests").insert({
         company_name: "Question générale",
         contact_name: result.data.contactName,
@@ -120,12 +121,12 @@ const ContactInfo = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Une question sur LockHACCP ? Notre équipe est là pour vous répondre.
             </p>
-            <Link to="/demander-demo">
-              <Button variant="hero" size="xl">
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/demander-demo">
                 Vous souhaitez une démo ? Cliquez ici
                 <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -183,12 +184,12 @@ const ContactInfo = () => {
                 <p className="text-primary-foreground/80 mb-6">
                   Découvrez LockHACCP en action avec une démonstration personnalisée gratuite.
                 </p>
-                <Link to="/demander-demo">
-                  <Button variant="accent" size="lg" className="w-full">
+                <Button variant="accent" size="lg" className="w-full" asChild>
+                  <Link to="/demander-demo">
                     Demander une démo gratuite
                     <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
 

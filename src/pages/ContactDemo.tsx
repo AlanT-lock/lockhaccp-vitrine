@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowRight, CheckCircle, Calendar, Users, Headphones, Clock } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { contactDemoSchema } from "@/lib/validation";
@@ -69,6 +68,8 @@ const ContactDemo = () => {
     setIsSubmitting(true);
 
     try {
+      // Client chargé à l'envoi seulement : la page s'affiche sans ses ~50 Ko.
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase.from("contact_requests").insert({
         company_name: result.data.companyName,
         contact_name: result.data.contactName,
@@ -153,7 +154,7 @@ const ContactDemo = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-              <span className="text-sm font-semibold text-secondary">🎁 Essai gratuit de 1 mois inclus</span>
+              <span className="text-sm font-semibold text-secondary-texte">🎁 Essai gratuit de 1 mois inclus</span>
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
               Demandez votre <span className="text-primary">démo gratuite</span>
@@ -169,6 +170,7 @@ const ContactDemo = () => {
       {/* Benefits */}
       <section className="py-12 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Ce que comprend la démonstration</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit) => (
               <div
@@ -294,7 +296,7 @@ const ContactDemo = () => {
                     <div className="space-y-2">
                       <Label htmlFor="companySize">Taille de votre établissement</Label>
                       <Select onValueChange={handleSelectChange} value={formData.companySize}>
-                        <SelectTrigger>
+                        <SelectTrigger id="companySize">
                           <SelectValue placeholder="Sélectionnez une option" />
                         </SelectTrigger>
                         <SelectContent>
