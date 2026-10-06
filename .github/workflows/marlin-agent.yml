@@ -1,0 +1,129 @@
+# Installé et mis à jour par Marlin (marlin-agent@1). Ne pas modifier à la main.
+# Lancé par Marlin : l'agent Mistral Vibe réalise le plan sur une branche de travail ;
+# Marlin vérifie ensuite la prévisualisation avant toute fusion.
+name: Marlin agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Identifiant Marlin de l'exécution
+        required: true
+        type: string
+      branch:
+        description: Branche de travail (marlin/…)
+        required: true
+        type: string
+      plan_path:
+        description: Chemin du plan dans la branche
+        required: true
+        type: string
+      max_turns:
+        description: Nombre maximal de tours de l'agent
+        required: false
+        default: "150"
+        type: string
+      max_price:
+        description: Coût maximal en dollars
+        required: false
+        default: "2"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: marlin-agent-${{ inputs.branch }}
+  cancel-in-progress: false
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      RUN_ID: ${{ inputs.run_id }}
+      BRANCH: ${{ inputs.branch }}
+      PLAN_PATH: ${{ inputs.plan_path }}
+      MAX_TURNS: ${{ inputs.max_turns }}
+      MAX_PRICE: ${{ inputs.max_price }}
+    steps:
+      - name: Vérifier les paramètres
+        run: |
+          [[ "$BRANCH" =~ ^marlin/[A-Za-z0-9._/-]{1,100}$ ]] || { echo "Branche refusée : $BRANCH"; exit 1; }
+          [[ "$PLAN_PATH" =~ ^\.marlin/[A-Za-z0-9._/-]{1,150}\.md$ ]] || { echo "Plan refusé : $PLAN_PATH"; exit 1; }
+          [[ "$RUN_ID" =~ ^[0-9a-f-]{36}$ ]] || { echo "Identifiant refusé"; exit 1; }
+          [[ "$MAX_TURNS" =~ ^[0-9]{1,3}$ ]] || { echo "max_turns refusé"; exit 1; }
+          [[ "$MAX_PRICE" =~ ^[0-9]{1,2}(\.[0-9]{1,2})?$ ]] || { echo "max_price refusé"; exit 1; }
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7
+
+      - name: Installer Mistral Vibe 2.25.8
+        run: uv tool install "mistral-vibe==2.25.8"
+
+      - name: Configurer Vibe (Mistral Small 4)
+        run: |
+          mkdir -p "$RUNNER_TEMP/vibe"
+          cat > "$RUNNER_TEMP/vibe/config.toml" <<'TOML'
+          active_model = "mistral-small-4"
+          enable_telemetry = false
+          enable_auto_update = false
+
+          [[models]]
+          name = "mistral-small-2603"
+          provider = "mistral"
+          alias = "mistral-small-4"
+          input_price = 0.15
+          output_price = 0.6
+          TOML
+
+      - name: Exécuter le plan
+        env:
+          VIBE_HOME: ${{ runner.temp }}/vibe
+          MISTRAL_API_KEY: ${{ secrets.MARLIN_MISTRAL_API_KEY }}
+          REPORT_PATH: .marlin/runs/${{ inputs.run_id }}/report.md
+        run: |
+          test -n "$MISTRAL_API_KEY" || { echo "Secret MARLIN_MISTRAL_API_KEY absent"; exit 1; }
+          test -f "$PLAN_PATH" || { echo "Plan introuvable : $PLAN_PATH"; exit 1; }
+          mkdir -p "$(dirname "$REPORT_PATH")"
+          vibe -p "Tu es l'agent de code de Marlin. Lis intégralement le plan dans le fichier indiqué par la variable d'environnement PLAN_PATH (chemin relatif à la racine du dépôt) et réalise-le dans ce dépôt. Règles : identifie toi-même les fichiers concernés (n'invente aucun chemin) ; respecte le style du projet ; change le minimum nécessaire ; ne modifie jamais .github/workflows ni le dossier .marlin (sauf le rapport) ; n'ajoute aucun secret ; ne fais ni commit ni push (le workflow s'en charge). Si le projet a un script de build ou de lint, lance-le à la fin et corrige les erreurs que tu as causées. Termine en écrivant un rapport en français dans le fichier indiqué par REPORT_PATH : pour chaque tâche du plan, « fait », « partiel » ou « non fait », les fichiers modifiés et la raison si non fait." \
+            --auto-approve --trust \
+            --max-turns "$MAX_TURNS" --max-price "$MAX_PRICE" \
+            --output json > "$RUNNER_TEMP/vibe-output.json"
+
+      - name: Rapport
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/marlin"
+          cp "$RUNNER_TEMP/vibe-output.json" "$RUNNER_TEMP/marlin/" 2>/dev/null || true
+          cp ".marlin/runs/$RUN_ID/report.md" "$RUNNER_TEMP/marlin/report.md" 2>/dev/null || true
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: marlin-${{ inputs.run_id }}
+          path: ${{ runner.temp }}/marlin
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Commit et push sur la branche de travail
+        run: |
+          git config user.name "Marlin Agent"
+          git config user.email "agent@marlin.invalid"
+          # Le rapport et les plans restent hors du code du site.
+          git add -A
+          git reset -q -- .github/workflows .marlin/runs || true
+          if git diff --cached --quiet; then
+            echo "Aucune modification."
+          else
+            git commit -q -m "Marlin : exécution $RUN_ID"
+            git push origin "HEAD:$BRANCH"
+          fi
