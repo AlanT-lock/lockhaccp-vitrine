@@ -23,6 +23,11 @@ export function validerMeta(meta, fichier) {
   const e = [];
   for (const c of CHAMPS_OBLIGATOIRES) if (!meta[c]) e.push(`${fichier} : champ « ${c} » manquant`);
   if (meta.description && meta.description.length > 160) e.push(`${fichier} : description de ${meta.description.length} caractères (160 max)`);
+  // Title affiché par Google : titreSeo s'il existe (le h1 garde le titre complet), sinon titre.
+  const titreGoogle = meta.titreSeo || meta.titre;
+  if (titreGoogle && titreGoogle.length > 60) {
+    e.push(`${fichier} : titre de ${titreGoogle.length} caractères dans Google (60 max) : ajoutez un champ « titreSeo » plus court`);
+  }
   if (meta.date && !DATE.test(meta.date)) e.push(`${fichier} : date « ${meta.date} » au format AAAA-MM-JJ attendu`);
   if (meta.maj && !DATE.test(meta.maj)) e.push(`${fichier} : maj « ${meta.maj} » au format AAAA-MM-JJ attendu`);
   return e;

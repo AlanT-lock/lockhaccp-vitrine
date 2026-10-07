@@ -1,5 +1,6 @@
 ---
 titre: "Relevé de température en restaurant : règles, fréquence et fiche"
+titreSeo: "Relevé de température en restaurant : règles et fiche"
 description: "Quelles températures relever en restaurant, combien de fois par jour, avec quel thermomètre, et quoi noter quand un frigo dépasse : le guide pratique."
 date: 2026-10-16
 motCle: relevé température HACCP

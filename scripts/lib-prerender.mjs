@@ -86,6 +86,25 @@ export function extraireDescription(html) {
   return m ? decoder(m[1]) : null;
 }
 
+// Plages lues par Marlin et la plupart des outils SEO : au-delà, Google tronque ou réécrit.
+export const LONGUEUR_TITRE = { min: 30, max: 60 };
+export const LONGUEUR_DESCRIPTION = { min: 70, max: 160 };
+
+/** Longueurs du title et de la meta description d'une page indexable. */
+export function verifierLongueurs(html) {
+  const erreurs = [];
+  const brut = html.match(/<title[^>]*>([^<]*)<\/title>/)?.[1];
+  const titre = brut === undefined ? null : decoder(brut);
+  const description = extraireDescription(html);
+  if (titre !== null && (titre.length < LONGUEUR_TITRE.min || titre.length > LONGUEUR_TITRE.max)) {
+    erreurs.push(`titre de ${titre.length} caractères (${LONGUEUR_TITRE.min}-${LONGUEUR_TITRE.max}) : « ${titre} »`);
+  }
+  if (description && (description.length < LONGUEUR_DESCRIPTION.min || description.length > LONGUEUR_DESCRIPTION.max)) {
+    erreurs.push(`description de ${description.length} caractères (${LONGUEUR_DESCRIPTION.min}-${LONGUEUR_DESCRIPTION.max})`);
+  }
+  return erreurs;
+}
+
 export function verifierPage(html, path, { texteMin = 300 } = {}) {
   const erreurs = [];
   if (!/<title[^>]*>[^<]+<\/title>/.test(html)) erreurs.push("titre manquant");

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   accelererAffichage, canonicalAttendu, extraireDescription, fichierPour, genererLlms, genererSitemap,
-  injecter, retirerBalisesSeo, verifierPage,
+  injecter, retirerBalisesSeo, verifierLongueurs, verifierPage,
 } from "./lib-prerender.mjs";
 
 const GABARIT = `<!doctype html><html lang="fr"><head>
@@ -145,4 +145,25 @@ describe("accelererAffichage", () => {
   });
   it("échoue si la feuille de style est introuvable", () =>
     expect(() => accelererAffichage("<head></head>", { lireCss: () => "", polices: [] })).toThrow());
+});
+
+describe("verifierLongueurs", () => {
+  const page = (titre, description) =>
+    `<html><head><title data-rh="true">${titre}</title><meta data-rh="true" name="description" content="${description}"/></head></html>`;
+  const desc = "Une description assez longue pour entrer dans la plage attendue par les moteurs de recherche.";
+
+  it("accepte un titre et une description dans les plages", () => {
+    expect(verifierLongueurs(page("Plan de Maîtrise Sanitaire gratuit | LockHACCP", desc))).toEqual([]);
+  });
+  it("compte les entités décodées, pas le HTML brut", () => {
+    expect(verifierLongueurs(page("Contrôle sanitaire : ce que l&#x27;inspecteur vérifie", desc))).toEqual([]);
+  });
+  it("signale un titre trop long ou trop court", () => {
+    expect(verifierLongueurs(page("x".repeat(61), desc)).join()).toMatch(/titre de 61/);
+    expect(verifierLongueurs(page("Mentions légales - LockHACCP", desc)).join()).toMatch(/titre de 28/);
+  });
+  it("signale une description hors plage", () => {
+    expect(verifierLongueurs(page("Plan de Maîtrise Sanitaire gratuit | LockHACCP", "Trop courte.")).join()).toMatch(/description de 12/);
+    expect(verifierLongueurs(page("Plan de Maîtrise Sanitaire gratuit | LockHACCP", "x".repeat(161))).join()).toMatch(/description de 161/);
+  });
 });

@@ -1,5 +1,6 @@
 ---
 titre: "Plan de nettoyage et de désinfection en restaurant : comment le construire"
+titreSeo: "Plan de nettoyage et désinfection en restaurant"
 description: "Construire le plan de nettoyage d'une cuisine zone par zone : quoi, quand, avec quel produit, par qui. Nettoyer ou désinfecter, erreurs et fiche de suivi."
 date: 2026-10-23
 motCle: plan de nettoyage HACCP

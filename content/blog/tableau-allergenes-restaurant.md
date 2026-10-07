@@ -1,5 +1,6 @@
 ---
 titre: "Tableau des allergènes en restaurant : obligations et modèle"
+titreSeo: "Tableau des allergènes en restaurant : règles et modèle"
 description: "Les 14 allergènes à déclarer, la forme écrite imposée depuis 2015, comment remplir un tableau des allergènes plat par plat et éviter les erreurs courantes."
 date: 2026-11-06
 motCle: tableau allergènes restaurant

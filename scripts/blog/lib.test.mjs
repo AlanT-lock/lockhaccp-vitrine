@@ -29,6 +29,16 @@ describe("validerMeta", () => {
   });
 });
 
+describe("validerMeta : titre dans Google", () => {
+  const ok = { titre: "Titre court", description: "d", date: "2026-10-02", motCle: "m", resume: "r" };
+  it("refuse un titre de plus de 60 caractères sans titreSeo", () => {
+    expect(validerMeta({ ...ok, titre: "x".repeat(61) }, "a.md").join()).toMatch(/titreSeo/);
+  });
+  it("accepte un titre long accompagné d'un titreSeo court", () => {
+    expect(validerMeta({ ...ok, titre: "x".repeat(80), titreSeo: "Titre court pour Google" }, "a.md")).toEqual([]);
+  });
+});
+
 describe("verifierCharte", () => {
   it("accepte un texte sobre avec sources", () => {
     expect(verifierCharte("Je vous explique. Court." + SOURCES)).toEqual([]);

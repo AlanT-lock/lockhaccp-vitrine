@@ -1,5 +1,6 @@
 ---
 titre: "Contrôle sanitaire en restaurant : ce que regarde vraiment l'inspecteur"
+titreSeo: "Contrôle sanitaire en restaurant : ce que vérifie la DDPP"
 description: "Déroulé d'un contrôle de la DDPP en restaurant : ce que l'inspecteur vérifie en cuisine, les documents demandés, la note Alim'confiance et les suites possibles."
 date: 2026-10-02
 motCle: contrôle DDPP restaurant

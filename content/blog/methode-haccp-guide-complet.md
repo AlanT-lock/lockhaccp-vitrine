@@ -1,5 +1,6 @@
 ---
 titre: "Méthode HACCP : les 7 principes expliqués avec des exemples de cuisine"
+titreSeo: "Méthode HACCP : les 7 principes expliqués en cuisine"
 description: "Les 7 principes de la méthode HACCP appliqués à un restaurant : dangers, points critiques, limites, surveillance, actions correctives et enregistrements."
 date: 2026-05-11
 maj: 2026-10-02

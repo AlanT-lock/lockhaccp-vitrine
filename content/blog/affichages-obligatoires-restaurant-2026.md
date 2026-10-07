@@ -1,5 +1,6 @@
 ---
 titre: "Affichages obligatoires en restaurant : la liste à jour pour 2026"
+titreSeo: "Affichages obligatoires en restaurant : la liste 2026"
 description: "Prix, allergènes, origine des viandes, alcool, tabac, mentions pour les salariés : ce qu'un restaurant doit afficher en 2026, et ce qui ne l'est pas."
 date: 2026-05-11
 maj: 2026-10-02

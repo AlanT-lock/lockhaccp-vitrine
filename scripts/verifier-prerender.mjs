@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { fichierPour, liensInternesCasses, verifierPage } from "./lib-prerender.mjs";
+import { fichierPour, liensInternesCasses, verifierLongueurs, verifierPage } from "./lib-prerender.mjs";
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(racine, "dist");
@@ -18,6 +18,10 @@ for (const { path } of pages) {
   if (!existsSync(fichier)) { erreurs.push(`${path} : fichier ${fichierPour(path)} absent`); continue; }
   const html = readFileSync(fichier, "utf8");
   for (const e of verifierPage(html, path)) erreurs.push(`${path} : ${e}`);
+  // Les pages en noindex (ex. /app) ne sont pas concernées par l'affichage dans Google.
+  if (!/<meta[^>]*name="robots"[^>]*noindex/.test(html)) {
+    for (const e of verifierLongueurs(html)) erreurs.push(`${path} : ${e}`);
+  }
   for (const l of liensInternesCasses(html, generes)) erreurs.push(`${path} : lien vers ${l}, page inexistante`);
   const titre = html.match(/<title[^>]*>([^<]*)<\/title>/)?.[1];
   if (titre && titres.has(titre)) erreurs.push(`${path} : titre identique à ${titres.get(titre)}`);
@@ -32,4 +36,4 @@ if (erreurs.length) {
   console.error(`✗ Pré-génération incomplète :\n  - ${erreurs.join("\n  - ")}`);
   process.exit(1);
 }
-console.log(`✓ ${pages.length} pages vérifiées (titre, description, canonical, h1, texte) + 404`);
+console.log(`✓ ${pages.length} pages vérifiées (titre, description et leurs longueurs, canonical, h1, texte) + 404`);

@@ -8,6 +8,8 @@ export interface Article {
   slug: string;
   meta: {
     titre: string;
+    /** Titre plus court pour Google, si « titre » dépasse 60 caractères. */
+    titreSeo?: string;
     description: string;
     date: string;
     maj?: string;

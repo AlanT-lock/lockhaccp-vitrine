@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { filAriane } from "@/lib/pages";
+import { titreComplet } from "@/lib/titre";
 
 const SITE_URL = "https://lockhaccp.fr";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
@@ -24,9 +25,7 @@ export const Seo = ({
   jsonLd,
 }: SeoProps) => {
   const url = path ? `${SITE_URL}${path}` : SITE_URL;
-  const fullTitle = title.includes("LockHACCP")
-    ? title
-    : `${title} | LockHACCP`;
+  const fullTitle = titreComplet(title);
   const ldFournis = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
   // Fil d'Ariane ajouté automatiquement, sauf si la page fournit déjà le sien.
   const aDejaUnFil = ldFournis.some((ld) => ld["@type"] === "BreadcrumbList");
