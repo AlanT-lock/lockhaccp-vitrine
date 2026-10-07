@@ -1,4 +1,4 @@
-# Installé et mis à jour par Marlin (marlin-agent@2). Ne pas modifier à la main.
+# Installé et mis à jour par Marlin (marlin-agent@3). Ne pas modifier à la main.
 # Lancé par Marlin : l'agent Mistral Vibe réalise le plan sur une branche de travail ;
 # Marlin vérifie ensuite la prévisualisation avant toute fusion.
 name: Marlin agent
@@ -102,10 +102,25 @@ jobs:
 
       - name: Rapport
         if: always()
+        env:
+          REPORT_PATH: .marlin/runs/${{ inputs.run_id }}/report.md
         run: |
-          mkdir -p "$RUNNER_TEMP/marlin"
+          mkdir -p "$RUNNER_TEMP/marlin" "$(dirname "$REPORT_PATH")"
           cp "$RUNNER_TEMP/vibe-output.json" "$RUNNER_TEMP/marlin/" 2>/dev/null || true
-          cp ".marlin/runs/$RUN_ID/report.md" "$RUNNER_TEMP/marlin/report.md" 2>/dev/null || true
+          # Sans rapport, on garde au moins le dernier message de l'agent.
+          if [ ! -s "$REPORT_PATH" ]; then
+            {
+              echo "# Rapport absent"
+              echo
+              echo "L'agent n'a pas écrit de rapport. Dernier message de l'agent :"
+              echo
+              jq -r '(if type == "array" then . else (.history // []) end)
+                | [.[] | select(.role? == "assistant" and (.text? // "") != "") | .text] | last // "(aucun)"' \
+                "$RUNNER_TEMP/vibe-output.json" 2>/dev/null || echo "(sortie de l'agent illisible)"
+            } > "$REPORT_PATH"
+          fi
+          cp "$REPORT_PATH" "$RUNNER_TEMP/marlin/report.md"
+          { echo "## Rapport de l'agent"; echo; head -c 60000 "$REPORT_PATH"; } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         if: always()
@@ -119,12 +134,17 @@ jobs:
         run: |
           git config user.name "Marlin Agent"
           git config user.email "agent@marlin.invalid"
-          # Le rapport et les plans restent hors du code du site.
+          # Code du site d'abord ; jamais les workflows.
           git add -A
           git reset -q -- .github/workflows .marlin/runs || true
           if git diff --cached --quiet; then
-            echo "Aucune modification."
+            echo "Aucune modification du site."
           else
             git commit -q -m "Marlin : exécution $RUN_ID"
+          fi
+          # Rapport à part (lu par Marlin, retiré avant la fusion).
+          git add -f -- ".marlin/runs/$RUN_ID/report.md" 2>/dev/null || true
+          git diff --cached --quiet || git commit -q -m "Marlin : rapport de l'agent"
+          if [ -n "$(git log "origin/$BRANCH..HEAD" --oneline)" ]; then
             git push origin "HEAD:$BRANCH"
           fi
