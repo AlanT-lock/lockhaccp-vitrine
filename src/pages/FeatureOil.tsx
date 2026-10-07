@@ -6,7 +6,9 @@ import { ArrowRight, Droplets, Gauge, History, AlertTriangle, FileText, Trending
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureOil = () => {
@@ -67,7 +69,7 @@ const FeatureOil = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Contrôle huile de friture HACCP - LockHACCP" description="Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort." path="/fonctionnalites/huiles" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Huiles",path:"/fonctionnalites/huiles"}])} />
+      <Seo title="Contrôle huile de friture HACCP" description="Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort." path="/fonctionnalites/huiles" jsonLd={faqJsonLd(CONTENUS.huiles.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -248,6 +250,8 @@ const FeatureOil = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="huiles" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

@@ -6,7 +6,9 @@ import { ArrowRight, Tag, Printer, QrCode, Calendar, Edit, Wifi, CheckCircle } f
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureLabels = () => {
@@ -58,7 +60,7 @@ const FeatureLabels = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Étiquettes de production HACCP : DLC, allergènes - LockHACCP" description="Imprimez vos étiquettes de production HACCP : DLC, n° de lot, allergènes. Étiqueteuse connectée et modèles personnalisables." path="/fonctionnalites/etiquettes" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Étiquettes",path:"/fonctionnalites/etiquettes"}])} />
+      <Seo title="Étiquettes de production HACCP : DLC, allergènes" description="Imprimez vos étiquettes de production HACCP : DLC, n° de lot, allergènes. Étiqueteuse connectée et modèles personnalisables." path="/fonctionnalites/etiquettes" jsonLd={faqJsonLd(CONTENUS.etiquettes.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -232,14 +234,14 @@ const FeatureLabels = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h3 className="font-heading text-xl font-bold text-foreground mb-2">
-              Compatible avec les principales étiqueteuses
+              Compatible avec les étiqueteuses Brother, Zebra et Epson
             </h3>
             <p className="text-muted-foreground">
-              DYMO, Brother, Zebra, et bien d'autres...
+              Impression directe depuis l'application, sur une étiqueteuse en réseau.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 items-center">
-            {["DYMO", "Brother", "Zebra", "TSC", "Epson"].map((brand) => (
+            {["Brother", "Zebra", "Epson"].map((brand) => (
               <span key={brand} className="text-xl font-heading font-bold text-muted-foreground">
                 {brand}
               </span>
@@ -247,6 +249,8 @@ const FeatureLabels = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="etiquettes" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

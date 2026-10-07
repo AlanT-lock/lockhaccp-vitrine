@@ -6,7 +6,9 @@ import { ArrowRight, FileSearch, QrCode, History, Search, FileText, Shield, Chec
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureTracability = () => {
@@ -64,7 +66,7 @@ const FeatureTracability = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Traçabilité alimentaire HACCP : conforme & instantanée - LockHACCP" description="Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit." path="/fonctionnalites/tracabilite" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Traçabilité",path:"/fonctionnalites/tracabilite"}])} />
+      <Seo title="Traçabilité alimentaire HACCP sur téléphone" description="Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit." path="/fonctionnalites/tracabilite" jsonLd={faqJsonLd(CONTENUS.tracabilite.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -237,6 +239,8 @@ const FeatureTracability = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="tracabilite" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

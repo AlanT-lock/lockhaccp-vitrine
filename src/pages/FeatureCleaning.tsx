@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 import nettoyageImg from "@/assets/screenshots/nettoyage.webp";
 import nettoyageImgPetit from "@/assets/screenshots/nettoyage-petit.webp";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
+import { PlanningNettoyageExemple } from "@/components/PlanningNettoyageExemple";
 import { APP_URL } from "@/lib/links";
 const FeatureCleaning = () => {
   const {
@@ -66,7 +69,7 @@ const FeatureCleaning = () => {
     status: "À faire"
   }];
   return <div className="min-h-screen bg-background">
-      <Seo title="Plan de nettoyage cuisine HACCP : suivi et rappels - LockHACCP" description="Plan de nettoyage HACCP : planning personnalisé, rappels automatiques, validation des tâches. Conforme aux exigences sanitaires." path="/fonctionnalites/nettoyage" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Plan de nettoyage",path:"/fonctionnalites/nettoyage"}])} />
+      <Seo title="Planning de nettoyage cuisine HACCP" description="Planning de nettoyage cuisine sur téléphone : zones, fréquences, rappels chaque matin, tâches validées et signées. Un plan de nettoyage HACCP toujours à jour." path="/fonctionnalites/nettoyage" jsonLd={faqJsonLd(CONTENUS.nettoyage.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -80,7 +83,7 @@ const FeatureCleaning = () => {
               </div>
               
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                Un <span className="text-primary">plan de nettoyage</span> toujours à jour
+                Votre <span className="text-primary">planning de nettoyage</span> cuisine, toujours à jour
               </h1>
               
               <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
@@ -201,6 +204,10 @@ const FeatureCleaning = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="nettoyage">
+        <PlanningNettoyageExemple />
+      </ContenuFonctionnalite>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

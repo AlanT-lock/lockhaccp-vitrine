@@ -37,6 +37,30 @@ const AuteurAlan = () => {
               ))}
             </div>
 
+            <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Ce qu'il a conçu sur LockHACCP</h2>
+            <ul className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/85">
+              <li>
+                <Link to="/plan-de-maitrise-sanitaire" className="font-semibold text-primary hover:underline">Le Plan de Maîtrise Sanitaire gratuit</Link>
+                {" "}: le contenu des dossiers générés pour neuf métiers de l'alimentation, du restaurant à la poissonnerie. Tableau des points critiques, plan de nettoyage, fiches de relevé et affichages obligatoires.
+              </li>
+              <li>
+                <Link to="/" className="font-semibold text-primary hover:underline">L'application LockHACCP</Link>
+                {" "}: les enregistrements du quotidien sur téléphone, avec les{" "}
+                <Link to="/fonctionnalites/temperatures" className="text-primary hover:underline">relevés de température</Link>, le{" "}
+                <Link to="/fonctionnalites/receptions" className="text-primary hover:underline">contrôle à réception</Link>, la{" "}
+                <Link to="/fonctionnalites/tracabilite" className="text-primary hover:underline">traçabilité</Link> et le{" "}
+                <Link to="/fonctionnalites/nettoyage" className="text-primary hover:underline">plan de nettoyage</Link>.
+              </li>
+            </ul>
+
+            <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Les sujets qu'il traite</h2>
+            <p className="mt-6 text-lg leading-relaxed text-foreground/85">
+              La méthode HACCP et le Plan de Maîtrise Sanitaire, les températures de conservation, le nettoyage et la
+              désinfection, la traçabilité, les allergènes, les affichages obligatoires et le déroulé d'un contrôle de la
+              DDPP. Ses articles citent les textes officiels sur lesquels ils s'appuient (règlement européen 852/2004,
+              arrêté du 21 décembre 2009, code rural), avec un lien vers Légifrance ou EUR-Lex.
+            </p>
+
             <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Ses articles</h2>
             <ul className="mt-6 border-t border-border">
               {articles.map((a) => (

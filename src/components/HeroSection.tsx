@@ -65,7 +65,7 @@ const HeroSection = () => {
 
             {/* Titre et accroche sans animation d'entrée : ils sont affichés dès le premier rendu. */}
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              Simplifiez votre conformité <span className="text-primary">HACCP</span>
+              Le logiciel <span className="text-primary">HACCP</span> pour restaurateurs
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">

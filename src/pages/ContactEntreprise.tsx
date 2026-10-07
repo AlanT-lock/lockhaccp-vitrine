@@ -11,12 +11,45 @@ import { toast } from "sonner";
 import { validateEmail, validatePhone, validateRequired } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
+import { SectionEtapes } from "@/components/SectionsContenu";
+import { RelatedLinks } from "@/components/RelatedLinks";
+import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
+import { FaqSection } from "@/components/FaqSection";
+
+const ETAPES_DEPLOIEMENT = [
+  { titre: "Vous décrivez votre groupe", texte: "Nombre d'établissements, taille des équipes, contrôles déjà en place : le formulaire ci-dessus suffit." },
+  { titre: "Nous vous recontactons sous 24 h", texte: "Pour comprendre votre organisation et fixer une démonstration sur Google Meet." },
+  { titre: "Vous voyez l'application et le tableau de bord", texte: "L'application utilisée en cuisine, et le tableau de bord consolidé de l'application web qui regroupe tous vos sites." },
+  { titre: "Mise en place accompagnée", texte: "Un interlocuteur unique vous accompagne pour le déploiement de chaque établissement et la prise en main par vos équipes." },
+];
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 
 const ContactEntreprise = () => {
   const maintenant = useMaintenant();
   const pricing = getActivePricing(maintenant);
+  const faq = [
+    {
+      question: "Comment suivre tous mes établissements au même endroit ?",
+      answer: "L'application web propose un tableau de bord consolidé : vous y voyez les contrôles de chaque site, et ce qui manque.",
+    },
+    {
+      question: "Combien coûte un établissement supplémentaire ?",
+      answer: `${formatPriceEUR(pricing.extraMonthly)}/mois, après le premier établissement à ${formatPriceEUR(pricing.mainMonthly)}/mois. Toutes les fonctionnalités sont incluses pour chaque site.`,
+    },
+    {
+      question: "Y a-t-il un engagement ?",
+      answer: "Non. Les abonnements sont sans engagement et se résilient depuis l'application, sans préavis.",
+    },
+    {
+      question: "Peut-on tester avant de déployer dans tout le groupe ?",
+      answer: "Oui, avec 1 mois d'essai gratuit, sans carte bancaire : vous pouvez commencer par un seul établissement.",
+    },
+    {
+      question: "LockHACCP se connecte-t-il à nos autres logiciels ?",
+      answer: "Non, LockHACCP ne propose pas d'intégration avec d'autres logiciels (caisse, commandes, ERP). Les données de traçabilité s'exportent en PDF ou en Excel.",
+    },
+  ];
   const [formData, setFormData] = useState({
     contactName: "",
     email: "",
@@ -123,7 +156,7 @@ const ContactEntreprise = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Logiciel HACCP multi-établissements - LockHACCP" description={`LockHACCP pour les groupes de plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement supplémentaire. Contactez notre équipe pour être accompagné dans la mise en place.`} path="/contact-entreprise" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}])} />
+      <Seo title="Logiciel HACCP multi-établissements" description={`LockHACCP pour plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement en plus, tableau de bord consolidé.`} path="/contact-entreprise" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}]), faqJsonLd(faq)]} />
       <Navbar />
 
       {/* Hero Section */}
@@ -352,6 +385,12 @@ const ContactEntreprise = () => {
           </div>
         </div>
       </section>
+
+      <SectionEtapes titre="Comment se passe la mise en place ?" etapes={ETAPES_DEPLOIEMENT} />
+
+      <RelatedLinks title="Les fonctionnalités incluses dans chaque établissement" items={TOUTES_FONCTIONNALITES} />
+
+      <FaqSection items={faq} title="Questions fréquentes des groupes de restaurants" />
 
       <Footer />
     </div>

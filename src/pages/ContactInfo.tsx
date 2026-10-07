@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, CheckCircle, Mail, Phone, MessageCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Mail, Phone, MessageCircle, Clock } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
@@ -93,7 +93,7 @@ const ContactInfo = () => {
       setIsSubmitted(true);
       toast({
         title: "Message envoyé !",
-        description: "Nous vous répondrons dans les plus brefs délais.",
+        description: "Nous vous répondons sous 24 h.",
       });
     } catch {
       toast({
@@ -166,6 +166,16 @@ const ContactInfo = () => {
                     </div>
                   </div>
 
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground mb-1">Délai de réponse</p>
+                      <p className="text-muted-foreground">Sous 24 h, par e-mail ou par téléphone.</p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
@@ -209,7 +219,7 @@ const ContactInfo = () => {
                     Message envoyé !
                   </h2>
                   <p className="text-muted-foreground mb-6">
-                    Merci de nous avoir contactés. Nous vous répondrons dans les plus brefs délais.
+                    Merci de nous avoir contactés. Nous vous répondons sous 24 h.
                   </p>
                   <Button variant="outline" onClick={() => setIsSubmitted(false)}>
                     Envoyer un autre message
@@ -221,7 +231,7 @@ const ContactInfo = () => {
                     Posez-nous votre question
                   </h2>
                   <p className="text-muted-foreground mb-6">
-                    Nous vous répondrons dans les plus brefs délais.
+                    Nous vous répondons sous 24 h.
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -293,9 +303,50 @@ const ContactInfo = () => {
         </div>
       </section>
 
+      {/* Orientation selon la demande */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Pour quelle demande nous contacter ?
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Certaines réponses sont déjà sur le site. Pour le reste, le formulaire ci-dessus ou un appel suffit.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {DEMANDES.map((d) => (
+                <Link
+                  key={d.to}
+                  to={d.to}
+                  className="group block rounded-2xl border border-border bg-card p-6 shadow-card hover:border-primary/30 transition-colors"
+                >
+                  <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary mb-2">{d.titre}</h3>
+                  <p className="text-muted-foreground">{d.texte}</p>
+                </Link>
+              ))}
+            </div>
+            <p className="mt-8 text-sm text-muted-foreground">
+              Vos données de contact sont traitées comme indiqué dans notre{" "}
+              <Link to="/politique-confidentialite" className="underline underline-offset-2 hover:text-primary">politique de confidentialité</Link>
+              . Voir aussi les{" "}
+              <Link to="/cgu" className="underline underline-offset-2 hover:text-primary">conditions générales d'utilisation</Link>
+              {" "}et les{" "}
+              <Link to="/mentions-legales" className="underline underline-offset-2 hover:text-primary">mentions légales</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
 };
+
+const DEMANDES = [
+  { to: "/demander-demo", titre: "Voir l'application en action", texte: "Une démonstration de 30 minutes en visio, sur Google Meet, adaptée à votre établissement." },
+  { to: "/tarifs", titre: "Connaître les tarifs", texte: "Un prix par établissement, toutes fonctionnalités incluses, 1 mois d'essai gratuit et sans engagement." },
+  { to: "/contact-entreprise", titre: "Équiper plusieurs restaurants", texte: "Un tarif dégressif par établissement et un tableau de bord consolidé pour tous vos sites." },
+  { to: "/plan-de-maitrise-sanitaire", titre: "Obtenir un Plan de Maîtrise Sanitaire", texte: "Générez gratuitement le PMS de votre établissement en répondant à un questionnaire de 10 minutes." },
+];
 
 export default ContactInfo;

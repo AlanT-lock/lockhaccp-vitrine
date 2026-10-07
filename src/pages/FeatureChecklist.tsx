@@ -6,7 +6,9 @@ import { ArrowRight, ClipboardCheck, Settings, Users, Bell, BarChart3, FileText,
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureChecklist = () => {
@@ -70,7 +72,7 @@ const FeatureChecklist = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Check-list HACCP personnalisée : ouverture, fermeture - LockHACCP" description="Créez vos check-lists HACCP sur mesure : ouverture, fermeture, service. Rappels, validation, historique consultable." path="/fonctionnalites/checklist" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Check-lists",path:"/fonctionnalites/checklist"}])} />
+      <Seo title="Check-list HACCP ouverture et fermeture" description="Créez vos check-lists HACCP sur mesure : ouverture, fermeture, service. Rappels, validation, historique consultable." path="/fonctionnalites/checklist" jsonLd={faqJsonLd(CONTENUS.checklist.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -244,6 +246,8 @@ const FeatureChecklist = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="checklist" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

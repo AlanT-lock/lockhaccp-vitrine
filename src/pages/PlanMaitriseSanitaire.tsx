@@ -74,6 +74,39 @@ const COMPARATIF: { critere: string; generique: Cellule; payant: Cellule; lockha
   },
 ];
 
+const ERREURS_PMS = [
+  {
+    titre: "Un modèle recopié qui ne colle pas à la cuisine",
+    texte:
+      "Des surfaces qui n'existent pas, des fréquences que personne ne suit : au bout de deux semaines, le dossier ne correspond plus à rien. Le PMS doit décrire vos équipements et vos zones réels.",
+  },
+  {
+    titre: "Des fiches remplies d'un coup en fin de semaine",
+    texte:
+      "Une écriture identique, un stylo identique, des températures toutes parfaites : ça se voit. Un relevé fait sur le moment, même avec un écart, est plus crédible.",
+  },
+  {
+    titre: "Des écarts sans action corrective",
+    texte:
+      "Une chambre froide à 7 °C sans rien noter à côté pose problème. La même valeur suivie de « porte mal fermée, produits contrôlés à cœur, recontrôle à 3 °C » montre une cuisine qui maîtrise.",
+  },
+  {
+    titre: "Une fiche démentie par ce que voit l'inspecteur",
+    texte:
+      "Une hotte cochée propre chaque jour qui goutte de graisse, c'est pire que pas de fiche du tout. L'inspecteur compare toujours les papiers à la cuisine.",
+  },
+  {
+    titre: "Un thermomètre jamais vérifié",
+    texte:
+      "Une fois par mois, le test du point de glace doit afficher 0 °C, à un degré près. Notez la date : c'est une question que l'inspecteur pose.",
+  },
+  {
+    titre: "Pas d'attestation de formation à présenter",
+    texte:
+      "En restauration commerciale, au moins une personne de l'établissement doit avoir suivi la formation de 14 heures en hygiène alimentaire (article L. 233-4 du code rural). Gardez l'attestation à portée de main.",
+  },
+];
+
 const texteCellule = (c: Cellule) => (typeof c === "string" ? c : c.texte);
 
 const BoutonGenerateur = ({ clair = false }: { clair?: boolean }) => (
@@ -90,8 +123,8 @@ const BoutonGenerateur = ({ clair = false }: { clair?: boolean }) => (
 const PlanMaitriseSanitaire = () => (
   <div className="min-h-screen bg-background">
     <Seo
-      title="Plan de Maîtrise Sanitaire (PMS) gratuit et personnalisé"
-      description="Créez gratuitement votre Plan de Maîtrise Sanitaire : tableau des CCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires adaptés à votre établissement. Dossier PDF en 10 minutes."
+      title="Plan de Maîtrise Sanitaire (PMS) gratuit"
+      description="Créez gratuitement votre Plan de Maîtrise Sanitaire : tableau des CCP, plan de nettoyage, traçabilité et affichages obligatoires. Dossier PDF en 10 minutes."
       path="/plan-de-maitrise-sanitaire"
       jsonLd={faqJsonLd(FAQ_PMS)}
     />
@@ -380,6 +413,27 @@ const PlanMaitriseSanitaire = () => (
               className="w-full max-w-sm rounded-3xl shadow-[0_30px_60px_-30px_rgba(0,38,77,.55)]"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Erreurs fréquentes, vues en formation et en contrôle */}
+      <section className="border-t border-border py-20 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Les erreurs qui font baisser la note d'un contrôle
+          </h2>
+          <p className="mt-6 max-w-3xl leading-relaxed text-muted-foreground">
+            La différence entre « satisfaisant » et « à améliorer » sur Alim'confiance tient souvent autant aux
+            documents qu'à la cuisine. Voici ce qui revient le plus souvent.
+          </p>
+          <dl className="mt-12 grid gap-x-12 gap-y-8 md:grid-cols-2">
+            {ERREURS_PMS.map((e) => (
+              <div key={e.titre} className="border-l-2 border-primary/25 pl-5">
+                <dt className="font-heading text-lg font-semibold text-foreground">{e.titre}</dt>
+                <dd className="mt-2 leading-relaxed text-muted-foreground">{e.texte}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

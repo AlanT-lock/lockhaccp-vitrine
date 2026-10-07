@@ -11,6 +11,9 @@ import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld
 import { APP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
 import { TrustBadges } from "@/components/TrustBadges";
+import { SectionReglementation } from "@/components/SectionsContenu";
+import { RelatedLinks } from "@/components/RelatedLinks";
+import { SOURCES } from "@/lib/sources-reglementaires";
 import {
   isLaunchOfferActive,
   LAUNCH_PRICING,
@@ -155,9 +158,14 @@ const Pricing = () => {
         "Non, LockHACCP fonctionne sur smartphone, tablette et ordinateur depuis un navigateur. En option, nous louons une étiqueteuse professionnelle et une tablette protégée pour la cuisine.",
     },
     {
-      question: "Mes données sont-elles sécurisées et hébergées en France ?",
+      question: "Mes données sont-elles sécurisées et hébergées en Europe ?",
       answer:
         "Oui, vos données sont hébergées en Europe (Supabase) et nous respectons strictement le RGPD. Vous restez propriétaire de vos données à tout moment.",
+    },
+    {
+      question: "Comment résilier mon abonnement ?",
+      answer:
+        "Depuis l'application, à tout moment. L'abonnement est sans engagement et sans préavis.",
     },
   ];
 
@@ -359,6 +367,18 @@ const Pricing = () => {
         </div>
       </section>
 
+      <SectionReglementation
+        titre="La méthode HACCP, et pourquoi elle vous concerne"
+        intro="Depuis 2006, le règlement européen 852/2004 oblige tout restaurant à appliquer une démarche fondée sur les principes HACCP et à garder la trace de ses contrôles. Ces enregistrements sont ce que l'inspecteur de la DDPP feuillette en premier, et c'est ce que LockHACCP tient pour vous au quotidien."
+        points={[
+          { titre: "Repérer les dangers", texte: "Biologiques, chimiques, physiques et allergènes, de la livraison à l'assiette." },
+          { titre: "Surveiller les points critiques", texte: "Stockage au froid, cuisson, refroidissement, maintien au chaud : des limites à respecter et à mesurer." },
+          { titre: "Corriger les écarts", texte: "Chaque dépassement appelle une action, notée sur le moment, avec la personne qui l'a faite." },
+          { titre: "Garder la preuve", texte: "Relevés, réceptions, nettoyage, actions correctives : sans enregistrement, rien ne prouve que la méthode est appliquée." },
+        ]}
+        sources={[SOURCES.hygiene852, SOURCES.arrete2009]}
+      />
+
       <FaqSection
         items={FAQS}
         title="Questions fréquentes sur les tarifs"
@@ -382,6 +402,14 @@ const Pricing = () => {
           </Button>
         </div>
       </section>
+
+      <RelatedLinks
+        items={[
+          { to: "/", label: "Le logiciel HACCP pour restaurateurs", description: "Toutes les fonctionnalités de LockHACCP." },
+          { to: "/blog/methode-haccp-guide-complet", label: "Les 7 principes HACCP", description: "La méthode expliquée avec des exemples de cuisine." },
+          { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
+        ]}
+      />
 
       <Footer />
     </div>

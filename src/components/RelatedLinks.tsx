@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, type LucideIcon } from "lucide-react";
+import { articlesEnLigne } from "@/lib/blog";
 
 export interface RelatedItem {
   to: string;
@@ -15,6 +16,10 @@ export function RelatedLinks({
   title?: string;
   items: RelatedItem[];
 }) {
+  // Un article programmé n'apparaît qu'une fois publié (jamais de lien vers une page absente).
+  const enLigne = new Set(articlesEnLigne().map((a) => `/blog/${a.slug}`));
+  const visibles = items.filter((i) => !i.to.startsWith("/blog/") || enLigne.has(i.to));
+  if (visibles.length === 0) return null;
   return (
     <section className="py-16 border-t border-border bg-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +27,7 @@ export function RelatedLinks({
           {title}
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {items.map((item) => {
+          {visibles.map((item) => {
             const Icon = item.icon;
             return (
               <Link
@@ -61,6 +66,7 @@ export const FEATURE_RELATED = {
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Vérifiez vos livraisons en 1 minute." },
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
+    { to: "/blog/releve-temperature-restaurant-regles-fiche", label: "Relevé de température : le guide", description: "Seuils, fréquence et fiche." },
   ],
   receptions: [
     { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Suivi des lots et fournisseurs." },
@@ -71,21 +77,25 @@ export const FEATURE_RELATED = {
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Capturez les infos à la source." },
     { to: "/fonctionnalites/etiquettes", label: "Étiquettes de production", description: "DLC et n° de lot conformes." },
     { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
+    { to: "/blog/controle-sanitaire-restaurant-inspecteur-ddpp", label: "Le contrôle sanitaire", description: "Les documents demandés." },
   ],
   nettoyage: [
     { to: "/fonctionnalites/checklist", label: "Check-lists personnalisées", description: "Ouverture, fermeture, service." },
     { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
+    { to: "/blog/plan-nettoyage-desinfection-restaurant", label: "Construire son plan de nettoyage", description: "Zone par zone, avec la fiche de suivi." },
   ],
   huiles: [
     { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
+    { to: "/blog/controle-sanitaire-restaurant-inspecteur-ddpp", label: "Le contrôle sanitaire", description: "Ce que vérifie l'inspecteur." },
   ],
   etiquettes: [
     { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Suivi des lots et fournisseurs." },
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Vérifiez vos livraisons." },
     { to: "/blog/affichages-obligatoires-restaurant-2026", label: "Affichages obligatoires", description: "Le guide complet 2026." },
+    { to: "/blog/tableau-allergenes-restaurant", label: "Tableau des allergènes", description: "Obligations et modèle." },
   ],
   checklist: [
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
@@ -93,3 +103,4 @@ export const FEATURE_RELATED = {
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
   ],
 } as const;
+

@@ -6,7 +6,9 @@ import { ArrowRight, Package, Thermometer, Calendar, Camera, FileText, AlertTria
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 
 const FeatureReception = () => {
@@ -72,7 +74,7 @@ const FeatureReception = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Contrôle à réception HACCP : conforme et rapide - LockHACCP" description="Contrôle des marchandises HACCP en quelques clics : températures, photos de non-conformité, traçabilité fournisseurs automatique." path="/fonctionnalites/receptions" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Contrôle réception",path:"/fonctionnalites/receptions"}])} />
+      <Seo title="Contrôle à réception HACCP : conforme et rapide" description="Contrôle des marchandises HACCP en quelques clics : températures, photos de non-conformité, traçabilité fournisseurs automatique." path="/fonctionnalites/receptions" jsonLd={faqJsonLd(CONTENUS.receptions.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -199,6 +201,8 @@ const FeatureReception = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="receptions" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

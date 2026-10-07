@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
+import { SOURCES } from "@/lib/sources-reglementaires";
 import Monogramme from "@/components/blog/Monogramme";
 import { AUTEUR } from "@/lib/auteur";
 import { articlesEnLigne, dateLongue } from "@/lib/blog";
@@ -13,7 +14,7 @@ const BlogIndex = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Ressources hygiène alimentaire et HACCP pour les restaurateurs"
+        title="Ressources HACCP pour restaurateurs"
         description="Contrôle sanitaire, températures, nettoyage, allergènes, formation : des réponses claires et sourcées, écrites par un formateur en hygiène alimentaire."
         path="/blog"
       />
@@ -76,6 +77,48 @@ const BlogIndex = () => {
             ))}
           </ul>
 
+          <section aria-labelledby="reperes" className="mt-16 grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h2 id="reperes" className="font-heading text-2xl font-bold text-foreground">
+                Les repères à connaître en cuisine
+              </h2>
+              <dl className="mt-6 divide-y divide-border border-y border-border">
+                {REPERES.map((r) => (
+                  <div key={r.valeur + r.texte} className="grid grid-cols-[6.5rem_1fr] gap-4 py-4">
+                    <dt className="font-heading text-xl font-bold text-primary">{r.valeur}</dt>
+                    <dd className="leading-relaxed text-muted-foreground">{r.texte}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div className="lg:col-span-4 lg:col-start-9">
+              <h2 className="font-heading text-2xl font-bold text-foreground">Les textes officiels</h2>
+              <ul className="mt-6 space-y-3 text-sm">
+                {TEXTES.map((t) => (
+                  <li key={t.url}>
+                    <a href={t.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground underline underline-offset-2 hover:text-primary">
+                      {t.libelle}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section aria-labelledby="outils" className="mt-16">
+            <h2 id="outils" className="font-heading text-2xl font-bold text-foreground">Passer à la pratique</h2>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {OUTILS.map((o) => (
+                <li key={o.to}>
+                  <Link to={o.to} className="group block h-full rounded-xl border border-border bg-card p-5 hover:border-primary/30">
+                    <span className="font-semibold text-foreground group-hover:text-primary">{o.titre}</span>
+                    <span className="mt-1 block text-sm text-muted-foreground">{o.texte}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           <p className="mt-12 max-w-2xl leading-relaxed text-muted-foreground">
             Vous préparez un contrôle ?{" "}
             <Link to="/plan-de-maitrise-sanitaire" className="font-semibold text-primary underline underline-offset-4">
@@ -90,5 +133,30 @@ const BlogIndex = () => {
     </div>
   );
 };
+
+// Valeurs reprises des articles (chacun cite le texte officiel correspondant).
+const REPERES = [
+  { valeur: "+4 °C", texte: "Température maximale de la plupart des denrées très périssables (+2 °C pour la viande hachée et le poisson frais, +3 °C pour les plats préparés à l'avance)." },
+  { valeur: "−18 °C", texte: "Température des surgelés." },
+  { valeur: "+63 °C", texte: "Minimum pour les plats maintenus au chaud jusqu'au service." },
+  { valeur: "25 %", texte: "Taux de composés polaires au-delà duquel l'huile de friture doit être changée." },
+  { valeur: "14", texte: "Allergènes à signaler par écrit au client pour les plats servis non emballés." },
+  { valeur: "60 jours", texte: "Durée de conservation des étiquettes sanitaires des coquillages vivants." },
+];
+
+const TEXTES = [
+  SOURCES.hygiene852,
+  SOURCES.arrete2009,
+  SOURCES.information1169,
+  SOURCES.huiles2008,
+  SOURCES.alimConfiance,
+];
+
+const OUTILS = [
+  { to: "/plan-de-maitrise-sanitaire", titre: "Plan de Maîtrise Sanitaire gratuit", texte: "Le dossier de votre établissement en 10 minutes, prêt à imprimer." },
+  { to: "/fonctionnalites/temperatures", titre: "Relevés de température sur téléphone", texte: "Consigne par équipement, rappel chaque matin, actions correctives." },
+  { to: "/fonctionnalites/nettoyage", titre: "Planning de nettoyage", texte: "Tâches par zone, rappels et validation par l'équipe." },
+  { to: "/fonctionnalites/tracabilite", titre: "Traçabilité des produits", texte: "Photo des étiquettes, recherche par date en cas de rappel." },
+];
 
 export default BlogIndex;

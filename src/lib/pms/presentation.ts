@@ -151,6 +151,16 @@ export const FAQ_PMS = [
       "Le générateur couvre 9 métiers : restauration commerciale et collective, traiteur, boulangerie-pâtisserie, boucherie-charcuterie, poissonnerie, crèmerie-fromagerie, épicerie-primeur, glacier-chocolatier. Le contenu change selon le métier choisi.",
   },
   {
+    question: "Que se passe-t-il si l'inspecteur trouve une non-conformité ?",
+    answer:
+      "Tout dépend de la gravité. Pour des écarts mineurs, vous recevez un courrier qui les liste. Pour des écarts plus sérieux, c'est une mise en demeure avec un délai pour corriger, et souvent une nouvelle visite. Si la santé des clients est menacée, le préfet peut ordonner la fermeture administrative. Le résultat est publié sur Alim'confiance pendant un an, sur quatre niveaux.",
+  },
+  {
+    question: "Faut-il mettre le PMS à jour ?",
+    answer:
+      "Oui, il doit correspondre à votre activité réelle : un nouvel équipement froid, une nouvelle préparation ou une nouvelle zone de nettoyage se reportent dans le dossier. Avec le générateur, il suffit de refaire le questionnaire pour obtenir un dossier à jour.",
+  },
+  {
     question: "Faut-il utiliser l'application LockHACCP ?",
     answer:
       "Non. Le dossier s'imprime et se remplit à la main. L'application remplace simplement les fiches papier : relevés sur téléphone, rappels, photos des étiquettes et historique prêt pour le contrôle. Deux mois d'essai sont offerts avec votre PMS.",

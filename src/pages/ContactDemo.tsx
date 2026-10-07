@@ -12,7 +12,27 @@ import Footer from "@/components/Footer";
 import { contactDemoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
+import { SectionEtapes } from "@/components/SectionsContenu";
+import { RelatedLinks } from "@/components/RelatedLinks";
+import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
+import { FaqSection } from "@/components/FaqSection";
+
+const ETAPES_DEMO = [
+  { titre: "Vous remplissez le formulaire", texte: "Quelques informations sur votre établissement et, si vous le souhaitez, ce que vous voulez voir en priorité." },
+  { titre: "Nous vous recontactons sous 24 h", texte: "Par e-mail ou par téléphone, pour fixer un créneau qui vous convient." },
+  { titre: "Vous recevez un lien Google Meet", texte: "Rien à installer : la démonstration se suit depuis un ordinateur, une tablette ou un téléphone." },
+  { titre: "30 minutes sur votre cas", texte: "Relevés de température, réceptions, nettoyage, traçabilité : nous montrons ce qui vous concerne et répondons à vos questions." },
+  { titre: "Vous testez pendant 1 mois", texte: "Si l'application vous convient, vous l'essayez gratuitement pendant 1 mois, sans carte bancaire et sans engagement." },
+];
+
+const FAQ_DEMO = [
+  { question: "La démonstration est-elle payante ?", answer: "Non, elle est gratuite et ne vous engage à rien." },
+  { question: "Faut-il installer quelque chose pour la démo ?", answer: "Non. Vous recevez un lien Google Meet, qui s'ouvre depuis un navigateur ou l'application Meet." },
+  { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 1 mois est accessible directement, sans carte bancaire et sans engagement." },
+  { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Non. LockHACCP a besoin d'une connexion internet, en Wi-Fi ou en réseau mobile." },
+  { question: "Où sont hébergées mes données ?", answer: "En Europe, chez Supabase, dans le respect du RGPD." },
+];
 
 const ContactDemo = () => {
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
@@ -108,7 +128,7 @@ const ContactDemo = () => {
       setIsSubmitted(true);
       toast({
         title: "Demande de démo envoyée !",
-        description: "Notre équipe vous contactera dans les plus brefs délais.",
+        description: "Nous vous recontactons sous 24 h pour fixer le créneau.",
       });
     } catch {
       toast({
@@ -146,7 +166,7 @@ const ContactDemo = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Demander une démo gratuite du logiciel HACCP - LockHACCP" description="Réservez 30 min de démonstration personnalisée du logiciel HACCP LockHACCP. Découvrez comment digitaliser vos contrôles sanitaires dès demain." path="/demander-demo" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Demander une démo",path:"/demander-demo"}])} />
+      <Seo title="Demander une démo gratuite du logiciel HACCP" description="Réservez 30 min de démonstration personnalisée du logiciel HACCP LockHACCP. Découvrez comment digitaliser vos contrôles sanitaires dès demain." path="/demander-demo" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Demander une démo",path:"/demander-demo"}]), faqJsonLd(FAQ_DEMO)]} />
       <Navbar />
 
       {/* Hero Section */}
@@ -342,6 +362,12 @@ const ContactDemo = () => {
           </div>
         </div>
       </section>
+
+      <SectionEtapes titre="Comment se déroule la démonstration ?" etapes={ETAPES_DEMO} />
+
+      <RelatedLinks title="Ce que vous pourrez voir pendant la démo" items={TOUTES_FONCTIONNALITES} />
+
+      <FaqSection items={FAQ_DEMO} title="Questions fréquentes sur la démo" />
 
       <Footer />
     </div>

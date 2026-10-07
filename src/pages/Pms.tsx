@@ -21,6 +21,22 @@ import {
 } from "@/lib/pms/questionnaire";
 import type { ElementListe, MetierId, Reponses, ValeurReponse } from "@/lib/pms/genere/types";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+
+// Présentation sous le choix du métier (étape 1 seulement) : ce que contient le dossier,
+// comment ça marche. Le guide complet reste sur /plan-de-maitrise-sanitaire.
+const CONTENU_DOSSIER = [
+  "Le tableau des points critiques (CCP) de votre activité",
+  "Le plan de nettoyage et de désinfection de vos zones, avec le type de produit adapté à chaque surface",
+  "Une fiche de relevé de température par équipement froid, et une fiche par friteuse",
+  "Les fiches de réception des marchandises et de refroidissement",
+  "Les affichages obligatoires qui vous concernent : allergènes, origine des viandes, lavage des mains…",
+];
+const ETAPES_PMS = [
+  { titre: "Choisissez votre métier", texte: "Restaurant, traiteur, boulangerie, boucherie, collectivité… Les questions s'adaptent à votre activité." },
+  { titre: "Décrivez votre établissement", texte: "Vos préparations, vos équipements froids, vos friteuses et vos zones de nettoyage. Environ 10 minutes." },
+  { titre: "Recevez votre dossier", texte: "Les PDF arrivent par e-mail, rangés comme un classeur. Vous les imprimez et les fiches se remplissent chaque jour." },
+];
 
 const DERNIERE = ETAPES.length;
 
@@ -147,8 +163,8 @@ const Pms = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Créer mon PMS gratuit : questionnaire en 10 minutes — LockHACCP"
-        description="Générez gratuitement votre Plan de Maîtrise Sanitaire : tableau HACCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires adaptés à votre métier, en 10 minutes."
+        title="Créer mon PMS gratuit en 10 minutes"
+        description="Répondez au questionnaire et recevez votre Plan de Maîtrise Sanitaire gratuit : tableau HACCP, plan de nettoyage, fiches de traçabilité, en 10 minutes."
         path="/pms"
       />
       <Navbar />
@@ -203,6 +219,34 @@ const Pms = () => {
                 </div>
               )}
 
+              {etape === 1 && (
+                <section className="mt-12 space-y-8 text-left" aria-labelledby="pms-contenu">
+                  <div>
+                    <h2 id="pms-contenu" className="text-2xl font-bold text-foreground mb-3">Ce que contient votre PMS gratuit</h2>
+                    <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+                      {CONTENU_DOSSIER.map((c) => <li key={c}>{c}</li>)}
+                    </ul>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground mb-3">Comment ça marche ?</h2>
+                    <ol className="space-y-3">
+                      {ETAPES_PMS.map((e, i) => (
+                        <li key={e.titre} className="flex gap-3">
+                          <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">{i + 1}</span>
+                          <span><strong className="text-foreground">{e.titre}.</strong> <span className="text-muted-foreground">{e.texte}</span></span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <p className="text-muted-foreground">
+                    Vous voulez d'abord savoir à quoi sert un Plan de Maîtrise Sanitaire, qui doit en avoir un et ce que
+                    l'inspecteur y regarde ? Lisez{" "}
+                    <Link to="/plan-de-maitrise-sanitaire" className="text-primary underline underline-offset-2">notre guide du Plan de Maîtrise Sanitaire</Link>
+                    {" "}et ses questions fréquentes, ou{" "}
+                    <Link to="/blog/methode-haccp-guide-complet" className="text-primary underline underline-offset-2">les 7 principes HACCP expliqués en cuisine</Link>.
+                  </p>
+                </section>
+              )}
               {etape === 7 && <Recapitulatif reponses={reponses} allerA={(e) => allerA(e)} />}
 
               {ecranCourant.type === "zones" && (

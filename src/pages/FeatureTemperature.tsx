@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 import temperaturesImg from "@/assets/screenshots/temperatures.webp";
 import temperaturesImgPetit from "@/assets/screenshots/temperatures-petit.webp";
 import { Seo } from "@/components/Seo";
-import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { CONTENUS } from "@/lib/contenus-fonctionnalites";
+import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
 const FeatureTemperature = () => {
   const {
@@ -50,7 +52,7 @@ const FeatureTemperature = () => {
   }];
   const sensorBenefits = ["Plus de fiche papier oubliée", "Consigne affichée à chaque relevé", "Écart signalé tout de suite", "Action corrective tracée", "Historique prêt pour le contrôle", "Accès pour chaque membre de l'équipe"];
   return <div className="min-h-screen bg-background">
-      <Seo title="Relevé de température HACCP sur téléphone - LockHACCP" description="Relevé de température HACCP de vos frigos et congélateurs sur téléphone : rappel chaque matin, consigne par équipement, actions correctives, historique pour la DDPP." path="/fonctionnalites/temperatures" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Fonctionnalités",path:"/"},{name:"Températures",path:"/fonctionnalites/temperatures"}])} />
+      <Seo title="Relevé de température HACCP sur téléphone" description="Relevé de température HACCP de vos frigos et congélateurs sur téléphone : rappel chaque matin, consigne par équipement, actions correctives, historique." path="/fonctionnalites/temperatures" jsonLd={faqJsonLd(CONTENUS.temperatures.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -195,6 +197,8 @@ const FeatureTemperature = () => {
           </div>
         </div>
       </section>
+
+      <ContenuFonctionnalite id="temperatures" />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

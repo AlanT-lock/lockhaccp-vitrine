@@ -5,7 +5,7 @@ import { Seo } from "@/components/Seo";
 const TermsOfUse = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Conditions générales d'utilisation - LockHACCP" description="Conditions générales d'utilisation du service LockHACCP." path="/cgu" />
+      <Seo title="Conditions générales d'utilisation" description="Conditions générales d'utilisation de LockHACCP : accès au service, abonnement sans engagement, résiliation, responsabilités et données personnelles." path="/cgu" />
       <Navbar />
       
       <section className="pt-32 pb-16">
@@ -13,7 +13,7 @@ const TermsOfUse = () => {
           <h1 className="font-heading text-4xl font-bold text-foreground mb-4">
             Conditions Générales d'Utilisation (CGU)
           </h1>
-          <p className="text-muted-foreground mb-8">Date de mise à jour : 09/06/2025</p>
+          <p className="text-muted-foreground mb-8">Date de mise à jour : 07/10/2026</p>
 
           <p className="text-muted-foreground mb-12">
             Les présentes Conditions Générales d'Utilisation (ci-après « CGU ») encadrent l'accès et l'utilisation de l'application mobile/web LockHACCP, éditée par :
@@ -52,7 +52,20 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">3. Fonctionnalités proposées</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">3. Abonnement, essai gratuit et résiliation</h2>
+              <p className="text-muted-foreground mb-4">
+                L'accès complet à l'application prend la forme d'un abonnement par établissement. Les tarifs en vigueur sont indiqués sur la page <a href="/tarifs" className="text-primary underline underline-offset-2 hover:no-underline">Tarifs</a>. Le paiement est géré par le prestataire de paiement Stripe ; LockHACCP n'a pas accès aux données de carte bancaire.
+              </p>
+              <p className="text-muted-foreground mb-4">
+                Un essai gratuit de 1 mois est proposé, sans carte bancaire.
+              </p>
+              <p className="text-muted-foreground">
+                L'abonnement est sans engagement. L'utilisateur peut le résilier à tout moment depuis l'application, sans préavis.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">4. Fonctionnalités proposées</h2>
               <p className="text-muted-foreground">L'application LockHACCP permet notamment :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>Le suivi des relevés de températures</li>
@@ -69,7 +82,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">4. Obligations de l'utilisateur</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">5. Obligations de l'utilisateur</h2>
               <p className="text-muted-foreground">L'utilisateur s'engage à :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>Ne pas utiliser l'application à des fins illégales</li>
@@ -80,14 +93,14 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">5. Propriété intellectuelle</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">6. Propriété intellectuelle</h2>
               <p className="text-muted-foreground">
                 Tous les éléments de l'application et du site lockhaccp.fr (marques, textes, logos, visuels, structure…) sont la propriété exclusive de LockHACCP. Toute reproduction ou exploitation sans autorisation est interdite.
               </p>
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">6. Responsabilité</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">7. Responsabilité</h2>
               <p className="text-muted-foreground">
                 LockHACCP met tout en œuvre pour assurer un service de qualité, mais ne peut être tenu responsable :
               </p>
@@ -102,14 +115,24 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">7. Données personnelles</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">8. Force majeure</h2>
               <p className="text-muted-foreground">
-                L'utilisation de l'application implique la collecte de données à caractère personnel. Celles-ci sont traitées conformément à la <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">Politique de confidentialité</a>.
+                LockHACCP ne pourra être tenu responsable d'un retard ou d'un manquement à ses obligations résultant d'un cas de force majeure, au sens de l'article 1218 du Code civil.
               </p>
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">8. Suspension ou suppression de compte</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">9. Données personnelles et cookies</h2>
+              <p className="text-muted-foreground">
+                L'utilisation de l'application implique la collecte de données à caractère personnel. Celles-ci sont traitées conformément à la <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">Politique de confidentialité</a>.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                Les durées de conservation des données, les droits de l'utilisateur et l'usage des cookies et traceurs sur le site sont détaillés dans la même <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">Politique de confidentialité</a>.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">10. Suspension ou suppression de compte</h2>
               <p className="text-muted-foreground">LockHACCP se réserve le droit de suspendre ou supprimer un compte utilisateur :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>En cas de non-respect des CGU</li>
@@ -122,7 +145,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">9. Modification des CGU</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">11. Modification des CGU</h2>
               <p className="text-muted-foreground">
                 LockHACCP se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés via l'application ou par email.
               </p>
@@ -132,8 +155,11 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">10. Loi applicable - Juridiction</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">12. Réclamations, loi applicable et juridiction</h2>
               <p className="text-muted-foreground">
+                Toute réclamation peut être adressée à <a href="mailto:contact@lockhaccp.fr" className="text-primary underline underline-offset-2 hover:no-underline">contact@lockhaccp.fr</a> ou au 06 46 64 00 23. LockHACCP s'efforce d'y répondre sous 24 heures.
+              </p>
+              <p className="text-muted-foreground mt-4">
                 Les présentes CGU sont soumises au droit français. En cas de litige, les parties tenteront une résolution amiable avant toute action judiciaire. À défaut, le tribunal compétent sera celui du lieu de domiciliation du responsable de LockHACCP.
               </p>
             </section>
