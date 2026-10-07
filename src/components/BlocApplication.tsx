@@ -14,10 +14,10 @@ export function BlocApplication(props: { qr?: boolean }) {
       )}
       <div className="flex flex-col gap-3 items-center">
         <a href={LIEN_APP_STORE} target="_blank" rel="noreferrer" aria-label="Télécharger dans l'App Store">
-          <img src="/badges/app-store.svg" alt="Télécharger dans l'App Store" height={48} className="h-12 w-auto" />
+          <img src="/badges/app-store.svg" alt="Télécharger dans l'App Store" width={152} height={48} className="h-12 w-auto" />
         </a>
         <a href={LIEN_GOOGLE_PLAY} target="_blank" rel="noreferrer" aria-label="Disponible sur Google Play">
-          <img src="/badges/google-play.png" alt="Disponible sur Google Play" height={48} className="h-12 w-auto" />
+          <img src="/badges/google-play.png" alt="Disponible sur Google Play" width={161} height={48} className="h-12 w-auto" />
         </a>
       </div>
     </div>

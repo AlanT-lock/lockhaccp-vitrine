@@ -15,7 +15,7 @@ const TelechargerApp = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Télécharger l'application LockHACCP" description="Installez LockHACCP sur iPhone, iPad ou Android." path="/app" />
+      <Seo title="Télécharger l'application LockHACCP" description="Installez l'application LockHACCP sur iPhone, iPad ou Android pour vos relevés HACCP : températures, réceptions, nettoyage, traçabilité." path="/app" noindex />
       <Navbar />
       <main className="pt-32 md:pt-40 pb-16">
         <div className="container mx-auto px-4 max-w-xl text-center space-y-6">

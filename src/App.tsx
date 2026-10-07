@@ -1,5 +1,4 @@
-import { lazy, Suspense, useState, type ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense, type ReactNode } from "react";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
@@ -35,16 +34,7 @@ export const AppProviders = ({
 }: {
   children: ReactNode;
   helmetContext?: { helmet?: HelmetServerState | null };
-}) => {
-  const [queryClient] = useState(() => new QueryClient());
-  return (
-    <HelmetProvider context={helmetContext}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-    </HelmetProvider>
-  );
-};
+}) => <HelmetProvider context={helmetContext}>{children}</HelmetProvider>;
 
 export const AppContenu = () => (
   <>
