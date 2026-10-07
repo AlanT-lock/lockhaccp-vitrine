@@ -1,7 +1,8 @@
-# Installé et mis à jour par Marlin (marlin-agent@1). Ne pas modifier à la main.
+# Installé et mis à jour par Marlin (marlin-agent@2). Ne pas modifier à la main.
 # Lancé par Marlin : l'agent Mistral Vibe réalise le plan sur une branche de travail ;
 # Marlin vérifie ensuite la prévisualisation avant toute fusion.
 name: Marlin agent
+run-name: Marlin ${{ inputs.run_id }}
 
 on:
   workflow_dispatch:
