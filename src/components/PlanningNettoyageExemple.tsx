@@ -57,6 +57,13 @@ export function PlanningNettoyageExemple() {
             avec le type de produit adapté à chaque surface et une fiche de suivi par zone, générez votre Plan de Maîtrise
             Sanitaire gratuitement.
           </p>
+          <p className="mt-4 text-muted-foreground">
+            Pour choisir vos fréquences et répartir les tâches dans l'équipe, lisez notre{" "}
+            <Link to="/blog/planning-nettoyage-cuisine-restaurant" className="text-primary underline underline-offset-4">
+              guide du planning de nettoyage en cuisine
+            </Link>
+            .
+          </p>
           <Button variant="hero" size="lg" className="mt-6" asChild>
             <Link to="/pms">
               Générer mon plan de nettoyage gratuit
