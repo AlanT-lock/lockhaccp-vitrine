@@ -401,6 +401,13 @@ const PlanMaitriseSanitaire = () => (
             >
               Voir les relevés de températures dans l'application
             </Link>
+            <p className="mt-4 text-muted-foreground">
+              Vous hésitez entre plusieurs outils ?{" "}
+              <Link to="/blog/logiciel-pms-gratuit-comparatif" className="text-primary underline underline-offset-4">
+                Comparez les logiciels de Plan de Maîtrise Sanitaire gratuits
+              </Link>
+              .
+            </p>
           </div>
           <div className="flex justify-center lg:col-span-5 lg:col-start-8">
             <img

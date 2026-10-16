@@ -7,6 +7,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { LienContextuel } from "@/components/LienContextuel";
 import { CONTENUS } from "@/lib/contenus-fonctionnalites";
 import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
@@ -240,7 +241,11 @@ const FeatureTracability = () => {
         </div>
       </section>
 
-      <ContenuFonctionnalite id="tracabilite" />
+      <ContenuFonctionnalite id="tracabilite">
+        <LienContextuel to="/fonctionnalites/huiles" ancre="Contrôle huile de friture HACCP">
+          Pour garder aussi l'historique des changements d'huile de vos friteuses, voir le
+        </LienContextuel>
+      </ContenuFonctionnalite>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">

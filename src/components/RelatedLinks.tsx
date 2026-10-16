@@ -83,6 +83,7 @@ export const FEATURE_RELATED = {
     { to: "/fonctionnalites/checklist", label: "Check-lists personnalisées", description: "Ouverture, fermeture, service." },
     { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Un relevé en quelques secondes." },
     { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
+    { to: "/blog/plan-nettoyage-gratuit-modele", label: "Plan de nettoyage gratuit : modèle", description: "Un exemple à adapter à votre cuisine." },
     { to: "/blog/planning-nettoyage-cuisine-restaurant", label: "Planning de nettoyage : le guide", description: "Fréquences, exemple et fiche de suivi." },
     { to: "/blog/plan-nettoyage-desinfection-restaurant", label: "Construire son plan de nettoyage", description: "Zone par zone, avec la fiche de suivi." },
   ],

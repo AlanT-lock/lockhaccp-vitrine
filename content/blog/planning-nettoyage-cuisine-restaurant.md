@@ -4,7 +4,7 @@ titreSeo: "Planning de nettoyage cuisine : modèle et fréquences"
 description: "Construire un planning de nettoyage de cuisine : tâches après chaque service, par jour, par semaine et par mois, qui fait quoi, exemple et erreurs à éviter."
 date: 2026-10-16
 motCle: planning de nettoyage cuisine
-resume: "Un planning de nettoyage répartit les tâches du plan de nettoyage dans le temps : après chaque usage, en fin de service, chaque semaine, chaque mois, avec un responsable par tâche. Aucun texte ne fixe les fréquences, mais le règlement 852/2004 exige des locaux et du matériel propres : c'est à vous de choisir des fréquences réalistes et de prouver qu'elles sont tenues, avec une fiche de suivi signée."
+resume: "Un planning de nettoyage répartit les tâches du plan de nettoyage dans le temps : après chaque usage, en fin de service, chaque semaine, chaque mois, avec un responsable par tâche. Le règlement 852/2004 exige des locaux et du matériel propres ; le rythme est à définir par vous et à prouver avec une fiche de suivi signée."
 illustration: plan-nettoyage
 ---
 
@@ -12,11 +12,15 @@ On confond souvent le plan de nettoyage et le planning de nettoyage. Le plan dit
 
 Ici, on s'occupe de l'organisation dans le temps : quelles tâches, à quel rythme, confiées à qui. La méthode surface par surface (séquence nettoyage, rinçage, désinfection, produits) relève du plan.
 
+## Plan de nettoyage ou planning de nettoyage : de quoi parle-t-on ?
+
+Le plan de nettoyage de cuisine liste les surfaces et le matériel, avec la méthode, le produit et le dosage pour chacun. Le planning de nettoyage (on dit aussi planning nettoyage cuisine) place ces tâches dans la journée, la semaine et le mois, et désigne la personne responsable. Les deux se complètent, et c'est l'ensemble que l'on appelle souvent « le plan de nettoyage » dans un dossier d'hygiène.
+
 ## Ce que la réglementation demande vraiment
 
 Le règlement (CE) n° 852/2004 impose que les locaux, les équipements et les surfaces en contact avec les aliments soient propres et entretenus, et désinfectés si nécessaire. Il ne dit rien de la fréquence : aucun texte ne vous impose de laver la hotte le lundi ou les murs le premier du mois.
 
-Concrètement, c'est à vous de fixer le rythme, de le mettre par écrit et de montrer qu'il est suivi. C'est dans le [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) que ce planning trouve sa place, avec sa fiche de suivi. Lors d'un contrôle, on regarde si le planning est cohérent avec la cuisine que l'on a sous les yeux.
+Concrètement, c'est à vous de fixer le rythme, de le mettre par écrit et de montrer qu'il est suivi (à confirmer avec votre organisme de formation ou votre DDPP pour votre activité). C'est dans le [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) que ce planning trouve sa place, avec sa fiche de suivi. Lors d'un contrôle, on regarde si le planning est cohérent avec la cuisine que l'on a sous les yeux.
 
 ## Les quatre rythmes d'un planning
 
@@ -31,9 +35,9 @@ Quatre rythmes suffisent presque toujours. Plus de niveaux, et personne ne s'y r
 
 Les exemples ne sont pas une loi, mais un point de départ. Une cuisine qui fait de la friture graisse plus vite que celle qui ne sert que des salades : la hotte y passera plus souvent. Ce qui compte, c'est que la fréquence écrite soit celle que vous tenez vraiment.
 
-## Construire son planning en cinq étapes
+## Comment faire un plan de nettoyage HACCP : les cinq étapes du planning
 
-Prenez le plan de nettoyage de chaque zone et, pour chaque tâche, décidez de cinq choses.
+Dans la démarche HACCP, le nettoyage fait partie des bonnes pratiques d'hygiène qui préparent le reste : le plan de nettoyage et son suivi s'intègrent au Plan de Maîtrise Sanitaire. Une fois la liste des zones et des surfaces établie, prenez le plan de nettoyage de chaque zone et, pour chaque tâche, décidez de cinq choses.
 
 1. Le rythme : après chaque usage, quotidien, hebdomadaire ou mensuel.
 2. Le moment : quel service, quelle heure, avant ou après la fermeture.
@@ -58,11 +62,15 @@ Voici une journée type, à adapter à votre organisation.
 
 Si le restaurant ferme un jour par semaine, la fermeture est le bon moment pour les gros nettoyages : la cuisine est vide, et rien ne risque de se retrouver dans une assiette.
 
+## Le cas du restaurant : planning de nettoyage entre service et fermeture
+
+Un planning de nettoyage de restaurant doit composer avec le rythme du service : le coup de feu n'est pas le moment des gros nettoyages. On répartit donc en trois temps : avant le service (remise en état des postes), pendant (nettoyage au fil de l'eau, lavettes changées), après (plonge, sols, matériel). La salle et les sanitaires, quand ils sont inclus dans le périmètre, s'ajoutent au planning avec leur propre responsable. Si le restaurant ferme un jour par semaine, c'est le moment des tâches hebdomadaires et mensuelles.
+
 ## La fiche de suivi : ce qui prouve que c'est fait
 
 Le planning dit ce qui doit être fait, la fiche prouve que ça l'a été. Chaque tâche est cochée ou signée au moment où elle est faite, pas le vendredi pour toute la semaine. Une fiche remplie d'un seul coup se repère tout de suite : même stylo, mêmes initiales, rien de barré.
 
-Gardez les fiches archivées. Combien de temps ? Aucune durée n'est imposée pour ce document en particulier : beaucoup d'exploitants gardent au moins un an de fiches, ce qui permet de répondre à un inspecteur sur la période récente. Si une tâche n'a pas été faite, notez-le et dites pourquoi, plutôt que de cocher quand même.
+Gardez les fiches archivées et classées, pour pouvoir montrer l'historique à un inspecteur. Si une tâche n'a pas été faite, notez-le et dites pourquoi, plutôt que de cocher quand même.
 
 ## Erreurs fréquentes
 
@@ -78,7 +86,7 @@ Avec LockHACCP, la page [planning de nettoyage](/fonctionnalites/nettoyage) vous
 
 ## Questions fréquentes
 
-### Quelle est la différence entre un plan et un planning de nettoyage ?
+### Quelle est la différence entre un plan de nettoyage cuisine et un planning ?
 
 Le plan de nettoyage décrit, surface par surface, la méthode, le produit et le dosage. Le planning répartit ces tâches dans le temps et désigne qui s'en charge. Les deux se complètent, et les deux font partie du Plan de Maîtrise Sanitaire.
 
@@ -86,7 +94,7 @@ Le plan de nettoyage décrit, surface par surface, la méthode, le produit et le
 
 Le règlement 852/2004 oblige à tenir propres les locaux et le matériel, mais ne parle pas de planning en tant que tel. Un planning écrit avec sa fiche de suivi est la manière habituelle de le démontrer lors d'un contrôle.
 
-### À quelle fréquence nettoyer une cuisine de restaurant ?
+### À quelle fréquence faire le planning de nettoyage d'un restaurant ?
 
 Aucun texte ne fixe de fréquence. Dans la pratique, les surfaces en contact avec les aliments se nettoient après chaque usage, les sols et le matériel de travail chaque jour, puis les frigos, les murs et la hotte chaque semaine ou chaque mois selon l'encrassement.
 
@@ -94,9 +102,9 @@ Aucun texte ne fixe de fréquence. Dans la pratique, les surfaces en contact ave
 
 La personne qui a fait la tâche, au moment où elle la fait. Un contrôle visuel par le second ou le chef en fin de service apporte une deuxième signature et permet de repérer ce qui n'a pas été fait.
 
-### Combien de temps garder les fiches de nettoyage ?
+### Comment faire un plan de nettoyage HACCP ?
 
-Aucune durée n'est fixée pour ce document en particulier. Beaucoup d'exploitants gardent les fiches au moins un an, pour pouvoir montrer l'historique récent à un inspecteur.
+Listez vos zones et vos surfaces, décidez pour chacune du rythme, de la méthode, du produit et du responsable, puis tenez une fiche de suivi signée. Ce plan s'intègre ensuite à votre Plan de Maîtrise Sanitaire.
 
 ## Sources
 

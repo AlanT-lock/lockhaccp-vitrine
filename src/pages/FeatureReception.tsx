@@ -7,6 +7,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { LienContextuel } from "@/components/LienContextuel";
 import { CONTENUS } from "@/lib/contenus-fonctionnalites";
 import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
@@ -202,7 +203,11 @@ const FeatureReception = () => {
         </div>
       </section>
 
-      <ContenuFonctionnalite id="receptions" />
+      <ContenuFonctionnalite id="receptions">
+        <LienContextuel to="/fonctionnalites/huiles" ancre="Contrôle huile de friture HACCP">
+          Les bidons d'huile de friture livrés se tracent comme le reste, et l'huile en cuve se contrôle ensuite :
+        </LienContextuel>
+      </ContenuFonctionnalite>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">
