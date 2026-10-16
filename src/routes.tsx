@@ -9,6 +9,7 @@ export const COMPOSANTS: Record<string, ComponentType> = {
   "/tarifs": lazy(() => import("./pages/Pricing")),
   "/plan-de-maitrise-sanitaire": lazy(() => import("./pages/PlanMaitriseSanitaire")),
   "/pms": lazy(() => import("./pages/Pms")),
+  "/application-pms": lazy(() => import("./pages/ApplicationPms")),
   "/demander-demo": lazy(() => import("./pages/ContactDemo")),
   "/contact": lazy(() => import("./pages/ContactInfo")),
   "/contact-entreprise": lazy(() => import("./pages/ContactEntreprise")),

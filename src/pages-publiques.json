@@ -3,6 +3,7 @@
   {"path": "/tarifs", "fil": "Tarifs", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
   {"path": "/plan-de-maitrise-sanitaire", "fil": "Plan de Maîtrise Sanitaire", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
   {"path": "/pms", "fil": "Générateur de PMS gratuit", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
+  {"path": "/application-pms", "fil": "Application PMS", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
   {"path": "/demander-demo", "fil": "Demander une démo", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
   {"path": "/contact", "fil": "Contact", "sitemap": {"changefreq": "monthly", "priority": 0.6}, "llms": true},
   {"path": "/contact-entreprise", "fil": "Contact entreprise", "sitemap": {"changefreq": "monthly", "priority": 0.7}, "llms": true},
