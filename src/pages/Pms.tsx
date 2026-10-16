@@ -239,6 +239,11 @@ const Pms = () => {
                     </ol>
                   </div>
                   <p className="text-muted-foreground">
+                    Pour suivre ce dossier au quotidien sur téléphone ou tablette, découvrez{" "}
+                    <Link to="/application-pms" className="text-primary underline underline-offset-2">l'application PMS de LockHACCP</Link>
+                    {" "}et ses 2 mois d'essai offerts avec votre PMS.
+                  </p>
+                  <p className="text-muted-foreground">
                     Vous voulez d'abord savoir à quoi sert un Plan de Maîtrise Sanitaire, qui doit en avoir un et ce que
                     l'inspecteur y regarde ? Lisez{" "}
                     <Link to="/plan-de-maitrise-sanitaire" className="text-primary underline underline-offset-2">notre guide du Plan de Maîtrise Sanitaire</Link>

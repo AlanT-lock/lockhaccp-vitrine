@@ -45,6 +45,11 @@
       "permanent": true
     },
     {
+      "source": "/downloads",
+      "destination": "/app",
+      "permanent": true
+    },
+    {
       "source": "/avantages-ia",
       "destination": "/tarifs",
       "permanent": true
