@@ -100,7 +100,8 @@ const FeaturesSection = () => {
             <span className="text-primary">conformité HACCP</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Une suite complète d'outils pour digitaliser et simplifier tous vos contrôles sanitaires au quotidien.
+            Une suite complète d'outils pour digitaliser et simplifier tous vos contrôles sanitaires au quotidien,
+            avec l'<Link to="/application-pms" className="text-primary underline underline-offset-4">application HACCP et PMS</Link> de LockHACCP.
           </p>
         </div>
 

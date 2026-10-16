@@ -31,6 +31,11 @@ const FAQS: FaqItem[] = [
       "Non. Le dossier s'imprime et se remplit à la main. L'application remplace simplement les fiches papier : relevés sur téléphone ou tablette, rappels, photos des étiquettes et historique consultable.",
   },
   {
+    question: "Quelle appli HACCP et PMS choisir ?",
+    answer:
+      "Comparez le prix affiché, la durée d'essai, la présence d'un PMS adapté à votre établissement et l'aide au paramétrage. LockHACCP propose un PMS personnalisé gratuit et le paramétrage de l'application offert. Notre comparatif détaille les solutions du marché.",
+  },
+  {
     question: "Quelle différence entre le PMS gratuit et l'application ?",
     answer:
       "Le PMS gratuit est le dossier documentaire : il décrit ce qu'il faut faire. L'application sert à le faire vivre au quotidien et à garder la preuve de chaque contrôle.",
@@ -56,8 +61,8 @@ const ApplicationPms = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Application PMS pour restaurants"
-        description="LockHACCP, l'application de Plan de Maîtrise Sanitaire : températures, nettoyage, traçabilité sur téléphone. PMS gratuit et 2 mois d'essai offerts."
+        title="Appli HACCP et PMS pour restaurants"
+        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS personnalisé gratuit, paramétrage offert et 2 mois d'essai."
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -70,7 +75,7 @@ const ApplicationPms = () => {
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            L'application <span className="text-primary">PMS</span> de LockHACCP
+            L'appli <span className="text-primary">HACCP et PMS</span> de LockHACCP
           </h1>
           <p className="text-lg text-muted-foreground mb-8">
             Le Plan de Maîtrise Sanitaire de votre établissement, sur téléphone ou tablette : relevés, nettoyage et
@@ -85,6 +90,9 @@ const ApplicationPms = () => {
             </Button>
             <Button variant="heroOutline" size="xl" asChild>
               <Link to="/pms">Créer mon PMS gratuit</Link>
+            </Button>
+            <Button variant="heroOutline" size="xl" asChild>
+              <Link to="/demander-demo">Demander une démo</Link>
             </Button>
           </div>
         </div>
@@ -122,6 +130,11 @@ const ApplicationPms = () => {
             tableau HACCP, plan de nettoyage, fiches de traçabilité et affichages obligatoires, prêts à imprimer. Réalisé
             avec l'expertise de SF FORMATION, organisme de formation à l'hygiène alimentaire.
           </p>
+          <p className="text-muted-foreground mb-4">
+            Un PMS qui n'est pas adapté à votre cuisine ne sert à rien le jour du contrôle : c'est pourquoi le vôtre est
+            construit à partir de vos zones, de vos équipements et de votre activité. Le paramétrage de l'application est
+            offert.
+          </p>
           <Button variant="hero" size="lg" asChild>
             <Link to="/pms">
               Créer mon PMS gratuit
@@ -129,6 +142,10 @@ const ApplicationPms = () => {
             </Link>
           </Button>
           <p className="text-sm text-muted-foreground mt-4">
+            Vous comparez les outils ? Voyez notre{" "}
+            <Link to="/blog/logiciel-pms-gratuit-comparatif" className="text-primary underline underline-offset-4">comparatif des logiciels PMS gratuits</Link>.
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
             Vous voulez d'abord comprendre le dossier ? Lisez notre{" "}
             <Link to="/plan-de-maitrise-sanitaire" className="text-primary underline underline-offset-4">guide du Plan de Maîtrise Sanitaire</Link>.
           </p>

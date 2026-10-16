@@ -48,7 +48,7 @@ Donc la réponse honnête : le titre n'est pas obligatoire, le contenu l'est.
 
 Si vous n'avez rien, ne commencez pas par l'analyse des dangers sur une page blanche. Partez de ce qui existe pour votre métier : le guide de bonnes pratiques d'hygiène de votre secteur, validé par l'administration, fait une grande partie du travail. Ensuite, adaptez-le à votre cuisine réelle : vos équipements froids, vos préparations, vos zones de nettoyage.
 
-C'est ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez [votre Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) avec le tableau des CCP, le plan de nettoyage zone par zone et une fiche de relevé par équipement. Reste à le remplir au quotidien.
+C'est ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez [votre Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) avec le tableau des CCP, le plan de nettoyage zone par zone et une fiche de relevé par équipement. Reste à le remplir au quotidien, ce que fait [l'application HACCP et PMS](/application-pms) sur téléphone ou tablette.
 
 ## Questions fréquentes
 

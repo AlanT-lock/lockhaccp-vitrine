@@ -9,6 +9,7 @@ import temperaturesImg from "@/assets/screenshots/temperatures.webp";
 import temperaturesImgPetit from "@/assets/screenshots/temperatures-petit.webp";
 import { Seo } from "@/components/Seo";
 import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { LienContextuel } from "@/components/LienContextuel";
 import { CONTENUS } from "@/lib/contenus-fonctionnalites";
 import { faqJsonLd } from "@/lib/seo-jsonld";
 import { APP_URL } from "@/lib/links";
@@ -198,7 +199,11 @@ const FeatureTemperature = () => {
         </div>
       </section>
 
-      <ContenuFonctionnalite id="temperatures" />
+      <ContenuFonctionnalite id="temperatures">
+        <LienContextuel to="/fonctionnalites/huiles" ancre="Contrôle huile de friture HACCP">
+          Les friteuses aussi se surveillent à intervalles réguliers, avec un seuil à ne pas dépasser :
+        </LienContextuel>
+      </ContenuFonctionnalite>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-hero">
