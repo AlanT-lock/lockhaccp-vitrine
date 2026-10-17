@@ -23,15 +23,17 @@ const FINALITES: { cle: keyof ChoixCookies; titre: string; description: string }
     cle: "mesure",
     titre: "Mesure d'audience",
     description:
-      "Statistiques de visite du site (pages vues, provenance, temps passé), réservées à LockHACCP, pour améliorer le site.",
+      "Statistiques de visite, réservées à LockHACCP.",
   },
   {
     cle: "publicite",
     titre: "Publicité",
     description:
-      "Google Ads : mesure de l'efficacité de nos annonces et affichage d'annonces LockHACCP sur d'autres sites. Des données de navigation sont alors transmises à Google.",
+      "Google Ads : mesure de nos annonces et publicité ciblée. Données transmises à Google.",
   },
 ];
+
+const LIEN = "font-semibold text-primary-foreground underline underline-offset-2 hover:no-underline";
 
 const BandeauCookies = () => {
   const { pathname, search } = useLocation();
@@ -66,81 +68,69 @@ const BandeauCookies = () => {
       aria-labelledby={idTitre}
       className="fixed inset-x-0 bottom-0 z-40 max-h-[85vh] overflow-y-auto border-t-4 border-secondary bg-primary text-primary-foreground shadow-2xl"
     >
-      <div className="container mx-auto flex flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex gap-4">
-          <Cookie className="hidden h-8 w-8 flex-shrink-0 text-secondary md:block" aria-hidden="true" />
-          <div className="space-y-1">
-            <h2 id={idTitre} className="font-heading text-base font-semibold">
-              Vos choix en matière de cookies
-            </h2>
-            <p className="text-sm leading-relaxed text-primary-foreground/90">
-              Avec votre accord, nous utilisons des cookies pour mesurer l'audience du site et l'efficacité de nos
-              annonces Google Ads. Vous pouvez tout refuser sans que cela gêne votre visite, et changer d'avis à tout
-              moment via « Gestion des cookies » en bas de page.{" "}
-              <Link
-                to="/politique-confidentialite"
-                className="font-semibold text-primary-foreground underline underline-offset-2 hover:no-underline"
-              >
-                Politique de confidentialité
-              </Link>
-            </p>
-          </div>
+      <div className="container mx-auto flex flex-col gap-3 px-4 py-3 sm:px-6 md:flex-row md:flex-wrap md:items-center md:gap-x-6 lg:px-8">
+        <div className="flex items-center gap-3 md:flex-1">
+          <Cookie className="hidden h-7 w-7 flex-shrink-0 text-secondary md:block" aria-hidden="true" />
+          <p className="text-xs leading-snug text-primary-foreground/90 sm:text-sm">
+            <span id={idTitre} className="font-semibold text-primary-foreground">
+              Cookies :
+            </span>{" "}
+            avec votre accord, nous mesurons l'audience et nos annonces Google Ads.{" "}
+            {!details && (
+              <>
+                <button type="button" onClick={() => setDetails(true)} className={LIEN}>
+                  Personnaliser
+                </button>
+                {" · "}
+              </>
+            )}
+            <Link to="/politique-confidentialite" className={LIEN}>
+              En savoir plus
+            </Link>
+          </p>
         </div>
 
         {details && (
-          <ul className="space-y-3">
+          <ul className="space-y-2 md:order-last md:w-full">
             {FINALITES.map(({ cle, titre, description }) => {
               const id = `${idTitre}-${cle}`;
               return (
-                <li key={cle} className="flex items-start justify-between gap-4 rounded-lg bg-primary-foreground/10 p-3">
+                <li key={cle} className="flex items-center justify-between gap-3 rounded-lg bg-primary-foreground/10 px-3 py-2">
                   <div>
                     <label htmlFor={id} className="text-sm font-semibold">
                       {titre}
                     </label>
-                    <p className="text-xs leading-relaxed text-primary-foreground/80">{description}</p>
+                    <p className="text-xs leading-snug text-primary-foreground/80">{description}</p>
                   </div>
                   <Switch
                     id={id}
                     checked={brouillon[cle]}
                     onCheckedChange={(coche) => setBrouillon((b) => ({ ...b, [cle]: coche }))}
-                    className="mt-1 data-[state=checked]:bg-secondary data-[state=unchecked]:bg-primary-foreground/30"
+                    className="data-[state=checked]:bg-secondary data-[state=unchecked]:bg-primary-foreground/30"
                   />
                 </li>
               );
             })}
+            <li className="text-right">
+              <button type="button" onClick={() => choisir(brouillon)} className={`${LIEN} text-sm`}>
+                Enregistrer mes choix
+              </button>
+            </li>
           </ul>
         )}
 
-        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
-          {details ? (
-            <Button
-              variant="link"
-              onClick={() => choisir(brouillon)}
-              className="text-primary-foreground underline underline-offset-2 sm:mr-auto"
-            >
-              Enregistrer mes choix
-            </Button>
-          ) : (
-            <Button
-              variant="link"
-              onClick={() => setDetails(true)}
-              className="text-primary-foreground underline underline-offset-2 sm:mr-auto"
-            >
-              Personnaliser
-            </Button>
-          )}
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => choisir(TOUT_REFUSER)}
-              className="flex-1 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary sm:w-36 sm:flex-none"
-            >
-              Tout refuser
-            </Button>
-            <Button variant="secondary" onClick={() => choisir(TOUT_ACCEPTER)} className="flex-1 sm:w-36 sm:flex-none">
-              Tout accepter
-            </Button>
-          </div>
+        <div className="flex gap-3">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => choisir(TOUT_REFUSER)}
+            className="flex-1 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary md:w-32 md:flex-none"
+          >
+            Tout refuser
+          </Button>
+          <Button size="sm" variant="secondary" onClick={() => choisir(TOUT_ACCEPTER)} className="flex-1 md:w-32 md:flex-none">
+            Tout accepter
+          </Button>
         </div>
       </div>
     </section>
