@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#003F83" />
 
+    <!-- Google tag (gtag.js) : campagne Google Ads, conversions dans src/lib/googleAds.ts.
+         Consentement (Consent Mode v2) : tout est refusé par défaut, et la balise Google Ads
+         (script de ~170 Ko) n'est configurée et chargée qu'avec l'accord du visiteur pour la
+         publicité, une fois la page affichée. Le choix est fait dans src/components/BandeauCookies.tsx et enregistré par
+         src/lib/consentement.ts (même clé et mêmes durées que ci-dessous).
+         Placé avant Google Tag Manager pour que les balises GTM reçoivent aussi le consentement. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function () {
+        var c = null;
+        try {
+          c = JSON.parse(localStorage.getItem('lhc_consentement_cookies'));
+          var mois = 30.4375 * 864e5;
+          var duree = c.mesure || c.publicite ? 13 * mois : 6 * mois;
+          if (!(Date.now() - c.date < duree)) c = null;
+        } catch (e) { c = null; }
+        var publicite = !!c && c.publicite === true;
+        var mesure = !!c && c.mesure === true;
+        gtag('consent', 'default', {
+          ad_storage: publicite ? 'granted' : 'denied',
+          ad_user_data: publicite ? 'granted' : 'denied',
+          ad_personalization: publicite ? 'granted' : 'denied',
+          analytics_storage: mesure ? 'granted' : 'denied'
+        });
+        // La configuration Google Ads n'est envoyée qu'avec l'accord : sinon Google Tag Manager,
+        // qui lit aussi dataLayer, chargerait la balise et enverrait des requêtes sans cookie.
+        var configuree = false;
+        function configurer() {
+          if (configuree) return;
+          configuree = true;
+          gtag('js', new Date());
+          gtag('config', 'AW-18490045299');
+        }
+        var chargee = false;
+        window.lhcChargerGoogleTag = function () {
+          configurer();
+          if (chargee) return;
+          chargee = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18490045299';
+          document.head.appendChild(s);
+        };
+        if (!publicite) return;
+        configurer(); // tout de suite, pour que les conversions passent après la configuration
+        function apresAffichage() {
+          if ('requestIdleCallback' in window) requestIdleCallback(window.lhcChargerGoogleTag, { timeout: 4000 });
+          else setTimeout(window.lhcChargerGoogleTag, 1500);
+        }
+        if (document.readyState === 'complete') apresAffichage();
+        else window.addEventListener('load', apresAffichage, { once: true });
+      })();
+    </script>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,29 +68,6 @@
     })(window,document,'script','dataLayer','GTM-TZPVKN3W');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google tag (gtag.js) : campagne Google Ads, conversions dans src/lib/googleAds.ts.
-         gtag() existe tout de suite (les appels sont mis en file dans dataLayer) ; le script
-         lui-même (~170 Ko) n'est chargé qu'une fois la page affichée, pour ne pas la ralentir. -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-18490045299');
-      (function () {
-        function charger() {
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18490045299';
-          document.head.appendChild(s);
-        }
-        function apresAffichage() {
-          if ('requestIdleCallback' in window) requestIdleCallback(charger, { timeout: 4000 });
-          else setTimeout(charger, 1500);
-        }
-        if (document.readyState === 'complete') apresAffichage();
-        else window.addEventListener('load', apresAffichage, { once: true });
-      })();
-    </script>
     <title>LockHACCP - Solution digitale de conformité HACCP pour la restauration</title>
     <meta name="description" content="LockHACCP simplifie votre conformité HACCP : relevés de températures, traçabilité, plan de nettoyage, étiquettes de production. Solution digitale pour restaurants." />
     <meta name="author" content="LockHACCP" />

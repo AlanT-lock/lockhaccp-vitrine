@@ -1,13 +1,16 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 type Appel = unknown[];
-const g = globalThis as unknown as { window?: { gtag?: (...a: unknown[]) => void } };
+const g = globalThis as unknown as { window?: { gtag?: (...a: unknown[]) => void }; localStorage?: Pick<Storage, "getItem"> };
+let consentement: { mesure: boolean; publicite: boolean } | null;
 
 describe("conversions Google Ads du PMS", () => {
   let appels: Appel[];
   beforeEach(async () => {
     appels = [];
     g.window = { gtag: (...a: unknown[]) => appels.push(a) };
+    consentement = { mesure: false, publicite: true };
+    g.localStorage = { getItem: () => (consentement ? JSON.stringify({ ...consentement, date: Date.now() }) : null) };
     const m = await import("./googleAds");
     m.reinitialiserPourTests();
   });
@@ -31,5 +34,14 @@ describe("conversions Google Ads du PMS", () => {
     g.window = {};
     const { conversionPms } = await import("./googleAds");
     expect(() => conversionPms("genere")).not.toThrow();
+  });
+
+  it("rien ne part sans accord pour la publicité", async () => {
+    const { conversionPms } = await import("./googleAds");
+    consentement = null;
+    conversionPms("commence");
+    consentement = { mesure: true, publicite: false };
+    conversionPms("genere");
+    expect(appels).toEqual([]);
   });
 });

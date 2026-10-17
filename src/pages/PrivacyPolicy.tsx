@@ -112,7 +112,14 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">9. Cookies</h2>
               <p className="text-muted-foreground">
-                Le site lockhaccp.fr utilise uniquement des cookies techniques et de mesure d'audience anonymisés. Aucun cookie publicitaire n'est déposé sans consentement.
+                Lors de votre première visite, un bandeau vous demande votre accord. Tant que vous n'avez pas accepté, aucun cookie de mesure d'audience ni de publicité n'est déposé : seul votre choix est mémorisé sur votre appareil. Ne rien choisir équivaut à un refus.
+              </p>
+              <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
+                <li><strong>Mesure d'audience</strong> (avec votre accord) : statistiques de visite du site (pages vues, provenance, temps passé), réservées à LockHACCP. Si vous remplissez ensuite un formulaire de contact, ces statistiques peuvent être rattachées à votre demande.</li>
+                <li><strong>Publicité</strong> (avec votre accord) : Google Ads, pour mesurer l'efficacité de nos annonces et vous montrer des annonces LockHACCP sur d'autres sites. Des données de navigation sont alors transmises à Google, qui les traite selon ses propres règles (<a href="https://policies.google.com/technologies/ads?hl=fr" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">policies.google.com</a>).</li>
+              </ul>
+              <p className="text-muted-foreground mt-4">
+                Votre accord est conservé 13 mois au plus, votre refus 6 mois ; le bandeau vous est ensuite présenté à nouveau. Vous pouvez modifier votre choix à tout moment avec le lien « Gestion des cookies » en bas de chaque page.
               </p>
             </section>
 
