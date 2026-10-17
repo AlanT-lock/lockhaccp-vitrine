@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { contactInfoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
+import { signalerConversion } from "@/lib/conversions";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 
@@ -89,6 +90,7 @@ const ContactInfo = () => {
 
       identify(result.data.email);
       trackEvent("form_submit", { form: "info" });
+      signalerConversion("conversion_contact", { formulaire: "info" });
 
       setIsSubmitted(true);
       toast({

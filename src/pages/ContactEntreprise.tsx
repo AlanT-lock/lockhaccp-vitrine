@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { validateEmail, validatePhone, validateRequired } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
+import { signalerConversion } from "@/lib/conversions";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { SectionEtapes } from "@/components/SectionsContenu";
@@ -134,6 +135,7 @@ const ContactEntreprise = () => {
         company_size: formData.companySize || null,
         number_of_establishments: formData.numberOfEstablishments || null,
       });
+      signalerConversion("conversion_contact", { formulaire: "entreprise" });
 
       toast.success("Votre demande a bien été envoyée ! Notre équipe commerciale vous contactera rapidement.");
       setFormData({
