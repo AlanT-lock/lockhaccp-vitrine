@@ -20,48 +20,28 @@ Code : `src/lib/conversions.ts`. Rien n'est signalé sans l'accord du visiteur p
 
 ## Mise en place
 
-### 1. Google Ads : créer les 5 nouvelles conversions
+Seules les 2 conversions PMS partent vers Google Ads (les mêmes qu'avant : historique et
+apprentissage conservés). Les autres événements arrivent dans Tag Manager mais ne sont
+transmis à aucun outil tant qu'aucune balise ne les utilise (ex. Google Analytics 4 plus tard).
 
-Les 2 conversions PMS existent déjà : on garde les mêmes (historique et apprentissage conservés).
-
-Dans Google Ads : **Objectifs > Conversions > Récapitulatif > + Nouvelle action de conversion >
-Site Web**, saisir `lockhaccp.fr`, puis **Ajouter une action de conversion manuellement**.
-Pour chacune, à la fin, choisir **Utiliser Google Tag Manager** et noter le **libellé de
-conversion** affiché (l'ID est toujours `18490045299`).
-
-| Nom à donner                     | Catégorie                  | Valeur | Comptabilisation | Rôle        |
-| -------------------------------- | -------------------------- | ------ | ---------------- | ----------- |
-| Demande de démo                  | Envoi de formulaire pour prospects | 1 €    | Une              | Principale  |
-| Formulaire de contact            | Envoi de formulaire pour prospects | 1 €    | Une              | Principale  |
-| Clic inscription                 | Inscription                | 1 €    | Une              | Secondaire  |
-| Téléchargement app               | Téléchargement             | 1 €    | Une              | Secondaire  |
-| Contact direct (tél. / e-mail)   | Contact                    | 1 €    | Une              | Secondaire  |
-
-« Principale » = utilisée par Google pour optimiser les enchères ; « Secondaire » = visible
-dans les rapports seulement. Un clic n'est qu'une intention : mieux vaut ne pas laisser Google
-optimiser dessus. Les valeurs peuvent être ajustées plus tard (ex. une démo vaut plus qu'un clic).
-
-### 2. Tag Manager : importer les balises
+### 1. Tag Manager : importer les balises PMS
 
 1. **Administration > Importer un conteneur**, choisir `docs/tag-manager/conversions-gtm.json`.
 2. Espace de travail : **Existant** (Default Workspace), option **Fusionner > Renommer les
    éléments en conflit**, puis **Confirmer**.
-3. Dans **Balises**, ouvrir les 5 balises dont le libellé vaut `LIBELLE_..._A_REMPLACER` et
-   coller le libellé noté à l'étape 1. Les 2 balises PMS et le « Conversion Linker » sont prêts.
 
-Cela crée 7 balises « Suivi des conversions Google Ads », leurs 7 déclencheurs
-(« Événement personnalisé ») et un Conversion Linker.
+Cela crée 2 balises « Suivi des conversions Google Ads » (PMS commencé, PMS généré), déjà
+remplies (ID `18490045299` et libellés actuels), leurs 2 déclencheurs et un Conversion Linker.
 
-### 3. Publier, dans cet ordre
+### 2. Publier, dans cet ordre
 
 1. **Publier le conteneur Tag Manager d'abord** (bouton « Envoyer »). Tant que l'ancien site est
    en ligne, ces balises ne se déclenchent jamais : il n'envoie pas encore ces événements.
 2. **Puis mettre en ligne le site** (fusion de la branche). Les conversions PMS passent alors
    par Tag Manager sans trou ni double comptage.
 
-### 4. Vérifier
+### 3. Vérifier
 
 Dans Tag Manager, **Prévisualiser** sur `https://lockhaccp.fr`, accepter les cookies, puis
-lancer un PMS, envoyer un formulaire, cliquer sur un bouton d'inscription : l'événement
-`conversion_...` apparaît à gauche et la balise correspondante dans « Balises déclenchées ».
-Dans Google Ads, l'état des conversions passe à « Enregistrement des conversions » sous 24 h.
+lancer un PMS : l'événement `conversion_pms_commence` apparaît à gauche et la balise
+« Google Ads - PMS commencé » dans « Balises déclenchées ».
