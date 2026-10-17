@@ -66,6 +66,8 @@ Si vous n'avez pas été contrôlé depuis longtemps, prenez une heure et mettez
 
 Et si votre dossier est incomplet, ou inexistant, [un PMS adapté à votre cuisine](/plan-de-maitrise-sanitaire) se génère en dix minutes : le tableau des CCP, le plan de nettoyage et les fiches de relevé sont adaptés à votre activité. Pour comprendre la logique derrière, l'article sur [la méthode HACCP](/blog/methode-haccp-guide-complet) reprend les sept principes avec des exemples de cuisine.
 
+Pensez enfin à vérifier vos affichages, qui se voient dès l'entrée : [Affichages obligatoires en restaurant : la liste 2026](/blog/affichages-obligatoires-restaurant-2026).
+
 ## Sources
 
 - [Alim'confiance, résultats des contrôles sanitaires](https://alim-confiance.gouv.fr/)

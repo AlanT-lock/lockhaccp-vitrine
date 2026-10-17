@@ -40,6 +40,8 @@ Commencez par dessiner votre cuisine : les zones, les postes, les équipements, 
 
 C'est long à faire à la main, et c'est précisément ce qu'évite le générateur. Vous décrivez votre activité en une dizaine de minutes, et vous recevez un [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) personnalisé et gratuit, avec le plan de nettoyage construit sur vos zones et vos surfaces, et une fiche de suivi par zone. [Créer mon PMS gratuit](/pms).
 
+Si vous comparez aussi les outils de suivi, voyez notre [comparatif des logiciels de Plan de Maîtrise Sanitaire gratuits](/blog/logiciel-pms-gratuit-comparatif).
+
 ## Du plan au planning quotidien
 
 Un plan de nettoyage décrit ce qu'il faut faire. Pour le répartir dans la journée, la semaine et le mois, lisez notre guide du [planning de nettoyage en cuisine](/blog/planning-nettoyage-cuisine-restaurant). Et pour que les tâches du jour arrivent chaque matin sur le téléphone de l'équipe, validées et signées, voyez le [plan de nettoyage dans l'application LockHACCP](/fonctionnalites/nettoyage). Une démonstration est possible sur la page [demander une démo](/demander-demo).

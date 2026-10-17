@@ -406,6 +406,14 @@ const PlanMaitriseSanitaire = () => (
               <Link to="/blog/logiciel-pms-gratuit-comparatif" className="text-primary underline underline-offset-4">
                 Comparez les logiciels de Plan de Maîtrise Sanitaire gratuits
               </Link>
+              . Pour la différence entre les deux notions, lisez{" "}
+              <Link to="/blog/difference-pms-haccp" className="text-primary underline underline-offset-4">
+                PMS et HACCP : quelle différence ?
+              </Link>
+              , ou découvrez un{" "}
+              <Link to="/blog/plan-nettoyage-gratuit-modele" className="text-primary underline underline-offset-4">
+                plan de nettoyage gratuit : modèle de cuisine
+              </Link>
               .
             </p>
           </div>
