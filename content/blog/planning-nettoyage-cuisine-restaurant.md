@@ -84,6 +84,8 @@ Un planning affiché au mur et une fiche papier fonctionnent, à condition que q
 
 Avec LockHACCP, la page [planning de nettoyage](/fonctionnalites/nettoyage) vous envoie chaque matin les tâches du jour, chaque tâche validée est datée et signée par la personne connectée, et l'historique reste consultable le jour d'un contrôle. Pour partir d'une base, le générateur de [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) gratuit propose zones, surfaces et fréquences adaptées à votre activité, avec une fiche de suivi par zone.
 
+Le planning n'est pas le seul document à afficher en cuisine : voyez aussi [Affichages obligatoires en restaurant : la liste 2026](/blog/affichages-obligatoires-restaurant-2026).
+
 ## Questions fréquentes
 
 ### Quelle est la différence entre un plan de nettoyage cuisine et un planning ?

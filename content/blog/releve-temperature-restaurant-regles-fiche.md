@@ -62,6 +62,8 @@ Les deux sont acceptés. Le papier a un avantage : il ne tombe jamais en panne. 
 
 Si vous partez de zéro, le [Plan de Maîtrise Sanitaire gratuit de LockHACCP](/plan-de-maitrise-sanitaire) contient une fiche de relevé prête à imprimer pour chacun de vos équipements froids, avec sa consigne.
 
+Les relevés ne sont pas les seuls documents que l'inspecteur regarde : les affichages comptent aussi, et la liste est dans l'article [Affichages obligatoires en restaurant : la liste 2026](/blog/affichages-obligatoires-restaurant-2026).
+
 ## Sources
 
 - [Arrêté du 21 décembre 2009, annexe I : températures de conservation](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000041864893)

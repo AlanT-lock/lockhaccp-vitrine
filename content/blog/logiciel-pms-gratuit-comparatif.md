@@ -9,7 +9,7 @@ resume: "Peu de logiciels sont entièrement gratuits : la plupart proposent un e
 
 Quand on cherche un logiciel de Plan de Maîtrise Sanitaire gratuit, on tombe sur trois choses différentes sous la même étiquette. Un générateur de documents, qui produit votre dossier mais ne le fait pas vivre. Une application avec un palier gratuit, qui fonctionne mais s'arrête à quelques modules. Et un logiciel complet avec essai, qui devient payant au bout de quelques semaines.
 
-Aucun de ces trois n'est mauvais. Il faut simplement savoir lequel vous achetez.
+Aucun de ces trois n'est mauvais. Il faut simplement savoir lequel vous achetez. Si la différence entre PMS et HACCP vous échappe encore, lisez d'abord [PMS et HACCP : quelle différence ?](/blog/difference-pms-haccp).
 
 ## Ce qu'on compare vraiment
 
@@ -43,6 +43,8 @@ Sur le prix, HACCP Facile a un avantage de départ : son offre gratuite ne coût
 ## Comment choisir
 
 Essayez d'abord avec votre propre dossier : générez votre PMS, puis regardez si l'outil que vous testez le reprend sans le déformer. Vérifiez la durée d'essai réelle et ce qui est inclus dedans, ainsi que l'aide au paramétrage, car un logiciel mal paramétré n'est pas utilisé. Demandez enfin comment vous récupérez vos données si vous partez : l'export compte autant que l'import.
+
+Si votre priorité est le nettoyage, partez de notre [plan de nettoyage gratuit : modèle de cuisine à adapter](/blog/plan-nettoyage-gratuit-modele).
 
 Pour essayer LockHACCP, [créez votre PMS gratuit](/pms) puis découvrez [l'application HACCP et PMS](/application-pms), ou [demandez une démonstration](/demander-demo).
 

@@ -146,6 +146,10 @@ const ApplicationPms = () => {
             <Link to="/blog/logiciel-pms-gratuit-comparatif" className="text-primary underline underline-offset-4">comparatif des logiciels PMS gratuits</Link>.
           </p>
           <p className="text-sm text-muted-foreground mt-2">
+            Pas sûr de la différence entre les deux notions ?{" "}
+            <Link to="/blog/difference-pms-haccp" className="text-primary underline underline-offset-4">PMS et HACCP : quelle différence ?</Link>
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
             Vous voulez d'abord comprendre le dossier ? Lisez notre{" "}
             <Link to="/plan-de-maitrise-sanitaire" className="text-primary underline underline-offset-4">guide du Plan de Maîtrise Sanitaire</Link>.
           </p>
