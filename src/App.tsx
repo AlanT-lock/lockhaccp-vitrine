@@ -7,8 +7,9 @@ import { PAGES_FIXES } from "./lib/pages";
 import { AdminDashboard, AdminLogin, BlogArticle, COMPOSANTS, NotFound } from "./routes";
 import { useApresMontage } from "./hooks/useApresMontage";
 
-// Hors du chemin critique : chargées seulement une fois la page affichée et hydratée.
+// Hors du chemin critique : chargés seulement une fois la page affichée et hydratée.
 const Notifications = lazy(() => import("./components/Notifications"));
+const BandeauCookies = lazy(() => import("./components/BandeauCookies"));
 
 // L'état « monté » vit ICI et non dans AppContenu : une mise à jour d'un parent pendant
 // que la page (chargée à la demande) s'hydrate forcerait React à tout redessiner (erreur #421).
@@ -18,6 +19,7 @@ const NotificationsDifferees = () => {
   return (
     <Suspense fallback={null}>
       <Notifications />
+      <BandeauCookies />
     </Suspense>
   );
 };

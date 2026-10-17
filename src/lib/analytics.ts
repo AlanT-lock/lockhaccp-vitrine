@@ -1,5 +1,10 @@
 // Vitrine analytics — anonymous tracking, no cookies, no PII at first touch.
 // Sends events to the admin Supabase edge function `track-event`.
+// Runs only with the visitor's consent to audience measurement (cookie banner,
+// src/lib/consentement.ts): the visitor id is kept on the device and can be linked
+// to the e-mail of a form, so the CNIL exemption for audience measurement does not apply.
+
+import { lireChoix } from "./consentement";
 
 const ENDPOINT = import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined;
 const VISITOR_KEY = "lhc_visitor_id";
@@ -265,8 +270,11 @@ function emitLeave(): void {
   lastVisibleAt = 0;
 }
 
+let listenersAttached = false;
+
 function attachListenersOnce(): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || listenersAttached) return;
+  listenersAttached = true;
   window.addEventListener("scroll", onScroll, { passive: true });
   document.addEventListener("visibilitychange", onVisibilityChange);
   window.addEventListener("pagehide", onPageHide);
@@ -276,6 +284,7 @@ function attachListenersOnce(): void {
 function init(): void {
   if (initialized) return;
   if (!ENDPOINT) return; // tracking disabled when env var is missing
+  if (!lireChoix()?.mesure) return; // no consent (yet): nothing stored, nothing sent
   initialized = true;
   visitorId = getVisitorId();
   const { id, isNew } = getOrCreateSession();
@@ -362,4 +371,21 @@ export function trackEvent(
     properties,
   });
   touchSession();
+}
+
+/** Consent withdrawn: drop pending events and forget the visitor on this device. */
+export function stopTracking(): void {
+  queue.length = 0;
+  currentViewId = null;
+  currentPath = null;
+  visitorId = "";
+  sessionId = "";
+  initialized = false;
+  try {
+    localStorage.removeItem(VISITOR_KEY);
+    localStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+  } catch {
+    /* ignore */
+  }
 }

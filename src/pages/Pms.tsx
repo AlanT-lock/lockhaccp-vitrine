@@ -12,7 +12,7 @@ import { SurfacesZone } from "@/components/pms/SurfacesZone";
 import { PageFin } from "@/components/pms/PageFin";
 import { Recapitulatif } from "@/components/pms/Recapitulatif";
 import { trackEvent } from "@/lib/analytics";
-import { conversionPms } from "@/lib/googleAds";
+import { signalerConversion } from "@/lib/conversions";
 import { ErreurPms, genererPms } from "@/lib/pms/api";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import {
@@ -86,7 +86,7 @@ const Pms = () => {
   const choisirMetier = (m: MetierId) => {
     if (m !== reponses.metier) setReponses(reponsesInitiales(m));
     trackEvent("pms_metier_choisi", { metier: m });
-    conversionPms("commence");
+    signalerConversion("conversion_pms_commence");
     setMontrerErreurs(false);
     allerA(2);
   };
@@ -140,7 +140,7 @@ const Pms = () => {
     try {
       const r = await genererPms(reponses, siteWeb);
       trackEvent("pms_genere", { metier: reponses.metier });
-      conversionPms("genere");
+      signalerConversion("conversion_pms_genere");
       effacerBrouillon();
       setLien(r.lien);
     } catch (e) {

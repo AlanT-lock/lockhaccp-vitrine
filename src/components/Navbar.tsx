@@ -115,6 +115,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             <a
               href={APP_URL}
+              data-suivi="connexion"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               <LogIn className="h-4 w-4" />
@@ -213,6 +214,7 @@ const Navbar = () => {
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
                 <a
                   href={APP_URL}
+                  data-suivi="connexion"
                   className="flex items-center gap-2 py-2 text-muted-foreground hover:text-foreground font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >

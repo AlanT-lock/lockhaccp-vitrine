@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { contactDemoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
+import { signalerConversion } from "@/lib/conversions";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo-jsonld";
 import { SectionEtapes } from "@/components/SectionsContenu";
@@ -124,6 +125,7 @@ const ContactDemo = () => {
         form: "demo",
         company_size: result.data.companySize ?? null,
       });
+      signalerConversion("conversion_demo");
 
       setIsSubmitted(true);
       toast({

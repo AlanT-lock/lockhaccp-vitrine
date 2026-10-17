@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import logoWhite from "@/assets/logo-white.webp";
+import { ouvrirBandeauCookies } from "@/lib/consentement";
 
 const Footer = () => {
   const currentYear = useMaintenant().getFullYear();
@@ -79,6 +80,15 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={ouvrirBandeauCookies}
+                  className="text-primary-foreground/75 hover:text-primary-foreground transition-colors text-sm"
+                >
+                  Gestion des cookies
+                </button>
+              </li>
             </ul>
           </div>
         </div>
