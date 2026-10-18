@@ -31,7 +31,9 @@ transmis à aucun outil tant qu'aucune balise ne les utilise (ex. Google Analyti
    éléments en conflit**, puis **Confirmer**.
 
 Cela crée 2 balises « Suivi des conversions Google Ads » (PMS commencé, PMS généré), déjà
-remplies (ID `18490045299` et libellés actuels), leurs 2 déclencheurs et un Conversion Linker.
+remplies (ID `18490045299` et libellés actuels) et leurs 2 déclencheurs. Pas de « Conversion Linker » : il se déclenchait sur toutes les pages
+avant tout accord (requête sans cookie vers Google), et la balise Google du site fait déjà ce
+travail après accord.
 
 ### 2. Publier, dans cet ordre
 
