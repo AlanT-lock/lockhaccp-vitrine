@@ -124,6 +124,7 @@ const BlogArticle = () => {
 
   const jsonLd = blogPostingJsonLd({
     titre: meta.titre, description: meta.description, path, datePublished: meta.date, dateModified: meta.maj,
+    image: illustration?.src,
   });
 
   return (

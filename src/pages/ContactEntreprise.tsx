@@ -170,7 +170,7 @@ const ContactEntreprise = () => {
               <span className="text-sm font-semibold text-primary">Solution Multi-établissements</span>
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Un tarif simple pour <span className="text-primary">tous vos établissements</span>
+              <span className="text-primary">Logiciel HACCP multi-établissements</span> : un tarif simple
             </h1>
             <p className="text-lg text-muted-foreground">
               Vous gérez plusieurs établissements ? LockHACCP est à {formatPriceEUR(pricing.mainMonthly)}/mois pour le premier,

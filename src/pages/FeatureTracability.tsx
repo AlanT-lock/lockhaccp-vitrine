@@ -85,7 +85,7 @@ const FeatureTracability = () => {
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              Une <span className="text-primary">traçabilité</span> complète et instantanée
+              <span className="text-primary">Traçabilité alimentaire HACCP</span>, complète et instantanée
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">

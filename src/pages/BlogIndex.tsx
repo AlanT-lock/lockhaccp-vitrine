@@ -24,7 +24,7 @@ const BlogIndex = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <header className="grid gap-8 border-b border-border pb-12 lg:grid-cols-12 lg:items-end">
             <h1 className="font-heading text-[2.3rem] font-extrabold leading-[1.08] tracking-[-0.015em] text-foreground sm:text-5xl lg:col-span-7">
-              Les questions qu'on me pose en formation, avec des réponses claires
+              Ressources HACCP : les questions qu'on me pose en formation
             </h1>
             <div className="flex items-start gap-4 lg:col-span-4 lg:col-start-9">
               <Monogramme />

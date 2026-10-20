@@ -58,7 +58,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-8">
             {/* Solution HACCP with dropdown */}
             <div 
-              className="relative"
+              className="group relative"
               onMouseEnter={() => setIsSolutionOpen(true)}
               onMouseLeave={() => setIsSolutionOpen(false)}
             >
@@ -74,9 +74,9 @@ const Navbar = () => {
                 <ChevronDown className={`h-4 w-4 transition-transform ${isSolutionOpen ? "rotate-180" : ""}`} />
               </Link>
               
-              {/* Dropdown menu */}
-              {isSolutionOpen && (
-                <div className="absolute top-full left-0 pt-2 w-64">
+              {/* Menu déroulant : toujours présent dans le HTML (les robots suivent les liens vers
+                  les fonctionnalités), affiché au survol ou au focus clavier. */}
+              <div className={`absolute top-full left-0 pt-2 w-64 group-focus-within:block ${isSolutionOpen ? "block" : "hidden"}`}>
                   <div className="bg-background border border-border rounded-lg shadow-lg py-2 animate-fade-in">
                     {featureLinks.map((feature) => (
                       <Link
@@ -93,7 +93,6 @@ const Navbar = () => {
                     ))}
                   </div>
                 </div>
-              )}
             </div>
 
             {navLinks.map((link) => (
@@ -131,7 +130,7 @@ const Navbar = () => {
           {/* Mobile : télécharger l'application + menu */}
           <div className="md:hidden flex items-center gap-1">
           <Button variant="hero" size="sm" className="gap-1.5 px-3" asChild>
-            <a href={lienApp}>
+            <a href={lienApp} rel="nofollow">
               <Download className="h-4 w-4" />
               <span className="hidden min-[400px]:inline">Télécharger l'app</span>
               <span className="min-[400px]:hidden">L'app</span>

@@ -6,7 +6,7 @@ import BenefitsSection from "@/components/BenefitsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
-import { faqJsonLd, organizationJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
+import { faqJsonLd, organizationJsonLd, softwareAppJsonLd, websiteJsonLd } from "@/lib/seo-jsonld";
 import { TrustBadges } from "@/components/TrustBadges";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 import { ObligationsSection } from "@/components/ObligationsSection";
@@ -64,7 +64,7 @@ const Index = () => {
         title={`Logiciel HACCP pour restaurateurs à ${formatPriceEUR(pricing.mainMonthly)}/mois`}
         description="Logiciel HACCP pour restaurateurs : relevés de température, traçabilité, plan de nettoyage, étiquettes, sur téléphone. Essai gratuit 1 mois sans engagement."
         path="/"
-        jsonLd={[organizationJsonLd, softwareAppJsonLd(maintenant), faqJsonLd(faq)]}
+        jsonLd={[organizationJsonLd, websiteJsonLd, softwareAppJsonLd(maintenant), faqJsonLd(faq)]}
       />
       <Navbar />
       <main>

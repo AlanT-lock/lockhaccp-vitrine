@@ -11,4 +11,9 @@ describe("softwareAppJsonLd", () => {
   it("annonce la grille courante après le 1er novembre 2026", () => {
     expect(prix(new Date("2026-11-02T12:00:00Z"))).toBe("24.90");
   });
+  it("annonce la date de fin de l'offre de lancement, puis plus rien après la bascule", () => {
+    const offre = (d: Date) => (softwareAppJsonLd(d).offers as Record<string, unknown>[])[0];
+    expect(offre(new Date("2026-10-15T12:00:00Z")).priceValidUntil).toBe("2026-10-31");
+    expect(offre(new Date("2026-11-02T12:00:00Z")).priceValidUntil).toBeUndefined();
+  });
 });

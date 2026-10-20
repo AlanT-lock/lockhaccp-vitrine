@@ -67,7 +67,7 @@ const FeatureTemperature = () => {
               </div>
               
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                Relevez vos <span className="text-primary">températures</span> en quelques secondes
+                <span className="text-primary">Relevé de température HACCP</span> en quelques secondes
               </h1>
               
               <p className="text-xl text-muted-foreground mb-8 max-w-2xl">

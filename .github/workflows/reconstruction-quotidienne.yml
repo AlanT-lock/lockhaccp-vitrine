@@ -24,14 +24,15 @@ jobs:
           curl -fsS -X POST "$HOOK"
 
       # Un build qui échoue (article refusé, lien cassé…) ne publie rien et ne prévient
-      # personne : on vérifie que le site en ligne porte bien la date du jour. En cas
+      # personne : on vérifie que le site en ligne porte bien la date du jour (balise
+      # <meta name="lhc-instant">, posée à chaque build sur toutes les pages). En cas
       # d'échec, GitHub envoie un e-mail au propriétaire du dépôt.
       - name: Vérifier que le site a bien été reconstruit
         run: |
           jour=$(date -u +%F)
           for i in $(seq 1 20); do
             sleep 30
-            if curl -fsS https://lockhaccp.fr/sitemap.xml | grep -q "<lastmod>$jour</lastmod>"; then
+            if curl -fsS https://lockhaccp.fr/ | grep -q "name=\"lhc-instant\" content=\"$jour"; then
               echo "Site reconstruit ($jour)"; exit 0
             fi
           done

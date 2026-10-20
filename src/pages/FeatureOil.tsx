@@ -87,7 +87,7 @@ const FeatureOil = () => {
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              Maîtrisez la qualité de vos <span className="text-primary">huiles de friture</span>
+              <span className="text-primary">Contrôle des huiles de friture</span> : maîtrisez leur qualité
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">

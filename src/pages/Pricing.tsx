@@ -221,7 +221,7 @@ const Pricing = () => {
             </div>
 
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Des tarifs adaptés à <span className="text-primary">votre établissement</span>
+              Tarifs du <span className="text-primary">logiciel HACCP</span>, adaptés à votre établissement
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
               Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez l'offre qui vous convient.

@@ -35,13 +35,15 @@ export function injecter(gabarit, head, html) {
     .replace(racineVide, `<div id="root">${html}</div>`);
 }
 
-export function genererSitemap(pages, date) {
+// <lastmod> seulement quand la date de dernière modification est connue (articles : maj ou
+// date de l'en-tête). Une date de build répétée chaque nuit sur toutes les pages serait fausse,
+// et Google finirait par ignorer le champ pour tout le site.
+export function genererSitemap(pages) {
   const urls = pages
     .filter((p) => p.sitemap)
     .map(
       (p) => `  <url>
-    <loc>${canonicalAttendu(p.path)}</loc>
-    <lastmod>${date}</lastmod>
+    <loc>${canonicalAttendu(p.path)}</loc>${p.lastmod ? `\n    <lastmod>${p.lastmod}</lastmod>` : ""}
     <changefreq>${p.sitemap.changefreq}</changefreq>
     <priority>${p.sitemap.priority.toFixed(1)}</priority>
   </url>`,
