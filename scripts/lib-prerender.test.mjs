@@ -46,17 +46,22 @@ describe("retirerBalisesSeo + injecter", () => {
 
 describe("genererSitemap", () => {
   it("liste seulement les pages avec réglages sitemap", () => {
-    const xml = genererSitemap(
-      [
-        { path: "/", fil: "Accueil", sitemap: { changefreq: "weekly", priority: 1 }, llms: true },
-        { path: "/app", fil: "App", sitemap: null, llms: false },
-      ],
-      "2026-10-01",
-    );
+    const xml = genererSitemap([
+      { path: "/", fil: "Accueil", sitemap: { changefreq: "weekly", priority: 1 }, llms: true },
+      { path: "/app", fil: "App", sitemap: null, llms: false },
+    ]);
     expect(xml).toContain("<loc>https://lockhaccp.fr/</loc>");
     expect(xml).not.toContain("/app");
-    expect(xml).toContain("<lastmod>2026-10-01</lastmod>");
     expect(xml).toContain("<priority>1.0</priority>");
+  });
+
+  it("annonce la vraie date de modification, et rien quand elle est inconnue", () => {
+    const xml = genererSitemap([
+      { path: "/", fil: "Accueil", sitemap: { changefreq: "weekly", priority: 1 }, llms: true },
+      { path: "/blog/x", fil: "X", sitemap: { changefreq: "monthly", priority: 0.6 }, llms: true, lastmod: "2026-10-12" },
+    ]);
+    expect(xml).toContain("<loc>https://lockhaccp.fr/blog/x</loc>\n    <lastmod>2026-10-12</lastmod>");
+    expect(xml.match(/<lastmod>/g)).toHaveLength(1);
   });
 });
 

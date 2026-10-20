@@ -47,7 +47,7 @@ for (const page of PAGES_PUBLIQUES) {
 const introuvable = await render("/__page-introuvable__");
 ecrire("404.html", injecter(base, introuvable.head, introuvable.html));
 
-ecrire("sitemap.xml", genererSitemap(PAGES_PUBLIQUES, instant.toISOString().slice(0, 10)));
+ecrire("sitemap.xml", genererSitemap(PAGES_PUBLIQUES));
 ecrire("llms.txt", genererLlms({ pages: PAGES_PUBLIQUES, descriptions, prix: getActivePricing(instant) }));
 
 // Liste exacte des pages générées, relue par verifier-prerender.mjs.

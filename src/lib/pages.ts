@@ -11,6 +11,8 @@ export interface PagePublique {
   sitemap: { changefreq: string; priority: number } | null;
   /** La page figure-t-elle dans llms.txt ? */
   llms: boolean;
+  /** Date de la dernière vraie modification (AAAA-MM-JJ), annoncée dans le sitemap. Omise si inconnue. */
+  lastmod?: string;
 }
 
 /** Pages qui ont chacune leur composant dans src/routes.tsx. */
@@ -24,6 +26,7 @@ export function pagesPubliques(instant: Date, articles: Article[] = TOUS_LES_ART
       fil: a.meta.titre,
       sitemap: { changefreq: "monthly", priority: 0.6 },
       llms: true,
+      lastmod: a.meta.maj ?? a.meta.date,
     })),
   ];
 }

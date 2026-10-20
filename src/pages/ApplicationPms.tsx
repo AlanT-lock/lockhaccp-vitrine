@@ -75,7 +75,7 @@ const ApplicationPms = () => {
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            L'appli <span className="text-primary">HACCP et PMS</span> de LockHACCP
+            L'<span className="text-primary">application HACCP et PMS</span> de LockHACCP
           </h1>
           <p className="text-lg text-muted-foreground mb-8">
             Le Plan de Maîtrise Sanitaire de votre établissement, sur téléphone ou tablette : relevés, nettoyage et

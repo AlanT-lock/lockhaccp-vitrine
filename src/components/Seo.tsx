@@ -36,7 +36,8 @@ export const Seo = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
+      {/* Sans chemin (page 404), pas de canonical : il désignerait à tort la page d'accueil. */}
+      {path && <link rel="canonical" href={url} />}
       {noindex && <meta name="robots" content="noindex,nofollow" />}
 
       <meta property="og:type" content="website" />

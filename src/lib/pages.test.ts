@@ -58,7 +58,7 @@ describe("pagesPubliques", () => {
     ]);
     const blog = pages.filter((p) => p.path.startsWith("/blog/"));
     expect(blog).toEqual([
-      { path: "/blog/deja-la", fil: "Titre deja-la", sitemap: { changefreq: "monthly", priority: 0.6 }, llms: true },
+      { path: "/blog/deja-la", fil: "Titre deja-la", sitemap: { changefreq: "monthly", priority: 0.6 }, llms: true, lastmod: "2026-10-02" },
     ]);
   });
   it("contient la page auteur", async () => {
