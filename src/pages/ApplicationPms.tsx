@@ -62,7 +62,7 @@ const ApplicationPms = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Appli HACCP et PMS pour restaurants"
-        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS personnalisé gratuit, application paramétrée à partir de votre PMS et 1 mois d'essai."
+        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS gratuit qui paramètre l'appli, 1 mois d'essai."
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
