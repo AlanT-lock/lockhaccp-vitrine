@@ -43,7 +43,7 @@ const FAQS: FaqItem[] = [
   {
     question: "Combien de temps puis-je essayer l'application ?",
     answer:
-      "L'essai est de 1 mois, sans engagement et sans carte bancaire. Si vous créez d'abord votre PMS gratuit sur le site, l'essai passe à 2 mois.",
+      "L'essai est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où vous créez votre compte. Si vous avez d'abord créé votre PMS gratuit sur le site avec la même adresse e-mail, l'application est paramétrée automatiquement à partir de votre PMS.",
   },
 ];
 
@@ -62,7 +62,7 @@ const ApplicationPms = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Appli HACCP et PMS pour restaurants"
-        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS personnalisé gratuit, paramétrage offert et 2 mois d'essai."
+        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS personnalisé gratuit, application paramétrée à partir de votre PMS et 1 mois d'essai."
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -163,11 +163,12 @@ const ApplicationPms = () => {
               <Gift className="h-4 w-4" /> Essai
             </p>
             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-              2 mois d'essai offerts avec votre PMS
+              Votre PMS paramètre l'application pour vous
             </h2>
             <p className="text-muted-foreground">
-              Sans votre PMS, l'essai de l'application est de 1 mois, sans engagement et sans carte bancaire. Si vous créez
-              d'abord votre PMS gratuit sur le site, l'essai passe à 2 mois.
+              L'essai de l'application est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où vous
+              créez votre compte. Créez-le avec la même adresse e-mail que votre PMS gratuit : les réponses de votre PMS
+              sont reprises automatiquement pour paramétrer l'application.
             </p>
             <BlocApplication />
           </div>

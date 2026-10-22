@@ -24,7 +24,7 @@ Les informations ci-dessous viennent des sites des éditeurs, consultés le 16 o
 | Critère | LockHACCP | Octopus HACCP | HACCP Facile | VICI (AidoPMS) |
 |---|---|---|---|---|
 | Prix affiché | Grille publique sur la [page tarifs](/tarifs), par établissement, toutes fonctions incluses | À partir de 55 €/mois | Offre gratuite limitée, tarif Pro sur une autre page | À partir de 29,99 € HT/mois, selon l'établissement |
-| Essai | 1 mois sans engagement ni carte bancaire, 2 mois avec votre PMS | 14 jours sans carte bancaire | Offre gratuite sans limite de durée annoncée | Pas d'essai mentionné, démonstration |
+| Essai | 1 mois sans engagement ni carte bancaire, application paramétrée à partir de votre PMS | 14 jours sans carte bancaire | Offre gratuite sans limite de durée annoncée | Pas d'essai mentionné, démonstration |
 | PMS adapté à votre établissement | Généré gratuitement, avant tout abonnement | « PMS digitalisé » et kit PMS à personnaliser, sans détail | Pas de fonction PMS décrite | PMS numérique, paramétré selon la structure |
 | Paramétrage de l'application | Offert | Fait par les équipes de l'éditeur, installation annoncée en quelques jours | Présenté comme facile, en libre-service | Avec l'accompagnement des équipes VICI |
 | Fonctions | Températures, réceptions, traçabilité, nettoyage, huiles, étiquettes, check-lists | Traçabilité, températures avec capteurs, nettoyage, rapport d'inspection | Gratuit : traçabilité photo, réception, températures, huile ; autres modules en Pro | Températures, réceptions, traçabilité, nettoyage, non-conformités, huiles |
@@ -34,7 +34,7 @@ Les informations ci-dessous viennent des sites des éditeurs, consultés le 16 o
 
 Sur le PMS, la différence est nette. Le dossier personnalisé est gratuit et ne demande aucun abonnement : vous le recevez avec le tableau HACCP, le plan de nettoyage zone par zone et les fiches de traçabilité, puis vous décidez si vous voulez l'application. Chez les autres éditeurs de ce tableau, le PMS est soit paramétré avec l'éditeur, soit proposé sous forme de kit à personnaliser vous-même, soit non décrit.
 
-Sur l'essai et le paramétrage, LockHACCP donne un mois sans carte bancaire, deux si vous avez créé votre PMS d'abord, et offre le paramétrage de l'application. Octopus HACCP propose un essai plus court. VICI ne mentionne pas d'essai sur sa page AidoPMS.
+Sur l'essai et le paramétrage, LockHACCP donne un mois sans carte bancaire, à partir de la création du compte, et paramètre l'application à partir de votre PMS si vous l'avez créé d'abord. Octopus HACCP propose un essai plus court. VICI ne mentionne pas d'essai sur sa page AidoPMS.
 
 Sur les fonctions de base (températures, réceptions, traçabilité, nettoyage), les quatre solutions couvrent à peu près le même terrain, et nous sommes à égalité. Octopus HACCP va plus loin sur le matériel connecté, avec des capteurs de température pour une surveillance continue. Si c'est votre priorité, c'est un point en sa faveur.
 
@@ -52,7 +52,7 @@ Pour essayer LockHACCP, [créez votre PMS gratuit](/pms) puis découvrez [l'appl
 
 ### Existe-t-il un logiciel de Plan de Maîtrise Sanitaire entièrement gratuit ?
 
-La plupart des éditeurs proposent un essai ou un palier gratuit limité. LockHACCP fournit gratuitement un PMS personnalisé, par un questionnaire d'environ dix minutes, sans abonnement. L'application de suivi quotidien se teste ensuite pendant un mois, ou deux avec votre PMS.
+La plupart des éditeurs proposent un essai ou un palier gratuit limité. LockHACCP fournit gratuitement un PMS personnalisé, par un questionnaire d'environ dix minutes, sans abonnement. L'application de suivi quotidien se teste ensuite pendant un mois, déjà paramétrée à partir de votre PMS.
 
 ### Un PMS gratuit a-t-il la même valeur qu'un PMS payant ?
 

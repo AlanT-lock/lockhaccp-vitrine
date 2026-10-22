@@ -1,12 +1,10 @@
 // Page de fin du générateur : remerciement, téléchargement du dossier PMS et
-// offre de 2 mois d'essai à l'application (QR code, badges des stores).
+// invitation à l'essai de 1 mois de l'application (QR code, badges des stores).
 import { CheckCircle, Download, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BlocApplication } from "@/components/BlocApplication";
-import { dateFr, finEssaiOfferte } from "@/lib/pms/essai";
 
 export function PageFin(props: { lien: string; email: string }) {
-  const finEssai = dateFr(finEssaiOfferte(new Date()));
   return (
     <div className="text-center space-y-6">
       <CheckCircle className="h-14 w-14 text-green-600 mx-auto" />
@@ -30,22 +28,23 @@ export function PageFin(props: { lien: string; email: string }) {
       <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-6 sm:p-8 max-w-2xl mx-auto space-y-5">
         <div className="space-y-2">
           <p className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1 text-sm font-semibold text-primary-foreground">
-            <Gift className="h-4 w-4" /> Notre cadeau
+            <Gift className="h-4 w-4" /> Essai offert
           </p>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground">2 mois d'essai offerts à l'application LockHACCP</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground">1 mois d'essai offert à l'application LockHACCP</h3>
           <p className="text-base font-semibold text-primary">
-            Votre période d'essai démarre dès aujourd'hui et se termine le {finEssai}.
+            Votre essai démarre seulement le jour où vous créez votre compte.
           </p>
           <p className="text-muted-foreground">
-            Téléchargez l'application dès maintenant pour profiter pleinement de vos 2 mois offerts : relevés de
-            température, nettoyage zone par zone, traçabilité en photo, sur tablette ou téléphone. Fini les fiches papier.
+            Relevés de température, nettoyage zone par zone, traçabilité en photo, sur tablette ou téléphone. Fini les
+            fiches papier.
           </p>
         </div>
         <div className="space-y-3">
           <p className="font-semibold text-foreground">Téléchargez LockHACCP maintenant</p>
           <BlocApplication />
           <p className="text-sm text-foreground">
-            Créez votre compte avec la même adresse e-mail : <strong>{props.email}</strong>
+            Créez votre compte avec la même adresse e-mail (<strong>{props.email}</strong>) : votre PMS servira
+            directement à paramétrer l'application.
           </p>
         </div>
       </div>

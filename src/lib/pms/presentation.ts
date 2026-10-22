@@ -163,6 +163,6 @@ export const FAQ_PMS = [
   {
     question: "Faut-il utiliser l'application LockHACCP ?",
     answer:
-      "Non. Le dossier s'imprime et se remplit à la main. L'application remplace simplement les fiches papier : relevés sur téléphone, rappels, photos des étiquettes et historique prêt pour le contrôle. Deux mois d'essai sont offerts avec votre PMS.",
+      "Non. Le dossier s'imprime et se remplit à la main. L'application remplace simplement les fiches papier : relevés sur téléphone, rappels, photos des étiquettes et historique prêt pour le contrôle. L'essai est de 1 mois, et si vous créez votre compte avec la même adresse e-mail, votre PMS sert directement à paramétrer l'application.",
   },
 ];
