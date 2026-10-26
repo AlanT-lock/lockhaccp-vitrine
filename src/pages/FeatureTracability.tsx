@@ -36,7 +36,7 @@ const FeatureTracability = () => {
     {
       icon: FileText,
       title: "Export de données",
-      description: "Exportez vos données de traçabilité en PDF ou Excel pour les contrôles sanitaires."
+      description: "Exportez vos données de traçabilité en PDF pour les contrôles sanitaires."
     },
     {
       icon: Shield,

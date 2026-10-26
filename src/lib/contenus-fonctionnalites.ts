@@ -138,7 +138,7 @@ export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
         {
           question: "LockHACCP se connecte-t-il à mon logiciel de commande ou à ma caisse ?",
           answer:
-            "Non, LockHACCP ne propose pas d'intégration avec d'autres logiciels. Les réceptions se saisissent dans l'application, et les données de traçabilité s'exportent en PDF ou en Excel.",
+            "Non, LockHACCP ne propose pas d'intégration avec d'autres logiciels. Les réceptions se saisissent dans l'application, et les données de traçabilité s'exportent en PDF.",
         },
         {
           question: "Faut-il un matériel particulier ?",
@@ -185,7 +185,7 @@ export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
         { critere: "Retrouver une livraison", papier: "Feuilleter des classeurs ou des bons de livraison.", application: "Recherche par date : fournisseur, température relevée et photo de l'étiquette." },
         { critere: "Rappel produit", papier: "Vérifier un à un les bons de la période.", application: "Retrouver quand le produit a été reçu et de quel fournisseur." },
         { critere: "Qui a enregistré", papier: "Une signature, quand elle y est.", application: "Chaque enregistrement indique la personne et l'heure." },
-        { critere: "Documents pour un contrôle", papier: "Photocopies.", application: "Export en PDF ou en Excel." },
+        { critere: "Documents pour un contrôle", papier: "Photocopies.", application: "Export en PDF sur la période demandée." },
       ],
     },
     faq: {
@@ -208,7 +208,7 @@ export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
         },
         {
           question: "Puis-je exporter mes données de traçabilité ?",
-          answer: "Oui, en PDF ou en Excel, par exemple pour les montrer lors d'un contrôle sanitaire.",
+          answer: "Oui, en PDF, par exemple pour les montrer lors d'un contrôle sanitaire.",
         },
       ],
     },

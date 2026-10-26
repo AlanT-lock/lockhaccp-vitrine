@@ -48,7 +48,7 @@ const ContactEntreprise = () => {
     },
     {
       question: "LockHACCP se connecte-t-il à nos autres logiciels ?",
-      answer: "Non, LockHACCP ne propose pas d'intégration avec d'autres logiciels (caisse, commandes, ERP). Les données de traçabilité s'exportent en PDF ou en Excel.",
+      answer: "Non, LockHACCP ne propose pas d'intégration avec d'autres logiciels (caisse, commandes, ERP). Les données de traçabilité s'exportent en PDF.",
     },
   ];
   const [formData, setFormData] = useState({

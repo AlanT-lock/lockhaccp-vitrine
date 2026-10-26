@@ -50,7 +50,7 @@ const FAQS: FaqItem[] = [
 const POINTS = [
   "Relevés de température avec rappels chaque matin",
   "Plan de nettoyage par zone, tâches validées et signées",
-  "Traçabilité des produits en photo, export PDF ou Excel",
+  "Traçabilité des produits en photo, export PDF",
   "Contrôle à réception, étiquettes de production, huiles de friture et check-lists",
 ];
 
