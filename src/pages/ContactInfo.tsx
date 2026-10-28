@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,12 +8,13 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { contactInfoSchema } from "@/lib/validation";
 import { identify, trackEvent } from "@/lib/analytics";
 import { signalerConversion } from "@/lib/conversions";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
+import { MESSAGE_CONTACT_CAPTEURS, SUJET_CONTACT_CAPTEURS } from "@/lib/capteurs";
 
 const ContactInfo = () => {
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
@@ -27,6 +28,15 @@ const ContactInfo = () => {
     email: "",
     message: "",
   });
+
+  // Arrivée depuis « Être prévenu » (capteurs connectés) : message prérempli et
+  // formulaire affiché. Fait après le montage, pour ne pas changer le HTML pré-généré.
+  const { search } = useLocation();
+  useEffect(() => {
+    if (new URLSearchParams(search).get("sujet") !== SUJET_CONTACT_CAPTEURS) return;
+    setFormData((prev) => (prev.message ? prev : { ...prev, message: MESSAGE_CONTACT_CAPTEURS }));
+    document.getElementById("formulaire")?.scrollIntoView({ block: "start" });
+  }, [search]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -207,8 +217,9 @@ const ContactInfo = () => {
 
             {/* Form */}
             <div
+              id="formulaire"
               ref={formRef}
-              className={`transition-all duration-700 ${
+              className={`scroll-mt-28 transition-all duration-700 ${
                 formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >

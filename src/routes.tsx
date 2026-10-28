@@ -13,6 +13,7 @@ export const COMPOSANTS: Record<string, ComponentType> = {
   "/demander-demo": lazy(() => import("./pages/ContactDemo")),
   "/contact": lazy(() => import("./pages/ContactInfo")),
   "/contact-entreprise": lazy(() => import("./pages/ContactEntreprise")),
+  "/capteurs-connectes": lazy(() => import("./pages/CapteursConnectes")),
   "/fonctionnalites/temperatures": lazy(() => import("./pages/FeatureTemperature")),
   "/fonctionnalites/receptions": lazy(() => import("./pages/FeatureReception")),
   "/fonctionnalites/tracabilite": lazy(() => import("./pages/FeatureTracability")),

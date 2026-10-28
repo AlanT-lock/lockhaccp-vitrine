@@ -27,6 +27,7 @@ const Navbar = () => {
     { label: "Contrôle des huiles", href: "/fonctionnalites/huiles" },
     { label: "Étiquettes", href: "/fonctionnalites/etiquettes" },
     { label: "Checklist personnalisée", href: "/fonctionnalites/checklist" },
+    { label: "Capteurs connectés", href: "/capteurs-connectes" },
   ];
 
   const navLinks = [
@@ -37,7 +38,8 @@ const Navbar = () => {
   ];
 
   const isCurrentPath = (path: string) => location.pathname === path;
-  const isFeaturePath = () => location.pathname.startsWith("/fonctionnalites");
+  const isFeaturePath = () =>
+    location.pathname.startsWith("/fonctionnalites") || location.pathname === "/capteurs-connectes";
 
   return (
     <>

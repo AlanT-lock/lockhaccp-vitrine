@@ -1,6 +1,6 @@
 // Reusable JSON-LD blocks for SEO rich results.
 
-import { getActivePricing, isLaunchOfferActive, LAUNCH_OFFER_END } from "@/lib/launch";
+import { getActivePricing, isLaunchOfferActive, LAUNCH_OFFER_END, PRO_EN_VENTE, PRO_PRICING } from "@/lib/launch";
 import { LIEN_APP_STORE, LIEN_GOOGLE_PLAY } from "@/lib/app-store";
 
 const SITE = "https://lockhaccp.fr";
@@ -63,7 +63,7 @@ export function softwareAppJsonLd(now: Date = new Date()): Record<string, unknow
     description:
       "Logiciel HACCP pour restaurants : relevés de température, traçabilité, plan de nettoyage, étiquettes de production.",
     publisher: { "@id": ID_ORGANISATION },
-    // Abonnement mensuel par établissement. Pendant l'offre de lancement, la date de fin est
+    // Prix TTC (franchise en base de TVA). Abonnement mensuel par établissement. Pendant l'offre de lancement, la date de fin est
     // annoncée (priceValidUntil) ; aucune note (aggregateRating) tant qu'il n'y a pas de vrais avis.
     offers: [
       {
@@ -84,6 +84,22 @@ export function softwareAppJsonLd(now: Date = new Date()): Record<string, unknow
           ? { priceValidUntil: new Date(LAUNCH_OFFER_END.getTime() - 1).toISOString().slice(0, 10) }
           : {}),
       },
+      // Offre Pro annoncée aux moteurs seulement une fois achetable.
+      ...(PRO_EN_VENTE ? [{
+        "@type": "Offer",
+        name: "LockHACCP Pro, par établissement (relectures IA illimitées)",
+        price: PRO_PRICING.mainMonthly.toFixed(2),
+        priceCurrency: "EUR",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: PRO_PRICING.mainMonthly.toFixed(2),
+          priceCurrency: "EUR",
+          unitCode: "MON",
+          referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+        },
+        url: `${SITE}/tarifs`,
+        availability: "https://schema.org/InStock",
+      }] : []),
     ],
   };
 }

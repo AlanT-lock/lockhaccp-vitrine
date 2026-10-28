@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import { Badge } from "@/components/ui/badge";
-import { Check, ArrowRight, Printer, Tablet, ShieldCheck } from "lucide-react";
+import { Check, ArrowRight, Printer, Tablet, ShieldCheck, ScanLine, Bell, CalendarClock, Radio } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,8 +21,20 @@ import {
   LAUNCH_OFFER_END_LABEL,
   CURRENT_PRICING_START_LABEL,
   formatPriceEUR,
+  MENTION_TVA,
+  PRO_EN_VENTE,
+  PRO_PRICING,
+  RELECTURES_IA_PAR_MOIS,
   type PricingGrid,
 } from "@/lib/launch";
+import {
+  CAPTEURS_EN_VENTE,
+  CHEMIN_CAPTEURS,
+  POINTS_CAPTEURS,
+  PRIX_CAPTEUR_ANNUEL,
+  PRIX_CAPTEUR_MENSUEL,
+  lienCommandeCapteurs,
+} from "@/lib/capteurs";
 
 const MAIN_FEATURES = [
   "Relevé de température, avec rappels",
@@ -37,6 +49,21 @@ const MAIN_FEATURES = [
   "Rapport hebdomadaire par email",
 ];
 
+// Offre LockHACCP : tout, avec un crédit de relectures IA chaque mois.
+const STANDARD_FEATURES = [
+  ...MAIN_FEATURES,
+  "Alertes rappels produits et DLC",
+  `${RELECTURES_IA_PAR_MOIS} relectures IA d'étiquettes par mois et par établissement`,
+];
+
+// Offre Pro : la même chose, avec les relectures IA illimitées.
+const PRO_FEATURES = [
+  "Tout de l'offre LockHACCP",
+  "Relectures IA d'étiquettes illimitées",
+  "Lot, DLC et produit remplis tout seuls, même sur les étiquettes difficiles",
+  "Idéal si vous recevez beaucoup de produits",
+];
+
 interface PricingGridCardProps {
   pricing: PricingGrid;
   title: string;
@@ -44,9 +71,11 @@ interface PricingGridCardProps {
   note: string;
   highlighted: boolean;
   showCta: boolean;
+  features: string[];
+  ctaLabel?: string;
 }
 
-const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta }: PricingGridCardProps) => (
+const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta, features, ctaLabel }: PricingGridCardProps) => (
   <div
     className={`relative rounded-2xl p-6 flex flex-col ${
       highlighted
@@ -76,11 +105,11 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
         <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
           {formatPriceEUR(pricing.mainMonthly)}
           <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            /mois
+            /mois TTC
           </span>
         </p>
         <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          {formatPriceEUR(pricing.mainYearly)}/an
+          {formatPriceEUR(pricing.mainYearly)}/an TTC
         </p>
       </div>
       <div>
@@ -90,11 +119,11 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
         <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
           {formatPriceEUR(pricing.extraMonthly)}
           <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            /mois
+            /mois TTC
           </span>
         </p>
         <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          {formatPriceEUR(pricing.extraYearly)}/an
+          {formatPriceEUR(pricing.extraYearly)}/an TTC
         </p>
       </div>
     </div>
@@ -104,7 +133,7 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
     </p>
 
     <ul className="space-y-2 mb-6 flex-grow">
-      {MAIN_FEATURES.map((feature) => (
+      {features.map((feature) => (
         <li key={feature} className="flex items-start gap-2">
           <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${highlighted ? "text-secondary" : "text-primary"}`} />
           <span className={`text-sm ${highlighted ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
@@ -117,7 +146,7 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
     {showCta && (
       <Button className="w-full" variant={highlighted ? "accent" : "outline"} asChild>
         <a href={APP_URL} className="mt-auto">
-          Essayer 1 mois gratuit
+          {ctaLabel ?? "Essayer 1 mois gratuit"}
         </a>
       </Button>
     )}
@@ -141,6 +170,18 @@ const Pricing = () => {
     {
       question: "Combien coûte LockHACCP ?",
       answer: pricingFaqAnswer,
+    },
+    {
+      question: "Que change l'offre Pro ?",
+      answer: `L'offre Pro, à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois par établissement, comprend tout LockHACCP avec des relectures IA d'étiquettes illimitées. L'offre LockHACCP en comprend ${RELECTURES_IA_PAR_MOIS} par mois et par établissement. Dans les deux offres, la lecture sur l'appareil (code-barres, texte de l'étiquette) est gratuite et illimitée, et les alertes rappels produits et DLC sont incluses.`,
+    },
+    {
+      question: "Combien coûtent les capteurs de température connectés ?",
+      answer: `${formatPriceEUR(PRIX_CAPTEUR_MENSUEL)} TTC par capteur et par mois (ou ${formatPriceEUR(PRIX_CAPTEUR_ANNUEL)} par an), passerelle incluse, sans engagement et sans frais de mise en service. L'option s'ajoute à votre abonnement LockHACCP : un capteur par frigo, chambre froide ou congélateur.`,
+    },
+    {
+      question: "Les prix sont-ils HT ou TTC ?",
+      answer: `Tous nos prix sont TTC : il n'y a rien à ajouter. ${MENTION_TVA}.`,
     },
     {
       question: "Y a-t-il un essai gratuit ?",
@@ -193,11 +234,24 @@ const Pricing = () => {
     },
   ];
 
+  const proCard = (
+    <PricingGridCard
+      pricing={PRO_PRICING}
+      title="Pro"
+      badgeLabel={PRO_EN_VENTE ? "IA illimitée" : "Bientôt disponible"}
+      note="Relectures IA d'étiquettes illimitées"
+      highlighted={false}
+      showCta
+      features={PRO_FEATURES}
+      ctaLabel={PRO_EN_VENTE ? "Essayer 1 mois gratuit" : "Essayer LockHACCP gratuitement"}
+    />
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Seo
         title={`Tarifs LockHACCP : logiciel HACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois`}
-        description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois par établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(activePricing.extraMonthly)} par établissement supplémentaire. Essai gratuit 1 mois sans engagement.`}
+        description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois TTC par établissement, ou Pro à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois avec lecture IA des étiquettes illimitée. Essai gratuit 1 mois sans engagement.`}
         path="/tarifs"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -260,7 +314,7 @@ const Pricing = () => {
             ref={plansRef}
             className={`grid gap-6 mx-auto transition-all duration-500 ${
               plansVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            } ${launchActive ? "md:grid-cols-2 max-w-4xl" : "max-w-md"}`}
+            } ${launchActive ? "md:grid-cols-3 max-w-6xl" : "md:grid-cols-2 max-w-4xl"}`}
           >
             {launchActive ? (
               <>
@@ -271,6 +325,7 @@ const Pricing = () => {
                   note={`Jusqu'au ${LAUNCH_OFFER_END_LABEL} inclus`}
                   highlighted
                   showCta
+                  features={STANDARD_FEATURES}
                 />
                 <PricingGridCard
                   pricing={CURRENT_PRICING}
@@ -279,19 +334,29 @@ const Pricing = () => {
                   note="Grille standard, après l'offre de lancement"
                   highlighted={false}
                   showCta={false}
+                  features={STANDARD_FEATURES}
                 />
+                {proCard}
               </>
             ) : (
-              <PricingGridCard
-                pricing={CURRENT_PRICING}
-                title="LockHACCP"
-                badgeLabel="Toutes fonctionnalités incluses"
-                note="Pour votre établissement"
-                highlighted
-                showCta
-              />
+              <>
+                <PricingGridCard
+                  pricing={CURRENT_PRICING}
+                  title="LockHACCP"
+                  badgeLabel="Toutes fonctionnalités incluses"
+                  note="Pour votre établissement"
+                  highlighted
+                  showCta
+                  features={STANDARD_FEATURES}
+                />
+                {proCard}
+              </>
             )}
           </div>
+
+          <p className="max-w-4xl mx-auto mt-6 text-center text-sm text-muted-foreground">
+            Tous les prix sont TTC. {MENTION_TVA}.
+          </p>
 
           {launchActive && (
             <div className="max-w-4xl mx-auto mt-6 flex items-start gap-3 rounded-2xl border border-secondary/30 bg-secondary-light p-4">
@@ -306,6 +371,94 @@ const Pricing = () => {
             <Link to="/contact-entreprise" className="text-sm text-primary hover:underline">
               Plusieurs établissements à équiper ? Parlez-en à notre équipe →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* L'IA dans LockHACCP */}
+      <section className="py-16 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
+            Ce que fait l'IA pour vous
+          </h2>
+          <p className="text-muted-foreground text-center mb-8">
+            Vous prenez déjà la photo de l'étiquette. LockHACCP la fait travailler pour vous.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { icon: ScanLine, titre: "Lecture des étiquettes", texte: "Le produit, le lot et la DLC se remplissent tout seuls. Vous validez d'un toucher." },
+              { icon: Bell, titre: "Rappels produits", texte: "Si un produit que vous avez reçu est rappelé, vous êtes prévenu." },
+              { icon: CalendarClock, titre: "DLC", texte: "La liste des produits à utiliser en priorité, sans rien saisir." },
+            ].map((p) => (
+              <div key={p.titre} className="bg-card rounded-2xl p-6 border border-border shadow-card">
+                <p.icon className="w-6 h-6 text-primary mb-3" />
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">{p.titre}</h3>
+                <p className="text-sm text-muted-foreground">{p.texte}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-muted-foreground text-center mt-6">
+            La lecture sur votre appareil est gratuite et illimitée dans les deux offres. Quand une étiquette est
+            difficile à lire, une relecture IA prend le relais : {RELECTURES_IA_PAR_MOIS} par mois et par établissement
+            avec l'offre LockHACCP, illimitée avec l'offre Pro.
+          </p>
+        </div>
+      </section>
+
+      {/* Option Capteurs connectés */}
+      <section id="capteurs" className="py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-4">
+                <Radio className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">
+                  Option{CAPTEURS_EN_VENTE ? "" : " : bientôt disponible"}
+                </span>
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
+                Capteurs connectés
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Un capteur dans chaque frigo ou congélateur mesure la température toutes les 10 minutes. Si elle
+                sort des limites, vous êtes prévenu, même la nuit et le week-end. Les relevés s'écrivent tout seuls
+                dans votre registre.
+              </p>
+              <Link
+                to={CHEMIN_CAPTEURS}
+                className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+              >
+                Tout savoir sur les capteurs connectés
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="bg-card rounded-2xl p-6 border border-border shadow-card flex flex-col">
+              <p className="text-3xl font-bold text-foreground">
+                {formatPriceEUR(PRIX_CAPTEUR_MENSUEL)}
+                <span className="text-sm font-normal text-muted-foreground"> TTC par capteur et par mois</span>
+              </p>
+              <p className="text-xs text-muted-foreground mb-5">
+                ou {formatPriceEUR(PRIX_CAPTEUR_ANNUEL)} TTC par capteur et par an, passerelle incluse
+              </p>
+              <ul className="space-y-2 mb-6">
+                {POINTS_CAPTEURS.map((p) => (
+                  <li key={p} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
+                    <span className="text-sm text-muted-foreground">{p}</span>
+                  </li>
+                ))}
+              </ul>
+              {(() => {
+                const lien = lienCommandeCapteurs();
+                return (
+                  <Button className="w-full" variant="accent" asChild>
+                    {lien.externe ? <a href={lien.href}>{lien.libelle}</a> : <Link to={lien.href}>{lien.libelle}</Link>}
+                  </Button>
+                );
+              })()}
+              <p className="text-xs text-muted-foreground mt-3 text-center">{MENTION_TVA}.</p>
+            </div>
           </div>
         </div>
       </section>

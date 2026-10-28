@@ -12,6 +12,7 @@ const Footer = () => {
       { label: "Logiciel HACCP", href: "/" },
       { label: "Application HACCP et PMS", href: "/application-pms" },
       { label: "Tarifs", href: "/tarifs" },
+      { label: "Capteurs connectés", href: "/capteurs-connectes" },
       { label: "Plan de Maîtrise Sanitaire gratuit", href: "/plan-de-maitrise-sanitaire" },
       { label: "Plusieurs établissements", href: "/contact-entreprise" },
     ],

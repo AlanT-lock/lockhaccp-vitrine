@@ -36,14 +36,42 @@ export const LAUNCH_PRICING: PricingGrid = {
   annualDiscountLabel: "20 % de remise",
 };
 
-/** Grille courante : en vigueur à partir du 1er novembre 2026. */
+/**
+ * Grille courante : en vigueur à partir du 1er novembre 2026. L'établissement
+ * supplémentaire garde le prix de lancement (décision du 28/10/2026).
+ */
 export const CURRENT_PRICING: PricingGrid = {
   mainMonthly: 24.9,
   mainYearly: 249,
+  extraMonthly: 4.9,
+  extraYearly: 47,
+  annualDiscountLabel: "2 mois offerts (soit 17 % de remise)",
+};
+
+/**
+ * Offre Pro (décision du 28/10/2026) : relectures IA des étiquettes
+ * illimitées. Mêmes montants que dans l'app et la console. Établissement
+ * supplémentaire : 9,90 € par mois ou 99 € par an.
+ */
+export const PRO_PRICING: PricingGrid = {
+  mainMonthly: 29.9,
+  mainYearly: 299,
   extraMonthly: 9.9,
   extraYearly: 99,
   annualDiscountLabel: "2 mois offerts (soit 17 % de remise)",
 };
+
+/**
+ * L'offre Pro est-elle déjà achetable ? Oui : prix créés dans Stripe le
+ * 28/10/2026 et renseignés dans l'app et la console.
+ */
+export const PRO_EN_VENTE = true;
+
+/** Relectures IA d'étiquettes incluses dans l'offre LockHACCP, par mois et par établissement. */
+export const RELECTURES_IA_PAR_MOIS = 100;
+
+/** Tous les prix sont TTC : LockHACCP n'est pas assujetti à la TVA. */
+export const MENTION_TVA = "TVA non applicable, art. 293 B du CGI";
 
 /** L'offre de lancement court-elle encore à l'instant `now` ? */
 export function isLaunchOfferActive(now: Date = new Date()): boolean {

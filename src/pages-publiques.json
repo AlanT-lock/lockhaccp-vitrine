@@ -7,6 +7,7 @@
   {"path": "/demander-demo", "fil": "Demander une démo", "sitemap": {"changefreq": "monthly", "priority": 0.9}, "llms": true},
   {"path": "/contact", "fil": "Contact", "sitemap": {"changefreq": "monthly", "priority": 0.6}, "llms": true},
   {"path": "/contact-entreprise", "fil": "Contact entreprise", "sitemap": {"changefreq": "monthly", "priority": 0.7}, "llms": true},
+  {"path": "/capteurs-connectes", "fil": "Capteurs connectés", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true, "lastmod": "2026-10-28"},
   {"path": "/fonctionnalites/temperatures", "fil": "Relevés de températures", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/receptions", "fil": "Réception des marchandises", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/tracabilite", "fil": "Traçabilité", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
