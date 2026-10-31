@@ -20,7 +20,7 @@ export const EVENEMENT_OUVRIR_BANDEAU = "lhc:ouvrir-bandeau-cookies";
 type FenetreGoogle = Window & {
   gtag?: (...a: unknown[]) => void;
   dataLayer?: unknown[];
-  lhcChargerGoogleTag?: () => void;
+  lhcChargerGoogleTag?: (quandPret?: () => void) => void;
 };
 
 /** Choix encore valable, ou null s'il n'y en a pas (ou plus) : le bandeau doit s'afficher. */
@@ -37,8 +37,12 @@ export function lireChoix(maintenant = Date.now()): ChoixCookies | null {
   }
 }
 
-/** Enregistre le choix et l'applique tout de suite à Google (Consent Mode v2). */
-export function enregistrerChoix(choix: ChoixCookies, maintenant = Date.now()): void {
+/**
+ * Enregistre le choix et l'applique tout de suite à Google (Consent Mode v2).
+ * `quandGoogleTagPret` : en cas d'accord pour la publicité, appelé une fois la balise Google
+ * chargée (index.html), pour lui envoyer les conversions survenues avant la réponse.
+ */
+export function enregistrerChoix(choix: ChoixCookies, maintenant = Date.now(), quandGoogleTagPret?: () => void): void {
   try {
     localStorage.setItem(CLE, JSON.stringify({ ...choix, date: maintenant }));
   } catch {
@@ -54,8 +58,9 @@ export function enregistrerChoix(choix: ChoixCookies, maintenant = Date.now()): 
   });
   // Déclencheur possible pour les balises ajoutées plus tard dans Google Tag Manager.
   w.dataLayer?.push({ event: "lhc_consentement", consentement_mesure: choix.mesure, consentement_publicite: choix.publicite });
-  if (choix.publicite) w.lhcChargerGoogleTag?.();
-  else supprimerCookiesGoogleAds();
+  if (!choix.publicite) supprimerCookiesGoogleAds();
+  else if (w.lhcChargerGoogleTag) w.lhcChargerGoogleTag(quandGoogleTagPret);
+  else quandGoogleTagPret?.();
 }
 
 /** Retrait du consentement : efface ce que Google Ads a déposé sur lockhaccp.fr. */

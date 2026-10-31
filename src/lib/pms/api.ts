@@ -1,4 +1,5 @@
 // Appels à la fonction Edge `generer-pms` (projet Supabase de l'app LockHACCP).
+import { provenanceDeLaVisite } from "../provenance";
 import { VERSION_REFERENTIEL } from "./genere/version";
 import type { Reponses } from "./genere/types";
 
@@ -27,7 +28,13 @@ async function appeler(reponses: Reponses, apercu: boolean, siteWeb = ""): Promi
         "Content-Type": "application/json",
         ...(CLE_ANON ? { apikey: CLE_ANON, Authorization: `Bearer ${CLE_ANON}` } : {}),
       },
-      body: JSON.stringify({ version: VERSION_REFERENTIEL, reponses, site_web: siteWeb }),
+      // `provenance` : d'où vient le visiteur (annonce Google, recherche, autre site…), pour la fiche du prospect.
+      body: JSON.stringify({
+        version: VERSION_REFERENTIEL,
+        reponses,
+        site_web: siteWeb,
+        ...(apercu ? {} : { provenance: provenanceDeLaVisite() }),
+      }),
     });
   } catch {
     throw new ErreurPms(0, "Connexion impossible. Vérifiez votre accès à Internet et réessayez.");

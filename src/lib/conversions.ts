@@ -18,14 +18,35 @@ export type Conversion =
 // Conversions comptées une seule fois par chargement de page (le visiteur peut revenir en arrière).
 const UNE_FOIS_PAR_PAGE = new Set<Conversion>(["conversion_pms_commence", "conversion_pms_genere"]);
 const dejaEnvoyees = new Set<Conversion>();
+// Conversions survenues avant toute réponse au bandeau (souvent : métier choisi avant d'avoir
+// répondu) : gardées en mémoire, envoyées si le visiteur accepte la publicité pendant la visite,
+// oubliées s'il refuse ou ne répond pas.
+let enAttente: { nom: Conversion; details: Record<string, string> }[] = [];
+
+type FenetreDataLayer = { dataLayer?: unknown[] };
+const fenetre = () => (typeof window !== "undefined" ? (window as FenetreDataLayer) : undefined);
 
 export function signalerConversion(nom: Conversion, details: Record<string, string> = {}): void {
   if (UNE_FOIS_PAR_PAGE.has(nom) && dejaEnvoyees.has(nom)) return;
-  if (!lireChoix()?.publicite) return; // pas d'accord pour la publicité
-  const w = typeof window !== "undefined" ? (window as { dataLayer?: unknown[] }) : undefined;
+  const choix = lireChoix();
+  if (choix && !choix.publicite) return; // publicité refusée
+  const w = fenetre();
   if (!w) return;
   dejaEnvoyees.add(nom);
-  (w.dataLayer ??= []).push({ event: nom, ...details });
+  if (!choix) enAttente.push({ nom, details });
+  else (w.dataLayer ??= []).push({ event: nom, ...details });
+}
+
+/**
+ * Réponse au bandeau. Accord : à appeler une fois la balise Google prête (elle a relevé le clic
+ * sur l'annonce), pour que les conversions en attente lui soient rattachées. Refus : on les oublie.
+ */
+export function traiterConversionsEnAttente(publicite: boolean): void {
+  const envoyer = enAttente;
+  enAttente = [];
+  const w = fenetre();
+  if (!publicite || !w) return;
+  for (const { nom, details } of envoyer) (w.dataLayer ??= []).push({ event: nom, ...details });
 }
 
 const HOTES_STORES: Record<string, string> = { "apps.apple.com": "app_store", "play.google.com": "google_play" };
@@ -69,4 +90,5 @@ export function suivreClicsConversions(): void {
 
 export function reinitialiserPourTests(): void {
   dejaEnvoyees.clear();
+  enAttente = [];
 }

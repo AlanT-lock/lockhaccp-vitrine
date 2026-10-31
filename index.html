@@ -40,11 +40,51 @@
           gtag('js', new Date());
           gtag('config', 'AW-18490045299');
         }
+        // La balise relève le clic sur l'annonce (gclid…) dans l'adresse de la page. Si l'accord
+        // arrive après une navigation interne, il n'y est plus : on le remet le temps qu'elle le
+        // lise (adresse d'arrivée gardée en mémoire seulement), sinon les conversions ne sont pas
+        // rattachées à l'annonce.
+        var rechercheArrivee = location.search;
+        function remettreClicDansAdresse() {
+          var arrivee = new URLSearchParams(rechercheArrivee);
+          var cle = ['gclid', 'gbraid', 'wbraid'].filter(function (k) { return arrivee.get(k); })[0];
+          if (!cle || new URLSearchParams(location.search).get(cle)) return null;
+          var actuelle = location.pathname + location.search + location.hash;
+          var u = new URL(location.href);
+          u.searchParams.set(cle, arrivee.get(cle));
+          var modifiee = u.pathname + u.search + u.hash;
+          history.replaceState(history.state, '', modifiee);
+          return function () {
+            // Le visiteur a pu changer de page entre-temps : on ne touche plus à l'adresse.
+            if (location.pathname + location.search + location.hash === modifiee) history.replaceState(history.state, '', actuelle);
+          };
+        }
         var chargee = false;
-        window.lhcChargerGoogleTag = function () {
-          configurer();
+        var prete = false;
+        var quandPrete = [];
+        // `quandPret` : appelé une fois la balise chargée et le clic relevé (src/lib/consentement.ts).
+        window.lhcChargerGoogleTag = function (quandPret) {
+          // requestIdleCallback (plus bas) passe son propre argument : on ne garde qu'une fonction.
+          if (typeof quandPret === 'function') {
+            if (prete) quandPret();
+            else quandPrete.push(quandPret);
+          }
           if (chargee) return;
           chargee = true;
+          var remettre = remettreClicDansAdresse();
+          configurer();
+          var finie = false;
+          var finir = function () {
+            if (finie) return;
+            finie = true;
+            if (remettre) remettre();
+            prete = true;
+            quandPrete.splice(0).forEach(function (f) { f(); });
+          };
+          if (remettre || quandPrete.length) {
+            gtag('event', 'lhc_balise_prete', { send_to: 'AW-18490045299', event_callback: finir, event_timeout: 3000 });
+            setTimeout(finir, 6000); // balise bloquée (bloqueur de publicité) : on n'attend pas indéfiniment
+          } else finir();
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18490045299';

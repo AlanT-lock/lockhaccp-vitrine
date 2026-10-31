@@ -4,6 +4,7 @@ import { Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { stopTracking, trackPageView } from "@/lib/analytics";
+import { traiterConversionsEnAttente } from "@/lib/conversions";
 import {
   EVENEMENT_OUVRIR_BANDEAU,
   TOUT_ACCEPTER,
@@ -56,7 +57,9 @@ const BandeauCookies = () => {
 
   const choisir = (choix: ChoixCookies) => {
     const avant = lireChoix();
-    enregistrerChoix(choix);
+    // Conversions survenues avant la réponse : envoyées une fois la balise Google prête, ou oubliées.
+    enregistrerChoix(choix, Date.now(), () => traiterConversionsEnAttente(true));
+    if (!choix.publicite) traiterConversionsEnAttente(false);
     if (!choix.mesure) stopTracking();
     else if (!avant?.mesure) trackPageView(pathname + search); // la page en cours n'avait pas été comptée
     setVisible(false);
