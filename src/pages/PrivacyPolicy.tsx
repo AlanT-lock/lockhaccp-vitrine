@@ -130,7 +130,8 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>le nom et l'adresse de votre établissement, votre adresse e-mail et votre numéro de téléphone ;</li>
-                <li>vos réponses au questionnaire (activité, équipements, nettoyage, personnel).</li>
+                <li>vos réponses au questionnaire (activité, équipements, nettoyage, personnel) ;</li>
+                <li>la provenance de votre visite (annonce Google, recherche Google, autre site ou accès direct) et la première page consultée. Elle est relevée à votre arrivée, gardée en mémoire le temps de la visite (aucun cookie) et jointe à votre demande.</li>
               </ul>
               <p className="text-muted-foreground mt-4">Ces données servent à :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">

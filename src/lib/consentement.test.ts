@@ -59,8 +59,22 @@ describe("consentement aux cookies", () => {
   });
 
   it("refuser la publicité ne charge pas la balise de Google", () => {
-    enregistrerChoix({ mesure: true, publicite: false });
+    let pret = false;
+    enregistrerChoix({ mesure: true, publicite: false }, Date.now(), () => (pret = true));
     expect(appels[0][2]).toEqual({ ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "granted" });
     expect(chargements).toBe(0);
+    expect(pret).toBe(false);
+  });
+
+  it("après un accord, prévient quand la balise Google est prête", () => {
+    let quandPret: (() => void) | undefined;
+    (globalThis as unknown as { window: { lhcChargerGoogleTag: (f?: () => void) => void } }).window.lhcChargerGoogleTag = (f) => {
+      quandPret = f;
+    };
+    let pret = false;
+    enregistrerChoix(TOUT_ACCEPTER, Date.now(), () => (pret = true));
+    expect(pret).toBe(false);
+    quandPret?.();
+    expect(pret).toBe(true);
   });
 });

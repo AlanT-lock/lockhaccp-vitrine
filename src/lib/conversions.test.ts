@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { conversionPourLien, reinitialiserPourTests, signalerConversion } from "./conversions";
+import { conversionPourLien, reinitialiserPourTests, signalerConversion, traiterConversionsEnAttente } from "./conversions";
 
 const g = globalThis as unknown as { window?: { dataLayer?: unknown[] }; localStorage?: Pick<Storage, "getItem"> };
 let consentement: { mesure: boolean; publicite: boolean } | null;
@@ -34,6 +34,26 @@ describe("conversions signalées à Google Tag Manager", () => {
     signalerConversion("conversion_demo");
     consentement = { mesure: true, publicite: false };
     signalerConversion("conversion_pms_genere");
+    expect(g.window?.dataLayer).toEqual([]);
+  });
+
+  it("avant toute réponse au bandeau, la conversion attend : envoyée si le visiteur accepte", () => {
+    consentement = null;
+    signalerConversion("conversion_pms_commence");
+    signalerConversion("conversion_pms_commence");
+    expect(g.window?.dataLayer).toEqual([]);
+    consentement = { mesure: false, publicite: true };
+    traiterConversionsEnAttente(true);
+    expect(g.window?.dataLayer).toEqual([{ event: "conversion_pms_commence" }]);
+    traiterConversionsEnAttente(true);
+    expect(g.window?.dataLayer).toHaveLength(1);
+  });
+
+  it("… et oubliée s'il refuse", () => {
+    consentement = null;
+    signalerConversion("conversion_pms_genere");
+    traiterConversionsEnAttente(false);
+    traiterConversionsEnAttente(true);
     expect(g.window?.dataLayer).toEqual([]);
   });
 

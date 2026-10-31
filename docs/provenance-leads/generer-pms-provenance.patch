@@ -1,0 +1,110 @@
+diff -ruN a/supabase/functions/_shared/pms/closera.ts b/supabase/functions/_shared/pms/closera.ts
+--- a/supabase/functions/_shared/pms/closera.ts
++++ b/supabase/functions/_shared/pms/closera.ts
+@@ -1,5 +1,6 @@
+ // Prospect envoyé à Closera (compte SF FORMATION) à chaque PMS généré :
+ // coordonnées, métier et une note qui résume ce qui sert à l'appel.
++import { decrireProvenance, type Provenance } from "./provenance.ts";
+ import { REFERENTIEL } from "./referentiel.ts";
+ import type { ElementListe, PmsCompose, Reponses } from "./types.ts";
+ 
+@@ -18,9 +19,15 @@
+ const ouiNon = (v: unknown) => (v === true ? "oui" : "non");
+ const jour = (d: Date) => d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+ 
+-export function construireProspect(r: Reponses, pms: PmsCompose, lienPdf: string, date: Date): ProspectPms {
++export function construireProspect(
++  r: Reponses,
++  pms: PmsCompose,
++  lienPdf: string,
++  date: Date,
++  provenance: Provenance | null = null,
++): ProspectPms {
+   const metier = REFERENTIEL.metiers.find((m) => m.id === r.metier)?.libelle ?? r.metier;
+-  const lignes = [`[${jour(date)}] PMS demandé sur lockhaccp.fr (${metier})`];
++  const lignes = [`[${jour(date)}] PMS demandé sur lockhaccp.fr (${metier})`, `Provenance : ${decrireProvenance(provenance)}`];
+   if (r["personnel.formation_hygiene"] === false) lignes.push("⚠ Aucune personne formée à l'hygiène alimentaire");
+   lignes.push(`Formation hygiène : ${ouiNon(r["personnel.formation_hygiene"])}`);
+   if (typeof r["personnel.effectif"] === "number") lignes.push(`Salariés : ${r["personnel.effectif"]}`);
+diff -ruN a/supabase/functions/_shared/pms/provenance.ts b/supabase/functions/_shared/pms/provenance.ts
+--- a/supabase/functions/_shared/pms/provenance.ts
++++ b/supabase/functions/_shared/pms/provenance.ts
+@@ -0,0 +1,35 @@
++// Provenance de la visite, envoyée par le site avec la demande de PMS
++// (src/lib/provenance.ts de lockhaccp-vitrine) : facultative, champs connus
++// seulement, chacun borné. Affichée sur la fiche du prospect dans Closera.
++
++export interface Provenance {
++  canal: string;
++  page_arrivee?: string;
++  campagne?: string;
++  mot_cle?: string;
++}
++
++const CHAMPS = ["canal", "page_arrivee", "campagne", "mot_cle"] as const;
++const TAILLE_MAX = 120;
++
++export function lireProvenance(entree: unknown): Provenance | null {
++  if (typeof entree !== "object" || entree === null) return null;
++  const brute = (entree as Record<string, unknown>).provenance;
++  if (typeof brute !== "object" || brute === null || Array.isArray(brute)) return null;
++  const p: Record<string, string> = {};
++  for (const c of CHAMPS) {
++    const v = (brute as Record<string, unknown>)[c];
++    if (typeof v === "string" && v.trim() !== "") p[c] = v.trim().slice(0, TAILLE_MAX);
++  }
++  return p.canal ? (p as unknown as Provenance) : null;
++}
++
++/** « Google Ads · mot-clé « pms gratuit » · arrivée sur /plan-de-maitrise-sanitaire ». */
++export function decrireProvenance(p: Provenance | null): string {
++  if (!p) return "non transmise";
++  const morceaux = [p.canal];
++  if (p.mot_cle) morceaux.push(`mot-clé « ${p.mot_cle} »`);
++  if (p.campagne) morceaux.push(`campagne ${p.campagne}`);
++  if (p.page_arrivee) morceaux.push(`arrivée sur ${p.page_arrivee}`);
++  return morceaux.join(" · ");
++}
+diff -ruN a/supabase/functions/_shared/pms/traitement.ts b/supabase/functions/_shared/pms/traitement.ts
+--- a/supabase/functions/_shared/pms/traitement.ts
++++ b/supabase/functions/_shared/pms/traitement.ts
+@@ -8,6 +8,7 @@
+ import { composerPms } from "./moteur.ts";
+ import type { DefinitionPdf } from "./pdf/commun.ts";
+ import { DOSSIER_TRACABILITE, planDossier } from "./pdf/dossier_pdf.ts";
++import { lireProvenance } from "./provenance.ts";
+ import { REFERENTIEL } from "./referentiel.ts";
+ import { validerDemande } from "./validation.ts";
+ 
+@@ -66,6 +67,7 @@
+   if (options.apercu) return { statut: 200, lien: "", resume };
+ 
+   const rr = r as unknown as Record<string, unknown>;
++  const provenance = lireProvenance(entree);
+   const quota = await deps.reserverQuota(ip, texte(rr, "coordonnees.email").toLowerCase());
+   if (quota !== "ok") return { statut: 429, message: MESSAGES_QUOTA[quota] };
+ 
+@@ -88,6 +90,7 @@
+     // Essai standard de 1 mois, démarré à la création du compte (le défaut 2
+     // de la colonne ne vaut que pour les PMS demandés avant le 2026-10-22).
+     essai_offert_mois: 1,
++    provenance,
+   });
+ 
+   const mois = String(maintenant.getMonth() + 1).padStart(2, "0");
+@@ -122,7 +125,7 @@
+   }
+ 
+   try {
+-    suite.closera_lead_id = await deps.envoyerProspect(construireProspect(r, pms, lien, maintenant));
++    suite.closera_lead_id = await deps.envoyerProspect(construireProspect(r, pms, lien, maintenant, provenance));
+     suite.closera_envoye = true;
+   } catch (e) {
+     suite.closera_envoye = false;
+diff -ruN a/supabase/migrations/20261031000000_pms_demandes_provenance.sql b/supabase/migrations/20261031000000_pms_demandes_provenance.sql
+--- a/supabase/migrations/20261031000000_pms_demandes_provenance.sql
++++ b/supabase/migrations/20261031000000_pms_demandes_provenance.sql
+@@ -0,0 +1,3 @@
++-- Provenance de la visite jointe à chaque demande de PMS (annonce Google, recherche,
++-- autre site, accès direct ; page d'arrivée, campagne, mot-clé). Envoyée par lockhaccp.fr.
++alter table public.pms_demandes add column if not exists provenance jsonb;
