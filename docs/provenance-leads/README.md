@@ -8,27 +8,25 @@ demande de PMS (`src/lib/provenance.ts`, champ `provenance` du corps envoyé à 
 
 | Élément | Où | État |
 | --- | --- | --- |
-| Envoi de la provenance par le site | ce dépôt | en ligne |
+| Envoi de la provenance par le site | ce dépôt | en ligne depuis le 2026-10-31 |
 | Colonne `pms_demandes.provenance` (jsonb) | Supabase `ndoxvlikhmmixvhuqczs` | créée le 2026-10-31 (migration `pms_demandes_provenance`) |
-| Lecture par la fonction `generer-pms`, ligne « Provenance : … » dans la note Closera | fonction Edge `generer-pms` (code hors de ce dépôt) | **à déployer** : `generer-pms-provenance.patch` |
+| Lecture par la fonction `generer-pms`, ligne « Provenance : … » dans la note Closera | fonction Edge `generer-pms` (code hors de ce dépôt) | en ligne depuis le 2026-11-01 (version 18) |
 
-Tant que la fonction n'est pas mise à jour, elle ignore ce champ : rien ne casse.
+La version 18 reprend la version 16 à l'identique, sauf deux fichiers :
+`_shared/pms/closera.ts` (types `Provenance`, `lireProvenance`, `decrireProvenance`, 2e ligne
+de la note) et `_shared/pms/traitement.ts` (provenance lue dans la demande, enregistrée avec
+elle et passée à `construireProspect`). Elle ajoute aussi `_shared/pms/types.ts`, copie de
+`src/lib/pms/genere/types.ts`, absent de la version 16 déployée.
 
-## Déployer la fonction
-
-Le correctif s'applique au code de la fonction tel qu'il est déployé (version 16), à la
-racine du projet Supabase qui contient `supabase/functions/generer-pms` :
-
-```bash
-patch -p1 < generer-pms-provenance.patch
-```
-
-La partie `supabase/migrations` du correctif est déjà appliquée en base : ne pas la rejouer
-(elle est idempotente, `add column if not exists`). Puis :
+La version 17 (2026-11-01, 3 h 14) ne contenait qu'un `index.ts` vide : elle avait été déployée
+depuis l'éditeur du tableau de bord Supabase. Cette fonction compte 27 fichiers : la déployer
+avec la CLI, depuis un dossier qui contient tout son code :
 
 ```bash
 supabase functions deploy generer-pms --project-ref ndoxvlikhmmixvhuqczs --no-verify-jwt
 ```
+
+La vérification JWT doit rester désactivée : le site appelle la fonction sans connexion.
 
 Résultat sur la fiche Closera, 2e ligne de la note :
 `Provenance : Google Ads · mot-clé « pms gratuit » · arrivée sur /plan-de-maitrise-sanitaire`.
