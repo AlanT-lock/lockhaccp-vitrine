@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import { Badge } from "@/components/ui/badge";
-import { Check, ArrowRight, Printer, Tablet, ShieldCheck, ScanLine, Bell, CalendarClock, Radio } from "lucide-react";
+import { useState } from "react";
+import { Check, ArrowRight, Printer, Tablet, ShieldCheck, ScanLine, Bell, CalendarClock, Radio, FileText, GraduationCap, BadgeEuro } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -31,10 +32,11 @@ import {
   CAPTEURS_EN_VENTE,
   CHEMIN_CAPTEURS,
   POINTS_CAPTEURS,
-  PRIX_CAPTEUR_ANNUEL,
-  PRIX_CAPTEUR_MENSUEL,
+  PRIX_CAPTEUR,
+  PRIX_PASSERELLE,
   lienCommandeCapteurs,
 } from "@/lib/capteurs";
+import { economieAnnuelle, mensuelEquivalent, type Facturation } from "@/lib/tarifs-affichage";
 
 const MAIN_FEATURES = [
   "Relevé de température, avec rappels",
@@ -64,6 +66,37 @@ const PRO_FEATURES = [
   "Idéal si vous recevez beaucoup de produits",
 ];
 
+/** Points qui distinguent LockHACCP, tous vérifiables dans l'application ou sur le site. */
+const DIFFERENCES = [
+  {
+    icon: FileText,
+    titre: "Votre PMS gratuit, qui configure l'application",
+    texte:
+      "Répondez au questionnaire en 10 minutes et recevez votre Plan de Maîtrise Sanitaire complet. À l'inscription, LockHACCP reprend vos réponses : frigos et congélateurs avec leurs températures, friteuses, zones et surfaces à nettoyer sont déjà en place.",
+    lien: { to: "/plan-de-maitrise-sanitaire", libelle: "Créer mon PMS gratuit" },
+  },
+  {
+    icon: GraduationCap,
+    titre: "Conçu par un organisme de formation à l'hygiène",
+    texte:
+      "LockHACCP est conçu avec SF FORMATION, organisme certifié Qualiopi et autorisé par la préfecture à dispenser la formation obligatoire de 14 heures en hygiène alimentaire. Les règles de l'application sont celles que nous enseignons.",
+    lien: { to: "/auteur/alan-touati", libelle: "Qui sommes-nous" },
+  },
+  {
+    icon: Radio,
+    titre: "Des capteurs achetés, pas loués",
+    texte: `Passerelle ${formatPriceEUR(PRIX_PASSERELLE)} et ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, payés une seule fois, livraison comprise. Pas d'abonnement capteurs : le matériel vous appartient.`,
+    lien: { to: CHEMIN_CAPTEURS, libelle: "Voir les capteurs" },
+  },
+  {
+    icon: BadgeEuro,
+    titre: "Aucun frais caché",
+    texte:
+      "Pas de frais de mise en service, pas d'engagement, toutes les fonctionnalités dès la première offre. Prix nets : il n'y a rien à ajouter.",
+    lien: null,
+  },
+];
+
 interface PricingGridCardProps {
   pricing: PricingGrid;
   title: string;
@@ -73,9 +106,36 @@ interface PricingGridCardProps {
   showCta: boolean;
   features: string[];
   ctaLabel?: string;
+  facturation: Facturation;
 }
 
-const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta, features, ctaLabel }: PricingGridCardProps) => (
+interface BlocPrixProps {
+  libelle: string;
+  mensuel: number;
+  annuel: number;
+  facturation: Facturation;
+  highlighted: boolean;
+}
+
+/** Prix d'un établissement : en annuel, l'équivalent mensuel en grand et le montant facturé dessous. */
+const BlocPrix = ({ libelle, mensuel, annuel, facturation, highlighted }: BlocPrixProps) => (
+  <div>
+    <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{libelle}</p>
+    <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
+      {formatPriceEUR(facturation === "annuel" ? mensuelEquivalent(annuel) : mensuel)}
+      <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+        /mois TTC
+      </span>
+    </p>
+    <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+      {facturation === "annuel"
+        ? `soit ${formatPriceEUR(annuel)} par an`
+        : `ou ${formatPriceEUR(mensuelEquivalent(annuel))}/mois en annuel`}
+    </p>
+  </div>
+);
+
+const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta, features, ctaLabel, facturation }: PricingGridCardProps) => (
   <div
     className={`relative rounded-2xl p-6 flex flex-col ${
       highlighted
@@ -98,38 +158,26 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
     </p>
 
     <div className="grid grid-cols-2 gap-4 mb-4">
-      <div>
-        <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          Établissement principal
-        </p>
-        <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
-          {formatPriceEUR(pricing.mainMonthly)}
-          <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            /mois TTC
-          </span>
-        </p>
-        <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          {formatPriceEUR(pricing.mainYearly)}/an TTC
-        </p>
-      </div>
-      <div>
-        <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          Établissement supplémentaire
-        </p>
-        <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
-          {formatPriceEUR(pricing.extraMonthly)}
-          <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            /mois TTC
-          </span>
-        </p>
-        <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-          {formatPriceEUR(pricing.extraYearly)}/an TTC
-        </p>
-      </div>
+      <BlocPrix
+        libelle="Établissement principal"
+        mensuel={pricing.mainMonthly}
+        annuel={pricing.mainYearly}
+        facturation={facturation}
+        highlighted={highlighted}
+      />
+      <BlocPrix
+        libelle="Établissement supplémentaire"
+        mensuel={pricing.extraMonthly}
+        annuel={pricing.extraYearly}
+        facturation={facturation}
+        highlighted={highlighted}
+      />
     </div>
 
     <p className={`text-xs mb-6 p-2 rounded-lg ${highlighted ? "bg-primary-foreground/10 text-primary-foreground/80" : "bg-muted text-muted-foreground"}`}>
-      Paiement annuel : {pricing.annualDiscountLabel}
+      {facturation === "annuel"
+        ? `Paiement annuel : ${formatPriceEUR(economieAnnuelle(pricing.mainMonthly, pricing.mainYearly))} économisés par an sur l'établissement principal`
+        : "Paiement mensuel, sans engagement, résiliable à tout moment"}
     </p>
 
     <ul className="space-y-2 mb-6 flex-grow">
@@ -158,13 +206,14 @@ const Pricing = () => {
   const { ref: plansRef, isVisible: plansVisible } = useScrollAnimation();
   const { ref: optionsRef, isVisible: optionsVisible } = useScrollAnimation();
 
+  const [facturation, setFacturation] = useState<Facturation>("annuel");
   const maintenant = useMaintenant();
   const launchActive = isLaunchOfferActive(maintenant);
   const activePricing = launchActive ? LAUNCH_PRICING : CURRENT_PRICING;
 
   const pricingFaqAnswer = launchActive
     ? `LockHACCP est à ${formatPriceEUR(LAUNCH_PRICING.mainMonthly)}/mois pour un établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(LAUNCH_PRICING.extraMonthly)}/mois par établissement supplémentaire. C'est le tarif de l'offre de lancement : il est garanti à vie pour toute souscription avant le ${LAUNCH_OFFER_END_LABEL}, y compris si vous ajoutez un établissement plus tard. À partir du ${CURRENT_PRICING_START_LABEL}, le tarif standard sera de ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}/mois.`
-    : `LockHACCP est à ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}/mois pour un établissement, toutes fonctionnalités incluses. Chaque établissement supplémentaire est à ${formatPriceEUR(CURRENT_PRICING.extraMonthly)}/mois. En paiement annuel, profitez de ${CURRENT_PRICING.annualDiscountLabel}.`;
+    : `LockHACCP est à ${formatPriceEUR(CURRENT_PRICING.mainYearly)} par an pour un établissement, soit ${formatPriceEUR(mensuelEquivalent(CURRENT_PRICING.mainYearly))} par mois, toutes fonctionnalités incluses. Au mois, sans engagement, c'est ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}. Chaque établissement supplémentaire est à ${formatPriceEUR(CURRENT_PRICING.extraYearly)} par an ou ${formatPriceEUR(CURRENT_PRICING.extraMonthly)} par mois.`;
 
   const FAQS = [
     {
@@ -177,7 +226,7 @@ const Pricing = () => {
     },
     {
       question: "Combien coûtent les capteurs de température connectés ?",
-      answer: `${formatPriceEUR(PRIX_CAPTEUR_MENSUEL)} TTC par capteur et par mois (ou ${formatPriceEUR(PRIX_CAPTEUR_ANNUEL)} par an), passerelle incluse, sans engagement et sans frais de mise en service. L'option s'ajoute à votre abonnement LockHACCP : un capteur par frigo, chambre froide ou congélateur.`,
+      answer: `Le kit se paie une seule fois : ${formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle (une par établissement) et ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, livraison comprise. Pas d'abonnement capteurs, et le matériel vous appartient. Un capteur par frigo, chambre froide ou congélateur. Les relevés automatiques et les alertes fonctionnent avec votre abonnement LockHACCP, ou pendant votre période d'essai.`,
     },
     {
       question: "Les prix sont-ils HT ou TTC ?",
@@ -244,14 +293,15 @@ const Pricing = () => {
       showCta
       features={PRO_FEATURES}
       ctaLabel={PRO_EN_VENTE ? "Essayer 1 mois gratuit" : "Essayer LockHACCP gratuitement"}
+      facturation={facturation}
     />
   );
 
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title={`Tarifs LockHACCP : logiciel HACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois`}
-        description={`LockHACCP à ${formatPriceEUR(activePricing.mainMonthly)}/mois TTC par établissement, ou Pro à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois avec lecture IA des étiquettes illimitée. Essai gratuit 1 mois sans engagement.`}
+        title={`Tarifs LockHACCP : logiciel HACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois`}
+        description={`LockHACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois TTC en annuel (${formatPriceEUR(activePricing.mainYearly)}/an) ou ${formatPriceEUR(activePricing.mainMonthly)} au mois. PMS gratuit qui configure l'app. Essai gratuit 1 mois sans engagement.`}
         path="/tarifs"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -310,6 +360,31 @@ const Pricing = () => {
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="sr-only">Nos formules</h2>
+          <div className="flex justify-center mb-8">
+            <div role="group" aria-label="Rythme de paiement" className="inline-flex rounded-full border border-border bg-card p-1 shadow-card">
+              {([
+                { valeur: "annuel", libelle: "Annuel", detail: "2 mois offerts" },
+                { valeur: "mensuel", libelle: "Mensuel", detail: null },
+              ] as const).map((o) => (
+                <button
+                  key={o.valeur}
+                  type="button"
+                  aria-pressed={facturation === o.valeur}
+                  onClick={() => setFacturation(o.valeur)}
+                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
+                    facturation === o.valeur ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {o.libelle}
+                  {o.detail && (
+                    <span className={`ml-2 text-xs font-medium ${facturation === o.valeur ? "text-secondary" : "text-secondary-texte"}`}>
+                      {o.detail}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
           <div
             ref={plansRef}
             className={`grid gap-6 mx-auto transition-all duration-500 ${
@@ -326,6 +401,7 @@ const Pricing = () => {
                   highlighted
                   showCta
                   features={STANDARD_FEATURES}
+                  facturation={facturation}
                 />
                 <PricingGridCard
                   pricing={CURRENT_PRICING}
@@ -335,6 +411,7 @@ const Pricing = () => {
                   highlighted={false}
                   showCta={false}
                   features={STANDARD_FEATURES}
+                  facturation={facturation}
                 />
                 {proCard}
               </>
@@ -348,6 +425,7 @@ const Pricing = () => {
                   highlighted
                   showCta
                   features={STANDARD_FEATURES}
+                  facturation={facturation}
                 />
                 {proCard}
               </>
@@ -371,6 +449,35 @@ const Pricing = () => {
             <Link to="/contact-entreprise" className="text-sm text-primary hover:underline">
               Plusieurs établissements à équiper ? Parlez-en à notre équipe →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Ce que les autres n'ont pas */}
+      <section className="py-16 bg-muted/40 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
+            Ce que vous ne trouverez pas ailleurs
+          </h2>
+          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+            Comparez ce qui est compris dans le prix, pas seulement le prix.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {DIFFERENCES.map((d) => (
+              <div key={d.titre} className="bg-card rounded-2xl p-6 border border-border shadow-card flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
+                  <d.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">{d.titre}</h3>
+                <p className="text-sm text-muted-foreground mb-4 flex-grow">{d.texte}</p>
+                {d.lien && (
+                  <Link to={d.lien.to} className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline">
+                    {d.lien.libelle}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -435,11 +542,11 @@ const Pricing = () => {
 
             <div className="bg-card rounded-2xl p-6 border border-border shadow-card flex flex-col">
               <p className="text-3xl font-bold text-foreground">
-                {formatPriceEUR(PRIX_CAPTEUR_MENSUEL)}
-                <span className="text-sm font-normal text-muted-foreground"> TTC par capteur et par mois</span>
+                {formatPriceEUR(PRIX_CAPTEUR)}
+                <span className="text-sm font-normal text-muted-foreground"> par capteur, paiement unique</span>
               </p>
               <p className="text-xs text-muted-foreground mb-5">
-                ou {formatPriceEUR(PRIX_CAPTEUR_ANNUEL)} TTC par capteur et par an, passerelle incluse
+                + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle, une seule fois par établissement
               </p>
               <ul className="space-y-2 mb-6">
                 {POINTS_CAPTEURS.map((p) => (

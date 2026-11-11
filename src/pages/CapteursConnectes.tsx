@@ -27,8 +27,9 @@ import {
   COMPARAISON_CAPTEURS,
   FAQ_CAPTEURS,
   POINTS_CAPTEURS,
-  PRIX_CAPTEUR_ANNUEL,
-  PRIX_CAPTEUR_MENSUEL,
+  PRIX_CAPTEUR,
+  PRIX_PASSERELLE,
+  prixKit,
   capteursProductJsonLd,
   lienCommandeCapteurs,
 } from "@/lib/capteurs";
@@ -113,7 +114,7 @@ const CapteursConnectes = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Capteur de température connecté pour restaurant"
-        description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. ${formatPriceEUR(PRIX_CAPTEUR_MENSUEL)} TTC par capteur et par mois, sans engagement.`}
+        description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
         path={CHEMIN_CAPTEURS}
         jsonLd={[capteursProductJsonLd(), faqJsonLd(FAQ_CAPTEURS)]}
       />
@@ -146,10 +147,10 @@ const CapteursConnectes = () => {
                 </p>
 
                 <p className="text-lg text-foreground mb-8">
-                  <span className="font-heading text-3xl font-bold text-primary">{formatPriceEUR(PRIX_CAPTEUR_MENSUEL)}</span>{" "}
-                  TTC par capteur et par mois, passerelle incluse.
+                  <span className="font-heading text-3xl font-bold text-primary">{formatPriceEUR(PRIX_CAPTEUR)}</span>{" "}
+                  par capteur, en paiement unique, + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle.
                   <span className="block text-sm text-muted-foreground mt-1">
-                    Sans engagement, sans frais de mise en service. {MENTION_TVA}.
+                    Sans abonnement capteurs, livraison comprise, le matériel vous appartient. {MENTION_TVA}.
                   </span>
                 </p>
 
@@ -262,12 +263,13 @@ const CapteursConnectes = () => {
         <section className="py-20 bg-muted">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4 text-center">
-              Un prix simple, tout compris
+              Vous payez une fois, c'est à vous
             </h2>
             <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-              {formatPriceEUR(PRIX_CAPTEUR_MENSUEL)} TTC par capteur et par mois, ou {formatPriceEUR(PRIX_CAPTEUR_ANNUEL)} TTC par
-              an (2 mois offerts). Exemple : 3 frigos et 1 congélateur, 4 capteurs, soit{" "}
-              {formatPriceEUR(PRIX_CAPTEUR_MENSUEL * 4)} TTC par mois. L'option s'ajoute à votre abonnement LockHACCP.
+              Passerelle {formatPriceEUR(PRIX_PASSERELLE)} (une par établissement) et {formatPriceEUR(PRIX_CAPTEUR)} par
+              capteur, livraison comprise. Exemple : 3 frigos et 1 congélateur, 4 capteurs, soit{" "}
+              {formatPriceEUR(prixKit(4))} une seule fois. Les relevés automatiques et les alertes fonctionnent avec
+              votre abonnement LockHACCP, ou pendant votre période d'essai.
             </p>
 
             <ul className="grid sm:grid-cols-2 gap-3 mb-12">
