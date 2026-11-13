@@ -49,8 +49,8 @@ export const CURRENT_PRICING: PricingGrid = {
 };
 
 /**
- * Offre Pro (décision du 28/10/2026) : relectures IA des étiquettes
- * illimitées. Mêmes montants que dans l'app et la console. Établissement
+ * Offre Pro (décision du 28/10/2026, quota revu le 13/11/2026) : 500 lectures
+ * IA par mois et par établissement. Mêmes montants que dans l'app et la console. Établissement
  * supplémentaire : 9,90 € par mois ou 99 € par an.
  */
 export const PRO_PRICING: PricingGrid = {
@@ -67,8 +67,12 @@ export const PRO_PRICING: PricingGrid = {
  */
 export const PRO_EN_VENTE = true;
 
-/** Relectures IA d'étiquettes incluses dans l'offre LockHACCP, par mois et par établissement. */
-export const RELECTURES_IA_PAR_MOIS = 100;
+/** Lectures IA incluses dans l'offre LockHACCP, par mois et par établissement (13/11/2026 :
+ * 1 lecture = 1 étiquette relue par l'IA ou 1 bon de livraison lu). */
+export const RELECTURES_IA_PAR_MOIS = 20;
+
+/** Lectures IA de l'offre Pro, par mois et par établissement. */
+export const LECTURES_IA_PRO = 500;
 
 /** Tous les prix sont TTC : LockHACCP n'est pas assujetti à la TVA. */
 export const MENTION_TVA = "TVA non applicable, art. 293 B du CGI";

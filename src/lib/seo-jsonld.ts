@@ -1,6 +1,6 @@
 // Reusable JSON-LD blocks for SEO rich results.
 
-import { getActivePricing, isLaunchOfferActive, LAUNCH_OFFER_END, PRO_EN_VENTE, PRO_PRICING } from "@/lib/launch";
+import { getActivePricing, isLaunchOfferActive, LAUNCH_OFFER_END, LECTURES_IA_PRO, PRO_EN_VENTE, PRO_PRICING } from "@/lib/launch";
 import { LIEN_APP_STORE, LIEN_GOOGLE_PLAY } from "@/lib/app-store";
 
 const SITE = "https://lockhaccp.fr";
@@ -87,7 +87,7 @@ export function softwareAppJsonLd(now: Date = new Date()): Record<string, unknow
       // Offre Pro annoncée aux moteurs seulement une fois achetable.
       ...(PRO_EN_VENTE ? [{
         "@type": "Offer",
-        name: "LockHACCP Pro, par établissement (relectures IA illimitées)",
+        name: `LockHACCP Pro, par établissement (${LECTURES_IA_PRO} lectures IA par mois)`,
         price: PRO_PRICING.mainMonthly.toFixed(2),
         priceCurrency: "EUR",
         priceSpecification: {

@@ -25,6 +25,7 @@ import {
   MENTION_TVA,
   PRO_EN_VENTE,
   PRO_PRICING,
+  LECTURES_IA_PRO,
   RELECTURES_IA_PAR_MOIS,
   type PricingGrid,
 } from "@/lib/launch";
@@ -51,17 +52,17 @@ const MAIN_FEATURES = [
   "Rapport hebdomadaire par email",
 ];
 
-// Offre LockHACCP : tout, avec un crédit de relectures IA chaque mois.
+// Offre LockHACCP : tout, avec un crédit de lectures IA chaque mois.
 const STANDARD_FEATURES = [
   ...MAIN_FEATURES,
   "Alertes rappels produits et DLC",
-  `${RELECTURES_IA_PAR_MOIS} relectures IA d'étiquettes par mois et par établissement`,
+  `${RELECTURES_IA_PAR_MOIS} lectures IA par mois et par établissement (étiquettes et bons de livraison)`,
 ];
 
-// Offre Pro : la même chose, avec les relectures IA illimitées.
+// Offre Pro : la même chose, avec 500 lectures IA par mois.
 const PRO_FEATURES = [
   "Tout de l'offre LockHACCP",
-  "Relectures IA d'étiquettes illimitées",
+  `${LECTURES_IA_PRO} lectures IA par mois et par établissement (étiquettes et bons de livraison)`,
   "Lot, DLC et produit remplis tout seuls, même sur les étiquettes difficiles",
   "Idéal si vous recevez beaucoup de produits",
 ];
@@ -222,7 +223,7 @@ const Pricing = () => {
     },
     {
       question: "Que change l'offre Pro ?",
-      answer: `L'offre Pro, à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois par établissement, comprend tout LockHACCP avec des relectures IA d'étiquettes illimitées. L'offre LockHACCP en comprend ${RELECTURES_IA_PAR_MOIS} par mois et par établissement. Dans les deux offres, la lecture sur l'appareil (code-barres, texte de l'étiquette) est gratuite et illimitée, et les alertes rappels produits et DLC sont incluses.`,
+      answer: `L'offre Pro, à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois par établissement, comprend tout LockHACCP avec ${LECTURES_IA_PRO} lectures IA par mois et par établissement (étiquettes et bons de livraison). L'offre LockHACCP en comprend ${RELECTURES_IA_PAR_MOIS}. Dans les deux offres, la lecture sur l'appareil (code-barres, texte de l'étiquette) est gratuite et illimitée, et les alertes rappels produits et DLC sont incluses.`,
     },
     {
       question: "Combien coûtent les capteurs de température connectés ?",
@@ -287,8 +288,8 @@ const Pricing = () => {
     <PricingGridCard
       pricing={PRO_PRICING}
       title="Pro"
-      badgeLabel={PRO_EN_VENTE ? "IA illimitée" : "Bientôt disponible"}
-      note="Relectures IA d'étiquettes illimitées"
+      badgeLabel={PRO_EN_VENTE ? `${LECTURES_IA_PRO} lectures IA` : "Bientôt disponible"}
+      note={`${LECTURES_IA_PRO} lectures IA par mois et par établissement`}
       highlighted={false}
       showCta
       features={PRO_FEATURES}
@@ -505,9 +506,9 @@ const Pricing = () => {
             ))}
           </div>
           <p className="text-sm text-muted-foreground text-center mt-6">
-            La lecture sur votre appareil est gratuite et illimitée dans les deux offres. Quand une étiquette est
-            difficile à lire, une relecture IA prend le relais : {RELECTURES_IA_PAR_MOIS} par mois et par établissement
-            avec l'offre LockHACCP, illimitée avec l'offre Pro.
+            La lecture des étiquettes sur votre appareil est gratuite et illimitée dans les deux offres. Quand une
+            étiquette est difficile à lire, ou pour lire un bon de livraison, l'IA prend le relais : {RELECTURES_IA_PAR_MOIS}{" "}
+            lectures par mois et par établissement avec l'offre LockHACCP, {LECTURES_IA_PRO} avec l'offre Pro.
           </p>
         </div>
       </section>
