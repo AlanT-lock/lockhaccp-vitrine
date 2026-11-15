@@ -28,6 +28,13 @@ export const useParallax = ({
 }: ParallaxOptions = {}): ParallaxResult => {
   const ref = useRef<HTMLDivElement>(null);
   const [style, setStyle] = useState<React.CSSProperties>({});
+  // Les plages arrivent souvent en tableaux littéraux (ou valeurs par défaut), recréés à chaque
+  // rendu : on ne garde que leurs bornes, des nombres, dans les dépendances de l'effet.
+  // Sinon l'effet se relançait après chaque rendu et appelait setStyle : boucle de rendus
+  // infinie, qui empêchait aussi React de finir d'hydrater (bandeau cookies absent).
+  const [scaleMin, scaleMax] = scaleRange;
+  const [opacityMin, opacityMax] = opacityRange;
+  const [rotateMin, rotateMax] = rotateRange;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,34 +59,40 @@ export const useParallax = ({
       let scaleValue = 1;
       if (scale) {
         const progress = 1 - Math.abs(normalizedDistance);
-        scaleValue = scaleRange[0] + (scaleRange[1] - scaleRange[0]) * progress;
+        scaleValue = scaleMin + (scaleMax - scaleMin) * progress;
       }
 
       // Calculate opacity if enabled
       let opacityValue = 1;
       if (opacity) {
         const progress = 1 - Math.abs(normalizedDistance);
-        opacityValue = opacityRange[0] + (opacityRange[1] - opacityRange[0]) * progress;
+        opacityValue = opacityMin + (opacityMax - opacityMin) * progress;
       }
 
       // Calculate rotation if enabled
       let rotateValue = 0;
       if (rotate) {
-        rotateValue = rotateRange[0] + (rotateRange[1] - rotateRange[0]) * (0.5 + normalizedDistance * 0.5);
+        rotateValue = rotateMin + (rotateMax - rotateMin) * (0.5 + normalizedDistance * 0.5);
       }
 
-      setStyle({
-        transform: `translateY(${translateY}px) scale(${scaleValue}) rotate(${rotateValue}deg)`,
-        opacity: opacityValue,
-        transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
-      });
+      const transform = `translateY(${translateY}px) scale(${scaleValue}) rotate(${rotateValue}deg)`;
+      // Même rendu qu'avant : on garde l'objet existant, React n'a rien à redessiner.
+      setStyle((avant) =>
+        avant.transform === transform && avant.opacity === opacityValue
+          ? avant
+          : {
+              transform,
+              opacity: opacityValue,
+              transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+            },
+      );
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial call
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [speed, direction, scale, scaleRange, opacity, opacityRange, rotate, rotateRange]);
+  }, [speed, direction, scale, scaleMin, scaleMax, opacity, opacityMin, opacityMax, rotate, rotateMin, rotateMax]);
 
   return { ref, style };
 };
