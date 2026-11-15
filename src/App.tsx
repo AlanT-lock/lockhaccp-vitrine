@@ -13,13 +13,19 @@ const BandeauCookies = lazy(() => import("./components/BandeauCookies"));
 
 // L'état « monté » vit ICI et non dans AppContenu : une mise à jour d'un parent pendant
 // que la page (chargée à la demande) s'hydrate forcerait React à tout redessiner (erreur #421).
+// La frontière Suspense est rendue dès le serveur (vide) : sans elle, celle créée après le
+// montage pouvait s'accrocher au repère <!--$--> de la page pendant l'hydratation et rester
+// « déshydratée » pour toujours (bandeau cookies et notifications jamais affichés).
 const NotificationsDifferees = () => {
   const apresMontage = useApresMontage();
-  if (!apresMontage) return null;
   return (
     <Suspense fallback={null}>
-      <Notifications />
-      <BandeauCookies />
+      {apresMontage && (
+        <>
+          <Notifications />
+          <BandeauCookies />
+        </>
+      )}
     </Suspense>
   );
 };
