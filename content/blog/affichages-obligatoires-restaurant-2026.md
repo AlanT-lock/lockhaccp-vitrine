@@ -63,7 +63,7 @@ Pour une partie de ces informations, la loi accepte aujourd'hui « tout moyen »
 
 On me pose souvent la question : faut-il afficher le lavage des mains, les températures, le plan de nettoyage ? Aucun texte ne l'impose sous forme d'affiche. Le règlement européen sur l'hygiène vous demande d'appliquer de bonnes pratiques et de pouvoir le prouver, pas de les punaiser au mur.
 
-Cela dit, je conseille de le faire. Une affiche de lavage des mains au-dessus du lave-mains et le plan de nettoyage près de la plonge, ça aide le commis qui arrive un lundi matin, et ça montre à l'inspecteur que le sujet est pris au sérieux.
+Cela dit, je conseille de le faire. Une affiche de lavage des mains au-dessus du lave-mains et le [plan de nettoyage](/blog/plan-nettoyage-gratuit-modele) près de la plonge, ça aide le commis qui arrive un lundi matin, et ça montre à l'inspecteur que le sujet est pris au sérieux.
 
 Une erreur qui circule : le Plan de Maîtrise Sanitaire ne s'affiche pas. C'est un dossier : l'inspecteur demandera à voir vos procédures d'hygiène et vos enregistrements, qu'on réunit en général dans un PMS. Le [générateur de PMS de LockHACCP](/plan-de-maitrise-sanitaire) fournit aussi les affiches qui concernent votre activité, prêtes à imprimer.
 
