@@ -11,7 +11,8 @@ interface SeoProps {
   description: string;
   path?: string;
   image?: string;
-  noindex?: boolean;
+  /** true : noindex,nofollow. "follow" : hors de l'index, mais Google suit les liens de la page. */
+  noindex?: boolean | "follow";
   /** Optional JSON-LD object(s) to embed for rich results */
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -38,7 +39,7 @@ export const Seo = ({
       <meta name="description" content={description} />
       {/* Sans chemin (page 404), pas de canonical : il désignerait à tort la page d'accueil. */}
       {path && <link rel="canonical" href={url} />}
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
+      {noindex && <meta name="robots" content={noindex === "follow" ? "noindex,follow" : "noindex,nofollow"} />}
 
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />

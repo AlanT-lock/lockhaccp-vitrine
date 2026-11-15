@@ -141,6 +141,16 @@ export const FAQ_PMS = [
       "Oui. Vous indiquez seulement votre e-mail, votre téléphone et le nom de votre établissement pour recevoir le dossier. Aucun paiement ni carte bancaire n'est demandé.",
   },
   {
+    question: "Où trouver un exemple de Plan de Maîtrise Sanitaire en PDF ?",
+    answer:
+      "Le générateur vous envoie votre propre PMS en PDF, construit à partir de votre métier, de vos préparations et de vos équipements : un exemple qui décrit déjà votre établissement. Le contenu du dossier, fichier par fichier, est présenté sur cette page.",
+  },
+  {
+    question: "Un PMS vierge à remplir, en Word ou en PDF, suffit-il ?",
+    answer:
+      "Un modèle vierge donne la structure, mais tout reste à écrire : vos dangers, vos points critiques, vos équipements, vos zones de nettoyage. Rempli de façon générique, il ne décrit pas votre cuisine et cela se voit au contrôle. Le dossier généré gratuitement part de vos réponses et arrive déjà rempli, prêt à imprimer.",
+  },
+  {
     question: "Combien de temps faut-il pour le créer ?",
     answer:
       "Environ 10 minutes. Le questionnaire porte sur votre métier, vos préparations, vos équipements froids, vos friteuses et vos zones de nettoyage. Le dossier arrive ensuite par e-mail.",

@@ -1,7 +1,8 @@
 ---
-titre: "PMS et HACCP : quelle différence ?"
-description: "HACCP est une méthode, le PMS est le dossier qui la contient avec vos règles d'hygiène et vos enregistrements. Ce que dit la loi pour un restaurant."
+titre: "PMS et HACCP : définition et différence"
+description: "Que veut dire PMS ? L'HACCP est une méthode, le PMS le dossier qui la contient avec vos règles d'hygiène et vos enregistrements. Ce que dit la loi."
 date: 2026-10-09
+maj: 2026-11-15
 motCle: différence PMS HACCP
 resume: "L'HACCP est une méthode : repérer les dangers et maîtriser les étapes critiques. Le Plan de Maîtrise Sanitaire est le dossier qui rassemble cette analyse HACCP, vos bonnes pratiques d'hygiène, votre traçabilité et ce que vous faites en cas de problème. Le PMS contient l'HACCP, pas l'inverse."
 illustration: plan-nettoyage
@@ -19,7 +20,7 @@ Concrètement, l'HACCP produit un résultat assez court : une liste de dangers e
 
 ## Le PMS, c'est le dossier complet
 
-Le Plan de Maîtrise Sanitaire regroupe tout ce que vous mettez en place pour que vos aliments soient sûrs, et les preuves que vous le faites. L'analyse HACCP en est une pièce, mais pas la seule. On y trouve en général quatre blocs.
+PMS veut dire Plan de Maîtrise Sanitaire. Ce dossier regroupe tout ce que vous mettez en place pour que vos aliments soient sûrs, et les preuves que vous le faites. L'analyse HACCP en est une pièce, mais pas la seule. On y trouve en général quatre blocs.
 
 D'abord les bonnes pratiques d'hygiène, ce qu'on appelle aussi les prérequis : hygiène et tenue du personnel, nettoyage et désinfection, lutte contre les nuisibles, maîtrise des températures, qualité de l'eau, entretien du matériel. Ensuite le plan HACCP lui-même. Puis la traçabilité, pour retrouver d'où vient un produit et à qui vous l'avez éventuellement cédé. Enfin la gestion des non-conformités : ce que vous faites si un produit pose problème, jusqu'au retrait ou au rappel.
 
@@ -48,9 +49,13 @@ Donc la réponse honnête : le titre n'est pas obligatoire, le contenu l'est.
 
 Si vous n'avez rien, ne commencez pas par l'analyse des dangers sur une page blanche. Partez de ce qui existe pour votre métier : le guide de bonnes pratiques d'hygiène de votre secteur, validé par l'administration, fait une grande partie du travail. Ensuite, adaptez-le à votre cuisine réelle : vos équipements froids, vos préparations, vos zones de nettoyage.
 
-C'est ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez [votre Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) avec le tableau des CCP, le [plan de nettoyage](/blog/plan-nettoyage-gratuit-modele) zone par zone et une fiche de relevé par équipement. Reste à le remplir au quotidien, ce que fait [l'application HACCP et PMS](/application-pms) sur téléphone ou tablette.
+C'est ce que fait notre générateur : vous décrivez votre activité en une dizaine de minutes, et vous recevez [votre PMS gratuit](/plan-de-maitrise-sanitaire), avec le tableau des CCP, le [plan de nettoyage](/blog/plan-nettoyage-gratuit-modele) zone par zone et une fiche de relevé par équipement. Reste à le remplir au quotidien, ce que fait [l'application HACCP et PMS](/application-pms) sur téléphone ou tablette.
 
 ## Questions fréquentes
+
+### Que veut dire PMS en restauration ?
+
+PMS signifie Plan de Maîtrise Sanitaire : le dossier qui décrit comment vous garantissez la sécurité de vos aliments (bonnes pratiques d'hygiène, analyse HACCP, traçabilité, gestion des problèmes) et qui garde les preuves que vous l'appliquez.
 
 ### Un « classeur HACCP » acheté en ligne suffit-il ?
 
