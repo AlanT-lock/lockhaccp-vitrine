@@ -57,9 +57,10 @@ const BandeauCookies = () => {
 
   const choisir = (choix: ChoixCookies) => {
     const avant = lireChoix();
-    // Conversions survenues avant la réponse : envoyées une fois la balise Google prête, ou oubliées.
+    // Conversions survenues avant la réponse : avec la publicité, envoyées une fois la balise
+    // Google prête ; avec la mesure seule, tout de suite (pour GA4) ; sinon oubliées.
     enregistrerChoix(choix, Date.now(), () => traiterConversionsEnAttente(true));
-    if (!choix.publicite) traiterConversionsEnAttente(false);
+    if (!choix.publicite) traiterConversionsEnAttente(choix.mesure);
     if (!choix.mesure) stopTracking();
     else if (!avant?.mesure) trackPageView(pathname + search); // la page en cours n'avait pas été comptée
     setVisible(false);

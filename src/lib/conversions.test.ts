@@ -29,12 +29,18 @@ describe("conversions signalées à Google Tag Manager", () => {
     expect(g.window?.dataLayer).toHaveLength(2);
   });
 
-  it("rien ne part sans accord pour la publicité", () => {
+  it("rien ne part sans réponse au bandeau ni si tout est refusé", () => {
     consentement = null;
     signalerConversion("conversion_demo");
-    consentement = { mesure: true, publicite: false };
+    consentement = { mesure: false, publicite: false };
     signalerConversion("conversion_pms_genere");
     expect(g.window?.dataLayer).toEqual([]);
+  });
+
+  it("l'accord pour la mesure seule suffit (GA4 ; la balise Google Ads exige l'accord publicité)", () => {
+    consentement = { mesure: true, publicite: false };
+    signalerConversion("conversion_demo");
+    expect(g.window?.dataLayer).toEqual([{ event: "conversion_demo" }]);
   });
 
   it("avant toute réponse au bandeau, la conversion attend : envoyée si le visiteur accepte", () => {
