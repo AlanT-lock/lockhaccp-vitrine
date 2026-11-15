@@ -1,9 +1,35 @@
-# Conversions Google Ads via Google Tag Manager
+# Conversions Google Ads et GA4 via Google Tag Manager
 
-Le site ne parle plus directement à Google Ads pour les conversions : il signale chaque action
-importante à Google Tag Manager (conteneur `GTM-TZPVKN3W`), qui transmet à Google Ads.
-Code : `src/lib/conversions.ts`. Rien n'est signalé sans l'accord du visiteur pour la publicité
-(bandeau cookies).
+Le site ne parle pas directement à Google pour les conversions : il signale chaque action
+importante à Google Tag Manager (conteneur `GTM-TZPVKN3W`), qui transmet à Google Ads et à
+Google Analytics 4. Code : `src/lib/conversions.ts`.
+
+## Consentement (bandeau cookies)
+
+- Le site ne pousse rien dans `dataLayer` sans accord pour la **mesure** ou la **publicité**.
+  Avant la réponse au bandeau, les conversions attendent en mémoire (envoyées après un accord,
+  oubliées sinon).
+- Chaque balise GTM vérifie ensuite sa propre finalité (« Exiger une autorisation
+  supplémentaire ») : les balises **Google Ads** exigent `ad_storage`, les balises **GA4**
+  `analytics_storage`. Un visiteur qui n'accepte que la mesure est donc compté dans GA4, jamais
+  dans Google Ads.
+
+## État du conteneur (depuis la version 6, novembre 2026)
+
+| Balise                                | Déclencheur                                   | Consentement exigé  |
+| ------------------------------------- | --------------------------------------------- | ------------------- |
+| GA4 - Balise Google (`G-TK28FGXHXC`)  | Initialisation + `lhc_consentement`           | `analytics_storage` |
+| GA4 - page_view (changement de page)  | Changement d'historique                       | `analytics_storage` |
+| GA4 - Conversions du site             | Événements `conversion_*` (nom = `{{Event}}`, paramètres `formulaire`, `store`) | `analytics_storage` |
+| Google Ads - PMS commencé / généré    | `conversion_pms_commence` / `conversion_pms_genere` | `ad_storage`  |
+
+Dans GA4 (propriété 515170580), la mesure améliorée « changements de page basés sur
+l'historique » est désactivée : c'est la balise page_view ci-dessus qui compte les pages
+(site à page unique). Événements clés GA4 : `conversion_pms_genere`, `conversion_demo`,
+`conversion_contact`, `conversion_inscription`.
+
+**Ordre de mise en ligne** si le consentement change : publier d'abord le conteneur GTM
+(les balises vérifient l'accord), ensuite seulement le site.
 
 ## Événements envoyés par le site
 

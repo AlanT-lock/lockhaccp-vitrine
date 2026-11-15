@@ -1,7 +1,10 @@
 // Conversions du site, signalées à Google Tag Manager (événements dans dataLayer) :
-// c'est GTM qui les transmet à Google Ads (balises « Suivi des conversions Google Ads »,
-// voir docs/tag-manager-conversions.md). Le site n'envoie plus rien directement à Google Ads.
-// Rien n'est signalé sans l'accord du visiteur pour la publicité (src/lib/consentement.ts).
+// c'est GTM qui les transmet à Google Ads (balises « Suivi des conversions Google Ads ») et à
+// Google Analytics 4 (balise « GA4 - Conversions du site »), voir docs/tag-manager/README.md.
+// Le site n'envoie rien directement à Google.
+// Rien n'est signalé sans l'accord du visiteur pour la mesure ou pour la publicité
+// (src/lib/consentement.ts). Chaque balise GTM vérifie ensuite SA finalité : Google Ads exige
+// l'accord publicité (ad_storage), GA4 l'accord mesure (analytics_storage).
 
 import { lireChoix } from "./consentement";
 
@@ -19,8 +22,8 @@ export type Conversion =
 const UNE_FOIS_PAR_PAGE = new Set<Conversion>(["conversion_pms_commence", "conversion_pms_genere"]);
 const dejaEnvoyees = new Set<Conversion>();
 // Conversions survenues avant toute réponse au bandeau (souvent : métier choisi avant d'avoir
-// répondu) : gardées en mémoire, envoyées si le visiteur accepte la publicité pendant la visite,
-// oubliées s'il refuse ou ne répond pas.
+// répondu) : gardées en mémoire, envoyées si le visiteur accepte la mesure ou la publicité
+// pendant la visite, oubliées s'il refuse tout ou ne répond pas.
 let enAttente: { nom: Conversion; details: Record<string, string> }[] = [];
 
 type FenetreDataLayer = { dataLayer?: unknown[] };
@@ -29,7 +32,7 @@ const fenetre = () => (typeof window !== "undefined" ? (window as FenetreDataLay
 export function signalerConversion(nom: Conversion, details: Record<string, string> = {}): void {
   if (UNE_FOIS_PAR_PAGE.has(nom) && dejaEnvoyees.has(nom)) return;
   const choix = lireChoix();
-  if (choix && !choix.publicite) return; // publicité refusée
+  if (choix && !choix.publicite && !choix.mesure) return; // tout refusé
   const w = fenetre();
   if (!w) return;
   dejaEnvoyees.add(nom);
@@ -38,14 +41,16 @@ export function signalerConversion(nom: Conversion, details: Record<string, stri
 }
 
 /**
- * Réponse au bandeau. Accord : à appeler une fois la balise Google prête (elle a relevé le clic
- * sur l'annonce), pour que les conversions en attente lui soient rattachées. Refus : on les oublie.
+ * Réponse au bandeau. `accord` : le visiteur a accepté la mesure ou la publicité.
+ * Avec la publicité, à appeler une fois la balise Google prête (elle a relevé le clic sur
+ * l'annonce), pour que les conversions en attente lui soient rattachées ; avec la mesure seule,
+ * tout de suite après l'enregistrement du choix. Refus de tout : on les oublie.
  */
-export function traiterConversionsEnAttente(publicite: boolean): void {
+export function traiterConversionsEnAttente(accord: boolean): void {
   const envoyer = enAttente;
   enAttente = [];
   const w = fenetre();
-  if (!publicite || !w) return;
+  if (!accord || !w) return;
   for (const { nom, details } of envoyer) (w.dataLayer ??= []).push({ event: nom, ...details });
 }
 
