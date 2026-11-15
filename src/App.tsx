@@ -11,24 +11,30 @@ import { useApresMontage } from "./hooks/useApresMontage";
 const Notifications = lazy(() => import("./components/Notifications"));
 const BandeauCookies = lazy(() => import("./components/BandeauCookies"));
 
-// L'état « monté » vit ICI et non dans AppContenu : une mise à jour d'un parent pendant
-// que la page (chargée à la demande) s'hydrate forcerait React à tout redessiner (erreur #421).
-// La frontière Suspense est rendue dès le serveur (vide) : sans elle, celle créée après le
-// montage pouvait s'accrocher au repère <!--$--> de la page pendant l'hydratation et rester
-// « déshydratée » pour toujours (bandeau cookies et notifications jamais affichés).
-const NotificationsDifferees = () => {
+// L'état « monté » vit DANS la frontière Suspense (ContenuDiffere), jamais au-dessus :
+// - au-dessus de la page, une mise à jour pendant que la page s'hydrate forcerait React à
+//   tout redessiner (erreur #421) ;
+// - au-dessus de la frontière, la mise à jour pouvait arriver avant que React ait hydraté
+//   cette frontière (il le fait plus tard, en basse priorité) : elle restait alors
+//   « déshydratée » pour toujours, et le bandeau cookies ne s'affichait jamais.
+// Ici, l'effet de ContenuDiffere ne s'exécute qu'une fois la frontière hydratée.
+// La frontière est rendue dès le serveur (vide) pour que serveur et navigateur concordent.
+const ContenuDiffere = () => {
   const apresMontage = useApresMontage();
+  if (!apresMontage) return null;
   return (
-    <Suspense fallback={null}>
-      {apresMontage && (
-        <>
-          <Notifications />
-          <BandeauCookies />
-        </>
-      )}
-    </Suspense>
+    <>
+      <Notifications />
+      <BandeauCookies />
+    </>
   );
 };
+
+const NotificationsDifferees = () => (
+  <Suspense fallback={null}>
+    <ContenuDiffere />
+  </Suspense>
+);
 
 const RouteFallback = () => (
   <div className="flex min-h-screen items-center justify-center">
