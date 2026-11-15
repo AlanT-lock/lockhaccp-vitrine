@@ -166,6 +166,9 @@ const Pms = () => {
         title="Créer mon PMS gratuit en 10 minutes"
         description="Répondez au questionnaire et recevez votre Plan de Maîtrise Sanitaire gratuit : tableau HACCP, plan de nettoyage, fiches de traçabilité, en 10 minutes."
         path="/pms"
+        // Outil (questionnaire) : hors de l'index pour ne pas concurrencer /plan-de-maitrise-sanitaire,
+        // la page qui porte « PMS gratuit » dans Google (et celle des annonces Google Ads).
+        noindex="follow"
       />
       <Navbar />
       <main className="pt-32 md:pt-40 pb-16">
