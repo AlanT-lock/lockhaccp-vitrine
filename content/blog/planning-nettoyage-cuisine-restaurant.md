@@ -1,8 +1,9 @@
 ---
-titre: "Planning de nettoyage en cuisine : modèle, fréquences et exemple"
-titreSeo: "Planning de nettoyage cuisine : modèle et fréquences"
-description: "Construire un planning de nettoyage de cuisine : tâches après chaque service, par jour, par semaine et par mois, qui fait quoi, exemple et erreurs à éviter."
+titre: "Planning de nettoyage en cuisine : fréquences, exemple et fiche de suivi"
+titreSeo: "Planning de nettoyage cuisine : fréquences et suivi"
+description: "Organiser le nettoyage d'une cuisine dans le temps : tâches après chaque service, par jour, semaine et mois, qui fait quoi, exemple et fiche de suivi signée."
 date: 2026-10-16
+maj: 2026-11-15
 motCle: planning de nettoyage cuisine
 resume: "Un planning de nettoyage répartit les tâches du plan de nettoyage dans le temps : après chaque usage, en fin de service, chaque semaine, chaque mois, avec un responsable par tâche. Le règlement 852/2004 exige des locaux et du matériel propres ; le rythme est à définir par vous et à prouver avec une fiche de suivi signée."
 illustration: plan-nettoyage
@@ -10,7 +11,7 @@ illustration: plan-nettoyage
 
 On confond souvent le plan de nettoyage et le planning de nettoyage. Le plan dit comment nettoyer chaque surface : méthode, produit, dosage. Le planning dit quand, et par qui. Dans la plupart des cuisines, c'est le planning qui manque, et c'est lui qui fait la différence entre un nettoyage tenu et un nettoyage fait quand on y pense.
 
-Ici, on s'occupe de l'organisation dans le temps : quelles tâches, à quel rythme, confiées à qui. La méthode surface par surface (séquence nettoyage, rinçage, désinfection, produits) relève du plan.
+Ici, on s'occupe de l'organisation dans le temps : quelles tâches, à quel rythme, confiées à qui. La méthode surface par surface (séquence nettoyage, rinçage, désinfection, produits) relève du plan : elle est détaillée dans notre [modèle de plan de nettoyage de cuisine gratuit](/blog/plan-nettoyage-gratuit-modele).
 
 ## Plan de nettoyage ou planning de nettoyage : de quoi parle-t-on ?
 
@@ -35,9 +36,9 @@ Quatre rythmes suffisent presque toujours. Plus de niveaux, et personne ne s'y r
 
 Les exemples ne sont pas une loi, mais un point de départ. Une cuisine qui fait de la friture graisse plus vite que celle qui ne sert que des salades : la hotte y passera plus souvent. Ce qui compte, c'est que la fréquence écrite soit celle que vous tenez vraiment.
 
-## Comment faire un plan de nettoyage HACCP : les cinq étapes du planning
+## Construire le planning en cinq étapes
 
-Dans la démarche HACCP, le nettoyage fait partie des bonnes pratiques d'hygiène qui préparent le reste : le plan de nettoyage et son suivi s'intègrent au Plan de Maîtrise Sanitaire. Une fois la liste des zones et des surfaces établie, prenez le plan de nettoyage de chaque zone et, pour chaque tâche, décidez de cinq choses.
+Le planning part du plan de nettoyage : la liste des zones et des surfaces, avec la méthode et le produit de chacune. Prenez ce plan zone par zone et, pour chaque tâche, décidez de cinq choses.
 
 1. Le rythme : après chaque usage, quotidien, hebdomadaire ou mensuel.
 2. Le moment : quel service, quelle heure, avant ou après la fermeture.
@@ -104,9 +105,9 @@ Aucun texte ne fixe de fréquence. Dans la pratique, les surfaces en contact ave
 
 La personne qui a fait la tâche, au moment où elle la fait. Un contrôle visuel par le second ou le chef en fin de service apporte une deuxième signature et permet de repérer ce qui n'a pas été fait.
 
-### Comment faire un plan de nettoyage HACCP ?
+### Faut-il un planning différent pour la salle et la cuisine ?
 
-Listez vos zones et vos surfaces, décidez pour chacune du rythme, de la méthode, du produit et du responsable, puis tenez une fiche de suivi signée. Ce plan s'intègre ensuite à votre Plan de Maîtrise Sanitaire.
+Oui, c'est plus simple à suivre : la salle a ses propres rythmes (tables après chaque client, sols en fin de service, vitres chaque semaine) et souvent d'autres personnes. Une fiche par zone, salle comprise, évite les oublis.
 
 ## Sources
 

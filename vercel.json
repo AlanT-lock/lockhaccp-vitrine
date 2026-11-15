@@ -51,6 +51,11 @@
       "permanent": true
     },
     {
+      "source": "/blog/plan-nettoyage-desinfection-restaurant",
+      "destination": "/blog/plan-nettoyage-gratuit-modele",
+      "permanent": true
+    },
+    {
       "source": "/avantages-ia",
       "destination": "/tarifs",
       "permanent": true

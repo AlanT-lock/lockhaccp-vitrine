@@ -33,7 +33,7 @@ Il s'intéresse aussi au personnel : la tenue, les cheveux, le lave-mains (avec 
 C'est la deuxième partie du contrôle, et c'est souvent là que tout se joue. L'inspecteur veut voir comment vous maîtrisez les risques au quotidien, ce qui passe par vos procédures et vos enregistrements, réunis le plus souvent dans un [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire). En pratique, on vous demandera le plus souvent :
 
 - les relevés de température des enceintes froides, sur les dernières semaines ;
-- le plan de nettoyage et la preuve qu'il est suivi ;
+- le [plan de nettoyage](/blog/plan-nettoyage-gratuit-modele) et la preuve qu'il est suivi ;
 - les contrôles à réception et les étiquettes ou bons de livraison qui permettent de retrouver d'où vient un produit ;
 - l'analyse des dangers, avec vos points critiques et ce que vous faites en cas d'écart ;
 - l'attestation de formation en hygiène alimentaire ;
