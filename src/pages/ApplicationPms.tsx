@@ -117,7 +117,7 @@ const ApplicationPms = () => {
         {/* En-tête : le téléphone montre la visite de l'application */}
         <section className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
+            <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-10">
               <div className="text-center lg:col-span-7 lg:text-left">
                 <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
                   <Smartphone className="h-4 w-4" />
@@ -178,7 +178,7 @@ const ApplicationPms = () => {
                 en garder la trace, sans fiches papier à remplir, classer et retrouver le jour d'un contrôle.
               </p>
             </div>
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {POINTS.map(({ icone: Icone, texte, lien }) => (
                 <li key={texte}>
                   <Link
@@ -199,7 +199,7 @@ const ApplicationPms = () => {
         {/* Sur téléphone, tablette ou ordinateur */}
         <section className="py-20 lg:py-28">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
               <div>
                 <Surtitre>Pour toute l'équipe</Surtitre>
                 <h2 className={TITRE_H2}>Sur téléphone, tablette ou ordinateur</h2>
@@ -248,7 +248,7 @@ const ApplicationPms = () => {
             <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-secondary/20 blur-3xl" />
           </div>
           <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
               <div className="lg:col-span-7">
                 <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-secondary">Le contrôle sanitaire</p>
                 <h2 className="font-heading text-[clamp(1.9rem,3.8vw,3rem)] font-extrabold leading-[1.06] tracking-[-0.03em]">
@@ -296,7 +296,7 @@ const ApplicationPms = () => {
         {/* PMS gratuit et essai */}
         <section className="py-20 lg:py-28">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
               <div>
                 <Surtitre>Par où commencer</Surtitre>
                 <h2 className={TITRE_H2}>Commencez par votre PMS gratuit</h2>

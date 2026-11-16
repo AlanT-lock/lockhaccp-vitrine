@@ -25,6 +25,7 @@ const ETAPES_DEPLOIEMENT = [
   { titre: "Mise en place accompagnée", texte: "Un interlocuteur unique vous accompagne pour le déploiement de chaque établissement et la prise en main par vos équipes." },
 ];
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
+import { Accent, TITRE_H2 } from "@/components/design/elements";
 
 const ContactEntreprise = () => {
   const maintenant = useMaintenant();
@@ -161,53 +162,51 @@ const ContactEntreprise = () => {
       <Seo title="Logiciel HACCP multi-établissements" description={`LockHACCP pour plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement en plus, tableau de bord consolidé.`} path="/contact-entreprise" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}]), faqJsonLd(faq)]} />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Building2 className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Solution Multi-établissements</span>
-            </div>
-            <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              <span className="text-primary">Logiciel HACCP multi-établissements</span> : un tarif simple
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Vous gérez plusieurs établissements ? LockHACCP est à {formatPriceEUR(pricing.mainMonthly)}/mois pour le premier,
-              puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire, avec un tableau de bord
-              consolidé sur l'ensemble de vos sites. Notre équipe vous accompagne dans la mise en place.
-            </p>
-          </div>
-        </div>
-      </section>
+      <main>
+        {/* En-tête : le tarif à gauche, le formulaire à droite */}
+        <section className="pb-20 pt-28 sm:pt-32 lg:pb-28 lg:pt-36">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
+              <div className="lg:col-span-5 lg:sticky lg:top-32">
+                <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+                  <Building2 className="h-4 w-4" />
+                  Solution Multi-établissements
+                </p>
+                <h1 className="font-heading text-[clamp(2.1rem,3.9vw,3.1rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground">
+                  <Accent>Logiciel HACCP multi-établissements</Accent> : un tarif simple
+                </h1>
+                <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                  Vous gérez plusieurs établissements ? LockHACCP est à {formatPriceEUR(pricing.mainMonthly)}/mois pour le
+                  premier, puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire, avec un
+                  tableau de bord consolidé sur l'ensemble de vos sites. Notre équipe vous accompagne dans la mise en place.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  <div className="rounded-3xl border border-border/80 bg-white/90 p-5">
+                    <p className="text-sm text-muted-foreground">Premier établissement</p>
+                    <p className="mt-1 font-heading text-3xl font-extrabold tracking-tight text-foreground">
+                      {formatPriceEUR(pricing.mainMonthly)}
+                      <span className="text-sm font-normal text-muted-foreground">/mois</span>
+                    </p>
+                  </div>
+                  <div className="relative overflow-hidden rounded-3xl bg-primary p-5 text-white">
+                    <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-secondary/30 blur-2xl" />
+                    <p className="relative text-sm text-white/75">Chaque établissement supplémentaire</p>
+                    <p className="relative mt-1 font-heading text-3xl font-extrabold tracking-tight">
+                      {formatPriceEUR(pricing.extraMonthly)}
+                      <span className="text-sm font-normal text-white/70">/mois</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-      {/* Pricing Summary */}
-      <section className="pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
-              <p className="text-sm text-muted-foreground mb-1">Premier établissement</p>
-              <p className="font-heading text-3xl font-bold text-foreground">{formatPriceEUR(pricing.mainMonthly)}<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
-            </div>
-            <div className="bg-card rounded-2xl border border-border shadow-card p-6 text-center">
-              <p className="text-sm text-muted-foreground mb-1">Chaque établissement supplémentaire</p>
-              <p className="font-heading text-3xl font-bold text-foreground">{formatPriceEUR(pricing.extraMonthly)}<span className="text-sm font-normal text-muted-foreground">/mois</span></p>
-            </div>
-          </div>
-        </div>
-      </section>
+              <div className="lg:col-span-7">
+                <div className="rounded-[2rem] border border-white/80 bg-white/90 p-7 shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-10">
+                  <h2 className="mb-8 font-heading text-2xl font-extrabold text-foreground sm:text-3xl">
+                    Parlez-nous de votre groupe de restaurants
+                  </h2>
 
-      {/* Form Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-card rounded-2xl border border-border shadow-card p-8">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">
-                Parlez-nous de votre groupe de restaurants
-              </h2>
-              
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="contactName" className="flex items-center gap-2">
                       <User className="w-4 h-4 text-muted-foreground" />
@@ -218,7 +217,7 @@ const ContactEntreprise = () => {
                       value={formData.contactName}
                       onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
                       placeholder="Jean Dupont"
-                      className={errors.contactName ? "border-destructive" : ""}
+                      className={`h-12 rounded-xl ${errors.contactName ? "border-destructive" : ""}`}
                     />
                     {errors.contactName && (
                       <p className="text-sm text-destructive">{errors.contactName}</p>
@@ -236,7 +235,7 @@ const ContactEntreprise = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="contact@entreprise.fr"
-                      className={errors.email ? "border-destructive" : ""}
+                      className={`h-12 rounded-xl ${errors.email ? "border-destructive" : ""}`}
                     />
                     {errors.email && (
                       <p className="text-sm text-destructive">{errors.email}</p>
@@ -244,7 +243,7 @@ const ContactEntreprise = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="flex items-center gap-2">
                       <Phone className="w-4 h-4 text-muted-foreground" />
@@ -256,7 +255,7 @@ const ContactEntreprise = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="06 12 34 56 78"
-                      className={errors.phone ? "border-destructive" : ""}
+                      className={`h-12 rounded-xl ${errors.phone ? "border-destructive" : ""}`}
                     />
                     {errors.phone && (
                       <p className="text-sm text-destructive">{errors.phone}</p>
@@ -273,7 +272,7 @@ const ContactEntreprise = () => {
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Groupe Restauration SAS"
-                      className={errors.companyName ? "border-destructive" : ""}
+                      className={`h-12 rounded-xl ${errors.companyName ? "border-destructive" : ""}`}
                     />
                     {errors.companyName && (
                       <p className="text-sm text-destructive">{errors.companyName}</p>
@@ -281,7 +280,7 @@ const ContactEntreprise = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="numberOfEstablishments" className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-muted-foreground" />
@@ -292,7 +291,7 @@ const ContactEntreprise = () => {
                       value={formData.numberOfEstablishments}
                       onChange={(e) => setFormData({ ...formData, numberOfEstablishments: e.target.value })}
                       placeholder="Ex: 5, 10-20, 50+"
-                      className={errors.numberOfEstablishments ? "border-destructive" : ""}
+                      className={`h-12 rounded-xl ${errors.numberOfEstablishments ? "border-destructive" : ""}`}
                     />
                     {errors.numberOfEstablishments && (
                       <p className="text-sm text-destructive">{errors.numberOfEstablishments}</p>
@@ -309,6 +308,7 @@ const ContactEntreprise = () => {
                       value={formData.companySize}
                       onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
                       placeholder="Ex: 50, 100-200"
+                      className="h-12 rounded-xl"
                     />
                   </div>
                 </div>
@@ -321,78 +321,68 @@ const ContactEntreprise = () => {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Parlez-nous de vos besoins spécifiques, de vos établissements, des fonctionnalités qui vous intéressent..."
                     rows={5}
+                    className="rounded-xl"
                   />
                 </div>
 
-                <Button type="submit" variant="hero" size="xl" className="w-full" disabled={loading}>
+                <Button type="submit" variant="hero" size="xl" className="group w-full" disabled={loading}>
                   {loading ? "Envoi en cours..." : "Envoyer ma demande"}
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
                   Notre équipe commerciale vous répondra sous 24h ouvrées.
                 </p>
               </form>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features for Enterprise */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Pourquoi choisir LockHACCP pour plusieurs établissements ?
-            </h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                <Building2 className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                Gestion centralisée
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Pilotez tous vos établissements depuis une seule interface avec des tableaux de bord consolidés.
-              </p>
-            </div>
-            
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                Accompagnement dédié
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Un interlocuteur unique pour le déploiement, la formation et le support de vos équipes.
-              </p>
-            </div>
-            
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                <MapPin className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                Un tarif clair
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque
-                établissement supplémentaire. Pas de négociation, pas de surprise.
-              </p>
+        {/* Pourquoi LockHACCP pour plusieurs établissements */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className={`${TITRE_H2} mb-12 max-w-3xl`}>Pourquoi choisir LockHACCP pour plusieurs établissements ?</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {[
+                {
+                  icone: Building2,
+                  titre: "Gestion centralisée",
+                  texte: "Pilotez tous vos établissements depuis une seule interface avec des tableaux de bord consolidés.",
+                },
+                {
+                  icone: Users,
+                  titre: "Accompagnement dédié",
+                  texte: "Un interlocuteur unique pour le déploiement, la formation et le support de vos équipes.",
+                },
+                {
+                  icone: MapPin,
+                  titre: "Un tarif clair",
+                  texte: `${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis ${formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire. Pas de négociation, pas de surprise.`,
+                },
+              ].map(({ icone: Icone, titre, texte }) => (
+                <div
+                  key={titre}
+                  className="group rounded-3xl border border-border/80 bg-white/85 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-white hover:shadow-[0_24px_50px_-24px_hsl(211_100%_20%/0.35)]"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                    <Icone className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-6 font-heading text-lg font-bold text-foreground">{titre}</h3>
+                  <p className="mt-2 leading-relaxed text-muted-foreground">{texte}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <SectionEtapes titre="Comment se passe la mise en place ?" etapes={ETAPES_DEPLOIEMENT} />
 
       <RelatedLinks title="Les fonctionnalités incluses dans chaque établissement" items={TOUTES_FONCTIONNALITES} />
 
       <FaqSection items={faq} title="Questions fréquentes des groupes de restaurants" />
+      </main>
 
       <Footer />
     </div>

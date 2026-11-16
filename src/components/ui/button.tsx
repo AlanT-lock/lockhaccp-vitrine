@@ -23,7 +23,8 @@ const buttonVariants = cva(
         default: "h-10 px-5 py-2",
         sm: "h-9 rounded-lg px-4 text-xs",
         lg: "h-12 rounded-xl px-8 text-base",
-        xl: "h-14 rounded-xl px-10 text-lg",
+        // Sur petit écran, le libellé peut passer à la ligne plutôt que de sortir de l'écran.
+        xl: "min-h-14 whitespace-normal rounded-xl px-6 py-3 text-center text-base sm:whitespace-nowrap sm:px-10 sm:text-lg",
         icon: "h-10 w-10",
       },
     },

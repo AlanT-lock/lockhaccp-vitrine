@@ -71,7 +71,7 @@ export function SectionDuo({
   return (
     <section className="py-20 lg:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={inverse ? "lg:order-2" : ""}>
             {surtitre && <Surtitre>{surtitre}</Surtitre>}
             <h2 className={TITRE_H2}>{titre}</h2>

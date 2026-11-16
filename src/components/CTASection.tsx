@@ -23,13 +23,13 @@ const CTASection = ({
   capture = CAPTURE_ACCUEIL,
 }: PropsCta) => (
   <section id="contact" className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
-    <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-6 py-16 text-white sm:px-12 lg:px-16 lg:py-20">
+    <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-5 py-14 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
         <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
       </div>
 
-      <div className="relative grid items-center gap-14 lg:grid-cols-12">
+      <div className="relative grid grid-cols-1 items-center gap-14 lg:grid-cols-12">
         <div className="text-center lg:col-span-7 lg:text-left">
           <h2 className="font-heading text-[clamp(2.2rem,4.8vw,3.9rem)] font-extrabold leading-[1.02] tracking-[-0.03em] [text-wrap:balance]">
             {/* Espace insécable avant « ? » : le point d'interrogation ne part jamais seul à la ligne. */}

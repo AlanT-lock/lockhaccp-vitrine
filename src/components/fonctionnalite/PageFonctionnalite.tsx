@@ -38,7 +38,7 @@ function GrilleAtouts({ titre, intro, items }: { titre: ReactNode; intro: string
           <h2 className={`${TITRE_H2} lg:col-span-7`}>{titre}</h2>
           <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">{intro}</p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(({ icone: Icone, titre: t, texte }, i) => (
             <div
               key={t}
@@ -104,7 +104,7 @@ export function PageFonctionnalite({
       <main>
         <section className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
+            <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-10">
               <div className="text-center lg:col-span-7 lg:text-left">
                 <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
                   <Icone className="h-4 w-4" />

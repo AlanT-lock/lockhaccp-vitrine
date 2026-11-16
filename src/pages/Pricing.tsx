@@ -470,7 +470,7 @@ const Pricing = () => {
                 Comparez ce qui est compris dans le prix, pas seulement le prix.
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {DIFFERENCES.map((d, i) => (
                 <div
                   key={d.titre}
@@ -505,7 +505,7 @@ const Pricing = () => {
         {/* L'IA dans LockHACCP : la vidéo montre la lecture automatique d'un bon de livraison */}
         <section className="py-20 lg:py-28">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
+            <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
               <div className="mx-auto w-[14rem] sm:w-[15.5rem] lg:order-2 lg:col-span-5 lg:w-[17rem]">
                 <Telephone3D inclinaison="gauche" suivreSouris>
                   <EcranVideo video={VIDEOS_APP.reception} />
@@ -547,7 +547,7 @@ const Pricing = () => {
         {/* Option Capteurs connectés */}
         <section id="capteurs" className="py-12 lg:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
+            <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
               <div className="p-8 sm:p-12">
                 <span className="inline-flex items-center gap-2 rounded-full bg-primary-light px-3 py-1.5 text-sm font-semibold text-primary">
                   <Radio className="h-4 w-4" />
@@ -603,7 +603,7 @@ const Pricing = () => {
                 Une étiqueteuse et une tablette pour la cuisine, en location, sans achat de matériel.
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {additionalOptions.map((option) => (
                 <div key={option.name} className="flex flex-col rounded-3xl border border-border/80 bg-white/85 p-7 sm:p-8">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary">

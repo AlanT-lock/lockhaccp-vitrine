@@ -185,7 +185,7 @@ const CapteursConnectes = () => (
       {/* En-tête */}
       <section className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
+          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-10">
             <div className="text-center lg:col-span-7 lg:text-left">
               <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
                 <Radio className="h-4 w-4" />
@@ -256,7 +256,7 @@ const CapteursConnectes = () => (
               Une panne de froid peut coûter tout un stock. Les capteurs vous laissent le temps d'agir.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {AVANTAGES.map((a, i) => (
               <div
                 key={a.titre}
@@ -281,7 +281,7 @@ const CapteursConnectes = () => (
       {/* Prix et comparaison */}
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
+          <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
             <div className="relative overflow-hidden bg-[hsl(211_100%_13%)] p-8 text-white sm:p-12">
               <div aria-hidden="true" className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/50 blur-3xl" />
               <div className="relative">
@@ -376,7 +376,7 @@ const CapteursConnectes = () => (
 
       {/* Dernier appel */}
       <section className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
-        <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-6 py-16 text-center text-white sm:px-12 lg:px-16 lg:py-20">
+        <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-5 py-14 text-center text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
             <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
             <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
