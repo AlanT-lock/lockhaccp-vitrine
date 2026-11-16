@@ -31,6 +31,11 @@ const FAQS: FaqItem[] = [
       "Oui. LockHACCP s'installe sur iPhone et Android, et s'utilise aussi depuis un navigateur sur tablette ou ordinateur. Chaque membre de l'équipe a son code personnel, pour que chaque contrôle soit signé par la bonne personne. Une tablette protégée pour la cuisine est proposée en location, en option.",
   },
   {
+    question: "L'application HACCP fonctionne-t-elle sans réseau ?",
+    answer:
+      "Oui. L'application fonctionne hors connexion : vous pouvez faire vos relevés de température ou valider le nettoyage dans une chambre froide, une réserve en sous-sol ou une cuisine où le réseau passe mal.",
+  },
+  {
     question: "Où sont hébergées les données de l'application ?",
     answer:
       "Dans l'Union européenne, conformément au RGPD. Vos relevés et votre historique restent consultables et exportables en PDF pour un contrôle.",
@@ -145,7 +150,7 @@ const ApplicationPms = () => {
             L'application s'installe sur iPhone et Android, et s'utilise aussi depuis un navigateur. Le commis valide le
             nettoyage sur son téléphone, le second fait les relevés sur la tablette de la cuisine, le gérant consulte
             l'historique depuis son ordinateur. Chacun a son code personnel : chaque contrôle est signé par la personne
-            qui l'a fait.
+            qui l'a fait. L'application fonctionne aussi sans réseau, dans une chambre froide ou une réserve en sous-sol.
           </p>
           <p className="text-muted-foreground">
             Aucun matériel n'est imposé. Si vous le souhaitez, les{" "}
