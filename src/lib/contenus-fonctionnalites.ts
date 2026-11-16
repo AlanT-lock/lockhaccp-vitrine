@@ -384,16 +384,26 @@ export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
       ],
     },
     faq: {
-      titre: "Questions fréquentes sur les étiquettes de production",
+      titre: "Questions fréquentes sur les étiquettes DLC",
       items: [
         {
-          question: "Que mettre sur une étiquette de production en cuisine ?",
+          question: "Que mettre sur une étiquette DLC en cuisine ?",
           answer:
             "Le nom du produit, la date de fabrication et la date limite permettent de savoir ce qu'il y a dans chaque bac. Les étiquettes LockHACCP indiquent aussi l'heure, un numéro de lot et les allergènes.",
         },
         {
-          question: "Quelles étiqueteuses sont compatibles ?",
-          answer: "Les étiqueteuses Brother, Zebra et Epson connectées au réseau. L'impression part directement de l'application.",
+          question: "Comment est calculée la date limite d'une préparation ?",
+          answer:
+            "Aucun texte ne fixe une durée unique pour une préparation maison : c'est vous qui fixez la durée de vie de chaque production, et vous devez pouvoir la justifier dans votre Plan de Maîtrise Sanitaire. Une fois vos règles de conservation enregistrées, l'application calcule la DLC ou la DDM à chaque impression, sans calcul de tête.",
+        },
+        {
+          question: "Qu'est-ce qu'une DLC secondaire ?",
+          answer:
+            "C'est la date limite d'un produit une fois ouvert, décongelé ou transformé en cuisine : un bocal entamé, une crème montée. Elle tient compte des indications du fabricant (« à consommer dans les X jours après ouverture ») et ne dépasse jamais la date d'origine. Elle se fixe selon vos règles de conservation et s'inscrit sur l'étiquette du bac.",
+        },
+        {
+          question: "Quelle étiqueteuse DLC choisir ?",
+          answer: "Une étiqueteuse Brother, Zebra ou Epson connectée au réseau : l'impression part directement de l'application, depuis un téléphone ou une tablette. Si vous ne voulez pas acheter de matériel, une étiqueteuse professionnelle est proposée en location.",
         },
         {
           question: "Quels formats d'étiquettes sont disponibles ?",

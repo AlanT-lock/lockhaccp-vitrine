@@ -60,7 +60,7 @@ const FeatureLabels = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title="Étiquettes de production HACCP : DLC, allergènes" description="Imprimez vos étiquettes de production HACCP : DLC, n° de lot, allergènes. Étiqueteuse connectée et modèles personnalisables." path="/fonctionnalites/etiquettes" jsonLd={faqJsonLd(CONTENUS.etiquettes.faq.items)} />
+      <Seo title="Étiquettes DLC : logiciel et application pour imprimer" description="Imprimez des étiquettes DLC conformes depuis votre téléphone : date limite calculée, n° de lot, allergènes. Étiqueteuses Brother, Zebra et Epson." path="/fonctionnalites/etiquettes" jsonLd={faqJsonLd(CONTENUS.etiquettes.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
@@ -78,12 +78,12 @@ const FeatureLabels = () => {
             </div>
             
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              <span className="text-primary">Étiquettes DLC</span> et de production, imprimées en un instant
+              <span className="text-primary">Étiquettes DLC</span> conformes, imprimées depuis votre téléphone
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Générez des étiquettes conformes pour toutes vos productions et envoyez-les 
-              directement vers votre étiqueteuse.
+              Le logiciel calcule la date limite de chaque préparation, ajoute le numéro de lot et les allergènes,
+              et envoie l'étiquette directement vers votre étiqueteuse DLC, sans ordinateur.
             </p>
             
             <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">

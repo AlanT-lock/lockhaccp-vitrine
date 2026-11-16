@@ -13,7 +13,7 @@
   {"path": "/fonctionnalites/tracabilite", "fil": "Traçabilité", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/nettoyage", "fil": "Plan de nettoyage", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/huiles", "fil": "Contrôle des huiles", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
-  {"path": "/fonctionnalites/etiquettes", "fil": "Étiquettes", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
+  {"path": "/fonctionnalites/etiquettes", "fil": "Étiquettes DLC", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/checklist", "fil": "Checklists", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/blog", "fil": "Ressources", "sitemap": {"changefreq": "weekly", "priority": 0.7}, "llms": true},
   {"path": "/auteur/alan-touati", "fil": "Alan Touati", "sitemap": {"changefreq": "monthly", "priority": 0.4}, "llms": true},
