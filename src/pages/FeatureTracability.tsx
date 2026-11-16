@@ -1,283 +1,147 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, FileSearch, QrCode, History, Search, FileText, Shield, CheckCircle } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
-import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
+import { Camera, CheckCircle, FileSearch, FileText, History, QrCode, ScanLine, Search, Shield } from "lucide-react";
 import { LienContextuel } from "@/components/LienContextuel";
-import { CONTENUS } from "@/lib/contenus-fonctionnalites";
-import { faqJsonLd } from "@/lib/seo-jsonld";
-import { APP_URL } from "@/lib/links";
+import {
+  Accent,
+  CarteIllustration,
+  PageFonctionnalite,
+  SectionDuo,
+  TelephoneHero,
+  type Atout,
+} from "@/components/fonctionnalite/PageFonctionnalite";
+import { VIDEOS_APP } from "@/lib/videos-app";
 
-const FeatureTracability = () => {
-  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
-  const { ref: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
-  const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollAnimation();
+const ATOUTS: Atout[] = [
+  { icone: QrCode, titre: "Photo des étiquettes", texte: "Photographiez les étiquettes des produits reçus directement depuis l'application : elles restent attachées à la réception." },
+  { icone: History, titre: "Historique des réceptions", texte: "Retrouvez chaque livraison avec sa date, son fournisseur, la température relevée et les photos." },
+  { icone: Search, titre: "Classement par date", texte: "Les enregistrements sont rangés jour par jour : retrouver une livraison précise ne prend que quelques instants." },
+  { icone: FileText, titre: "Export de données", texte: "Exportez vos données de traçabilité en PDF pour les contrôles sanitaires." },
+  { icone: Shield, titre: "Rappel produit", texte: "En cas de rappel, retrouvez quand vous avez reçu le produit et de quel fournisseur, photo de l'étiquette à l'appui." },
+  { icone: FileSearch, titre: "Qui a fait quoi", texte: "Chaque membre de l'équipe se connecte avec son code : chaque enregistrement indique qui l'a fait, et quand." },
+];
 
-  const keyFeatures = [
-    {
-      icon: QrCode,
-      title: "Photo des étiquettes",
-      description: "Photographiez les étiquettes des produits reçus directement depuis l'application : elles restent attachées à la réception."
-    },
-    {
-      icon: History,
-      title: "Historique des réceptions",
-      description: "Retrouvez chaque livraison avec sa date, son fournisseur, la température relevée et les photos."
-    },
-    {
-      icon: Search,
-      title: "Classement par date",
-      description: "Les enregistrements sont rangés jour par jour : retrouver une livraison précise ne prend que quelques instants."
-    },
-    {
-      icon: FileText,
-      title: "Export de données",
-      description: "Exportez vos données de traçabilité en PDF pour les contrôles sanitaires."
-    },
-    {
-      icon: Shield,
-      title: "Rappel produit",
-      description: "En cas de rappel, retrouvez quand vous avez reçu le produit et de quel fournisseur, photo de l'étiquette à l'appui."
-    },
-    {
-      icon: FileSearch,
-      title: "Qui a fait quoi",
-      description: "Chaque membre de l'équipe se connecte avec son code : chaque enregistrement indique qui l'a fait, et quand."
-    }
+const RAISONS = [
+  {
+    titre: "Répondez aux contrôles en quelques minutes",
+    texte: "Lors d'un contrôle sanitaire, montrez vos réceptions et vos photos d'étiquettes sans chercher dans des classeurs.",
+  },
+  {
+    titre: "Gérez les rappels produits efficacement",
+    texte: "En cas d'alerte sanitaire, retrouvez rapidement les livraisons concernées et prenez les mesures appropriées.",
+  },
+  {
+    titre: "Renforcez la confiance de vos clients",
+    texte: "Montrez que vous savez d'où viennent vos produits et que vous les contrôlez à chaque livraison.",
+  },
+];
+
+// Fiche d'une réception retrouvée dans l'historique (exemple).
+function FicheReception() {
+  const lignes = [
+    { libelle: "Produit", valeur: "Saumon frais" },
+    { libelle: "Fournisseur", valeur: "Océan Frais" },
+    { libelle: "Origine", valeur: "Norvège" },
+    { libelle: "DLC", valeur: "18/11/2026" },
   ];
-
-  const benefits = [
-    {
-      title: "Répondez aux contrôles en quelques minutes",
-      description: "Lors d'un contrôle sanitaire, montrez vos réceptions et vos photos d'étiquettes sans chercher dans des classeurs."
-    },
-    {
-      title: "Gérez les rappels produits efficacement",
-      description: "En cas d'alerte sanitaire, retrouvez rapidement les livraisons concernées et prenez les mesures appropriées."
-    },
-    {
-      title: "Renforcez la confiance de vos clients",
-      description: "Montrez que vous savez d'où viennent vos produits et que vous les contrôlez à chaque livraison."
-    }
-  ];
-
   return (
-    <div className="min-h-screen">
-      <Seo title="Traçabilité alimentaire HACCP sur téléphone" description="Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit." path="/fonctionnalites/tracabilite" jsonLd={faqJsonLd(CONTENUS.tracabilite.faq.items)} />
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={heroRef}
-            className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
-              heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
-              <FileSearch className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Traçabilité produits</span>
-            </div>
-            
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              <span className="text-primary">Traçabilité alimentaire HACCP</span>, complète et instantanée
-            </h1>
-            
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Suivez l'origine et le parcours de tous vos produits. 
-              De la réception à l'assiette, maîtrisez votre chaîne d'approvisionnement.
-            </p>
-            
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild>
-                <a href={APP_URL}>
-                  Essayer gratuitement
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" asChild>
-                <Link to="/demander-demo">
-                  Demander une démo
-                </Link>
-              </Button>
-            </div>
+    <CarteIllustration className="mx-auto max-w-md">
+      <div className="flex items-center justify-between">
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary-light px-3 py-1.5 text-sm font-semibold text-primary">
+          <QrCode className="h-4 w-4" /> Réception du 12/11/2026
+        </span>
+        <span className="text-xs text-muted-foreground">08 h 32</span>
+      </div>
+      <dl className="mt-6 grid grid-cols-2 gap-3">
+        {lignes.map((l) => (
+          <div key={l.libelle} className="rounded-2xl bg-[hsl(220_33%_97%)] p-4">
+            <dt className="text-xs text-muted-foreground">{l.libelle}</dt>
+            <dd className="mt-1 font-semibold text-foreground">{l.valeur}</dd>
           </div>
-        </div>
-      </section>
-
-      {/* Key Features */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={featuresRef}
-            className={`text-center mb-16 transition-all duration-700 ${
-              featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Outils de traçabilité puissants
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Tout ce qu'il vous faut pour assurer une traçabilité irréprochable de vos produits.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {keyFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className={`bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 border border-border hover:border-primary/20 ${
-                    featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={benefitsRef}
-            className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-700 ${
-              benefitsVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-8">
-                Pourquoi la traçabilité est <span className="text-secondary-texte">essentielle</span> ?
-              </h2>
-              
-              <div className="space-y-6">
-                {benefits.map((benefit, index) => (
-                  <div 
-                    key={benefit.title}
-                    className={`flex gap-4 transition-all duration-500 ${
-                      benefitsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-                    }`}
-                    style={{ transitionDelay: `${index * 150}ms` }}
-                  >
-                    <div className="flex-shrink-0">
-                      <CheckCircle className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{benefit.title}</h3>
-                      <p className="text-muted-foreground text-sm">{benefit.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={`bg-muted rounded-2xl p-8 transition-all duration-700 ${
-              benefitsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-            }`}>
-              <div className="space-y-4">
-                <div className="bg-card rounded-xl p-4 border border-border">
-                  <div className="flex items-center gap-3 mb-3">
-                    <QrCode className="w-5 h-5 text-primary" />
-                    <span className="font-medium text-foreground">Lot #2024-1234</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Produit</p>
-                      <p className="font-medium text-foreground">Saumon frais</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Origine</p>
-                      <p className="font-medium text-foreground">Norvège</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Fournisseur</p>
-                      <p className="font-medium text-foreground">Océan Frais</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">DLC</p>
-                      <p className="font-medium text-foreground">18/01/2025</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-card rounded-xl p-4 border border-border">
-                  <p className="text-sm font-medium text-foreground mb-2">Historique</p>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Réception</span>
-                      <span className="text-foreground">12/01/2025 - 08:32</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Temp. réception</span>
-                      <span className="text-green-600">2.1°C ✓</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Stockage</span>
-                      <span className="text-foreground">Chambre froide A</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ContenuFonctionnalite id="tracabilite">
-        <LienContextuel to="/fonctionnalites/huiles" ancre="Contrôle huile de friture HACCP">
-          Pour garder aussi l'historique des changements d'huile de vos friteuses, voir le
-        </LienContextuel>
-      </ContenuFonctionnalite>
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">
-              Maîtrisez votre traçabilité dès aujourd'hui
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Rejoignez les professionnels qui font confiance à LockHACCP pour leur traçabilité.
-            </p>
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="xl" asChild>
-                <a href={APP_URL}>
-                  Démarrer l'essai gratuit
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                <Link to="/">
-                  Retour à l'accueil
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <RelatedLinks items={[...FEATURE_RELATED.tracabilite]} />
-      <Footer />
-    </div>
+        ))}
+      </dl>
+      <ul className="mt-5 space-y-2 text-sm">
+        <li className="flex items-center justify-between rounded-xl border border-border/80 bg-white px-4 py-3">
+          <span className="text-muted-foreground">Température à réception</span>
+          <span className="inline-flex items-center gap-1 font-semibold text-emerald-600">
+            2,1 °C <CheckCircle className="h-4 w-4" />
+          </span>
+        </li>
+        <li className="flex items-center justify-between rounded-xl border border-border/80 bg-white px-4 py-3">
+          <span className="text-muted-foreground">Photo de l'étiquette</span>
+          <span className="inline-flex items-center gap-1 font-semibold text-foreground">
+            <Camera className="h-4 w-4 text-primary" /> Jointe
+          </span>
+        </li>
+      </ul>
+    </CarteIllustration>
   );
-};
+}
+
+const FeatureTracability = () => (
+  <PageFonctionnalite
+    id="tracabilite"
+    seo={{
+      title: "Traçabilité alimentaire HACCP sur téléphone",
+      description:
+        "Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit.",
+    }}
+    icone={FileSearch}
+    etiquette="Traçabilité produits"
+    titre={
+      <>
+        <Accent>Traçabilité alimentaire HACCP</Accent>, complète et instantanée
+      </>
+    }
+    intro="Suivez l'origine et le parcours de tous vos produits. De la réception à l'assiette, maîtrisez votre chaîne d'approvisionnement."
+    visuel={
+      <TelephoneHero
+        video={VIDEOS_APP.reception}
+        puces={[
+          { icone: ScanLine, titre: "Boucherie Martin", detail: "Bon de livraison photographié" },
+          { icone: FileText, titre: "5 produits", detail: "Reconnus et enregistrés" },
+        ]}
+      />
+    }
+    atouts={{
+      titre: "Outils de traçabilité puissants",
+      intro: "Tout ce qu'il vous faut pour assurer une traçabilité irréprochable de vos produits.",
+      items: ATOUTS,
+    }}
+    contenuSupplementaire={
+      <LienContextuel to="/fonctionnalites/huiles" ancre="Contrôle huile de friture HACCP">
+        Pour garder aussi l'historique des changements d'huile de vos friteuses, voir le
+      </LienContextuel>
+    }
+    cta={{
+      titre: "Maîtrisez votre traçabilité dès aujourd'hui",
+      texte: "Rejoignez les professionnels qui font confiance à LockHACCP pour leur traçabilité.",
+      capture: { src: VIDEOS_APP.reception.cle, alt: "Réception de marchandise : bon de livraison lu, 5 produits, fournisseur Boucherie Martin proposé" },
+    }}
+  >
+    <SectionDuo
+      surtitre="Pourquoi"
+      titre={
+        <>
+          Pourquoi la traçabilité est <span className="text-secondary-texte">essentielle</span> ?
+        </>
+      }
+      texte={
+        <ul className="space-y-6">
+          {RAISONS.map((r) => (
+            <li key={r.titre} className="flex gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-light">
+                <CheckCircle className="h-5 w-5 text-primary" />
+              </span>
+              <div>
+                <h3 className="font-heading text-lg font-bold text-foreground">{r.titre}</h3>
+                <p className="mt-1 text-base">{r.texte}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      }
+      visuel={<FicheReception />}
+    />
+  </PageFonctionnalite>
+);
 
 export default FeatureTracability;

@@ -31,7 +31,7 @@ const FAQ_DEMO = [
   { question: "La démonstration est-elle payante ?", answer: "Non, elle est gratuite et ne vous engage à rien." },
   { question: "Faut-il installer quelque chose pour la démo ?", answer: "Non. Vous recevez un lien Google Meet, qui s'ouvre depuis un navigateur ou l'application Meet." },
   { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 1 mois est accessible directement, sans carte bancaire et sans engagement." },
-  { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Non. LockHACCP a besoin d'une connexion internet, en Wi-Fi ou en réseau mobile." },
+  { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Oui. L'application fonctionne hors connexion, même dans une chambre froide ou une réserve où le réseau passe mal." },
   { question: "Où sont hébergées mes données ?", answer: "En Europe, chez Supabase, dans le respect du RGPD." },
 ];
 

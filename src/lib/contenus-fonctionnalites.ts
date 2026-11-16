@@ -16,7 +16,8 @@ export type IdFonctionnalite =
 
 const CONNEXION: FaqItem = {
   question: "L'application fonctionne-t-elle sans connexion internet ?",
-  answer: "Non. LockHACCP a besoin d'une connexion internet, en Wi-Fi ou en réseau mobile, pour enregistrer un contrôle.",
+  answer:
+    "Oui. L'application fonctionne hors connexion : vous pouvez faire vos relevés ou valider le nettoyage dans une chambre froide, une réserve en sous-sol ou une cuisine où le réseau passe mal.",
 };
 
 export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
@@ -143,7 +144,7 @@ export const CONTENUS: Record<IdFonctionnalite, ContenuFonctionnalite> = {
         {
           question: "Faut-il un matériel particulier ?",
           answer:
-            "Un téléphone ou une tablette avec une connexion internet suffit pour l'application. Pour mesurer la température des produits, un thermomètre à sonde reste nécessaire.",
+            "Un téléphone ou une tablette suffit pour l'application. Pour mesurer la température des produits, un thermomètre à sonde reste nécessaire.",
         },
       ],
     },

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, type LucideIcon } from "lucide-react";
 import { articlesEnLigne } from "@/lib/blog";
 
 export interface RelatedItem {
@@ -21,36 +21,28 @@ export function RelatedLinks({
   const visibles = items.filter((i) => !i.to.startsWith("/blog/") || enLigne.has(i.to));
   if (visibles.length === 0) return null;
   return (
-    <section className="py-16 border-t border-border">
+    <section className="pb-24 pt-4 lg:pb-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">
-          {title}
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <h2 className="mb-8 font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground sm:text-3xl">{title}</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visibles.map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.to}
                 to={item.to}
-                className="group flex items-start gap-3 rounded-xl bg-card border border-border p-4 hover:border-primary/30 hover:shadow-card transition-all"
+                className="group flex items-start gap-3 rounded-2xl border border-border/80 bg-white/80 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white hover:shadow-[0_20px_40px_-24px_hsl(211_100%_20%/0.35)]"
               >
                 {Icon && (
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-light flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-primary" />
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-light">
+                    <Icon className="h-5 w-5 text-primary" />
                   </div>
                 )}
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {item.label}
-                  </div>
-                  {item.description && (
-                    <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">
-                      {item.description}
-                    </p>
-                  )}
+                <div className="min-w-0 flex-1">
+                  <div className="font-heading font-bold text-foreground transition-colors group-hover:text-primary">{item.label}</div>
+                  {item.description && <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
                 </div>
-                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-2" />
+                <ArrowUpRight className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
               </Link>
             );
           })}
