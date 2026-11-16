@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useMaintenant } from "@/hooks/useMaintenant";
-import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Check, ArrowRight, Printer, Tablet, ShieldCheck, ScanLine, Bell, CalendarClock, Radio, FileText, GraduationCap, BadgeEuro } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -12,6 +10,10 @@ import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld
 import { APP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
 import { TrustBadges } from "@/components/TrustBadges";
+import CTASection from "@/components/CTASection";
+import { Accent, ListeCoches, Surtitre, TITRE_H2 } from "@/components/design/elements";
+import { EcranVideo, Telephone3D } from "@/components/accueil/Telephone3D";
+import { VIDEOS_APP } from "@/lib/videos-app";
 import { SectionReglementation } from "@/components/SectionsContenu";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { SOURCES } from "@/lib/sources-reglementaires";
@@ -110,108 +112,141 @@ interface PricingGridCardProps {
   facturation: Facturation;
 }
 
-interface BlocPrixProps {
-  libelle: string;
-  mensuel: number;
-  annuel: number;
-  facturation: Facturation;
-  highlighted: boolean;
+/** Carte d'une formule. En annuel, l'équivalent mensuel en grand et le montant facturé dessous. */
+const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta, features, ctaLabel, facturation }: PricingGridCardProps) => {
+  const annuel = facturation === "annuel";
+  const prixPrincipal = annuel ? mensuelEquivalent(pricing.mainYearly) : pricing.mainMonthly;
+  const prixSupplementaire = annuel ? mensuelEquivalent(pricing.extraYearly) : pricing.extraMonthly;
+  const doux = highlighted ? "text-white/70" : "text-muted-foreground";
+  return (
+    <div
+      className={`relative flex flex-col overflow-hidden rounded-[2rem] p-7 sm:p-9 ${
+        highlighted
+          ? "bg-primary text-white shadow-[0_40px_80px_-40px_hsl(211_100%_26%/0.8)] ring-2 ring-secondary/70"
+          : "border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)]"
+      }`}
+    >
+      {highlighted && (
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-secondary/25 blur-3xl" />
+          <div className="absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
+        </div>
+      )}
+      <div className="relative flex flex-1 flex-col">
+        <span
+          className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${
+            highlighted ? "bg-secondary text-secondary-foreground" : "bg-primary-light text-primary"
+          }`}
+        >
+          {badgeLabel}
+        </span>
+        <h3 className={`mt-5 font-heading text-2xl font-extrabold ${highlighted ? "text-white" : "text-foreground"}`}>{title}</h3>
+        <p className={`mt-1 text-sm ${doux}`}>{note}</p>
+
+        <div className="mt-7">
+          <p className={`text-xs font-semibold uppercase tracking-wider ${doux}`}>Établissement principal</p>
+          <p className="mt-1 flex items-baseline gap-1.5">
+            <span className={`font-heading text-5xl font-extrabold tracking-tight ${highlighted ? "text-white" : "text-foreground"}`}>
+              {formatPriceEUR(prixPrincipal)}
+            </span>
+            <span className={`text-sm ${doux}`}>/mois TTC</span>
+          </p>
+          <p className={`mt-1 text-sm ${doux}`}>
+            {annuel
+              ? `soit ${formatPriceEUR(pricing.mainYearly)} par an`
+              : `ou ${formatPriceEUR(mensuelEquivalent(pricing.mainYearly))}/mois en annuel`}
+          </p>
+        </div>
+
+        <div className={`mt-5 flex items-center justify-between gap-4 rounded-2xl px-4 py-3 text-sm ${highlighted ? "bg-white/10" : "bg-[hsl(220_33%_97%)]"}`}>
+          <span className={doux}>Établissement supplémentaire</span>
+          <span className="text-right">
+            <span className={`font-bold ${highlighted ? "text-white" : "text-foreground"}`}>{formatPriceEUR(prixSupplementaire)}/mois</span>
+            <span className={`block text-xs ${doux}`}>
+              {annuel ? `soit ${formatPriceEUR(pricing.extraYearly)} par an` : `ou ${formatPriceEUR(mensuelEquivalent(pricing.extraYearly))}/mois en annuel`}
+            </span>
+          </span>
+        </div>
+
+        <p className={`mt-4 text-sm font-medium ${highlighted ? "text-secondary" : "text-secondary-texte"}`}>
+          {annuel
+            ? `Paiement annuel : ${formatPriceEUR(economieAnnuelle(pricing.mainMonthly, pricing.mainYearly))} économisés par an sur l'établissement principal`
+            : "Paiement mensuel, sans engagement, résiliable à tout moment"}
+        </p>
+
+        {showCta && (
+          <Button variant={highlighted ? "accent" : "hero"} size="lg" asChild className="group mt-7 w-full">
+            <a href={APP_URL}>
+              {ctaLabel ?? "Essayer 1 mois gratuit"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Button>
+        )}
+
+        <ul className={`mt-8 space-y-3 border-t pt-7 text-sm ${highlighted ? "border-white/15" : "border-border/80"}`}>
+          {features.map((feature) => (
+            <li key={feature} className="flex items-start gap-3">
+              <span
+                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                  highlighted ? "bg-secondary" : "bg-primary-light"
+                }`}
+              >
+                <Check className={`h-3 w-3 ${highlighted ? "text-secondary-foreground" : "text-primary"}`} strokeWidth={3} />
+              </span>
+              <span className={highlighted ? "text-white/90" : "text-foreground"}>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+/** Choix du rythme de paiement : pastille qui glisse sous l'option choisie. */
+function ChoixFacturation({ valeur, onChange }: { valeur: Facturation; onChange: (f: Facturation) => void }) {
+  const options = [
+    { valeur: "annuel", libelle: "Annuel", detail: "2 mois offerts" },
+    { valeur: "mensuel", libelle: "Mensuel", detail: null },
+  ] as const;
+  return (
+    <div role="group" aria-label="Rythme de paiement" className="relative inline-grid grid-cols-2 rounded-full border border-border/80 bg-white/90 p-1.5 shadow-sm">
+      <span
+        aria-hidden="true"
+        className={`absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-primary shadow-[0_8px_20px_-8px_hsl(211_100%_26%/0.7)] transition-transform duration-300 ease-out ${
+          valeur === "mensuel" ? "translate-x-full" : ""
+        }`}
+      />
+      {options.map((o) => (
+        <button
+          key={o.valeur}
+          type="button"
+          aria-pressed={valeur === o.valeur}
+          onClick={() => onChange(o.valeur)}
+          className={`relative z-10 flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2.5 text-sm font-semibold transition-colors sm:gap-2 sm:px-7 ${
+            valeur === o.valeur ? "text-white" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {o.libelle}
+          {o.detail && (
+            <span
+              className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-[0.68rem] font-bold sm:px-2 sm:text-[0.7rem] ${
+                valeur === o.valeur ? "bg-secondary text-secondary-foreground" : "bg-secondary-light text-secondary-texte"
+              }`}
+            >
+              {o.detail}
+            </span>
+          )}
+        </button>
+      ))}
+    </div>
+  );
 }
 
-/** Prix d'un établissement : en annuel, l'équivalent mensuel en grand et le montant facturé dessous. */
-const BlocPrix = ({ libelle, mensuel, annuel, facturation, highlighted }: BlocPrixProps) => (
-  <div>
-    <p className={`text-xs mb-1 ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{libelle}</p>
-    <p className={`text-2xl font-bold ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
-      {formatPriceEUR(facturation === "annuel" ? mensuelEquivalent(annuel) : mensuel)}
-      <span className={`text-sm font-normal ${highlighted ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-        /mois TTC
-      </span>
-    </p>
-    <p className={`text-xs ${highlighted ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-      {facturation === "annuel"
-        ? `soit ${formatPriceEUR(annuel)} par an`
-        : `ou ${formatPriceEUR(mensuelEquivalent(annuel))}/mois en annuel`}
-    </p>
-  </div>
-);
-
-const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCta, features, ctaLabel, facturation }: PricingGridCardProps) => (
-  <div
-    className={`relative rounded-2xl p-6 flex flex-col ${
-      highlighted
-        ? "bg-primary text-primary-foreground shadow-xl border-2 border-secondary z-10"
-        : "bg-card border border-border shadow-card"
-    }`}
-  >
-    <Badge
-      className="w-fit mb-3"
-      variant={highlighted ? "secondary" : "outline"}
-    >
-      {badgeLabel}
-    </Badge>
-
-    <h3 className={`font-heading text-xl font-bold mb-1 ${highlighted ? "text-primary-foreground" : "text-foreground"}`}>
-      {title}
-    </h3>
-    <p className={`text-sm mb-6 ${highlighted ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-      {note}
-    </p>
-
-    <div className="grid grid-cols-2 gap-4 mb-4">
-      <BlocPrix
-        libelle="Établissement principal"
-        mensuel={pricing.mainMonthly}
-        annuel={pricing.mainYearly}
-        facturation={facturation}
-        highlighted={highlighted}
-      />
-      <BlocPrix
-        libelle="Établissement supplémentaire"
-        mensuel={pricing.extraMonthly}
-        annuel={pricing.extraYearly}
-        facturation={facturation}
-        highlighted={highlighted}
-      />
-    </div>
-
-    <p className={`text-xs mb-6 p-2 rounded-lg ${highlighted ? "bg-primary-foreground/10 text-primary-foreground/80" : "bg-muted text-muted-foreground"}`}>
-      {facturation === "annuel"
-        ? `Paiement annuel : ${formatPriceEUR(economieAnnuelle(pricing.mainMonthly, pricing.mainYearly))} économisés par an sur l'établissement principal`
-        : "Paiement mensuel, sans engagement, résiliable à tout moment"}
-    </p>
-
-    <ul className="space-y-2 mb-6 flex-grow">
-      {features.map((feature) => (
-        <li key={feature} className="flex items-start gap-2">
-          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${highlighted ? "text-secondary" : "text-primary"}`} />
-          <span className={`text-sm ${highlighted ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
-            {feature}
-          </span>
-        </li>
-      ))}
-    </ul>
-
-    {showCta && (
-      <Button className="w-full" variant={highlighted ? "accent" : "outline"} asChild>
-        <a href={APP_URL} className="mt-auto">
-          {ctaLabel ?? "Essayer 1 mois gratuit"}
-        </a>
-      </Button>
-    )}
-  </div>
-);
-
 const Pricing = () => {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
-  const { ref: plansRef, isVisible: plansVisible } = useScrollAnimation();
-  const { ref: optionsRef, isVisible: optionsVisible } = useScrollAnimation();
-
   const [facturation, setFacturation] = useState<Facturation>("annuel");
   const maintenant = useMaintenant();
   const launchActive = isLaunchOfferActive(maintenant);
   const activePricing = launchActive ? LAUNCH_PRICING : CURRENT_PRICING;
-
   const pricingFaqAnswer = launchActive
     ? `LockHACCP est à ${formatPriceEUR(LAUNCH_PRICING.mainMonthly)}/mois pour un établissement, toutes fonctionnalités incluses, et ${formatPriceEUR(LAUNCH_PRICING.extraMonthly)}/mois par établissement supplémentaire. C'est le tarif de l'offre de lancement : il est garanti à vie pour toute souscription avant le ${LAUNCH_OFFER_END_LABEL}, y compris si vous ajoutez un établissement plus tard. À partir du ${CURRENT_PRICING_START_LABEL}, le tarif standard sera de ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}/mois.`
     : `LockHACCP est à ${formatPriceEUR(CURRENT_PRICING.mainYearly)} par an pour un établissement, soit ${formatPriceEUR(mensuelEquivalent(CURRENT_PRICING.mainYearly))} par mois, toutes fonctionnalités incluses. Au mois, sans engagement, c'est ${formatPriceEUR(CURRENT_PRICING.mainMonthly)}. Chaque établissement supplémentaire est à ${formatPriceEUR(CURRENT_PRICING.extraYearly)} par an ou ${formatPriceEUR(CURRENT_PRICING.extraMonthly)} par mois.`;
@@ -298,6 +333,8 @@ const Pricing = () => {
     />
   );
 
+  const lienCapteurs = lienCommandeCapteurs();
+
   return (
     <div className="min-h-screen">
       <Seo
@@ -312,366 +349,306 @@ const Pricing = () => {
       />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={headerRef}
-            className={`text-center max-w-3xl mx-auto transition-all duration-700 ${
-              headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
-              <span className="text-sm font-semibold text-primary">Essai gratuit de 1 mois</span>
+      <main>
+        {/* En-tête et formules : les prix sont visibles dès l'arrivée sur la page */}
+        <section className="pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+                <ShieldCheck className="h-4 w-4" />
+                Essai gratuit de 1 mois
+              </p>
+              <h1 className="font-heading text-[clamp(2.3rem,5.4vw,4.3rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-foreground">
+                Tarifs du <Accent>logiciel HACCP</Accent>, adaptés à votre établissement
+              </h1>
+              <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez
+                l'offre qui vous convient.
+              </p>
+              <Link
+                to="/demander-demo"
+                className="group mt-6 inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                Demander une démo gratuite
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Tarifs du <span className="text-primary">logiciel HACCP</span>, adaptés à votre établissement
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez l'offre qui vous convient.
-            </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/demander-demo">
-                Demander une démo gratuite
-                <ArrowRight className="w-5 h-5" />
+            <h2 className="sr-only">Nos formules</h2>
+            <div className="mt-12 flex justify-center">
+              <ChoixFacturation valeur={facturation} onChange={setFacturation} />
+            </div>
+
+            <div className={`mx-auto mt-10 grid items-start gap-6 ${launchActive ? "max-w-6xl lg:grid-cols-3" : "max-w-5xl md:grid-cols-2"}`}>
+              {launchActive ? (
+                <>
+                  <PricingGridCard
+                    pricing={LAUNCH_PRICING}
+                    title="Offre de lancement"
+                    badgeLabel="Garanti à vie"
+                    note={`Jusqu'au ${LAUNCH_OFFER_END_LABEL} inclus`}
+                    highlighted
+                    showCta
+                    features={STANDARD_FEATURES}
+                    facturation={facturation}
+                  />
+                  <PricingGridCard
+                    pricing={CURRENT_PRICING}
+                    title="Tarif à venir"
+                    badgeLabel={`À partir du ${CURRENT_PRICING_START_LABEL}`}
+                    note="Grille standard, après l'offre de lancement"
+                    highlighted={false}
+                    showCta={false}
+                    features={STANDARD_FEATURES}
+                    facturation={facturation}
+                  />
+                  {proCard}
+                </>
+              ) : (
+                <>
+                  <PricingGridCard
+                    pricing={CURRENT_PRICING}
+                    title="LockHACCP"
+                    badgeLabel="Toutes fonctionnalités incluses"
+                    note="Pour votre établissement"
+                    highlighted
+                    showCta
+                    features={STANDARD_FEATURES}
+                    facturation={facturation}
+                  />
+                  {proCard}
+                </>
+              )}
+            </div>
+
+            <p className="mt-8 text-center text-sm text-muted-foreground">Tous les prix sont TTC. {MENTION_TVA}.</p>
+
+            {launchActive && (
+              <div className="mx-auto mt-6 flex max-w-3xl items-start gap-3 rounded-2xl border border-secondary/30 bg-secondary-light/60 p-5">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-secondary-texte" />
+                <p className="text-sm text-foreground">
+                  <strong>Engagement de lancement :</strong> cette offre se termine le {LAUNCH_OFFER_END_LABEL}. Le tarif de
+                  lancement reste acquis à vie à tout restaurateur qui souscrit avant cette date — y compris si vous ajoutez un
+                  établissement supplémentaire plus tard.
+                </p>
+              </div>
+            )}
+
+            <div className="mx-auto mt-8 flex max-w-5xl flex-col items-stretch gap-4 md:flex-row">
+              <Link
+                to="/pms"
+                className="group flex flex-1 items-center gap-4 rounded-2xl border border-border/80 bg-white/85 p-5 transition-colors hover:border-secondary/50"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-white">
+                  <FileText className="h-5 w-5" />
+                </span>
+                <span className="text-sm text-foreground">
+                  <strong>Nouveau :</strong> générez gratuitement le Plan de Maîtrise Sanitaire de votre établissement :
+                  affichages obligatoires, tableau HACCP et registres.{" "}
+                  <span className="font-semibold text-primary underline underline-offset-4">Créer mon PMS gratuit</span>
+                </span>
               </Link>
-            </Button>
+              <Link
+                to="/contact-entreprise"
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-border/80 bg-white/85 p-5 text-sm font-semibold text-primary transition-colors hover:border-primary/40 md:w-80"
+              >
+                Plusieurs établissements à équiper ? Parlez-en à notre équipe
+                <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            <TrustBadges className="mt-14" />
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-6 bg-primary/5 border-t border-border">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-foreground">
-            <strong>Nouveau :</strong> générez gratuitement le Plan de Maîtrise Sanitaire de votre établissement —
-            affichages obligatoires, tableau HACCP et registres.{" "}
-            <Link to="/pms" className="font-semibold text-primary underline underline-offset-4">Créer mon PMS gratuit</Link>
-          </p>
-        </div>
-      </section>
-
-      <section className="py-8 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <TrustBadges />
-        </div>
-      </section>
-
-      {/* Pricing Plans */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="sr-only">Nos formules</h2>
-          <div className="flex justify-center mb-8">
-            <div role="group" aria-label="Rythme de paiement" className="inline-flex rounded-full border border-border bg-card p-1 shadow-card">
-              {([
-                { valeur: "annuel", libelle: "Annuel", detail: "2 mois offerts" },
-                { valeur: "mensuel", libelle: "Mensuel", detail: null },
-              ] as const).map((o) => (
-                <button
-                  key={o.valeur}
-                  type="button"
-                  aria-pressed={facturation === o.valeur}
-                  onClick={() => setFacturation(o.valeur)}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
-                    facturation === o.valeur ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        {/* Ce que les autres n'ont pas */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 grid gap-6 lg:mb-16 lg:grid-cols-12 lg:items-end">
+              <h2 className={`${TITRE_H2} lg:col-span-7`}>Ce que vous ne trouverez pas ailleurs</h2>
+              <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">
+                Comparez ce qui est compris dans le prix, pas seulement le prix.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {DIFFERENCES.map((d, i) => (
+                <div
+                  key={d.titre}
+                  className={`flex flex-col rounded-3xl p-7 sm:p-8 ${
+                    i === 0 ? "bg-secondary text-secondary-foreground" : "border border-border/80 bg-white/85"
                   }`}
                 >
-                  {o.libelle}
-                  {o.detail && (
-                    <span className={`ml-2 text-xs font-medium ${facturation === o.valeur ? "text-secondary" : "text-secondary-texte"}`}>
-                      {o.detail}
-                    </span>
+                  <span
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                      i === 0 ? "bg-white/30 text-secondary-foreground" : "bg-primary-light text-primary"
+                    }`}
+                  >
+                    <d.icon className="h-6 w-6" />
+                  </span>
+                  <h3 className={`mt-6 font-heading text-xl font-bold ${i === 0 ? "text-secondary-foreground" : "text-foreground"}`}>{d.titre}</h3>
+                  <p className={`mt-3 flex-1 leading-relaxed ${i === 0 ? "text-secondary-foreground/85" : "text-muted-foreground"}`}>{d.texte}</p>
+                  {d.lien && (
+                    <Link
+                      to={d.lien.to}
+                      className={`group mt-5 inline-flex items-center gap-1.5 font-semibold ${i === 0 ? "text-secondary-foreground underline underline-offset-4" : "text-primary"}`}
+                    >
+                      {d.lien.libelle}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   )}
-                </button>
+                </div>
               ))}
             </div>
           </div>
-          <div
-            ref={plansRef}
-            className={`grid gap-6 mx-auto transition-all duration-500 ${
-              plansVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            } ${launchActive ? "md:grid-cols-3 max-w-6xl" : "md:grid-cols-2 max-w-4xl"}`}
-          >
-            {launchActive ? (
-              <>
-                <PricingGridCard
-                  pricing={LAUNCH_PRICING}
-                  title="Offre de lancement"
-                  badgeLabel="Garanti à vie"
-                  note={`Jusqu'au ${LAUNCH_OFFER_END_LABEL} inclus`}
-                  highlighted
-                  showCta
-                  features={STANDARD_FEATURES}
-                  facturation={facturation}
-                />
-                <PricingGridCard
-                  pricing={CURRENT_PRICING}
-                  title="Tarif à venir"
-                  badgeLabel={`À partir du ${CURRENT_PRICING_START_LABEL}`}
-                  note="Grille standard, après l'offre de lancement"
-                  highlighted={false}
-                  showCta={false}
-                  features={STANDARD_FEATURES}
-                  facturation={facturation}
-                />
-                {proCard}
-              </>
-            ) : (
-              <>
-                <PricingGridCard
-                  pricing={CURRENT_PRICING}
-                  title="LockHACCP"
-                  badgeLabel="Toutes fonctionnalités incluses"
-                  note="Pour votre établissement"
-                  highlighted
-                  showCta
-                  features={STANDARD_FEATURES}
-                  facturation={facturation}
-                />
-                {proCard}
-              </>
-            )}
-          </div>
+        </section>
 
-          <p className="max-w-4xl mx-auto mt-6 text-center text-sm text-muted-foreground">
-            Tous les prix sont TTC. {MENTION_TVA}.
-          </p>
-
-          {launchActive && (
-            <div className="max-w-4xl mx-auto mt-6 flex items-start gap-3 rounded-2xl border border-secondary/30 bg-secondary-light p-4">
-              <ShieldCheck className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-foreground">
-                <strong>Engagement de lancement :</strong> cette offre se termine le {LAUNCH_OFFER_END_LABEL}. Le tarif de lancement reste acquis à vie à tout restaurateur qui souscrit avant cette date — y compris si vous ajoutez un établissement supplémentaire plus tard.
-              </p>
-            </div>
-          )}
-
-          <div className="max-w-4xl mx-auto mt-6 text-center">
-            <Link to="/contact-entreprise" className="text-sm text-primary hover:underline">
-              Plusieurs établissements à équiper ? Parlez-en à notre équipe →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Ce que les autres n'ont pas */}
-      <section className="py-16 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
-            Ce que vous ne trouverez pas ailleurs
-          </h2>
-          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-            Comparez ce qui est compris dans le prix, pas seulement le prix.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {DIFFERENCES.map((d) => (
-              <div key={d.titre} className="bg-card rounded-2xl p-6 border border-border shadow-card flex flex-col">
-                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                  <d.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-lg font-bold text-foreground mb-2">{d.titre}</h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-grow">{d.texte}</p>
-                {d.lien && (
-                  <Link to={d.lien.to} className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline">
-                    {d.lien.libelle}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                )}
+        {/* L'IA dans LockHACCP : la vidéo montre la lecture automatique d'un bon de livraison */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
+              <div className="mx-auto w-[14rem] sm:w-[15.5rem] lg:order-2 lg:col-span-5 lg:w-[17rem]">
+                <Telephone3D inclinaison="gauche" suivreSouris>
+                  <EcranVideo video={VIDEOS_APP.reception} />
+                </Telephone3D>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* L'IA dans LockHACCP */}
-      <section className="py-16 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
-            Ce que fait l'IA pour vous
-          </h2>
-          <p className="text-muted-foreground text-center mb-8">
-            Vous prenez déjà la photo de l'étiquette. LockHACCP la fait travailler pour vous.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: ScanLine, titre: "Lecture des étiquettes", texte: "Le produit, le lot et la DLC se remplissent tout seuls. Vous validez d'un toucher." },
-              { icon: Bell, titre: "Rappels produits", texte: "Si un produit que vous avez reçu est rappelé, vous êtes prévenu." },
-              { icon: CalendarClock, titre: "DLC", texte: "La liste des produits à utiliser en priorité, sans rien saisir." },
-            ].map((p) => (
-              <div key={p.titre} className="bg-card rounded-2xl p-6 border border-border shadow-card">
-                <p.icon className="w-6 h-6 text-primary mb-3" />
-                <h3 className="font-heading text-lg font-bold text-foreground mb-2">{p.titre}</h3>
-                <p className="text-sm text-muted-foreground">{p.texte}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-sm text-muted-foreground text-center mt-6">
-            La lecture des étiquettes sur votre appareil est gratuite et illimitée dans les deux offres. Quand une
-            étiquette est difficile à lire, ou pour lire un bon de livraison, l'IA prend le relais : {RELECTURES_IA_PAR_MOIS}{" "}
-            lectures par mois et par établissement avec l'offre LockHACCP, {LECTURES_IA_PRO} avec l'offre Pro.
-          </p>
-        </div>
-      </section>
-
-      {/* Option Capteurs connectés */}
-      <section id="capteurs" className="py-20 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-4">
-                <Radio className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">
-                  Option{CAPTEURS_EN_VENTE ? "" : " : bientôt disponible"}
-                </span>
-              </div>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Capteurs connectés
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Un capteur dans chaque frigo ou congélateur mesure la température toutes les 10 minutes. Si elle
-                sort des limites, vous êtes prévenu, même la nuit et le week-end. Les relevés s'écrivent tout seuls
-                dans votre registre.
-              </p>
-              <Link
-                to={CHEMIN_CAPTEURS}
-                className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
-              >
-                Tout savoir sur les capteurs connectés
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="bg-card rounded-2xl p-6 border border-border shadow-card flex flex-col">
-              <p className="text-3xl font-bold text-foreground">
-                {formatPriceEUR(PRIX_CAPTEUR)}
-                <span className="text-sm font-normal text-muted-foreground"> par capteur, paiement unique</span>
-              </p>
-              <p className="text-xs text-muted-foreground mb-5">
-                + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle, une seule fois par établissement
-              </p>
-              <ul className="space-y-2 mb-6">
-                {POINTS_CAPTEURS.map((p) => (
-                  <li key={p} className="flex items-start gap-2">
-                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
-                    <span className="text-sm text-muted-foreground">{p}</span>
-                  </li>
-                ))}
-              </ul>
-              {(() => {
-                const lien = lienCommandeCapteurs();
-                return (
-                  <Button className="w-full" variant="accent" asChild>
-                    {lien.externe ? <a href={lien.href}>{lien.libelle}</a> : <Link to={lien.href}>{lien.libelle}</Link>}
-                  </Button>
-                );
-              })()}
-              <p className="text-xs text-muted-foreground mt-3 text-center">{MENTION_TVA}.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Additional Options */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Matériel en option
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Une étiqueteuse et une tablette pour la cuisine, en location,
-              sans achat de matériel.
-            </p>
-          </div>
-
-          <div
-            ref={optionsRef}
-            className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-          >
-            {additionalOptions.map((option, index) => (
-              <div
-                key={option.name}
-                className={`bg-card rounded-2xl p-6 border border-border shadow-card transition-all duration-500 ${
-                  optionsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                  <option.icon className="w-6 h-6 text-primary" />
-                </div>
-
-                <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                  {option.name}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {option.description}
+              <div className="lg:order-1 lg:col-span-7">
+                <Surtitre>L'IA dans LockHACCP</Surtitre>
+                <h2 className={TITRE_H2}>Ce que fait l'IA pour vous</h2>
+                <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                  Vous prenez déjà la photo de l'étiquette. LockHACCP la fait travailler pour vous.
                 </p>
-
-                <ul className="space-y-2 mb-4">
-                  {option.includes.map((item) => (
-                    <li key={item} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-xs text-muted-foreground">{item}</span>
+                <ul className="mt-8 space-y-4">
+                  {[
+                    { icon: ScanLine, titre: "Lecture des étiquettes", texte: "Le produit, le lot et la DLC se remplissent tout seuls. Vous validez d'un toucher." },
+                    { icon: Bell, titre: "Rappels produits", texte: "Si un produit que vous avez reçu est rappelé, vous êtes prévenu." },
+                    { icon: CalendarClock, titre: "DLC", texte: "La liste des produits à utiliser en priorité, sans rien saisir." },
+                  ].map((p) => (
+                    <li key={p.titre} className="flex gap-4 rounded-2xl border border-border/80 bg-white/85 p-5">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                        <p.icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-heading text-lg font-bold text-foreground">{p.titre}</h3>
+                        <p className="mt-1 text-muted-foreground">{p.texte}</p>
+                      </div>
                     </li>
                   ))}
                 </ul>
-
-                <Button variant="outline" className="w-full" size="sm" asChild>
-                  <Link to="/demander-demo">
-                    En savoir plus
-                  </Link>
-                </Button>
+                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                  La lecture des étiquettes sur votre appareil est gratuite et illimitée dans les deux offres. Quand une
+                  étiquette est difficile à lire, ou pour lire un bon de livraison, l'IA prend le relais : {RELECTURES_IA_PAR_MOIS}{" "}
+                  lectures par mois et par établissement avec l'offre LockHACCP, {LECTURES_IA_PRO} avec l'offre Pro.
+                </p>
               </div>
-            ))}
+            </div>
           </div>
+        </section>
 
-        </div>
-      </section>
+        {/* Option Capteurs connectés */}
+        <section id="capteurs" className="py-12 lg:py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
+              <div className="p-8 sm:p-12">
+                <span className="inline-flex items-center gap-2 rounded-full bg-primary-light px-3 py-1.5 text-sm font-semibold text-primary">
+                  <Radio className="h-4 w-4" />
+                  Option{CAPTEURS_EN_VENTE ? "" : " : bientôt disponible"}
+                </span>
+                <h2 className="mt-5 font-heading text-[clamp(1.9rem,3.6vw,2.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-foreground">
+                  Capteurs connectés
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                  Un capteur dans chaque frigo ou congélateur mesure la température toutes les 10 minutes. Si elle sort des
+                  limites, vous êtes prévenu, même la nuit et le week-end. Les relevés s'écrivent tout seuls dans votre
+                  registre.
+                </p>
+                <Link to={CHEMIN_CAPTEURS} className="group mt-6 inline-flex items-center gap-2 font-semibold text-primary">
+                  Tout savoir sur les capteurs connectés
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+              <div className="relative overflow-hidden bg-[hsl(211_100%_13%)] p-8 text-white sm:p-12">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-secondary/25 blur-3xl" />
+                <div className="relative">
+                  <p className="flex items-baseline gap-2">
+                    <span className="font-heading text-5xl font-extrabold tracking-tight text-secondary">{formatPriceEUR(PRIX_CAPTEUR)}</span>
+                    <span className="text-white/75">par capteur, paiement unique</span>
+                  </p>
+                  <p className="mt-2 text-sm text-white/70">
+                    + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle, une seule fois par établissement
+                  </p>
+                  <ul className="mt-7 space-y-3 text-sm">
+                    {POINTS_CAPTEURS.map((p) => (
+                      <li key={p} className="flex items-start gap-3">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" strokeWidth={3} />
+                        <span className="text-white/90">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button variant="accent" size="lg" asChild className="mt-8 w-full sm:w-auto">
+                    {lienCapteurs.externe ? <a href={lienCapteurs.href}>{lienCapteurs.libelle}</a> : <Link to={lienCapteurs.href}>{lienCapteurs.libelle}</Link>}
+                  </Button>
+                  <p className="mt-4 text-xs text-white/55">{MENTION_TVA}.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <SectionReglementation
-        titre="La méthode HACCP, et pourquoi elle vous concerne"
-        intro="Depuis 2006, le règlement européen 852/2004 oblige tout restaurant à appliquer une démarche fondée sur les principes HACCP et à garder la trace de ses contrôles. Ces enregistrements sont ce que l'inspecteur de la DDPP feuillette en premier, et c'est ce que LockHACCP tient pour vous au quotidien."
-        points={[
-          { titre: "Repérer les dangers", texte: "Biologiques, chimiques, physiques et allergènes, de la livraison à l'assiette." },
-          { titre: "Surveiller les points critiques", texte: "Stockage au froid, cuisson, refroidissement, maintien au chaud : des limites à respecter et à mesurer." },
-          { titre: "Corriger les écarts", texte: "Chaque dépassement appelle une action, notée sur le moment, avec la personne qui l'a faite." },
-          { titre: "Garder la preuve", texte: "Relevés, réceptions, nettoyage, actions correctives : sans enregistrement, rien ne prouve que la méthode est appliquée." },
-        ]}
-        sources={[SOURCES.hygiene852, SOURCES.arrete2009]}
-      />
+        {/* Matériel en option */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
+              <h2 className={`${TITRE_H2} lg:col-span-7`}>Matériel en option</h2>
+              <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">
+                Une étiqueteuse et une tablette pour la cuisine, en location, sans achat de matériel.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {additionalOptions.map((option) => (
+                <div key={option.name} className="flex flex-col rounded-3xl border border-border/80 bg-white/85 p-7 sm:p-8">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary">
+                    <option.icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-6 font-heading text-xl font-bold text-foreground">{option.name}</h3>
+                  <p className="mt-2 text-muted-foreground">{option.description}</p>
+                  <div className="mt-6 flex-1">
+                    <ListeCoches items={option.includes} />
+                  </div>
+                  <Button variant="outline" asChild className="mt-7 w-fit">
+                    <Link to="/demander-demo">En savoir plus</Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      <FaqSection
-        items={FAQS}
-        title="Questions fréquentes sur les tarifs"
-        description="Tout ce qu'il faut savoir avant de choisir votre formule."
-      />
+        <SectionReglementation
+          titre="La méthode HACCP, et pourquoi elle vous concerne"
+          intro="Depuis 2006, le règlement européen 852/2004 oblige tout restaurant à appliquer une démarche fondée sur les principes HACCP et à garder la trace de ses contrôles. Ces enregistrements sont ce que l'inspecteur de la DDPP feuillette en premier, et c'est ce que LockHACCP tient pour vous au quotidien."
+          points={[
+            { titre: "Repérer les dangers", texte: "Biologiques, chimiques, physiques et allergènes, de la livraison à l'assiette." },
+            { titre: "Surveiller les points critiques", texte: "Stockage au froid, cuisson, refroidissement, maintien au chaud : des limites à respecter et à mesurer." },
+            { titre: "Corriger les écarts", texte: "Chaque dépassement appelle une action, notée sur le moment, avec la personne qui l'a faite." },
+            { titre: "Garder la preuve", texte: "Relevés, réceptions, nettoyage, actions correctives : sans enregistrement, rien ne prouve que la méthode est appliquée." },
+          ]}
+          sources={[SOURCES.hygiene852, SOURCES.arrete2009]}
+        />
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">
-            Prêt à simplifier votre conformité HACCP ?
-          </h2>
-          <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Profitez de 1 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien.
-          </p>
-          <Button variant="accent" size="xl" asChild>
-            <Link to="/demander-demo">
-              Demander une démo gratuite
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
+        <FaqSection items={FAQS} title="Questions fréquentes sur les tarifs" description="Tout ce qu'il faut savoir avant de choisir votre formule." />
 
-      <RelatedLinks
-        items={[
-          { to: "/", label: "Le logiciel HACCP pour restaurateurs", description: "Toutes les fonctionnalités de LockHACCP." },
-          { to: "/blog/methode-haccp-guide-complet", label: "Les 7 principes HACCP", description: "La méthode expliquée avec des exemples de cuisine." },
-          { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
-        ]}
-      />
+        <CTASection
+          texte="Profitez de 1 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien."
+        />
 
+        <RelatedLinks
+          items={[
+            { to: "/", label: "Le logiciel HACCP pour restaurateurs", description: "Toutes les fonctionnalités de LockHACCP." },
+            { to: "/blog/methode-haccp-guide-complet", label: "Les 7 principes HACCP", description: "La méthode expliquée avec des exemples de cuisine." },
+            { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
+          ]}
+        />
+      </main>
       <Footer />
     </div>
   );

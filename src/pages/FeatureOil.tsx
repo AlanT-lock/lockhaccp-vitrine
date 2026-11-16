@@ -109,10 +109,10 @@ function BandeReperes() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-3">
           {REPERES.map((r) => (
-            <div key={r.titre} className="rounded-3xl bg-secondary p-7 text-white">
+            <div key={r.titre} className="rounded-3xl bg-secondary p-7 text-secondary-foreground">
               <p className="font-heading text-4xl font-extrabold tracking-tight">{r.valeur}</p>
               <p className="mt-3 font-semibold">{r.titre}</p>
-              <p className="mt-1 text-sm text-white/85">{r.texte}</p>
+              <p className="mt-1 text-sm text-secondary-foreground/80">{r.texte}</p>
             </div>
           ))}
         </div>
