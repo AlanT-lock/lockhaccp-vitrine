@@ -10,7 +10,7 @@ import { Seo } from "@/components/Seo";
 import { faqJsonLd, organizationJsonLd, softwareAppJsonLd, websiteJsonLd } from "@/lib/seo-jsonld";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 import { ObligationsSection } from "@/components/ObligationsSection";
-import { SectionComparatif } from "@/components/SectionsContenu";
+import { ComparatifPapier } from "@/components/accueil/ComparatifPapier";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 
 const COMPARATIF = [
@@ -73,7 +73,7 @@ const Index = () => {
         <HistoireDefilement />
         <GrilleModules />
         <ObligationsSection />
-        <SectionComparatif
+        <ComparatifPapier
           titre="Fiches papier ou logiciel HACCP : ce qui change"
           intro="Le papier reste accepté lors d'un contrôle. La différence se joue au quotidien, en plein service."
           lignes={COMPARATIF}
