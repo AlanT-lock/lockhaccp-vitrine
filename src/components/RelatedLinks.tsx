@@ -75,7 +75,7 @@ export const FEATURE_RELATED = {
   ],
   tracabilite: [
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Capturez les infos à la source." },
-    { to: "/fonctionnalites/etiquettes", label: "Étiquettes de production", description: "DLC et n° de lot conformes." },
+    { to: "/fonctionnalites/etiquettes", label: "Étiquettes DLC", description: "DLC, n° de lot et allergènes, imprimés." },
     { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
     { to: "/blog/controle-sanitaire-restaurant-inspecteur-ddpp", label: "Le contrôle sanitaire", description: "Les documents demandés." },
   ],
