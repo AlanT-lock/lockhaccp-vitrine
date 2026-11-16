@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Check, Tag, Thermometer, SprayCan, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { APP_URL } from "@/lib/links";
-import { Telephone3D } from "./Telephone3D";
-import { EcranAccueilApp } from "./EcransDemo";
+import { VIDEOS_APP } from "@/lib/videos-app";
+import { EcranVideo, Telephone3D } from "./Telephone3D";
 
-// Preuves qui gravitent autour du téléphone : ce que l'application enregistre en une journée.
+// Preuves qui gravitent autour du téléphone : ce que montrent les vidéos de l'application
+// (établissement de démonstration « Le Bistrot Français »).
 const PREUVES = [
-  { icone: Thermometer, titre: "Frigo cuisine · 3,2 °C", detail: "Relevé validé à 9:41", place: "left-[-2.5rem] top-[14%] lg:left-[-6.5rem]", d: "0.9s" },
-  { icone: SprayCan, titre: "Nettoyage préparation", detail: "7 tâches cochées · Julien", place: "right-[-2rem] top-[42%] lg:right-[-7rem]", d: "1.3s" },
-  { icone: Tag, titre: "Sauce béarnaise", detail: "DLC calculée · lot L-1611-03", place: "hidden sm:flex left-[-1.5rem] bottom-[16%] lg:left-[-5.5rem]", d: "1.7s" },
+  { icone: Thermometer, titre: "Réfrigérateur cuisine · 3 °C", detail: "Conforme, relevé enregistré", place: "left-[-2.5rem] top-[14%] lg:left-[-9.5rem] lg:top-[9%]", d: "0.9s" },
+  { icone: SprayCan, titre: "Nettoyage du jour", detail: "15 surfaces sur 15", place: "right-[-2rem] top-[42%] lg:right-[-8.5rem]", d: "1.3s" },
+  { icone: Tag, titre: "Sauce béarnaise × 3", detail: "DLC secondaire calculée", place: "hidden sm:flex left-[-1.5rem] bottom-[16%] lg:left-[-9rem] lg:bottom-[22%]", d: "1.7s" },
 ];
 
 export function HeroAccueil() {
@@ -85,7 +86,7 @@ export function HeroAccueil() {
 
           <div className="relative mx-auto w-[15.5rem] sm:w-[17rem] lg:col-span-5 lg:w-[19rem]">
             <Telephone3D inclinaison="droite" suivreSouris>
-              <EcranAccueilApp />
+              <EcranVideo video={VIDEOS_APP.tour} priorite />
             </Telephone3D>
             {PREUVES.map(({ icone: Icone, titre, detail, place, d }) => (
               <div

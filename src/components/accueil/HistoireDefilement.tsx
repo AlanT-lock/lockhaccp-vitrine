@@ -1,19 +1,18 @@
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Telephone3D, type VideoApp } from "./Telephone3D";
-import { EcranEtiquette, EcranNettoyage, EcranReception, EcranTemperatures } from "./EcransDemo";
+import { VIDEOS_APP, type VideoApp } from "@/lib/videos-app";
+import { EcranVideo, Telephone3D } from "./Telephone3D";
 
-// « Une journée en cuisine » : sur grand écran, le téléphone reste fixe pendant que les moments
-// de la journée défilent à côté ; sur mobile, chaque moment a son propre téléphone.
-// `video` : à renseigner quand les vidéos du simulateur seront livrées (public/videos/app/).
+// « Une journée en cuisine » : sur grand écran, le téléphone reste fixe et sa vidéo change avec
+// le moment de la journée ; sur mobile, chaque moment a son propre téléphone.
+// Les textes décrivent ce que montrent réellement les vidéos (docs/design/videos-app-manifest.json).
 interface Etape {
   heure: string;
   titre: string;
   texte: string;
   lien: { to: string; libelle: string };
-  Ecran: ComponentType;
-  video?: VideoApp;
+  video: VideoApp;
 }
 
 const ETAPES: Etape[] = [
@@ -21,39 +20,39 @@ const ETAPES: Etape[] = [
     heure: "9 h 00",
     titre: "Les relevés de température",
     texte:
-      "Le rappel arrive sur le téléphone, le relevé de chaque frigo prend quelques secondes. La consigne est affichée, et si un relevé dépasse, l'application demande l'action corrective.",
+      "Chaque frigo affiche son dernier relevé. On ajuste la valeur, on enregistre. Si elle dépasse la limite, l'application demande la mesure corrective : quelques touches, et l'écart est tracé.",
     lien: { to: "/fonctionnalites/temperatures", libelle: "Les relevés de température" },
-    Ecran: EcranTemperatures,
+    video: VIDEOS_APP.temperatures,
   },
   {
     heure: "11 h 00",
     titre: "La réception des marchandises",
     texte:
-      "Température, emballages, DLC : la livraison est contrôlée en quelques gestes. Une photo de l'étiquette ou du bon de livraison, et la lecture automatique relève les informations de traçabilité.",
+      "Une photo du bon de livraison : la lecture automatique reconnaît le fournisseur et les produits. Il reste à saisir la température des produits frais, et la réception est enregistrée.",
     lien: { to: "/fonctionnalites/receptions", libelle: "Le contrôle à réception" },
-    Ecran: EcranReception,
+    video: VIDEOS_APP.reception,
   },
   {
     heure: "15 h 00",
-    titre: "Les étiquettes DLC",
+    titre: "La production et ses étiquettes",
     texte:
-      "La date limite de chaque préparation est calculée selon vos règles, avec le numéro de lot et les allergènes. L'étiquette part directement vers l'étiqueteuse.",
+      "On choisit la préparation et la quantité : la DLC secondaire est calculée, le numéro de lot proposé, et les étiquettes partent vers l'étiqueteuse.",
     lien: { to: "/fonctionnalites/etiquettes", libelle: "Les étiquettes DLC" },
-    Ecran: EcranEtiquette,
+    video: VIDEOS_APP.etiquettes,
   },
   {
     heure: "22 h 30",
-    titre: "Le nettoyage de fin de service",
+    titre: "La fin de service",
     texte:
-      "Les tâches de chaque zone sont cochées et signées par la personne connectée. Le gérant voit ce qui est fait sans relire un seul classeur.",
+      "Le nettoyage du jour se coche zone par zone, et le suivi de la journée montre ce qui est fait et ce qui reste. Le gérant le voit sans relire un seul classeur.",
     lien: { to: "/fonctionnalites/nettoyage", libelle: "Le plan de nettoyage" },
-    Ecran: EcranNettoyage,
+    video: VIDEOS_APP.historique,
   },
 ];
 
 export function HistoireDefilement() {
   const [active, setActive] = useState(0);
-  const blocs = useRef<(HTMLDivElement | null)[]>([]);
+  const blocs = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -83,7 +82,7 @@ export function HistoireDefilement() {
             {ETAPES.map((etape, i) => (
               <li
                 key={etape.titre}
-                ref={(el) => (blocs.current[i] = el as HTMLDivElement | null)}
+                ref={(el) => (blocs.current[i] = el)}
                 data-etape={i}
                 className="lg:flex lg:min-h-[78vh] lg:items-center"
               >
@@ -100,8 +99,8 @@ export function HistoireDefilement() {
                   </Link>
                   {/* Mobile et tablette : un téléphone par moment de la journée */}
                   <div className="mx-auto mt-10 w-[14.5rem] lg:hidden">
-                    <Telephone3D inclinaison="face" video={etape.video}>
-                      <etape.Ecran />
+                    <Telephone3D inclinaison="face">
+                      <EcranVideo video={etape.video} />
                     </Telephone3D>
                   </div>
                 </div>
@@ -109,21 +108,14 @@ export function HistoireDefilement() {
             ))}
           </ol>
 
-          {/* Grand écran : téléphone fixe, l'écran change avec le moment de la journée */}
+          {/* Grand écran : téléphone fixe, la vidéo change avec le moment de la journée */}
           <div className="hidden lg:block">
             <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-10">
               <div className="w-[17.5rem] xl:w-[19rem]">
                 <Telephone3D inclinaison="gauche" suivreSouris>
-                  <div className="relative h-full">
-                    {ETAPES.map((etape, i) => (
-                      <div
-                        key={etape.titre}
-                        aria-hidden={active !== i}
-                        className={`histoire-ecran absolute inset-0 ${active === i ? "opacity-100" : "pointer-events-none translate-y-3 opacity-0"}`}
-                      >
-                        {active === i && <etape.Ecran />}
-                      </div>
-                    ))}
+                  {/* La clé remonte l'écran à chaque moment : la vidéo repart du début. */}
+                  <div key={active} className="histoire-ecran absolute inset-0">
+                    <EcranVideo video={ETAPES[active].video} />
                   </div>
                 </Telephone3D>
               </div>

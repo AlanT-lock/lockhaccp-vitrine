@@ -1,21 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { VIDEO_HAUTEUR, VIDEO_LARGEUR, type VideoApp } from "@/lib/videos-app";
 
-// iPhone dessiné en CSS (cadre, îlot, boutons, reflet), en perspective.
-// L'écran affiche une vidéo de l'application (chargée seulement quand le téléphone est visible)
-// ou, à défaut, un écran reproduit en code (children). Aucune image du cadre à télécharger.
+// iPhone dessiné en CSS (cadre, boutons, reflet), en perspective. Les vidéos du simulateur
+// contiennent déjà la barre d'état et l'îlot : le cadre n'en ajoute pas.
 
-export interface VideoApp {
-  mp4: string;
-  webm?: string;
-  poster?: string;
-  /** Description de ce que montre la vidéo (lue par les lecteurs d'écran). */
-  description: string;
-}
-
-interface Props {
-  /** Écran affiché tant que la vidéo n'est pas chargée (ou s'il n'y a pas de vidéo). */
-  children?: ReactNode;
-  video?: VideoApp;
+interface PropsTelephone {
+  children: ReactNode;
   /** Inclinaison de repos. */
   inclinaison?: "gauche" | "droite" | "face";
   /** Le téléphone suit légèrement la souris (grands écrans, souris uniquement). */
@@ -29,30 +19,9 @@ const INCLINAISONS = {
   face: { rx: 0, ry: 0 },
 };
 
-export function Telephone3D({ children, video, inclinaison = "droite", suivreSouris = false, className = "" }: Props) {
-  const scene = useRef<HTMLDivElement>(null);
+export function Telephone3D({ children, inclinaison = "droite", suivreSouris = false, className = "" }: PropsTelephone) {
   const corps = useRef<HTMLDivElement>(null);
-  const [videoChargee, setVideoChargee] = useState(false);
-  const [videoPrete, setVideoPrete] = useState(false);
   const base = INCLINAISONS[inclinaison];
-
-  // Vidéo : montée seulement quand le téléphone approche de l'écran, mise en pause hors écran.
-  useEffect(() => {
-    const el = scene.current;
-    if (!video || !el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) setVideoChargee(true);
-        const v = el.querySelector("video");
-        if (!v) return;
-        if (e.isIntersecting) v.play().catch(() => {});
-        else v.pause();
-      },
-      { rootMargin: "200px 0px" },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [video]);
 
   // Inclinaison qui suit la souris : variables CSS mises à jour hors de React (pas de re-rendu).
   useEffect(() => {
@@ -79,42 +48,102 @@ export function Telephone3D({ children, video, inclinaison = "droite", suivreSou
   }, [suivreSouris, base.rx, base.ry]);
 
   return (
-    <div ref={scene} className={`telephone-scene ${className}`}>
+    <div className={`telephone-scene ${className}`}>
       <div
         ref={corps}
         className="telephone-corps"
         style={{ "--rx": `${base.rx}deg`, "--ry": `${base.ry}deg` } as React.CSSProperties}
       >
-        {/* Boutons latéraux */}
         <span aria-hidden="true" className="telephone-bouton left-[-3px] top-[22%] h-[6%]" />
         <span aria-hidden="true" className="telephone-bouton left-[-3px] top-[31%] h-[10%]" />
         <span aria-hidden="true" className="telephone-bouton left-[-3px] top-[43%] h-[10%]" />
         <span aria-hidden="true" className="telephone-bouton right-[-3px] top-[30%] h-[14%]" />
-
         <div className="telephone-ecran">
           {children}
-          {video && videoChargee && (
-            <video
-              className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-500 ${videoPrete ? "opacity-100" : "opacity-0"}`}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster={video.poster}
-              aria-label={video.description}
-              onCanPlay={() => setVideoPrete(true)}
-            >
-              {video.webm && <source src={video.webm} type="video/webm" />}
-              <source src={video.mp4} type="video/mp4" />
-            </video>
-          )}
-          {/* Îlot dynamique et reflet */}
-          <span aria-hidden="true" className="telephone-ilot" />
           <span aria-hidden="true" className="telephone-reflet" />
         </div>
       </div>
       <div aria-hidden="true" className="telephone-ombre" />
+    </div>
+  );
+}
+
+interface PropsEcran {
+  video: VideoApp;
+  /** Haut de page : image d'attente chargée en priorité (pas de chargement différé). */
+  priorite?: boolean;
+}
+
+/**
+ * Écran du téléphone : l'image d'attente est dans le HTML dès le premier rendu (rien ne bouge
+ * à l'hydratation) ; la vidéo n'est montée que lorsque le téléphone approche de l'écran, et
+ * mise en pause quand il le quitte. Sans JavaScript, ou si la vidéo échoue, l'image reste.
+ */
+export function EcranVideo({ video, priorite = false }: PropsEcran) {
+  const cadre = useRef<HTMLDivElement>(null);
+  const lecteur = useRef<HTMLVideoElement>(null);
+  const [montee, setMontee] = useState(false);
+  const [prete, setPrete] = useState(false);
+  const visible = useRef(false);
+
+  useEffect(() => {
+    const el = cadre.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        visible.current = e.isIntersecting;
+        if (e.isIntersecting) setMontee(true);
+        const v = lecteur.current;
+        if (!v) return;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { rootMargin: "250px 0px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  // Une fois la vidéo montée : React ne pose pas l'attribut « muted » dans le DOM, or les
+  // navigateurs mobiles n'autorisent la lecture automatique que des vidéos muettes.
+  useEffect(() => {
+    const v = lecteur.current;
+    if (!montee || !v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    if (visible.current) v.play().catch(() => {});
+  }, [montee]);
+
+  return (
+    <div ref={cadre} className="absolute inset-0 bg-[#eef2f8]">
+      <img
+        src={video.poster}
+        alt={video.description}
+        width={VIDEO_LARGEUR}
+        height={VIDEO_HAUTEUR}
+        loading={priorite ? "eager" : "lazy"}
+        decoding="async"
+        {...(priorite ? { fetchpriority: "high" } : {})}
+        className="h-full w-full object-cover object-top"
+      />
+      {montee && (
+        <video
+          ref={lecteur}
+          className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-500 ${prete ? "opacity-100" : "opacity-0"}`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={video.poster}
+          aria-hidden="true"
+          onPlaying={() => setPrete(true)}
+        >
+          <source src={video.webm} type="video/webm" />
+          <source src={video.mp4} type="video/mp4" />
+        </video>
+      )}
     </div>
   );
 }

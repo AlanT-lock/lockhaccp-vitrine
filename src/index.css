@@ -299,11 +299,6 @@
   background: #eef2f8;
   isolation: isolate;
 }
-.telephone-ilot {
-  position: absolute; top: 0.6rem; left: 50%; z-index: 3;
-  width: 32%; height: 1.55rem; transform: translateX(-50%);
-  border-radius: 999px; background: #05070b;
-}
 .telephone-reflet {
   pointer-events: none; position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(115deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.08) 100%);
@@ -320,42 +315,6 @@
 @keyframes telephone-ombre {
   0%, 100% { transform: scaleX(1); opacity: 1; }
   50% { transform: scaleX(0.88); opacity: 0.7; }
-}
-
-/* --- Écrans de démonstration --- */
-.ecran-apparition { opacity: 0; animation: ecran-apparition 0.5s cubic-bezier(.2,.7,.2,1) var(--d, 0ms) both; }
-@keyframes ecran-apparition { from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
-
-.ecran-valide { animation: ecran-valide 6s ease-in-out infinite both; }
-@keyframes ecran-valide {
-  0%, 30% { opacity: 0; transform: translateY(100%); }
-  38%, 92% { opacity: 1; transform: none; }
-  100% { opacity: 1; transform: none; }
-}
-
-.ecran-coche { animation: ecran-coche 6s cubic-bezier(.2,.7,.2,1) var(--d, 0s) infinite both; }
-@keyframes ecran-coche {
-  0%, 8% { opacity: 0; transform: scale(0.4); }
-  14%, 100% { opacity: 1; transform: none; }
-}
-
-.ecran-etiquette { animation: ecran-etiquette 6s cubic-bezier(.2,.7,.2,1) infinite both; }
-@keyframes ecran-etiquette {
-  0%, 6% { opacity: 0; transform: translateY(14px) rotate(-1.5deg); }
-  18%, 100% { opacity: 1; transform: none; }
-}
-.ecran-imprimer { animation: ecran-imprimer 6s ease-in-out infinite; }
-@keyframes ecran-imprimer {
-  0%, 55%, 75%, 100% { transform: none; box-shadow: none; }
-  62% { transform: scale(0.96); box-shadow: 0 0 0 6px hsl(211 100% 26% / 0.18); }
-}
-
-.ecran-balayage { animation: ecran-balayage 2.4s ease-in-out infinite alternate; }
-@keyframes ecran-balayage { from { top: 12%; } to { top: 85%; } }
-.ecran-remplit { animation: ecran-remplit 7s ease-out var(--d, 0s) infinite both; }
-@keyframes ecran-remplit {
-  0%, 5% { opacity: 0; filter: blur(3px); }
-  12%, 100% { opacity: 1; filter: none; }
 }
 
 /* --- Accueil éditorial --- */
@@ -375,10 +334,12 @@
 .defilement-metiers:hover { animation-play-state: paused; }
 @keyframes defilement-metiers { to { transform: translateX(-50%); } }
 
-.histoire-ecran { transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.2,.7,.2,1); }
+/* Changement de moment dans « Une journée en cuisine » : le nouvel écran arrive en fondu. */
+.histoire-ecran { animation: histoire-ecran 0.55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes histoire-ecran { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .telephone-corps, .telephone-ombre, .puce-preuve, .defilement-metiers { animation: none !important; }
-  .puce-preuve, .ecran-apparition { opacity: 1; }
+  .puce-preuve { opacity: 1; }
   .trait-souligne path { stroke-dashoffset: 0; animation: none; }
 }
