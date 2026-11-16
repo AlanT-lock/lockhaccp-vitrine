@@ -326,10 +326,10 @@
 }
 /* Bleus à gauche, orange à droite : ils se frôlent sans se mélanger (un bleu translucide sur
    un orange donne un gris brunâtre). Déplacements surtout verticaux, en sens opposés. */
-.halo-bleu-1   { --taille: 44rem; --couleur: hsl(211 100% 56%); --opacite: 0.34; top: -12rem; left: -14rem; animation: halo-derive-1 32s ease-in-out infinite alternate; }
-.halo-bleu-2   { --taille: 36rem; --couleur: hsl(196 100% 52%); --opacite: 0.26; bottom: -14rem; left: 6%; animation: halo-derive-2 41s ease-in-out infinite alternate; }
-.halo-orange-1 { --taille: 38rem; --couleur: hsl(22 100% 60%);  --opacite: 0.30; top: 4%; right: -12rem; animation: halo-derive-3 37s ease-in-out infinite alternate; }
-.halo-orange-2 { --taille: 30rem; --couleur: hsl(32 100% 58%);  --opacite: 0.24; bottom: -6rem; right: 8%; animation: halo-derive-4 45s ease-in-out infinite alternate; }
+.halo-bleu-1   { --taille: 44rem; --couleur: hsl(211 100% 55%); --opacite: 0.50; top: -12rem; left: -14rem; animation: halo-derive-1 32s ease-in-out infinite alternate; }
+.halo-bleu-2   { --taille: 36rem; --couleur: hsl(196 100% 50%); --opacite: 0.40; bottom: -14rem; left: 6%; animation: halo-derive-2 41s ease-in-out infinite alternate; }
+.halo-orange-1 { --taille: 38rem; --couleur: hsl(22 100% 58%);  --opacite: 0.46; top: 4%; right: -12rem; animation: halo-derive-3 37s ease-in-out infinite alternate; }
+.halo-orange-2 { --taille: 30rem; --couleur: hsl(32 100% 56%);  --opacite: 0.38; bottom: -6rem; right: 8%; animation: halo-derive-4 45s ease-in-out infinite alternate; }
 @media (max-width: 640px) {
   .halo-bleu-1 { --taille: 26rem; } .halo-bleu-2 { --taille: 22rem; }
   .halo-orange-1 { --taille: 22rem; } .halo-orange-2 { --taille: 18rem; }
