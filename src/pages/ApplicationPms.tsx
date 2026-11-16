@@ -11,14 +11,29 @@ import { BlocApplication } from "@/components/BlocApplication";
 import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
 import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
 import { useMaintenant } from "@/hooks/useMaintenant";
-import { formatPriceEUR, getActivePricing } from "@/lib/launch";
+import { formatPriceEUR, getActivePricing, RELECTURES_IA_PAR_MOIS } from "@/lib/launch";
 import { APP_URL } from "@/lib/links";
 
 const FAQS: FaqItem[] = [
   {
-    question: "Qu'est-ce qu'une application PMS ?",
+    question: "Qu'est-ce qu'une application HACCP ?",
     answer:
-      "Le Plan de Maîtrise Sanitaire (PMS) est le dossier d'hygiène d'un établissement alimentaire. Une application PMS remplace les fiches papier de ce dossier : relevés de température, plan de nettoyage, traçabilité, avec un historique prêt pour le contrôle.",
+      "C'est une application qui remplace les fiches papier de vos autocontrôles HACCP : relevés de température, plan de nettoyage, contrôle à réception, traçabilité, étiquettes. Chaque contrôle est daté et signé, et l'historique est prêt pour l'inspecteur. Ces fiches font partie de votre Plan de Maîtrise Sanitaire (PMS), le dossier d'hygiène de l'établissement.",
+  },
+  {
+    question: "Existe-t-il une application HACCP gratuite ?",
+    answer:
+      "Le Plan de Maîtrise Sanitaire de LockHACCP est gratuit, et l'application s'essaie 1 mois sans engagement et sans carte bancaire. Ensuite, l'application est payante, avec un prix affiché sur le site. Méfiez-vous des applications « gratuites » qui facturent la mise en place, le matériel ou chaque établissement supplémentaire : comparez le coût total sur un an.",
+  },
+  {
+    question: "L'application HACCP fonctionne-t-elle sur tablette et sur ordinateur ?",
+    answer:
+      "Oui. LockHACCP s'installe sur iPhone et Android, et s'utilise aussi depuis un navigateur sur tablette ou ordinateur. Chaque membre de l'équipe a son code personnel, pour que chaque contrôle soit signé par la bonne personne. Une tablette protégée pour la cuisine est proposée en location, en option.",
+  },
+  {
+    question: "Où sont hébergées les données de l'application ?",
+    answer:
+      "Dans l'Union européenne, conformément au RGPD. Vos relevés et votre historique restent consultables et exportables en PDF pour un contrôle.",
   },
   {
     question: "Le PMS est-il gratuit ?",
@@ -31,9 +46,9 @@ const FAQS: FaqItem[] = [
       "Non. Le dossier s'imprime et se remplit à la main. L'application remplace simplement les fiches papier : relevés sur téléphone ou tablette, rappels, photos des étiquettes et historique consultable.",
   },
   {
-    question: "Quelle appli HACCP et PMS choisir ?",
+    question: "Comment choisir une application HACCP ?",
     answer:
-      "Comparez le prix affiché, la durée d'essai, la présence d'un PMS adapté à votre établissement et l'aide au paramétrage. LockHACCP propose un PMS personnalisé gratuit et le paramétrage de l'application offert. Notre comparatif détaille les solutions du marché.",
+      "Comparez le prix affiché par mois et par établissement, la durée d'essai, l'engagement, le matériel imposé ou non, la présence d'un PMS adapté à votre établissement et l'aide au paramétrage. LockHACCP propose un PMS personnalisé gratuit, le paramétrage de l'application offert, sans engagement ni matériel imposé. Notre comparatif détaille les solutions du marché.",
   },
   {
     question: "Quelle différence entre le PMS gratuit et l'application ?",
@@ -48,10 +63,10 @@ const FAQS: FaqItem[] = [
 ];
 
 const POINTS = [
-  "Relevés de température avec rappels chaque matin",
+  "Relevés de température avec rappels chaque matin, consigne par équipement et actions correctives",
   "Plan de nettoyage par zone, tâches validées et signées",
-  "Traçabilité des produits en photo, export PDF",
-  "Contrôle à réception, étiquettes de production, huiles de friture et check-lists",
+  "Contrôle à réception des marchandises et traçabilité des produits en photo, export PDF",
+  "Étiquettes de production (DLC, lot, allergènes), huiles de friture et check-lists d'ouverture et de fermeture",
 ];
 
 const ApplicationPms = () => {
@@ -61,12 +76,12 @@ const ApplicationPms = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Appli HACCP et PMS pour restaurants"
-        description="Appli HACCP et PMS pour restaurants : températures, nettoyage, traçabilité sur téléphone. PMS gratuit qui paramètre l'appli, 1 mois d'essai."
+        title="Application HACCP sur téléphone et tablette"
+        description="Application HACCP pour restaurants et métiers de bouche : températures, nettoyage, traçabilité, étiquettes. iPhone, Android, tablette. Essai 1 mois."
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
-          breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Application PMS", path: "/application-pms" }]),
+          breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Application HACCP", path: "/application-pms" }]),
           faqJsonLd(FAQS),
         ]}
       />
@@ -75,11 +90,12 @@ const ApplicationPms = () => {
       <section className="pt-32 pb-16 bg-gradient-hero">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            L'<span className="text-primary">application HACCP et PMS</span> de LockHACCP
+            L'<span className="text-primary">application HACCP</span> pour restaurants et métiers de bouche
           </h1>
           <p className="text-lg text-muted-foreground mb-8">
-            Le Plan de Maîtrise Sanitaire de votre établissement, sur téléphone ou tablette : relevés, nettoyage et
-            traçabilité au quotidien, avec un historique prêt pour le contrôle.
+            Vos autocontrôles HACCP sur téléphone ou tablette : relevés de température, nettoyage, réception et
+            traçabilité au quotidien, avec un historique prêt pour le contrôle. Paramétrée à partir de votre Plan de
+            Maîtrise Sanitaire, gratuit.
           </p>
           <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="xl" asChild>
@@ -106,10 +122,10 @@ const ApplicationPms = () => {
 
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Ce que fait l'application PMS</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Ce que fait l'application HACCP</h2>
           <p className="text-muted-foreground mb-6">
-            Le PMS décrit ce qu'il faut faire. L'application sert à le faire chaque jour et à en garder la trace, sans fiches
-            papier à remplir, classer et retrouver le jour d'un contrôle.
+            Votre Plan de Maîtrise Sanitaire décrit ce qu'il faut faire. L'application sert à le faire chaque jour et à en
+            garder la trace, sans fiches papier à remplir, classer et retrouver le jour d'un contrôle.
           </p>
           <ul className="space-y-3">
             {POINTS.map((p) => (
@@ -119,6 +135,45 @@ const ApplicationPms = () => {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl space-y-4">
+          <h2 className="font-heading text-3xl font-bold text-foreground">Sur téléphone, tablette ou ordinateur</h2>
+          <p className="text-muted-foreground">
+            L'application s'installe sur iPhone et Android, et s'utilise aussi depuis un navigateur. Le commis valide le
+            nettoyage sur son téléphone, le second fait les relevés sur la tablette de la cuisine, le gérant consulte
+            l'historique depuis son ordinateur. Chacun a son code personnel : chaque contrôle est signé par la personne
+            qui l'a fait.
+          </p>
+          <p className="text-muted-foreground">
+            Aucun matériel n'est imposé. Si vous le souhaitez, les{" "}
+            <Link to="/fonctionnalites/etiquettes" className="text-primary underline underline-offset-4">étiquettes DLC</Link>{" "}
+            s'impriment sur une étiqueteuse Brother, Zebra ou Epson, les{" "}
+            <Link to="/capteurs-connectes" className="text-primary underline underline-offset-4">capteurs de température connectés</Link>{" "}
+            s'achètent sans abonnement, et une tablette protégée pour la cuisine est proposée en location. L'offre inclut{" "}
+            {RELECTURES_IA_PAR_MOIS} lectures par intelligence artificielle par mois pour lire automatiquement étiquettes et
+            bons de livraison. Les données sont hébergées dans l'Union européenne.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl space-y-4">
+          <h2 className="font-heading text-3xl font-bold text-foreground">Une application conçue avec un formateur en hygiène</h2>
+          <p className="text-muted-foreground">
+            LockHACCP a été créée par{" "}
+            <Link to="/auteur/alan-touati" className="text-primary underline underline-offset-4">Alan Touati</Link>,
+            formateur en hygiène alimentaire chez SF FORMATION. Les écrans suivent ce que l'inspecteur de la DDPP demande
+            à voir : la consigne de chaque équipement, l'action corrective quand un relevé dépasse, la preuve que le
+            nettoyage est fait, l'origine de chaque produit.
+          </p>
+          <p className="text-muted-foreground">
+            LockHACCP est à la fois une application mobile et un logiciel en ligne : la présentation complète du{" "}
+            <Link to="/" className="text-primary underline underline-offset-4">logiciel HACCP pour restaurateurs</Link>{" "}
+            est sur notre page d'accueil.
+          </p>
         </div>
       </section>
 
@@ -177,11 +232,11 @@ const ApplicationPms = () => {
 
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Tarif de l'application</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Tarif de l'application HACCP</h2>
           <p className="text-muted-foreground mb-4">
             {formatPriceEUR(tarif.mainMonthly)} par mois et par établissement, toutes fonctionnalités incluses, et{" "}
-            {formatPriceEUR(tarif.extraMonthly)} par mois par établissement supplémentaire. Sans engagement, résiliable depuis
-            l'application.
+            {formatPriceEUR(tarif.extraMonthly)} par mois par établissement supplémentaire. En annuel : {tarif.annualDiscountLabel}.
+            Sans engagement, résiliable depuis l'application, sans frais caché.
           </p>
           <Button variant="outline" size="lg" asChild>
             <Link to="/tarifs">Voir tous les tarifs</Link>
@@ -189,7 +244,7 @@ const ApplicationPms = () => {
         </div>
       </section>
 
-      <FaqSection items={FAQS} title="Questions sur l'application PMS" />
+      <FaqSection items={FAQS} title="Questions sur l'application HACCP" />
       <RelatedLinks items={TOUTES_FONCTIONNALITES} />
       <Footer />
     </div>
