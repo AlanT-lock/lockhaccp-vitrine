@@ -266,3 +266,119 @@
 .article-corps tr:last-child td { border-bottom: 0; }
 .article-corps h2#sources { font-size: 1.15rem; margin-top: 3.2em; }
 .article-corps h2#sources ~ ul { font-size: 0.95rem; color: hsl(var(--muted-foreground)); }
+
+/* ============================================================
+   Refonte de l'accueil : téléphone 3D et animations éditoriales
+   (tout en CSS ; « réduire les animations » est respecté plus bas)
+   ============================================================ */
+
+/* --- Téléphone 3D --- */
+.telephone-scene { position: relative; perspective: 1600px; }
+.telephone-corps {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 3.1rem;
+  padding: 0.6rem;
+  background: linear-gradient(145deg, #3a4150 0%, #12161f 45%, #2b313d 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 7px #0b0e14,
+    0 50px 90px -30px hsl(211 100% 20% / 0.45),
+    0 25px 40px -20px rgba(0, 0, 0, 0.35);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation: telephone-flotte 7s ease-in-out infinite;
+}
+.telephone-bouton { position: absolute; width: 3px; border-radius: 2px; background: #2a303b; }
+.telephone-ecran {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2.55rem;
+  background: #eef2f8;
+  isolation: isolate;
+}
+.telephone-ilot {
+  position: absolute; top: 0.6rem; left: 50%; z-index: 3;
+  width: 32%; height: 1.55rem; transform: translateX(-50%);
+  border-radius: 999px; background: #05070b;
+}
+.telephone-reflet {
+  pointer-events: none; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(115deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.08) 100%);
+}
+.telephone-ombre {
+  position: absolute; left: 12%; right: 12%; bottom: -2.2rem; height: 2.2rem;
+  border-radius: 50%; background: hsl(211 100% 20% / 0.35); filter: blur(18px);
+  animation: telephone-ombre 7s ease-in-out infinite;
+}
+@keyframes telephone-flotte {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+@keyframes telephone-ombre {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.88); opacity: 0.7; }
+}
+
+/* --- Écrans de démonstration --- */
+.ecran-apparition { opacity: 0; animation: ecran-apparition 0.5s cubic-bezier(.2,.7,.2,1) var(--d, 0ms) both; }
+@keyframes ecran-apparition { from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+.ecran-valide { animation: ecran-valide 6s ease-in-out infinite both; }
+@keyframes ecran-valide {
+  0%, 30% { opacity: 0; transform: translateY(100%); }
+  38%, 92% { opacity: 1; transform: none; }
+  100% { opacity: 1; transform: none; }
+}
+
+.ecran-coche { animation: ecran-coche 6s cubic-bezier(.2,.7,.2,1) var(--d, 0s) infinite both; }
+@keyframes ecran-coche {
+  0%, 8% { opacity: 0; transform: scale(0.4); }
+  14%, 100% { opacity: 1; transform: none; }
+}
+
+.ecran-etiquette { animation: ecran-etiquette 6s cubic-bezier(.2,.7,.2,1) infinite both; }
+@keyframes ecran-etiquette {
+  0%, 6% { opacity: 0; transform: translateY(14px) rotate(-1.5deg); }
+  18%, 100% { opacity: 1; transform: none; }
+}
+.ecran-imprimer { animation: ecran-imprimer 6s ease-in-out infinite; }
+@keyframes ecran-imprimer {
+  0%, 55%, 75%, 100% { transform: none; box-shadow: none; }
+  62% { transform: scale(0.96); box-shadow: 0 0 0 6px hsl(211 100% 26% / 0.18); }
+}
+
+.ecran-balayage { animation: ecran-balayage 2.4s ease-in-out infinite alternate; }
+@keyframes ecran-balayage { from { top: 12%; } to { top: 85%; } }
+.ecran-remplit { animation: ecran-remplit 7s ease-out var(--d, 0s) infinite both; }
+@keyframes ecran-remplit {
+  0%, 5% { opacity: 0; filter: blur(3px); }
+  12%, 100% { opacity: 1; filter: none; }
+}
+
+/* --- Accueil éditorial --- */
+.fond-points {
+  background-image: radial-gradient(hsl(211 100% 26% / 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%);
+}
+.trait-souligne path { stroke-dasharray: 420; stroke-dashoffset: 420; animation: trait-souligne 1.1s cubic-bezier(.6,.1,.2,1) 0.5s forwards; }
+@keyframes trait-souligne { to { stroke-dashoffset: 0; } }
+
+.puce-preuve { opacity: 0; animation: puce-entre 0.7s cubic-bezier(.2,.7,.2,1) var(--d, 0s) forwards, puce-flotte 6s ease-in-out calc(var(--d, 0s) + 0.7s) infinite; }
+@keyframes puce-entre { from { opacity: 0; transform: translateY(16px) scale(0.92); } to { opacity: 1; transform: none; } }
+@keyframes puce-flotte { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+.defilement-metiers { animation: defilement-metiers 38s linear infinite; }
+.defilement-metiers:hover { animation-play-state: paused; }
+@keyframes defilement-metiers { to { transform: translateX(-50%); } }
+
+.histoire-ecran { transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.2,.7,.2,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .telephone-corps, .telephone-ombre, .puce-preuve, .defilement-metiers { animation: none !important; }
+  .puce-preuve, .ecran-apparition { opacity: 1; }
+  .trait-souligne path { stroke-dashoffset: 0; animation: none; }
+}

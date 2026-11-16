@@ -1,13 +1,13 @@
 import Navbar from "@/components/Navbar";
 import { useMaintenant } from "@/hooks/useMaintenant";
-import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import BenefitsSection from "@/components/BenefitsSection";
 import CTASection from "@/components/CTASection";
+import { HeroAccueil } from "@/components/accueil/HeroAccueil";
+import { BandeauMetiers } from "@/components/accueil/BandeauMetiers";
+import { HistoireDefilement } from "@/components/accueil/HistoireDefilement";
+import { GrilleModules } from "@/components/accueil/GrilleModules";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import { faqJsonLd, organizationJsonLd, softwareAppJsonLd, websiteJsonLd } from "@/lib/seo-jsonld";
-import { TrustBadges } from "@/components/TrustBadges";
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
 import { ObligationsSection } from "@/components/ObligationsSection";
 import { SectionComparatif } from "@/components/SectionsContenu";
@@ -68,14 +68,10 @@ const Index = () => {
       />
       <Navbar />
       <main>
-        <HeroSection />
-        <section className="py-10 bg-background border-y border-border">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <TrustBadges />
-          </div>
-        </section>
-        <FeaturesSection />
-        <BenefitsSection />
+        <HeroAccueil />
+        <BandeauMetiers />
+        <HistoireDefilement />
+        <GrilleModules />
         <ObligationsSection />
         <SectionComparatif
           titre="Fiches papier ou logiciel HACCP : ce qui change"
