@@ -7,7 +7,7 @@ import tableauCcp from "@/assets/pms/tableau-ccp-petit.webp";
 const EncartPms = () => (
   <aside
     aria-label="Plan de Maîtrise Sanitaire gratuit"
-    className="not-article my-10 grid gap-6 overflow-hidden rounded-2xl border border-border bg-[#F4F7FA] p-6 sm:grid-cols-[9rem_1fr] sm:items-center sm:p-7"
+    className="not-article my-10 grid grid-cols-1 gap-6 overflow-hidden rounded-3xl border border-secondary/25 bg-secondary-light/60 p-5 sm:grid-cols-[9rem_1fr] sm:items-center sm:p-7"
   >
     <img
       src={tableauCcp}
@@ -19,14 +19,14 @@ const EncartPms = () => (
       className="hidden w-36 rotate-[-3deg] bg-white shadow-[0_10px_24px_-12px_rgba(0,38,77,.45)] sm:block"
     />
     <div>
-      <p className="font-heading text-lg font-semibold leading-snug text-foreground">
+      <p className="font-heading text-lg font-bold leading-snug text-foreground">
         Votre PMS prêt à imprimer, adapté à votre établissement
       </p>
       <p className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground">
         Tableau des CCP, plan de nettoyage, fiches de traçabilité et affichages. Gratuit, en 10 minutes.
       </p>
       <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <Button asChild variant="hero" size="lg">
+        <Button asChild variant="hero" size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3 text-center sm:w-auto">
           <Link to="/pms">Créer mon PMS gratuitement</Link>
         </Button>
         <Link

@@ -20,24 +20,29 @@ const AuteurAlan = () => {
       />
       <Navbar />
 
-      <main id="main-content" className="pb-24 pt-32 sm:pt-36 lg:pt-40">
-        <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          <header className="lg:col-span-4">
-            <Monogramme taille="lg" />
-            <h1 className="mt-6 font-heading text-4xl font-extrabold tracking-tight text-foreground">{AUTEUR.nom}</h1>
-            <p className="mt-2 text-lg text-muted-foreground">
-              {AUTEUR.role}, {AUTEUR.organisme}
-            </p>
+      <main id="main-content" className="pb-24 pt-28 sm:pt-32 lg:pb-32 lg:pt-36">
+        <div className="container mx-auto grid grid-cols-1 items-start gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+          <header className="relative overflow-hidden rounded-[2rem] bg-[hsl(211_100%_13%)] p-8 text-white lg:sticky lg:top-32 lg:col-span-4">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/50 blur-3xl" />
+            <div aria-hidden="true" className="pointer-events-none absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-secondary/25 blur-3xl" />
+            <div className="relative">
+              <Monogramme taille="lg" />
+              <p className="mt-6 text-sm font-bold uppercase tracking-[0.2em] text-secondary">L'auteur</p>
+              <h1 className="mt-2 font-heading text-[clamp(2.1rem,3.6vw,2.8rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">{AUTEUR.nom}</h1>
+              <p className="mt-3 text-lg text-white/75">
+                {AUTEUR.role}, {AUTEUR.organisme}
+              </p>
+            </div>
           </header>
 
-          <div className="lg:col-span-7 lg:col-start-6">
+          <div className="rounded-[2rem] border border-white/80 bg-white/90 p-6 shadow-[0_40px_80px_-50px_hsl(211_100%_20%/0.45)] sm:p-10 lg:col-span-8 lg:p-12">
             <div className="space-y-5 text-lg leading-relaxed text-foreground/85">
               {AUTEUR.bio.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
 
-            <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Ce qu'il a conçu sur LockHACCP</h2>
+            <h2 className="mt-14 font-heading text-[clamp(1.6rem,2.8vw,2.1rem)] font-extrabold tracking-[-0.02em] text-foreground">Ce qu'il a conçu sur LockHACCP</h2>
             <ul className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/85">
               <li>
                 <Link to="/plan-de-maitrise-sanitaire" className="font-semibold text-primary hover:underline">Le Plan de Maîtrise Sanitaire gratuit</Link>
@@ -53,7 +58,7 @@ const AuteurAlan = () => {
               </li>
             </ul>
 
-            <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Les sujets qu'il traite</h2>
+            <h2 className="mt-14 font-heading text-[clamp(1.6rem,2.8vw,2.1rem)] font-extrabold tracking-[-0.02em] text-foreground">Les sujets qu'il traite</h2>
             <p className="mt-6 text-lg leading-relaxed text-foreground/85">
               La méthode HACCP et le Plan de Maîtrise Sanitaire, les températures de conservation, le nettoyage et la
               désinfection, la traçabilité, les allergènes, les affichages obligatoires et le déroulé d'un contrôle de la
@@ -61,11 +66,11 @@ const AuteurAlan = () => {
               arrêté du 21 décembre 2009, code rural), avec un lien vers Légifrance ou EUR-Lex.
             </p>
 
-            <h2 className="mt-16 font-heading text-2xl font-bold text-foreground">Ses articles</h2>
-            <ul className="mt-6 border-t border-border">
+            <h2 className="mt-14 font-heading text-[clamp(1.6rem,2.8vw,2.1rem)] font-extrabold tracking-[-0.02em] text-foreground">Ses articles</h2>
+            <ul className="mt-6 space-y-3">
               {articles.map((a) => (
-                <li key={a.slug} className="border-b border-border">
-                  <Link to={`/blog/${a.slug}`} className="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                <li key={a.slug}>
+                  <Link to={`/blog/${a.slug}`} className="group flex flex-col gap-1 rounded-2xl border border-border/80 bg-[hsl(220_33%_98%)] px-5 py-4 transition-colors hover:border-primary/25 hover:bg-white sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                     <span className="font-heading font-semibold text-foreground group-hover:text-primary">{a.meta.titre}</span>
                     <time dateTime={a.meta.date} className="shrink-0 text-sm text-muted-foreground">
                       {dateLongue(a.meta.date)}

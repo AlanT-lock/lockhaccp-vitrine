@@ -18,7 +18,8 @@ import huileFriture from "@/assets/pms/huile-friture.webp";
 import reception from "@/assets/pms/reception.webp";
 import allergenes from "@/assets/pms/allergenes.webp";
 import lavageMains from "@/assets/pms/lavage-mains.webp";
-import appTemperatures from "@/assets/pms/app-temperatures.webp";
+import { VIDEOS_APP, VIDEO_HAUTEUR, VIDEO_LARGEUR } from "@/lib/videos-app";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import tableauCcpPetit from "@/assets/pms/tableau-ccp-petit.webp";
 import planNettoyagePetit from "@/assets/pms/plan-nettoyage-petit.webp";
 import releveTemperaturePetit from "@/assets/pms/releve-temperature-petit.webp";
@@ -37,7 +38,7 @@ const ILLUSTRATIONS: Record<string, { src: string; largeur: number; hauteur: num
   reception: { src: reception, largeur: 760, hauteur: 1075, legende: "Registre de réception des marchandises d'un dossier PMS LockHACCP", petit: [receptionPetit, 400] },
   allergenes: { src: allergenes, largeur: 1100, hauteur: 778, legende: "Tableau des allergènes d'un dossier PMS LockHACCP", petit: [allergenesPetit, 600] },
   "lavage-mains": { src: lavageMains, largeur: 760, hauteur: 1075, legende: "Affiche du lavage des mains d'un dossier PMS LockHACCP", petit: [lavageMainsPetit, 400] },
-  "app-temperatures": { src: appTemperatures, largeur: 560, hauteur: 782, legende: "Relevé des températures dans l'application LockHACCP" },
+  "app-temperatures": { src: VIDEOS_APP.tour.cle, largeur: VIDEO_LARGEUR, hauteur: VIDEO_HAUTEUR, legende: "Relevé des températures dans l'application LockHACCP : réfrigérateur de cuisine à 3 °C, conforme" },
 };
 
 const MARQUEUR_ENCART = "<!-- encart-pms -->";
@@ -132,13 +133,17 @@ const BlogArticle = () => {
       <Seo title={meta.titreSeo ?? meta.titre} description={meta.description} path={path} jsonLd={jsonLd} />
       <Navbar />
 
-      <main id="main-content" className="pb-20 pt-32 sm:pt-36 lg:pt-40">
+      <main id="main-content" className="pb-24 pt-28 sm:pt-32 lg:pb-32 lg:pt-36">
         <article className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <header className="max-w-[46rem]">
-            <Link to="/blog" className="text-sm font-semibold text-primary hover:underline hover:underline-offset-4">
+          <header className="max-w-[52rem]">
+            <Link
+              to="/blog"
+              className="group inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm"
+            >
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
               Ressources
             </Link>
-            <h1 className="mt-4 font-heading text-[2.1rem] font-extrabold leading-[1.1] tracking-[-0.015em] text-foreground sm:text-[2.6rem] lg:text-[2.9rem]">
+            <h1 className="mt-6 font-heading text-[clamp(2.1rem,4.4vw,3.5rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground">
               {meta.titre}
             </h1>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
@@ -163,8 +168,9 @@ const BlogArticle = () => {
             </div>
           </header>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,46rem)_15rem] lg:justify-between">
-            <div className="min-w-0">
+          <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,52rem)_15rem] lg:justify-between">
+            {/* Le texte dans une carte blanche : lecture confortable au-dessus du fond animé */}
+            <div className="min-w-0 rounded-[2rem] border border-white/80 bg-white/90 p-6 shadow-[0_40px_80px_-50px_hsl(211_100%_20%/0.45)] sm:p-10 lg:p-12">
               <section aria-labelledby="reponse-courte" className="rounded-r-2xl border-l-4 border-secondary bg-secondary-light px-6 py-5">
                 <h2 id="reponse-courte" className="font-heading text-base font-semibold text-foreground">
                   La réponse courte
@@ -173,7 +179,7 @@ const BlogArticle = () => {
               </section>
 
               {sommaire.length > 2 && (
-                <details className="mt-8 rounded-xl border border-border px-5 py-3 lg:hidden">
+                <details className="mt-8 rounded-2xl border border-border/80 bg-[hsl(220_33%_98%)] px-5 py-3 lg:hidden">
                   <summary className="cursor-pointer font-heading font-semibold text-foreground">Au sommaire</summary>
                   <ol className="mt-3 space-y-2 pb-2 text-[0.95rem]">
                     {sommaire.map((s) => (
@@ -216,8 +222,8 @@ const BlogArticle = () => {
 
             {sommaire.length > 2 && (
               <nav aria-label="Sommaire" className="hidden lg:block">
-                <div className="sticky top-36">
-                  <p className="font-heading text-sm font-semibold text-foreground">Au sommaire</p>
+                <div className="sticky top-32 rounded-3xl border border-border/80 bg-white/85 p-5">
+                  <p className="font-heading text-sm font-bold text-foreground">Au sommaire</p>
                   <ol className="mt-4 space-y-1 border-l border-border text-sm">
                     {sommaire.map((s) => (
                       <li key={s.id}>
@@ -243,15 +249,19 @@ const BlogArticle = () => {
 
         {recents.length > 0 && (
           <section aria-labelledby="a-lire-aussi" className="container mx-auto mt-20 px-4 sm:px-6 lg:px-8">
-            <h2 id="a-lire-aussi" className="font-heading text-2xl font-bold text-foreground">À lire aussi</h2>
-            <ul className="mt-6 grid gap-x-10 border-t border-border sm:grid-cols-3">
+            <h2 id="a-lire-aussi" className="font-heading text-[clamp(1.7rem,3vw,2.3rem)] font-extrabold tracking-[-0.02em] text-foreground">
+              À lire aussi
+            </h2>
+            <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {recents.map((a) => (
-                <li key={a.slug} className="border-b border-border py-5 sm:border-b-0">
-                  <Link to={`/blog/${a.slug}`} className="group block">
-                    <span className="font-heading font-semibold leading-snug text-foreground group-hover:text-primary">
-                      {a.meta.titre}
-                    </span>
-                    <span className="mt-2 block text-sm text-muted-foreground">{dateLongue(a.meta.date)}</span>
+                <li key={a.slug}>
+                  <Link
+                    to={`/blog/${a.slug}`}
+                    className="group relative flex h-full flex-col rounded-3xl border border-border/80 bg-white/85 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-white hover:shadow-[0_24px_50px_-24px_hsl(211_100%_20%/0.35)]"
+                  >
+                    <ArrowUpRight className="absolute right-5 top-5 h-5 w-5 text-primary/40 transition-colors group-hover:text-primary" />
+                    <span className="pr-7 font-heading text-lg font-bold leading-snug text-foreground group-hover:text-primary">{a.meta.titre}</span>
+                    <span className="mt-3 block text-sm text-muted-foreground">{dateLongue(a.meta.date)}</span>
                   </Link>
                 </li>
               ))}
