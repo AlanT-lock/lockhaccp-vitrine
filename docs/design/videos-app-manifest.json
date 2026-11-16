@@ -1,0 +1,72 @@
+[
+  {
+    "id": "tour",
+    "fichiers": [
+      "tour.mp4",
+      "tour.webm",
+      "tour-poster.webp",
+      "tour-cle.webp"
+    ],
+    "duree_s": 10.3,
+    "largeur": 780,
+    "hauteur": 1696,
+    "description": "Relevé du réfrigérateur de cuisine à 3 °C enregistré, puis deux surfaces de la plonge cochées dans le nettoyage du jour.",
+    "ecart_scenario": "Relevé à 3 °C avec les boutons − et + au lieu de 3,2 °C au clavier : quand le clavier est ouvert, le bouton « Ajouter » recouvre le champ. L'équipement s'appelle « Réfrigérateur cuisine ». Les surfaces cochées sont celles de la zone Plonge, la zone « Préparation » n'ayant aucune surface."
+  },
+  {
+    "id": "temperatures",
+    "fichiers": [
+      "temperatures.mp4",
+      "temperatures.webm",
+      "temperatures-poster.webp",
+      "temperatures-cle.webp"
+    ],
+    "duree_s": 8.9,
+    "largeur": 780,
+    "hauteur": 1696,
+    "description": "Relevé de la chambre froide à 7,4 °C, au-dessus de la limite : l'application demande une mesure corrective, deux actions sont choisies et le relevé est enregistré.",
+    "ecart_scenario": "La limite est fixe (4 °C maximum pour une enceinte positive) : l'application ne propose pas de consigne propre à la chambre froide. Actions choisies : « Produits transférés dans une autre enceinte froide » et « Technicien frigoriste appelé »."
+  },
+  {
+    "id": "etiquettes",
+    "fichiers": [
+      "etiquettes.mp4",
+      "etiquettes.webm",
+      "etiquettes-poster.webp",
+      "etiquettes-cle.webp"
+    ],
+    "duree_s": 7.1,
+    "largeur": 780,
+    "hauteur": 1696,
+    "description": "Production de 3 sauces béarnaises : la DLC est calculée automatiquement, le numéro de lot est proposé, puis la production est enregistrée.",
+    "ecart_scenario": "L'application n'affiche pas d'aperçu d'étiquette et l'impression passe par une étiqueteuse Wi-Fi. La vidéo montre le bouton « Enregistrer et imprimer les 3 étiquettes », puis enregistre sans imprimer pour revenir à l'accueil."
+  },
+  {
+    "id": "reception",
+    "fichiers": [
+      "reception.mp4",
+      "reception.webm",
+      "reception-poster.webp",
+      "reception-cle.webp"
+    ],
+    "duree_s": 8.9,
+    "largeur": 780,
+    "hauteur": 1696,
+    "description": "Photo d'un bon de livraison choisie dans la galerie : la lecture automatique reconnaît le fournisseur et 5 produits, puis la température des produits frais est saisie et la réception terminée.",
+    "ecart_scenario": "Sur le simulateur, la lecture automatique porte sur le bon de livraison (fournisseur et produits). La lecture du lot et de la DLC sur l'étiquette produit demande la caméra d'un vrai téléphone. Le bon de livraison « Boucherie Martin » est fictif."
+  },
+  {
+    "id": "historique",
+    "fichiers": [
+      "historique.mp4",
+      "historique.webm",
+      "historique-poster.webp",
+      "historique-cle.webp"
+    ],
+    "duree_s": 6.3,
+    "largeur": 780,
+    "hauteur": 1696,
+    "description": "Suivi de la journée avec les températures et les huiles faites, puis le nettoyage du jour avec ses 15 surfaces terminées.",
+    "ecart_scenario": "L'Historique n'a pas de vue semaine et l'export PDF affiche l'adresse réelle du compte : la vidéo montre à la place le suivi de la journée et le nettoyage du jour. Le nettoyage quotidien y figure « À venir », son créneau étant la fin de service (13 h)."
+  }
+]

@@ -266,3 +266,115 @@
 .article-corps tr:last-child td { border-bottom: 0; }
 .article-corps h2#sources { font-size: 1.15rem; margin-top: 3.2em; }
 .article-corps h2#sources ~ ul { font-size: 0.95rem; color: hsl(var(--muted-foreground)); }
+
+/* ============================================================
+   Refonte de l'accueil : téléphone 3D et animations éditoriales
+   (tout en CSS ; « réduire les animations » est respecté plus bas)
+   ============================================================ */
+
+/* --- Téléphone 3D --- */
+.telephone-scene { position: relative; perspective: 1600px; }
+.telephone-corps {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 3.1rem;
+  padding: 0.6rem;
+  background: linear-gradient(145deg, #3a4150 0%, #12161f 45%, #2b313d 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 7px #0b0e14,
+    0 50px 90px -30px hsl(211 100% 20% / 0.45),
+    0 25px 40px -20px rgba(0, 0, 0, 0.35);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation: telephone-flotte 7s ease-in-out infinite;
+}
+.telephone-bouton { position: absolute; width: 3px; border-radius: 2px; background: #2a303b; }
+.telephone-ecran {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2.55rem;
+  background: #eef2f8;
+  isolation: isolate;
+}
+.telephone-reflet {
+  pointer-events: none; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(115deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.08) 100%);
+}
+.telephone-ombre {
+  position: absolute; left: 12%; right: 12%; bottom: -2.2rem; height: 2.2rem;
+  border-radius: 50%; background: hsl(211 100% 20% / 0.35); filter: blur(18px);
+  animation: telephone-ombre 7s ease-in-out infinite;
+}
+@keyframes telephone-flotte {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+@keyframes telephone-ombre {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.88); opacity: 0.7; }
+}
+
+/* --- Fond de tout le site : halos néon qui dérivent (composant FondAnime) --- */
+.halo {
+  position: absolute; border-radius: 9999px; will-change: transform;
+  width: var(--taille); height: var(--taille);
+  background: radial-gradient(circle at center, var(--couleur) 0%, transparent 68%);
+  opacity: var(--opacite);
+}
+/* Bleus à gauche, orange à droite : ils se frôlent sans se mélanger (un bleu translucide sur
+   un orange donne un gris brunâtre). Déplacements surtout verticaux, en sens opposés. */
+.halo-bleu-1   { --taille: 44rem; --couleur: hsl(211 100% 55%); --opacite: 0.50; top: -12rem; left: -14rem; animation: halo-derive-1 32s ease-in-out infinite alternate; }
+.halo-bleu-2   { --taille: 36rem; --couleur: hsl(196 100% 50%); --opacite: 0.40; bottom: -14rem; left: 6%; animation: halo-derive-2 41s ease-in-out infinite alternate; }
+.halo-orange-1 { --taille: 38rem; --couleur: hsl(22 100% 58%);  --opacite: 0.46; top: 4%; right: -12rem; animation: halo-derive-3 37s ease-in-out infinite alternate; }
+.halo-orange-2 { --taille: 30rem; --couleur: hsl(32 100% 56%);  --opacite: 0.38; bottom: -6rem; right: 8%; animation: halo-derive-4 45s ease-in-out infinite alternate; }
+@media (max-width: 640px) {
+  .halo-bleu-1 { --taille: 26rem; } .halo-bleu-2 { --taille: 22rem; }
+  .halo-orange-1 { --taille: 22rem; } .halo-orange-2 { --taille: 18rem; }
+}
+@keyframes halo-derive-1 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(10vw, 30vh) scale(1.12); } 100% { transform: translate(3vw, 58vh) scale(0.95); } }
+@keyframes halo-derive-2 { 0% { transform: translate(0, 0) scale(1.05); } 50% { transform: translate(8vw, -34vh) scale(0.92); } 100% { transform: translate(-4vw, -60vh) scale(1.08); } }
+@keyframes halo-derive-3 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-9vw, 32vh) scale(0.9); } 100% { transform: translate(-2vw, 60vh) scale(1.1); } }
+@keyframes halo-derive-4 { 0% { transform: translate(0, 0) scale(0.95); } 50% { transform: translate(-8vw, -30vh) scale(1.1); } 100% { transform: translate(3vw, -58vh) scale(1); } }
+
+/* --- Accueil éditorial --- */
+.trait-souligne path { stroke-dasharray: 420; stroke-dashoffset: 420; animation: trait-souligne 1.1s cubic-bezier(.6,.1,.2,1) 0.5s forwards; }
+@keyframes trait-souligne { to { stroke-dashoffset: 0; } }
+
+/* Mise en avant d'une partie de titre : trait orange qui se dessine, et suit les retours à la ligne. */
+.accent-souligne {
+  background-image: linear-gradient(hsl(var(--secondary)), hsl(var(--secondary)));
+  background-repeat: no-repeat; background-position: 0 94%; background-size: 0% 0.11em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  animation: accent-souligne 1s cubic-bezier(.6,.1,.2,1) 0.4s forwards;
+}
+@keyframes accent-souligne { to { background-size: 100% 0.11em; } }
+
+/* Barres de progression qui se remplissent à l'affichage. */
+.barre-remplit { transform-origin: left; animation: barre-remplit 1.2s cubic-bezier(.2,.7,.2,1) 0.6s both; }
+@keyframes barre-remplit { from { transform: scaleX(0); } }
+
+/* Illustration qui flotte doucement (visuel du hero quand il n'y a pas de téléphone). */
+.flotte-doux { animation: puce-flotte 7s ease-in-out infinite; }
+
+.puce-preuve { opacity: 0; animation: puce-entre 0.7s cubic-bezier(.2,.7,.2,1) var(--d, 0s) forwards, puce-flotte 6s ease-in-out calc(var(--d, 0s) + 0.7s) infinite; }
+@keyframes puce-entre { from { opacity: 0; transform: translateY(16px) scale(0.92); } to { opacity: 1; transform: none; } }
+@keyframes puce-flotte { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+.defilement-metiers { animation: defilement-metiers 38s linear infinite; }
+.defilement-metiers:hover { animation-play-state: paused; }
+@keyframes defilement-metiers { to { transform: translateX(-50%); } }
+
+/* Changement de moment dans « Une journée en cuisine » : le nouvel écran arrive en fondu. */
+.histoire-ecran { animation: histoire-ecran 0.55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes histoire-ecran { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .telephone-corps, .telephone-ombre, .puce-preuve, .defilement-metiers, .halo { animation: none !important; }
+  .puce-preuve { opacity: 1; }
+  .trait-souligne path { stroke-dashoffset: 0; animation: none; }
+  .accent-souligne { animation: none; background-size: 100% 0.11em; }
+  .barre-remplit, .flotte-doux { animation: none; }
+}

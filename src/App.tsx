@@ -6,6 +6,7 @@ import RouteTracker from "./components/RouteTracker";
 import { PAGES_FIXES } from "./lib/pages";
 import { AdminDashboard, AdminLogin, BlogArticle, COMPOSANTS, NotFound } from "./routes";
 import { useApresMontage } from "./hooks/useApresMontage";
+import { FondAnime } from "./components/FondAnime";
 
 // Hors du chemin critique : chargés seulement une fois la page affichée et hydratée.
 const Notifications = lazy(() => import("./components/Notifications"));
@@ -52,6 +53,7 @@ export const AppProviders = ({
 
 export const AppContenu = () => (
   <>
+    <FondAnime />
     <NotificationsDifferees />
     <a
       href="#main-content"

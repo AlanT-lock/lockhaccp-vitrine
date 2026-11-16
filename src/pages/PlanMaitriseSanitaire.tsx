@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Check, FileText, Folder, FolderOpen } from "lucide-react";
+import { ArrowRight, Check, FileText, Folder, FolderOpen, Gift } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
@@ -9,7 +9,12 @@ import Classeur from "@/components/pms/Classeur";
 import { faqJsonLd } from "@/lib/seo-jsonld";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import { ARBORESCENCE, FAQ_PMS, NB_DOCUMENTS_EXEMPLE } from "@/lib/pms/presentation";
-import appTemperatures from "@/assets/pms/app-temperatures.webp";
+import { Accent, Surtitre, TITRE_H2 } from "@/components/design/elements";
+import { EcranVideo, Telephone3D } from "@/components/accueil/Telephone3D";
+import { VIDEOS_APP } from "@/lib/videos-app";
+import tableauCcp from "@/assets/pms/tableau-ccp-petit.webp";
+import releveTemperature from "@/assets/pms/releve-temperature-petit.webp";
+import planNettoyage from "@/assets/pms/plan-nettoyage-petit.webp";
 
 const GENERATEUR = "/pms";
 const ACTION = "Créer mon PMS gratuitement";
@@ -109,19 +114,17 @@ const ERREURS_PMS = [
 
 const texteCellule = (c: Cellule) => (typeof c === "string" ? c : c.texte);
 
-const BoutonGenerateur = ({ clair = false }: { clair?: boolean }) => (
-  <Button
-    asChild
-    size="xl"
-    variant={clair ? "outline" : "hero"}
-    className={clair ? "border-0 bg-white text-primary hover:bg-white/90 hover:text-primary" : "w-full sm:w-auto"}
-  >
-    <Link to={GENERATEUR}>{ACTION}</Link>
+const BoutonGenerateur = () => (
+  <Button asChild size="xl" variant="hero" className="group w-full sm:w-auto">
+    <Link to={GENERATEUR}>
+      {ACTION}
+      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+    </Link>
   </Button>
 );
 
 const PlanMaitriseSanitaire = () => (
-  <div className="min-h-screen bg-background">
+  <div className="min-h-screen">
     <Seo
       title="Plan de Maîtrise Sanitaire (PMS) gratuit"
       description="Créez gratuitement votre Plan de Maîtrise Sanitaire : tableau des CCP, plan de nettoyage, traçabilité et affichages obligatoires. Dossier PDF en 10 minutes."
@@ -132,11 +135,15 @@ const PlanMaitriseSanitaire = () => (
 
     <main id="main-content">
       {/* En-tête : la promesse à gauche, le vrai dossier à droite */}
-      <section className="pb-16 pt-32 sm:pt-36 lg:pb-24 lg:pt-40">
+      <section className="pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
         <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8">
           <div className="min-w-0 lg:col-span-5">
-            <h1 className="font-heading text-[2.4rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-[3.1rem]">
-              Plan de Maîtrise Sanitaire gratuit, fait pour votre établissement
+            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+              <Gift className="h-4 w-4" />
+              Gratuit, sans carte bancaire
+            </p>
+            <h1 className="font-heading text-[clamp(2.3rem,4.6vw,3.7rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground">
+              <Accent>Plan de Maîtrise Sanitaire gratuit</Accent>, fait pour votre établissement
             </h1>
             <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted-foreground">
               Répondez à quelques questions sur votre métier et vos équipements. Vous recevez par e-mail le
@@ -169,10 +176,10 @@ const PlanMaitriseSanitaire = () => (
       </section>
 
       {/* Définition, avec les textes de référence en marge */}
-      <section className="border-y border-border bg-[#F4F7FA] py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <article className="lg:col-span-7">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className={TITRE_H2}>
               Qu'est-ce qu'un Plan de Maîtrise Sanitaire ?
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-foreground">
@@ -181,7 +188,7 @@ const PlanMaitriseSanitaire = () => (
               appliquées au quotidien.
             </p>
             <p className="mt-4 leading-relaxed text-muted-foreground">Il repose sur trois piliers :</p>
-            <dl className="mt-6 space-y-6">
+            <dl className="mt-6 space-y-3">
               {[
                 [
                   "Les bonnes pratiques d'hygiène",
@@ -196,8 +203,8 @@ const PlanMaitriseSanitaire = () => (
                   "Les enregistrements qui montrent ce qui a été contrôlé, quand, par qui, et ce qui a été fait en cas de problème.",
                 ],
               ].map(([terme, definition]) => (
-                <div key={terme} className="grid gap-1 sm:grid-cols-[14rem_1fr] sm:gap-6">
-                  <dt className="font-heading font-semibold text-foreground">{terme}</dt>
+                <div key={terme} className="grid gap-1 rounded-2xl border border-border/80 bg-white/80 p-5 sm:grid-cols-[13rem_1fr] sm:gap-6">
+                  <dt className="font-heading font-bold text-foreground">{terme}</dt>
                   <dd className="leading-relaxed text-muted-foreground">{definition}</dd>
                 </div>
               ))}
@@ -209,7 +216,10 @@ const PlanMaitriseSanitaire = () => (
             </p>
           </article>
 
-          <aside className="lg:col-span-4 lg:col-start-9" aria-labelledby="titre-textes">
+          <aside
+            className="self-start rounded-3xl border border-border/80 bg-white/90 p-7 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:col-span-4 lg:col-start-9"
+            aria-labelledby="titre-textes"
+          >
             <h3 id="titre-textes" className="font-heading text-base font-semibold text-foreground">
               Ce que disent les textes
             </h3>
@@ -229,7 +239,7 @@ const PlanMaitriseSanitaire = () => (
       <section className="py-20 lg:py-28">
         <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:items-start lg:px-8">
           <div className="lg:col-span-5 lg:sticky lg:top-36">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className={TITRE_H2}>
               Le contenu de votre dossier, fichier par fichier
             </h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
@@ -244,7 +254,7 @@ const PlanMaitriseSanitaire = () => (
           </div>
 
           <div className="lg:col-span-6 lg:col-start-7">
-            <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-[0_24px_48px_-28px_rgba(0,38,77,.35)]">
+            <div className="overflow-hidden rounded-3xl border border-border/80 bg-white shadow-[0_30px_70px_-40px_hsl(211_100%_20%/0.45)]">
               <div className="flex items-center justify-between gap-4 border-b border-border bg-[#F4F7FA] px-5 py-3.5">
                 <span className="flex min-w-0 items-center gap-2.5 font-semibold text-foreground">
                   <FolderOpen className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
@@ -279,23 +289,26 @@ const PlanMaitriseSanitaire = () => (
       </section>
 
       {/* Les trois étapes (une vraie séquence) */}
-      <section className="border-t border-border py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <Surtitre>Comment ça marche</Surtitre>
+          <h2 className={`${TITRE_H2} max-w-3xl`}>
             Trois étapes, sans rendez-vous ni consultant
           </h2>
-          <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-0">
+          <ol className="mt-12 grid gap-4 md:grid-cols-3">
             {ETAPES.map((e, i) => (
-              <li key={e.titre} className="relative border-t-2 border-border pt-6 md:pr-10">
-                <span aria-hidden="true" className="absolute -top-[2px] left-0 h-[2px] w-16 bg-primary" />
-                <span aria-hidden="true" className="font-heading text-5xl font-extrabold leading-none text-primary">
+              <li key={e.titre} className="relative overflow-hidden rounded-3xl border border-border/80 bg-white/85 p-7 sm:p-8">
+                <span aria-hidden="true" className="pointer-events-none absolute -right-3 -top-6 font-heading text-[8rem] font-extrabold leading-none text-primary/[0.06]">
                   {i + 1}
                 </span>
-                <h3 className="mt-5 font-heading text-xl font-semibold text-foreground">
+                <span aria-hidden="true" className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-primary font-heading text-lg font-extrabold text-white">
+                  {i + 1}
+                </span>
+                <h3 className="relative mt-6 font-heading text-xl font-bold text-foreground">
                   <span className="sr-only">Étape {i + 1} : </span>
                   {e.titre}
                 </h3>
-                <p className="mt-3 max-w-sm leading-relaxed text-muted-foreground">{e.texte}</p>
+                <p className="relative mt-3 leading-relaxed text-muted-foreground">{e.texte}</p>
               </li>
             ))}
           </ol>
@@ -306,10 +319,10 @@ const PlanMaitriseSanitaire = () => (
       </section>
 
       {/* Métiers couverts */}
-      <section className="bg-[#F4F7FA] py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className={TITRE_H2}>
               Neuf métiers, neuf dossiers différents
             </h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
@@ -317,10 +330,10 @@ const PlanMaitriseSanitaire = () => (
               et le dossier changent avec le métier choisi.
             </p>
           </div>
-          <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+          <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
             {METIERS.map((m) => (
-              <div key={m.id} className="border-t border-border pt-4">
-                <dt className="font-heading font-semibold text-foreground">{m.libelle}</dt>
+              <div key={m.id} className="rounded-2xl border border-border/80 bg-white/85 p-5 transition-colors hover:border-primary/25">
+                <dt className="font-heading font-bold text-foreground">{m.libelle}</dt>
                 <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">{m.description}</dd>
               </div>
             ))}
@@ -331,24 +344,24 @@ const PlanMaitriseSanitaire = () => (
       {/* Comparatif */}
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className={`${TITRE_H2} max-w-3xl`}>
             Modèle gratuit, PMS payant ou LockHACCP ?
           </h2>
           <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
             Les trois façons les plus courantes d'obtenir un PMS, comparées sur ce qui compte le jour du contrôle.
           </p>
-          <div className="mt-10 overflow-x-auto rounded-2xl border border-border">
+          <div className="mt-10 overflow-x-auto rounded-3xl border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)]">
             <table className="w-full min-w-[640px] border-collapse text-left text-sm">
               <caption className="sr-only">Comparatif des façons d'obtenir un Plan de Maîtrise Sanitaire</caption>
               <thead>
                 <tr className="border-b border-border">
-                  <th scope="col" className="w-[28%] bg-white px-5 py-4 font-semibold text-muted-foreground">
+                  <th scope="col" className="w-[28%] px-5 py-4 font-semibold text-muted-foreground">
                     <span className="sr-only">Critère</span>
                   </th>
-                  <th scope="col" className="bg-white px-5 py-4 font-heading font-semibold text-foreground">
+                  <th scope="col" className="px-5 py-4 font-heading font-semibold text-foreground">
                     Modèle générique gratuit
                   </th>
-                  <th scope="col" className="bg-white px-5 py-4 font-heading font-semibold text-foreground">
+                  <th scope="col" className="px-5 py-4 font-heading font-semibold text-foreground">
                     PMS rédigé en ligne
                   </th>
                   <th scope="col" className="bg-primary px-5 py-4 font-heading font-semibold text-primary-foreground">
@@ -359,14 +372,14 @@ const PlanMaitriseSanitaire = () => (
               <tbody>
                 {COMPARATIF.map((ligne) => (
                   <tr key={ligne.critere} className="border-b border-border last:border-b-0">
-                    <th scope="row" className="bg-white px-5 py-4 font-medium text-foreground">
+                    <th scope="row" className="px-5 py-4 font-medium text-foreground">
                       {ligne.critere}
                     </th>
-                    <td className="bg-white px-5 py-4 text-muted-foreground">{texteCellule(ligne.generique)}</td>
-                    <td className="bg-white px-5 py-4 text-muted-foreground">{texteCellule(ligne.payant)}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{texteCellule(ligne.generique)}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{texteCellule(ligne.payant)}</td>
                     <td
                       className={[
-                        "bg-primary-light px-5 py-4 text-foreground",
+                        "bg-primary/[0.06] px-5 py-4 text-foreground",
                         typeof ligne.lockhaccp !== "string" && ligne.lockhaccp.fort ? "font-semibold" : "",
                       ].join(" ")}
                     >
@@ -381,10 +394,10 @@ const PlanMaitriseSanitaire = () => (
       </section>
 
       {/* Le papier ou l'application */}
-      <section className="border-t border-border bg-[#F4F7FA] py-20 lg:py-24">
+      <section className="py-20 lg:py-28">
         <div className="container mx-auto grid items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-6">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className={TITRE_H2}>
               Le classeur papier, ou l'application
             </h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
@@ -417,35 +430,42 @@ const PlanMaitriseSanitaire = () => (
               .
             </p>
           </div>
-          <div className="flex justify-center lg:col-span-5 lg:col-start-8">
-            <img
-              src={appTemperatures}
-              alt="Écran de relevé des températures dans l'application LockHACCP"
-              width={560}
-              height={782}
-              loading="lazy"
-              decoding="async"
-              className="w-full max-w-sm rounded-3xl shadow-[0_30px_60px_-30px_rgba(0,38,77,.55)]"
-            />
+          <div className="lg:col-span-5 lg:col-start-8">
+            {/* Visite de l'application : relevé du frigo puis nettoyage du jour */}
+            <div className="mx-auto w-[14rem] sm:w-[15.5rem] lg:w-[17rem]">
+              <Telephone3D inclinaison="gauche" suivreSouris>
+                <EcranVideo video={VIDEOS_APP.tour} />
+              </Telephone3D>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Erreurs fréquentes, vues en formation et en contrôle */}
-      <section className="border-t border-border py-20 lg:py-28">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-2xl font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      {/* Erreurs fréquentes, vues en formation et en contrôle : bande bleu nuit, le « moment contrôle » */}
+      <section className="relative overflow-hidden bg-[hsl(211_100%_13%)] py-20 text-white lg:py-28">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-40 top-0 h-[28rem] w-[28rem] rounded-full bg-primary/40 blur-3xl" />
+          <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-secondary/20 blur-3xl" />
+        </div>
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-secondary">Le contrôle sanitaire</p>
+          <h2 className="max-w-3xl font-heading text-[clamp(2rem,4.2vw,3.2rem)] font-extrabold leading-[1.06] tracking-[-0.03em]">
             Les erreurs qui font baisser la note d'un contrôle
           </h2>
-          <p className="mt-6 max-w-3xl leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/75">
             La différence entre « satisfaisant » et « à améliorer » sur Alim'confiance tient souvent autant aux
             documents qu'à la cuisine. Voici ce qui revient le plus souvent.
           </p>
-          <dl className="mt-12 grid gap-x-12 gap-y-8 md:grid-cols-2">
-            {ERREURS_PMS.map((e) => (
-              <div key={e.titre} className="border-l-2 border-primary/25 pl-5">
-                <dt className="font-heading text-lg font-semibold text-foreground">{e.titre}</dt>
-                <dd className="mt-2 leading-relaxed text-muted-foreground">{e.texte}</dd>
+          <dl className="mt-12 grid gap-x-12 md:grid-cols-2">
+            {ERREURS_PMS.map((e, i) => (
+              <div key={e.titre} className="flex gap-5 border-t border-white/10 py-7">
+                <span aria-hidden="true" className="font-heading text-sm font-extrabold tabular-nums text-secondary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <dt className="font-heading text-xl font-bold">{e.titre}</dt>
+                  <dd className="mt-2 leading-relaxed text-white/75">{e.texte}</dd>
+                </div>
               </div>
             ))}
           </dl>
@@ -455,19 +475,45 @@ const PlanMaitriseSanitaire = () => (
       <FaqSection items={FAQ_PMS} title="Questions fréquentes sur le PMS" />
 
       {/* Dernier appel */}
-      <section className="bg-primary py-20 text-primary-foreground lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+      <section className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
+        <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-5 py-14 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
+            <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
+          </div>
+          <div className="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+            <div className="text-center lg:col-span-7 lg:text-left">
+              <h2 className="font-heading text-[clamp(2.2rem,4.8vw,3.9rem)] font-extrabold leading-[1.02] tracking-[-0.03em] [text-wrap:balance]">
                 Votre PMS prêt avant le prochain contrôle
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-primary-foreground/80">
+              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80 lg:mx-0">
                 Dix minutes de questions, un dossier complet dans votre boîte e-mail.
               </p>
+              <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/85 lg:justify-start">
+                {["Environ 10 minutes", "Dossier PDF par e-mail", "Sans carte bancaire"].map((t) => (
+                  <li key={t} className="flex items-center gap-1.5">
+                    <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 flex justify-center lg:justify-start">
+                <Button variant="accent" size="xl" asChild className="group">
+                  <Link to={GENERATEUR}>
+                    {ACTION}
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <div className="shrink-0">
-              <BoutonGenerateur clair />
+            {/* Les vrais documents du dossier, en éventail */}
+            <div aria-hidden="true" className="relative mx-auto hidden h-72 w-80 lg:col-span-5 lg:block">
+              <img src={tableauCcp} alt="" loading="lazy" decoding="async" width={600} height={424}
+                className="absolute bottom-16 right-24 w-60 -rotate-6 rounded-md shadow-2xl" />
+              <img src={releveTemperature} alt="" loading="lazy" decoding="async" width={400} height={566}
+                className="absolute bottom-0 right-8 w-36 rotate-3 rounded-md shadow-2xl" />
+              <img src={planNettoyage} alt="" loading="lazy" decoding="async" width={400} height={566}
+                className="absolute -bottom-6 -right-6 w-32 rotate-12 rounded-md shadow-2xl" />
             </div>
           </div>
         </div>

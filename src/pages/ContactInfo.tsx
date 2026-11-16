@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, CheckCircle, Mail, Phone, MessageCircle, Clock } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ArrowRight, ArrowUpRight, CheckCircle, Mail, Phone, MessageCircle, Clock } from "lucide-react";
+import { Accent, TITRE_H2 } from "@/components/design/elements";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,7 +17,6 @@ import { breadcrumbJsonLd } from "@/lib/seo-jsonld";
 import { MESSAGE_CONTACT_CAPTEURS, SUJET_CONTACT_CAPTEURS } from "@/lib/capteurs";
 
 const ContactInfo = () => {
-  const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -119,221 +118,181 @@ const ContactInfo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Contacter LockHACCP : devis logiciel HACCP gratuit" description="Contactez LockHACCP par email ou téléphone (06.46.64.00.23). Devis gratuit, réponse sous 24h, accompagnement personnalisé." path="/contact" jsonLd={breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Contact",path:"/contact"}])} />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Contactez-<span className="text-primary">nous</span>
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Une question sur LockHACCP ? Notre équipe est là pour vous répondre.
-            </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/demander-demo">
-                Vous souhaitez une démo ? Cliquez ici
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-6">
-                  Nos coordonnées
-                </h2>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-1">Email</p>
-                      <a href="mailto:contact@lockhaccp.fr" className="text-muted-foreground hover:text-primary transition-colors">
-                        contact@lockhaccp.fr
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-1">Téléphone</p>
-                      <a href="tel:0646640023" className="text-muted-foreground hover:text-primary transition-colors">
-                        06.46.64.00.23
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-1">Délai de réponse</p>
-                      <p className="text-muted-foreground">Sous 24 h, par e-mail ou par téléphone.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* CTA Demo */}
-              <div className="bg-primary rounded-2xl p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary-foreground/20 flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-primary-foreground">
-                      Envie d'une démo ?
-                    </h3>
-                  </div>
-                </div>
-                <p className="text-primary-foreground/80 mb-6">
-                  Découvrez LockHACCP en action avec une démonstration personnalisée gratuite.
+      <main>
+        {/* En-tête : coordonnées à gauche, formulaire à droite */}
+        <section className="pb-20 pt-28 sm:pt-32 lg:pb-28 lg:pt-36">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
+              <div className="lg:col-span-5">
+                <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+                  <Clock className="h-4 w-4" />
+                  Réponse sous 24 h
                 </p>
-                <Button variant="accent" size="lg" className="w-full" asChild>
-                  <Link to="/demander-demo">
-                    Demander une démo gratuite
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </Button>
+                <h1 className="font-heading text-[clamp(2.4rem,5.6vw,4.4rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-foreground">
+                  Contactez-<Accent>nous</Accent>
+                </h1>
+                <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                  Une question sur LockHACCP ? Notre équipe est là pour vous répondre.
+                </p>
+
+                <h2 className="sr-only">Nos coordonnées</h2>
+                <ul className="mt-10 space-y-3">
+                  {[
+                    { icone: Mail, libelle: "Email", valeur: "contact@lockhaccp.fr", href: "mailto:contact@lockhaccp.fr" },
+                    { icone: Phone, libelle: "Téléphone", valeur: "06.46.64.00.23", href: "tel:0646640023" },
+                    { icone: Clock, libelle: "Délai de réponse", valeur: "Sous 24 h, par e-mail ou par téléphone.", href: null },
+                  ].map(({ icone: Icone, libelle, valeur, href }) => {
+                    const contenu = (
+                      <>
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-light text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                          <Icone className="h-5 w-5" />
+                        </span>
+                        <span>
+                          <span className="block text-sm text-muted-foreground">{libelle}</span>
+                          <span className="block font-heading text-lg font-bold text-foreground">{valeur}</span>
+                        </span>
+                      </>
+                    );
+                    return (
+                      <li key={libelle}>
+                        {href ? (
+                          <a
+                            href={href}
+                            className="group flex items-center gap-4 rounded-2xl border border-border/80 bg-white/85 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white"
+                          >
+                            {contenu}
+                          </a>
+                        ) : (
+                          <div className="flex items-center gap-4 rounded-2xl border border-border/80 bg-white/85 p-4">{contenu}</div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* Appel vers la démo */}
+                <div className="relative mt-6 overflow-hidden rounded-3xl bg-primary p-7 text-white">
+                  <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-secondary/30 blur-3xl" />
+                  <div className="relative">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15">
+                        <MessageCircle className="h-5 w-5" />
+                      </span>
+                      <h3 className="font-heading text-xl font-bold">Envie d'une démo ?</h3>
+                    </div>
+                    <p className="mt-4 text-white/80">Découvrez LockHACCP en action avec une démonstration personnalisée gratuite.</p>
+                    <Button variant="accent" size="lg" className="group mt-6 w-full sm:w-auto" asChild>
+                      <Link to="/demander-demo">
+                        Demander une démo gratuite
+                        <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Formulaire */}
+              <div id="formulaire" className="scroll-mt-28 lg:col-span-7">
+                {isSubmitted ? (
+                  <div className="rounded-[2rem] border border-white/80 bg-white/90 p-10 text-center shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-14">
+                    <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+                      <CheckCircle className="h-8 w-8 text-emerald-600" />
+                    </div>
+                    <h2 className="mb-4 font-heading text-2xl font-extrabold text-foreground">Message envoyé !</h2>
+                    <p className="mb-6 text-muted-foreground">Merci de nous avoir contactés. Nous vous répondons sous 24 h.</p>
+                    <Button variant="outline" onClick={() => setIsSubmitted(false)}>
+                      Envoyer un autre message
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="rounded-[2rem] border border-white/80 bg-white/90 p-7 shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-10">
+                    <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Posez-nous votre question</h2>
+                    <p className="mb-8 mt-2 text-muted-foreground">Nous vous répondons sous 24 h.</p>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="contactName">Votre nom *</Label>
+                          <Input
+                            id="contactName"
+                            name="contactName"
+                            placeholder="Jean Dupont"
+                            value={formData.contactName}
+                            onChange={handleInputChange}
+                            maxLength={100}
+                            required
+                            className="h-12 rounded-xl"
+                          />
+                          {errors.contactName && <p className="text-sm text-destructive">{errors.contactName}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="jean@example.fr"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            maxLength={255}
+                            required
+                            className="h-12 rounded-xl"
+                          />
+                          {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="message">Votre message *</Label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          placeholder="Comment pouvons-nous vous aider ?"
+                          rows={7}
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          maxLength={2000}
+                          required
+                          className="rounded-xl"
+                        />
+                        {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
+                      </div>
+
+                      <Button type="submit" variant="hero" size="xl" className="group w-full" disabled={isSubmitting}>
+                        {isSubmitting ? "Envoi en cours..." : "Envoyer mon message"}
+                        <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
-
-            {/* Form */}
-            <div
-              id="formulaire"
-              ref={formRef}
-              className={`scroll-mt-28 transition-all duration-700 ${
-                formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              {isSubmitted ? (
-                <div className="bg-card rounded-2xl p-12 border border-border shadow-card text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-                    Message envoyé !
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    Merci de nous avoir contactés. Nous vous répondons sous 24 h.
-                  </p>
-                  <Button variant="outline" onClick={() => setIsSubmitted(false)}>
-                    Envoyer un autre message
-                  </Button>
-                </div>
-              ) : (
-                <div className="bg-card rounded-2xl p-8 border border-border shadow-card">
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-2">
-                    Posez-nous votre question
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    Nous vous répondons sous 24 h.
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="contactName">Votre nom *</Label>
-                      <Input
-                        id="contactName"
-                        name="contactName"
-                        placeholder="Jean Dupont"
-                        value={formData.contactName}
-                        onChange={handleInputChange}
-                        maxLength={100}
-                        required
-                      />
-                      {errors.contactName && (
-                        <p className="text-sm text-destructive">{errors.contactName}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="jean@example.fr"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        maxLength={255}
-                        required
-                      />
-                      {errors.email && (
-                        <p className="text-sm text-destructive">{errors.email}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Votre message *</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        placeholder="Comment pouvons-nous vous aider ?"
-                        rows={6}
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        maxLength={2000}
-                        required
-                      />
-                      {errors.message && (
-                        <p className="text-sm text-destructive">{errors.message}</p>
-                      )}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="hero"
-                      size="xl"
-                      className="w-full"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Envoi en cours..." : "Envoyer mon message"}
-                      <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </form>
-                </div>
-              )}
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Orientation selon la demande */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Pour quelle demande nous contacter ?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Certaines réponses sont déjà sur le site. Pour le reste, le formulaire ci-dessus ou un appel suffit.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4">
+        {/* Orientation selon la demande */}
+        <section className="pb-24 pt-8 lg:pb-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 grid gap-6 lg:grid-cols-12 lg:items-end">
+              <h2 className={`${TITRE_H2} lg:col-span-7`}>Pour quelle demande nous contacter ?</h2>
+              <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">
+                Certaines réponses sont déjà sur le site. Pour le reste, le formulaire ci-dessus ou un appel suffit.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {DEMANDES.map((d) => (
                 <Link
                   key={d.to}
                   to={d.to}
-                  className="group block rounded-2xl border border-border bg-card p-6 shadow-card hover:border-primary/30 transition-colors"
+                  className="group relative block rounded-3xl border border-border/80 bg-white/85 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-white hover:shadow-[0_24px_50px_-24px_hsl(211_100%_20%/0.35)]"
                 >
-                  <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary mb-2">{d.titre}</h3>
+                  <ArrowUpRight className="absolute right-6 top-6 h-5 w-5 text-primary/40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                  <h3 className="mb-2 pr-8 font-heading text-xl font-bold text-foreground group-hover:text-primary">{d.titre}</h3>
                   <p className="text-muted-foreground">{d.texte}</p>
                 </Link>
               ))}
@@ -347,8 +306,8 @@ const ContactInfo = () => {
               <Link to="/mentions-legales" className="underline underline-offset-2 hover:text-primary">mentions légales</Link>.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

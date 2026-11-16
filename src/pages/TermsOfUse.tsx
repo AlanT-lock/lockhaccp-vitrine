@@ -1,16 +1,21 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
+import { Scale } from "lucide-react";
 
 const TermsOfUse = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Conditions générales d'utilisation" description="Conditions générales d'utilisation de LockHACCP : accès au service, abonnement sans engagement, résiliation, responsabilités et données personnelles." path="/cgu" />
       <Navbar />
       
-      <section className="pt-32 pb-16">
+      <main className="pb-24 pt-28 sm:pt-32 lg:pb-32 lg:pt-36">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h1 className="font-heading text-4xl font-bold text-foreground mb-4">
+          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+            <Scale className="h-4 w-4" />
+            Informations légales
+          </p>
+          <h1 className="font-heading text-[clamp(2.1rem,4.4vw,3.4rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground mb-4">
             Conditions Générales d'Utilisation (CGU)
           </h1>
           <p className="text-muted-foreground mb-8">Date de mise à jour : 07/10/2026</p>
@@ -27,9 +32,9 @@ const TermsOfUse = () => {
             <li><strong className="text-foreground">Site web :</strong> https://lockhaccp.fr</li>
           </ul>
 
-          <div className="prose prose-lg max-w-none space-y-8">
+          <div className="prose prose-lg max-w-none space-y-8 rounded-[2rem] border border-white/80 bg-white/90 p-6 shadow-[0_40px_80px_-50px_hsl(211_100%_20%/0.45)] sm:p-10 lg:p-12">
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">1. Objet</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">1. Objet</h2>
               <p className="text-muted-foreground">
                 LockHACCP est une application SaaS destinée aux professionnels de la restauration pour les aider à gérer leur plan de maîtrise sanitaire (PMS) et leurs obligations HACCP.
               </p>
@@ -39,7 +44,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">2. Accès à l'application</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">2. Accès à l'application</h2>
               <p className="text-muted-foreground">
                 L'accès à l'application est réservé aux utilisateurs ayant créé un compte, à titre gratuit ou payant.
               </p>
@@ -52,7 +57,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">3. Abonnement, essai gratuit et résiliation</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">3. Abonnement, essai gratuit et résiliation</h2>
               <p className="text-muted-foreground mb-4">
                 L'accès complet à l'application prend la forme d'un abonnement par établissement. Les tarifs en vigueur sont indiqués sur la page <a href="/tarifs" className="text-primary underline underline-offset-2 hover:no-underline">Tarifs</a>. Le paiement est géré par le prestataire de paiement Stripe ; LockHACCP n'a pas accès aux données de carte bancaire.
               </p>
@@ -65,7 +70,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">4. Fonctionnalités proposées</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">4. Fonctionnalités proposées</h2>
               <p className="text-muted-foreground">L'application LockHACCP permet notamment :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>Le suivi des relevés de températures</li>
@@ -82,7 +87,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">5. Obligations de l'utilisateur</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">5. Obligations de l'utilisateur</h2>
               <p className="text-muted-foreground">L'utilisateur s'engage à :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>Ne pas utiliser l'application à des fins illégales</li>
@@ -93,14 +98,14 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">6. Propriété intellectuelle</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">6. Propriété intellectuelle</h2>
               <p className="text-muted-foreground">
                 Tous les éléments de l'application et du site lockhaccp.fr (marques, textes, logos, visuels, structure…) sont la propriété exclusive de LockHACCP. Toute reproduction ou exploitation sans autorisation est interdite.
               </p>
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">7. Responsabilité</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">7. Responsabilité</h2>
               <p className="text-muted-foreground">
                 LockHACCP met tout en œuvre pour assurer un service de qualité, mais ne peut être tenu responsable :
               </p>
@@ -115,14 +120,14 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">8. Force majeure</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">8. Force majeure</h2>
               <p className="text-muted-foreground">
                 LockHACCP ne pourra être tenu responsable d'un retard ou d'un manquement à ses obligations résultant d'un cas de force majeure, au sens de l'article 1218 du Code civil.
               </p>
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">9. Données personnelles et cookies</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">9. Données personnelles et cookies</h2>
               <p className="text-muted-foreground">
                 L'utilisation de l'application implique la collecte de données à caractère personnel. Celles-ci sont traitées conformément à la <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">Politique de confidentialité</a>.
               </p>
@@ -132,7 +137,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">10. Suspension ou suppression de compte</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">10. Suspension ou suppression de compte</h2>
               <p className="text-muted-foreground">LockHACCP se réserve le droit de suspendre ou supprimer un compte utilisateur :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>En cas de non-respect des CGU</li>
@@ -145,7 +150,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">11. Modification des CGU</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">11. Modification des CGU</h2>
               <p className="text-muted-foreground">
                 LockHACCP se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés via l'application ou par email.
               </p>
@@ -155,7 +160,7 @@ const TermsOfUse = () => {
             </section>
 
             <section>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">12. Réclamations, loi applicable et juridiction</h2>
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">12. Réclamations, loi applicable et juridiction</h2>
               <p className="text-muted-foreground">
                 Toute réclamation peut être adressée à <a href="mailto:contact@lockhaccp.fr" className="text-primary underline underline-offset-2 hover:no-underline">contact@lockhaccp.fr</a> ou au 06 46 64 00 23. LockHACCP s'efforce d'y répondre sous 24 heures.
               </p>
@@ -165,7 +170,7 @@ const TermsOfUse = () => {
             </section>
           </div>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

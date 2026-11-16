@@ -4,10 +4,12 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { FaqSection } from "@/components/FaqSection";
 import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Accent, Surtitre, TITRE_H2 } from "@/components/design/elements";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
+  AlertTriangle,
+  Check,
   Bell,
   BatteryFull,
   CheckCircle,
@@ -38,16 +40,16 @@ import {
 const BoutonCommande = ({ variant = "hero" }: { variant?: "hero" | "accent" }) => {
   const lien = lienCommandeCapteurs();
   return (
-    <Button variant={variant} size="xl" asChild>
+    <Button variant={variant} size="xl" asChild className="group">
       {lien.externe ? (
         <a href={lien.href}>
           {lien.libelle}
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </a>
       ) : (
         <Link to={lien.href}>
           {lien.libelle}
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </Link>
       )}
     </Button>
@@ -105,235 +107,295 @@ const AVANTAGES = [
   },
 ];
 
-const CapteursConnectes = () => {
-  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
-  const { ref: etapesRef, isVisible: etapesVisible } = useScrollAnimation();
-  const { ref: avantagesRef, isVisible: avantagesVisible } = useScrollAnimation();
-
+/** Visuel du hero : une alerte en pleine nuit, et la façon dont elle remonte (exemple). */
+function AlerteDeNuit() {
+  const etapes = [
+    { heure: "2 h 14", texte: "Notification, e-mail et SMS au gérant" },
+    { heure: "2 h 44", texte: "SMS au deuxième contact" },
+    { heure: "2 h 51", texte: "« Je m'en occupe », porte mal fermée", fait: true },
+  ];
   return (
-    <div className="min-h-screen bg-background">
-      <Seo
-        title="Capteur de température connecté pour restaurant"
-        description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
-        path={CHEMIN_CAPTEURS}
-        jsonLd={[capteursProductJsonLd(), faqJsonLd(FAQ_CAPTEURS)]}
-      />
-      <Navbar />
-
-      <main>
-        {/* Hero */}
-        <section className="pt-32 pb-20 bg-gradient-hero overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div
-                ref={heroRef}
-                className={`transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
-                  <Radio className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-primary">
-                    Capteurs connectés{CAPTEURS_EN_VENTE ? "" : " : bientôt disponible"}
-                  </span>
-                </div>
-
-                <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                  Vos frigos <span className="text-primary">surveillés jour et nuit</span>
-                </h1>
-
-                <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
-                  Un petit capteur dans chaque frigo, chambre froide ou congélateur. Si la température monte, vous
-                  êtes prévenu tout de suite, même la nuit. Et les relevés s'écrivent tout seuls dans votre registre
-                  HACCP.
-                </p>
-
-                <p className="text-lg text-foreground mb-8">
-                  <span className="font-heading text-3xl font-bold text-primary">{formatPriceEUR(PRIX_CAPTEUR)}</span>{" "}
-                  par capteur, en paiement unique, + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle.
-                  <span className="block text-sm text-muted-foreground mt-1">
-                    Sans abonnement capteurs, livraison comprise, le matériel vous appartient. {MENTION_TVA}.
-                  </span>
-                </p>
-
-                <div className="flex flex-col items-start sm:flex-row gap-4">
-                  <BoutonCommande />
-                  <Button variant="heroOutline" size="xl" asChild>
-                    <Link to="/tarifs">Voir tous les tarifs</Link>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Exemple d'alerte */}
-              <div
-                className={`relative transition-all duration-700 ${heroVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}
-              >
-                <div className="bg-primary rounded-2xl p-8 text-primary-foreground max-w-md mx-auto">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-primary-foreground/20 flex items-center justify-center">
-                      <Thermometer className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="font-heading font-bold text-lg">Chambre froide</p>
-                      <p className="text-sm text-primary-foreground/70">Mesure il y a 4 min</p>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="bg-primary-foreground/10 rounded-xl p-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-primary-foreground/70">Température</span>
-                        <span className="text-xs px-2 py-1 bg-red-500/20 text-red-200 rounded-full">Alerte</span>
-                      </div>
-                      <p className="text-4xl font-heading font-bold">7,8 °C</p>
-                      <p className="text-xs text-primary-foreground/70 mt-1">Au-dessus de +4 °C depuis 35 min</p>
-                    </div>
-                    <div className="bg-primary-foreground/10 rounded-xl p-4 text-sm space-y-1">
-                      <p>2 h 14 : notification, e-mail et SMS au gérant</p>
-                      <p>2 h 44 : SMS au deuxième contact</p>
-                      <p>2 h 51 : « Je m'en occupe », porte mal fermée</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="relative mx-auto max-w-md">
+      <div className="relative overflow-hidden rounded-[2rem] bg-[hsl(211_100%_13%)] p-7 text-white shadow-[0_40px_80px_-40px_hsl(211_100%_15%/0.9)] sm:p-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/50 blur-3xl" />
+        <div className="relative">
+          <div className="flex items-center justify-between">
+            <span className="inline-flex items-center gap-2 text-sm text-white/70">
+              <Moon className="h-4 w-4 text-secondary" /> Cette nuit
+            </span>
+            <span className="whitespace-nowrap font-heading text-sm font-bold text-white/80">2 h 14</span>
           </div>
-        </section>
-
-        {/* Installation */}
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-              ref={etapesRef}
-              className={`text-center mb-12 transition-all duration-700 ${etapesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-            >
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Installé en 5 minutes, sans technicien
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Nous préparons le kit pour votre établissement. Vous n'avez rien à régler.
-              </p>
+          <div className="mt-6 rounded-2xl bg-white p-5 text-foreground">
+            <div className="flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-light text-primary">
+                <Thermometer className="h-5 w-5" />
+              </span>
+              <div className="flex-1">
+                <p className="font-heading font-bold">Chambre froide</p>
+                <p className="text-xs text-muted-foreground">Mesure il y a 4 min</p>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-1 text-xs font-bold text-red-700">
+                <AlertTriangle className="h-3.5 w-3.5" /> Alerte
+              </span>
             </div>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {ETAPES.map((e, i) => (
-                <div key={e.titre} className="bg-card rounded-2xl p-6 border border-border shadow-card">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm">
-                      {i + 1}
-                    </span>
-                    <e.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">{e.titre}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{e.texte}</p>
-                </div>
-              ))}
-            </div>
+            <p className="mt-4 font-heading text-5xl font-extrabold tracking-tight text-red-700">7,8 °C</p>
+            <p className="mt-1 text-sm text-muted-foreground">Au-dessus de +4 °C depuis 35 min</p>
           </div>
-        </section>
-
-        {/* Avantages */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-              ref={avantagesRef}
-              className={`text-center mb-12 transition-all duration-700 ${avantagesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-            >
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Ce que font les capteurs pour vous
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Une panne de froid peut coûter tout un stock. Les capteurs vous laissent le temps d'agir.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {AVANTAGES.map((a) => (
-                <div
-                  key={a.titre}
-                  className="bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 border border-border hover:border-primary/20"
+          <ol className="mt-6 space-y-3">
+            {etapes.map((e) => (
+              <li key={e.heure} className="flex items-start gap-3 text-sm">
+                <span
+                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                    e.fait ? "bg-emerald-500" : "bg-white/15"
+                  }`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                    <a.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">{a.titre}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{a.texte}</p>
-                </div>
-              ))}
+                  {e.fait ? <Check className="h-3 w-3 text-white" strokeWidth={3} /> : <Bell className="h-3 w-3 text-secondary" />}
+                </span>
+                <span className="shrink-0 whitespace-nowrap font-heading font-bold tabular-nums text-white">{e.heure}</span>
+                <span className="text-white/75">{e.texte}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <div className="flotte-doux absolute -left-10 -top-5 hidden items-center sm:flex gap-2 rounded-2xl border border-white/60 bg-white/90 py-2 pl-2 pr-4 shadow-[0_12px_30px_-12px_hsl(211_100%_20%/0.35)]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-light">
+          <Radio className="h-[1.125rem] w-[1.125rem] text-primary" />
+        </span>
+        <span className="text-left">
+          <span className="block text-[0.8rem] font-bold text-foreground">Une mesure toutes les 10 min</span>
+          <span className="block text-[0.7rem] text-muted-foreground">Jour et nuit</span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+const CapteursConnectes = () => (
+  <div className="min-h-screen">
+    <Seo
+      title="Capteur de température connecté pour restaurant"
+      description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
+      path={CHEMIN_CAPTEURS}
+      jsonLd={[capteursProductJsonLd(), faqJsonLd(FAQ_CAPTEURS)]}
+    />
+    <Navbar />
+
+    <main>
+      {/* En-tête */}
+      <section className="relative overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-10">
+            <div className="text-center lg:col-span-7 lg:text-left">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+                <Radio className="h-4 w-4" />
+                Capteurs connectés{CAPTEURS_EN_VENTE ? "" : " : bientôt disponible"}
+              </p>
+              <h1 className="font-heading text-[clamp(2.3rem,5.4vw,4.3rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-foreground">
+                Vos frigos <Accent>surveillés jour et nuit</Accent>
+              </h1>
+              <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl lg:mx-0">
+                Un petit capteur dans chaque frigo, chambre froide ou congélateur. Si la température monte, vous êtes
+                prévenu tout de suite, même la nuit. Et les relevés s'écrivent tout seuls dans votre registre HACCP.
+              </p>
+              <div className="mx-auto mt-8 inline-flex flex-col items-center gap-1 rounded-2xl border border-border/80 bg-white/85 px-6 py-4 lg:mx-0 lg:items-start">
+                <p className="text-foreground">
+                  <span className="font-heading text-4xl font-extrabold tracking-tight text-primary">{formatPriceEUR(PRIX_CAPTEUR)}</span>{" "}
+                  par capteur, en paiement unique, + {formatPriceEUR(PRIX_PASSERELLE)} pour la passerelle.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Sans abonnement capteurs, livraison comprise, le matériel vous appartient. {MENTION_TVA}.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
+                <BoutonCommande />
+                <Button variant="heroOutline" size="xl" asChild>
+                  <Link to="/tarifs">Voir tous les tarifs</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="lg:col-span-5">
+              <AlerteDeNuit />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Prix et comparaison */}
-        <section className="py-20 bg-muted">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4 text-center">
-              Vous payez une fois, c'est à vous
-            </h2>
-            <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-              Passerelle {formatPriceEUR(PRIX_PASSERELLE)} (une par établissement) et {formatPriceEUR(PRIX_CAPTEUR)} par
-              capteur, livraison comprise. Exemple : 3 frigos et 1 congélateur, 4 capteurs, soit{" "}
-              {formatPriceEUR(prixKit(4))} une seule fois. Les relevés automatiques et les alertes fonctionnent avec
-              votre abonnement LockHACCP, ou pendant votre période d'essai.
+      {/* Installation */}
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-14 max-w-3xl text-center">
+            <Surtitre>Installation</Surtitre>
+            <h2 className={TITRE_H2}>Installé en 5 minutes, sans technicien</h2>
+            <p className="mt-5 text-lg text-muted-foreground">Nous préparons le kit pour votre établissement. Vous n'avez rien à régler.</p>
+          </div>
+          <ol className="relative mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+            <span aria-hidden="true" className="absolute left-[16%] right-[16%] top-7 hidden h-px bg-gradient-to-r from-primary/10 via-primary/30 to-primary/10 md:block" />
+            {ETAPES.map((e, i) => (
+              <li key={e.titre} className="relative rounded-3xl border border-border/80 bg-white/80 p-7 text-center md:border-0 md:bg-transparent md:p-0">
+                <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white shadow-[0_14px_30px_-12px_hsl(211_100%_26%/0.6)]">
+                  <e.icon className="h-6 w-6" />
+                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-xs font-extrabold text-secondary-foreground">
+                    {i + 1}
+                  </span>
+                </span>
+                <h3 className="mt-6 font-heading text-lg font-bold text-foreground">{e.titre}</h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground md:px-3">{e.texte}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Avantages */}
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 grid gap-6 lg:mb-16 lg:grid-cols-12 lg:items-end">
+            <h2 className={`${TITRE_H2} lg:col-span-7`}>Ce que font les capteurs pour vous</h2>
+            <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">
+              Une panne de froid peut coûter tout un stock. Les capteurs vous laissent le temps d'agir.
             </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {AVANTAGES.map((a, i) => (
+              <div
+                key={a.titre}
+                className="group rounded-3xl border border-border/80 bg-white/80 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-white hover:shadow-[0_24px_50px_-24px_hsl(211_100%_20%/0.35)]"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                    <a.icon className="h-6 w-6" />
+                  </span>
+                  <span aria-hidden="true" className="font-heading text-sm font-extrabold tabular-nums text-primary/20">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mt-6 font-heading text-lg font-bold text-foreground">{a.titre}</h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{a.texte}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <ul className="grid sm:grid-cols-2 gap-3 mb-12">
-              {POINTS_CAPTEURS.map((p) => (
-                <li key={p} className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-foreground">{p}</span>
-                </li>
-              ))}
-            </ul>
+      {/* Prix et comparaison */}
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
+            <div className="relative overflow-hidden bg-[hsl(211_100%_13%)] p-8 text-white sm:p-12">
+              <div aria-hidden="true" className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/50 blur-3xl" />
+              <div className="relative">
+                <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-secondary">Le prix</p>
+                <h2 className="font-heading text-[clamp(1.9rem,3.6vw,2.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">
+                  Vous payez une fois, c'est à vous
+                </h2>
+                <p className="mt-6 leading-relaxed text-white/75">
+                  Passerelle {formatPriceEUR(PRIX_PASSERELLE)} (une par établissement) et {formatPriceEUR(PRIX_CAPTEUR)} par
+                  capteur, livraison comprise. Exemple : 3 frigos et 1 congélateur, 4 capteurs, soit{" "}
+                  {formatPriceEUR(prixKit(4))} une seule fois. Les relevés automatiques et les alertes fonctionnent avec
+                  votre abonnement LockHACCP, ou pendant votre période d'essai.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-white/[0.08] p-5">
+                    <p className="font-heading text-3xl font-extrabold text-secondary">{formatPriceEUR(PRIX_CAPTEUR)}</p>
+                    <p className="mt-1 text-sm text-white/70">par capteur</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/[0.08] p-5">
+                    <p className="font-heading text-3xl font-extrabold text-white">{formatPriceEUR(PRIX_PASSERELLE)}</p>
+                    <p className="mt-1 text-sm text-white/70">la passerelle</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-8 sm:p-12">
+              <ul className="space-y-3">
+                {POINTS_CAPTEURS.map((p) => (
+                  <li key={p} className="flex items-start gap-3 text-foreground">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-light">
+                      <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                    </span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <BoutonCommande />
+              </div>
+            </div>
+          </div>
 
-            <h3 className="font-heading text-2xl font-bold text-foreground mb-4 text-center">
+          <div className="mx-auto mt-20 max-w-4xl">
+            <h3 className="mb-8 text-center font-heading text-[clamp(1.6rem,3vw,2.2rem)] font-extrabold tracking-[-0.02em] text-foreground">
               Comparé aux offres habituelles
             </h3>
-            <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-card">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left">
-                    <th scope="col" className="p-4 font-semibold text-foreground"></th>
-                    <th scope="col" className="p-4 font-semibold text-primary">LockHACCP</th>
-                    <th scope="col" className="p-4 font-semibold text-muted-foreground">Offres habituelles</th>
+            <div className="rounded-3xl border border-border/80 bg-white/90 p-2 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.4)] sm:p-3">
+              <table className="block w-full text-left sm:table">
+                <thead className="hidden sm:table-header-group">
+                  <tr>
+                    <th scope="col" className="w-[30%] px-5 py-4" />
+                    <th scope="col" className="rounded-t-2xl bg-primary px-5 py-4 text-sm font-semibold text-white">LockHACCP</th>
+                    <th scope="col" className="px-5 py-4 text-sm font-semibold text-muted-foreground">Offres habituelles</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {COMPARAISON_CAPTEURS.map((l) => (
-                    <tr key={l.critere} className="border-b border-border last:border-0">
-                      <th scope="row" className="p-4 text-left font-medium text-foreground">{l.critere}</th>
-                      <td className="p-4 text-foreground">{l.lockhaccp}</td>
-                      <td className="p-4 text-muted-foreground">{l.marche}</td>
+                <tbody className="block sm:table-row-group">
+                  {COMPARAISON_CAPTEURS.map((l, i) => (
+                    <tr key={l.critere} className="block border-b border-border/70 p-4 last:border-0 sm:table-row sm:p-0">
+                      <th scope="row" className="block pb-3 font-heading font-bold text-foreground sm:table-cell sm:px-5 sm:py-5">
+                        {l.critere}
+                      </th>
+                      <td
+                        className={`flex gap-2 rounded-xl bg-primary-light/60 p-3 text-foreground sm:table-cell sm:rounded-none sm:bg-primary/[0.06] sm:px-5 sm:py-5 ${
+                          i === COMPARAISON_CAPTEURS.length - 1 ? "sm:rounded-b-2xl" : ""
+                        }`}
+                      >
+                        <span className="shrink-0 font-semibold text-primary sm:hidden">LockHACCP :</span>
+                        {l.lockhaccp}
+                      </td>
+                      <td className="flex gap-2 pt-2 text-muted-foreground sm:table-cell sm:px-5 sm:py-5">
+                        <span className="shrink-0 font-semibold text-muted-foreground/80 sm:hidden">Ailleurs :</span>
+                        {l.marche}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-muted-foreground mt-3 text-center">
-              Offres habituelles : fourchettes constatées en octobre 2026 sur les offres publiques de capteurs
-              connectés pour la restauration. Chaque offre a ses conditions : comparez avant de choisir.
+            <p className="mt-4 text-center text-xs text-muted-foreground">
+              Offres habituelles : fourchettes constatées en octobre 2026 sur les offres publiques de capteurs connectés
+              pour la restauration. Chaque offre a ses conditions : comparez avant de choisir.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <FaqSection
-          items={FAQ_CAPTEURS}
-          title="Questions fréquentes sur les capteurs"
-          description="Ce qu'il faut savoir avant d'équiper vos frigos."
-        />
+      <FaqSection
+        items={FAQ_CAPTEURS}
+        title="Questions fréquentes sur les capteurs"
+        description="Ce qu'il faut savoir avant d'équiper vos frigos."
+      />
 
-        {/* CTA */}
-        <section className="py-20 bg-gradient-hero">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">
-                Dormez tranquille, vos frigos sont surveillés
-              </h2>
-              <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                {CAPTEURS_EN_VENTE
-                  ? "Ajoutez des capteurs dans l'application (Paramètres > Capteurs connectés) ou sur app.lockhaccp.fr, dans Abonnement. Le kit part préconfiguré."
-                  : "Les capteurs arrivent très bientôt. Laissez-nous un message, nous vous prévenons dès qu'ils sont disponibles."}
-              </p>
+      {/* Dernier appel */}
+      <section className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
+        <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-5 py-14 text-center text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
+            <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
+          </div>
+          <div className="relative mx-auto max-w-3xl">
+            <h2 className="font-heading text-[clamp(2.2rem,4.8vw,3.9rem)] font-extrabold leading-[1.02] tracking-[-0.03em] [text-wrap:balance]">
+              Dormez tranquille, vos frigos sont surveillés
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
+              {CAPTEURS_EN_VENTE
+                ? "Ajoutez des capteurs dans l'application (Paramètres > Capteurs connectés) ou sur app.lockhaccp.fr, dans Abonnement. Le kit part préconfiguré."
+                : "Les capteurs arrivent très bientôt. Laissez-nous un message, nous vous prévenons dès qu'ils sont disponibles."}
+            </p>
+            <div className="mt-10">
               <BoutonCommande variant="accent" />
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       <RelatedLinks
         items={[
@@ -342,9 +404,9 @@ const CapteursConnectes = () => {
           { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
         ]}
       />
-      <Footer />
-    </div>
-  );
-};
+    </main>
+    <Footer />
+  </div>
+);
 
 export default CapteursConnectes;

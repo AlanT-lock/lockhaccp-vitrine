@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, CheckCircle, Calendar, Users, Headphones, Clock } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ArrowRight, CheckCircle, Calendar, Gift, Users, Headphones, Clock } from "lucide-react";
+import { Accent } from "@/components/design/elements";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -31,12 +31,11 @@ const FAQ_DEMO = [
   { question: "La démonstration est-elle payante ?", answer: "Non, elle est gratuite et ne vous engage à rien." },
   { question: "Faut-il installer quelque chose pour la démo ?", answer: "Non. Vous recevez un lien Google Meet, qui s'ouvre depuis un navigateur ou l'application Meet." },
   { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 1 mois est accessible directement, sans carte bancaire et sans engagement." },
-  { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Non. LockHACCP a besoin d'une connexion internet, en Wi-Fi ou en réseau mobile." },
+  { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Oui. L'application fonctionne hors connexion, même dans une chambre froide ou une réserve où le réseau passe mal." },
   { question: "Où sont hébergées mes données ?", answer: "En Europe, chez Supabase, dans le respect du RGPD." },
 ];
 
 const ContactDemo = () => {
-  const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -167,91 +166,69 @@ const ContactDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Demander une démo gratuite du logiciel HACCP" description="Réservez 30 min de démonstration personnalisée du logiciel HACCP LockHACCP. Découvrez comment digitaliser vos contrôles sanitaires dès demain." path="/demander-demo" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Demander une démo",path:"/demander-demo"}]), faqJsonLd(FAQ_DEMO)]} />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-              <span className="text-sm font-semibold text-secondary-texte">🎁 Essai gratuit de 1 mois inclus</span>
-            </div>
-            <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Demandez votre <span className="text-primary">démo gratuite</span>
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Découvrez comment LockHACCP peut simplifier votre conformité HACCP. 
-              Notre équipe vous accompagne dans la mise en place de votre solution.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="py-12 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="sr-only">Ce que comprend la démonstration</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="flex items-start gap-4 bg-card rounded-xl p-4 border border-border"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary-light flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </div>
+      <main>
+        {/* En-tête : ce que comprend la démo à gauche, le formulaire à droite */}
+        <section className="pb-20 pt-28 sm:pt-32 lg:pb-28 lg:pt-36">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
+              <div className="lg:col-span-5 lg:sticky lg:top-32">
+                <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-white/70 px-4 py-1.5 text-sm font-semibold text-secondary-texte shadow-sm">
+                  <Gift className="h-4 w-4" />
+                  Essai gratuit de 1 mois inclus
+                </p>
+                <h1 className="font-heading text-[clamp(2.3rem,5vw,4rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-foreground">
+                  Demandez votre <Accent>démo gratuite</Accent>
+                </h1>
+                <p className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                  Découvrez comment LockHACCP peut simplifier votre conformité HACCP. Notre équipe vous accompagne dans la
+                  mise en place de votre solution.
+                </p>
+                <h2 className="sr-only">Ce que comprend la démonstration</h2>
+                <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                  {benefits.map((benefit) => (
+                    <li key={benefit.title} className="flex items-start gap-4 rounded-2xl border border-border/80 bg-white/85 p-4">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                        <benefit.icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-heading font-bold text-foreground">{benefit.title}</h3>
+                        <p className="mt-0.5 text-sm text-muted-foreground">{benefit.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Contact Form Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto">
-            <div
-              ref={formRef}
-              className={`transition-all duration-700 ${
-                formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              {isSubmitted ? (
-                <div className="bg-card rounded-2xl p-12 border border-border shadow-card text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-8 h-8 text-green-600" />
+              <div className="lg:col-span-7">
+                {isSubmitted ? (
+                  <div className="rounded-[2rem] border border-white/80 bg-white/90 p-10 text-center shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-14">
+                    <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+                      <CheckCircle className="h-8 w-8 text-emerald-600" />
+                    </div>
+                    <h2 className="mb-4 font-heading text-2xl font-extrabold text-foreground">Demande de démo envoyée !</h2>
+                    <p className="mb-6 text-muted-foreground">
+                      Merci pour votre intérêt pour LockHACCP. Notre équipe vous contactera dans les prochaines 24h pour
+                      organiser votre démonstration gratuite.
+                    </p>
+                    <Button variant="outline" onClick={() => setIsSubmitted(false)}>
+                      Envoyer une autre demande
+                    </Button>
                   </div>
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-                    Demande de démo envoyée !
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    Merci pour votre intérêt pour LockHACCP. Notre équipe vous contactera 
-                    dans les prochaines 24h pour organiser votre démonstration gratuite.
-                  </p>
-                  <Button variant="outline" onClick={() => setIsSubmitted(false)}>
-                    Envoyer une autre demande
-                  </Button>
-                </div>
-              ) : (
-                <div className="bg-card rounded-2xl p-8 border border-border shadow-card">
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
-                    Planifiez votre démonstration
-                  </h2>
-                  <p className="text-muted-foreground text-center mb-8">
-                    Remplissez le formulaire et nous vous recontacterons rapidement.
-                  </p>
+                ) : (
+                  <div className="rounded-[2rem] border border-white/80 bg-white/90 p-7 shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-10">
+                    <h2 className="font-heading text-2xl font-extrabold text-foreground sm:text-3xl">Planifiez votre démonstration</h2>
+                    <p className="mb-8 mt-2 text-muted-foreground">Remplissez le formulaire et nous vous recontacterons rapidement.</p>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="companyName">Nom de l'entreprise *</Label>
                         <Input
+                          className="h-12 rounded-xl"
                           id="companyName"
                           name="companyName"
                           placeholder="Restaurant Le Gourmet"
@@ -267,6 +244,7 @@ const ContactDemo = () => {
                       <div className="space-y-2">
                         <Label htmlFor="contactName">Votre nom *</Label>
                         <Input
+                          className="h-12 rounded-xl"
                           id="contactName"
                           name="contactName"
                           placeholder="Jean Dupont"
@@ -281,10 +259,11 @@ const ContactDemo = () => {
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="email">Email professionnel *</Label>
                         <Input
+                          className="h-12 rounded-xl"
                           id="email"
                           name="email"
                           type="email"
@@ -301,6 +280,7 @@ const ContactDemo = () => {
                       <div className="space-y-2">
                         <Label htmlFor="phone">Téléphone *</Label>
                         <Input
+                          className="h-12 rounded-xl"
                           id="phone"
                           name="phone"
                           type="tel"
@@ -318,7 +298,7 @@ const ContactDemo = () => {
                     <div className="space-y-2">
                       <Label htmlFor="companySize">Taille de votre établissement</Label>
                       <Select onValueChange={handleSelectChange} value={formData.companySize}>
-                        <SelectTrigger id="companySize">
+                        <SelectTrigger id="companySize" className="h-12 rounded-xl">
                           <SelectValue placeholder="Sélectionnez une option" />
                         </SelectTrigger>
                         <SelectContent>
@@ -338,6 +318,7 @@ const ContactDemo = () => {
                         name="message"
                         placeholder="Décrivez vos besoins spécifiques..."
                         rows={4}
+                        className="rounded-xl"
                         value={formData.message}
                         onChange={handleInputChange}
                         maxLength={2000}
@@ -351,25 +332,26 @@ const ContactDemo = () => {
                       type="submit"
                       variant="hero"
                       size="xl"
-                      className="w-full"
+                      className="group w-full"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Envoi en cours..." : "Demander ma démo gratuite"}
-                      <ArrowRight className="w-5 h-5" />
+                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </form>
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <SectionEtapes titre="Comment se déroule la démonstration ?" etapes={ETAPES_DEMO} />
 
       <RelatedLinks title="Ce que vous pourrez voir pendant la démo" items={TOUTES_FONCTIONNALITES} />
 
       <FaqSection items={FAQ_DEMO} title="Questions fréquentes sur la démo" />
+      </main>
 
       <Footer />
     </div>

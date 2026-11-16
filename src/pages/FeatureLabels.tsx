@@ -1,288 +1,136 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Tag, Printer, QrCode, Calendar, Edit, Wifi, CheckCircle } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
-import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
-import { CONTENUS } from "@/lib/contenus-fonctionnalites";
-import { faqJsonLd } from "@/lib/seo-jsonld";
-import { APP_URL } from "@/lib/links";
+import { Calendar, Edit, Hash, Printer, QrCode, Tag, Wifi } from "lucide-react";
+import {
+  Accent,
+  CarteIllustration,
+  PageFonctionnalite,
+  SectionDuo,
+  TelephoneHero,
+  type Atout,
+} from "@/components/fonctionnalite/PageFonctionnalite";
+import { VIDEOS_APP } from "@/lib/videos-app";
 
-const FeatureLabels = () => {
-  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
-  const { ref: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
-  const { ref: demoRef, isVisible: demoVisible } = useScrollAnimation();
+const ATOUTS: Atout[] = [
+  { icone: Edit, titre: "Création rapide", texte: "Créez vos étiquettes en quelques clics avec des modèles personnalisables." },
+  { icone: Printer, titre: "Impression directe", texte: "Envoyez vos étiquettes directement vers votre étiqueteuse, sans ordinateur." },
+  { icone: Calendar, titre: "DLC automatique", texte: "Calculez automatiquement les DLC/DDM selon vos règles de conservation." },
+  { icone: QrCode, titre: "N° de lot et allergènes", texte: "L'étiquette porte le nom du produit, la date, la DLC, l'heure, un numéro de lot et les allergènes." },
+  { icone: Tag, titre: "Multi-formats", texte: "Trois formats d'étiquettes : 29 × 62 mm, 38 × 90 mm et 50 × 80 mm." },
+  { icone: Wifi, titre: "Étiqueteuses compatibles", texte: "Compatible avec les étiqueteuses Brother, Zebra et Epson en réseau." },
+];
 
-  const keyFeatures = [
-    {
-      icon: Edit,
-      title: "Création rapide",
-      description: "Créez vos étiquettes en quelques clics avec des modèles personnalisables."
-    },
-    {
-      icon: Printer,
-      title: "Impression directe",
-      description: "Envoyez vos étiquettes directement vers votre étiqueteuse, sans ordinateur."
-    },
-    {
-      icon: Calendar,
-      title: "DLC automatique",
-      description: "Calculez automatiquement les DLC/DDM selon vos règles de conservation."
-    },
-    {
-      icon: QrCode,
-      title: "N° de lot et allergènes",
-      description: "L'étiquette porte le nom du produit, la date, la DLC, l'heure, un numéro de lot et les allergènes."
-    },
-    {
-      icon: Tag,
-      title: "Multi-formats",
-      description: "Trois formats d'étiquettes : 29 × 62 mm, 38 × 90 mm et 50 × 80 mm."
-    },
-    {
-      icon: Wifi,
-      title: "Étiqueteuses compatibles",
-      description: "Compatible avec les étiqueteuses Brother, Zebra et Epson en réseau."
-    }
-  ];
+// Étiquette imprimée pour la production de la vidéo (sauce béarnaise, DLC et lot proposés par l'application).
+// Les allergènes de la béarnaise : œufs et lait (beurre).
+const INFOS_ETIQUETTE = [
+  { libelle: "Produit", valeur: "Sauce béarnaise" },
+  { libelle: "Production", valeur: "16/11/2026 · 11 h 36" },
+  { libelle: "DLC", valeur: "18/11/2026" },
+  { libelle: "Lot", valeur: "113616112026" },
+  { libelle: "Allergènes", valeur: "Œufs, lait" },
+];
 
-  const labelInfo = [
-    { label: "Produit", value: "Sauce bolognaise maison" },
-    { label: "Date de production", value: "12/01/2025" },
-    { label: "DLC", value: "15/01/2025" },
-    { label: "Lot", value: "LOT-2025-0112-001" },
-    { label: "Allergènes", value: "Gluten, Céleri" },
-    { label: "Conservation", value: "0°C à 4°C" },
-  ];
-
+function ApercuEtiquette() {
   return (
-    <div className="min-h-screen bg-background">
-      <Seo title="Étiquettes DLC : logiciel et application pour imprimer" description="Imprimez des étiquettes DLC conformes depuis votre téléphone : date limite calculée, n° de lot, allergènes. Étiqueteuses Brother, Zebra et Epson." path="/fonctionnalites/etiquettes" jsonLd={faqJsonLd(CONTENUS.etiquettes.faq.items)} />
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={heroRef}
-            className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
-              heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-light border border-secondary/10 mb-6">
-              <Tag className="w-4 h-4 text-secondary" />
-              <span className="text-sm font-medium text-secondary-texte">Création d'étiquettes</span>
-            </div>
-            
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              <span className="text-primary">Étiquettes DLC</span> conformes, imprimées depuis votre téléphone
-            </h1>
-            
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Le logiciel calcule la date limite de chaque préparation, ajoute le numéro de lot et les allergènes,
-              et envoie l'étiquette directement vers votre étiqueteuse DLC, sans ordinateur.
-            </p>
-            
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild>
-                <a href={APP_URL}>
-                  Essayer gratuitement
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" asChild>
-                <Link to="/demander-demo">
-                  Demander une démo
-                </Link>
-              </Button>
-            </div>
-          </div>
+    <div className="mx-auto max-w-sm">
+      <CarteIllustration className="relative -rotate-2 border-dashed border-border !p-0 transition-transform duration-500 hover:rotate-0">
+        <div className="flex items-center justify-between border-b border-dashed border-border px-6 py-4">
+          <span className="font-heading font-extrabold text-foreground">LockHACCP</span>
+          <QrCode className="h-8 w-8 text-foreground" />
         </div>
-      </section>
-
-      {/* Key Features */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={featuresRef}
-            className={`text-center mb-16 transition-all duration-700 ${
-              featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Des étiquettes professionnelles en quelques clics
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Tout ce qu'il vous faut pour étiqueter vos productions conformément aux normes.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {keyFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className={`bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 border border-border hover:border-secondary/20 ${
-                    featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-secondary-light flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-secondary" />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Demo Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div 
-              ref={demoRef}
-              className={`order-2 lg:order-1 transition-all duration-700 ${
-                demoVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-              }`}
-            >
-              {/* Label Preview */}
-              <div className="bg-card rounded-2xl p-6 shadow-card border-2 border-dashed border-border">
-                <div className="bg-background rounded-xl p-6 border border-border">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded bg-primary flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold text-xs">LH</span>
-                      </div>
-                      <span className="font-heading font-bold text-sm text-foreground">LockHACCP</span>
-                    </div>
-                    <div className="w-16 h-16 bg-muted rounded flex items-center justify-center">
-                      <QrCode className="w-12 h-12 text-foreground" />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {labelInfo.map((item, index) => (
-                      <div 
-                        key={item.label}
-                        className={`flex justify-between text-sm transition-all duration-500 ${
-                          demoVisible ? "opacity-100" : "opacity-0"
-                        }`}
-                        style={{ transitionDelay: `${400 + index * 75}ms` }}
-                      >
-                        <span className="text-muted-foreground">{item.label}</span>
-                        <span className="font-medium text-foreground">{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-center text-xs text-muted-foreground mt-4">
-                  Aperçu de l'étiquette générée
-                </p>
-              </div>
+        <dl className="space-y-2.5 px-6 py-5">
+          {INFOS_ETIQUETTE.map((i) => (
+            <div key={i.libelle} className="flex justify-between gap-4 text-sm">
+              <dt className="text-muted-foreground">{i.libelle}</dt>
+              <dd className={`text-right font-semibold ${i.libelle === "DLC" ? "text-secondary-texte" : "text-foreground"}`}>{i.valeur}</dd>
             </div>
+          ))}
+        </dl>
+      </CarteIllustration>
+      <p className="mt-5 text-center text-sm text-muted-foreground">Exemple d'étiquette imprimée</p>
+    </div>
+  );
+}
 
-            <div className={`order-1 lg:order-2 transition-all duration-700 ${
-              demoVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-            }`}>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Étiquettes conformes <span className="text-secondary-texte">automatiquement</span>
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Renseignez le produit, LockHACCP calcule automatiquement la DLC selon vos règles 
-                et génère une étiquette complète avec toutes les mentions obligatoires.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  "Calcul automatique des DLC/DDM",
-                  "Mentions obligatoires intégrées",
-                  "Gestion des allergènes",
-                  "Numéro de lot automatique",
-                  "Impression en un clic"
-                ].map((item, index) => (
-                  <div 
-                    key={item}
-                    className={`flex items-center gap-3 transition-all duration-500 ${
-                      demoVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-                    }`}
-                    style={{ transitionDelay: `${300 + index * 100}ms` }}
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+function BandeauEtiqueteuses() {
+  return (
+    <section className="pb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-between gap-6 rounded-3xl border border-border/80 bg-white/80 px-6 py-8 text-center sm:px-10 lg:flex-row lg:text-left">
+          <div>
+            <h3 className="font-heading text-xl font-bold text-foreground">Compatible avec les étiqueteuses Brother, Zebra et Epson</h3>
+            <p className="mt-1 text-muted-foreground">Impression directe depuis l'application, sur une étiqueteuse en réseau.</p>
           </div>
-        </div>
-      </section>
-
-      {/* Printers Section */}
-      <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h3 className="font-heading text-xl font-bold text-foreground mb-2">
-              Compatible avec les étiqueteuses Brother, Zebra et Epson
-            </h3>
-            <p className="text-muted-foreground">
-              Impression directe depuis l'application, sur une étiqueteuse en réseau.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8 items-center">
-            {["Brother", "Zebra", "Epson"].map((brand) => (
-              <span key={brand} className="text-xl font-heading font-bold text-muted-foreground">
-                {brand}
+          <div className="flex flex-wrap justify-center gap-3">
+            {["Brother", "Zebra", "Epson"].map((marque) => (
+              <span key={marque} className="rounded-2xl border border-border bg-white px-6 py-3 font-heading text-lg font-extrabold text-foreground/80">
+                {marque}
               </span>
             ))}
           </div>
         </div>
-      </section>
-
-      <ContenuFonctionnalite id="etiquettes" />
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">
-              Simplifiez l'étiquetage de vos productions
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Essayez LockHACCP et créez vos premières étiquettes en quelques minutes.
-            </p>
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="xl" asChild>
-                <a href={APP_URL}>
-                  Démarrer l'essai gratuit
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                <Link to="/">
-                  Retour à l'accueil
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <RelatedLinks items={[...FEATURE_RELATED.etiquettes]} />
-      <Footer />
-    </div>
+      </div>
+    </section>
   );
-};
+}
+
+const FeatureLabels = () => (
+  <PageFonctionnalite
+    id="etiquettes"
+    seo={{
+      title: "Étiquettes DLC : logiciel et application pour imprimer",
+      description:
+        "Imprimez des étiquettes DLC conformes depuis votre téléphone : date limite calculée, n° de lot, allergènes. Étiqueteuses Brother, Zebra et Epson.",
+    }}
+    icone={Tag}
+    etiquette="Création d'étiquettes"
+    titre={
+      <>
+        <Accent>Étiquettes DLC</Accent> conformes, imprimées depuis votre téléphone
+      </>
+    }
+    intro="Le logiciel calcule la date limite de chaque préparation, ajoute le numéro de lot et les allergènes, et envoie l'étiquette directement vers votre étiqueteuse DLC, sans ordinateur."
+    visuel={
+      <TelephoneHero
+        video={VIDEOS_APP.etiquettes}
+        puces={[
+          { icone: Calendar, titre: "Sauce béarnaise × 3", detail: "DLC secondaire calculée" },
+          { icone: Hash, titre: "Numéro de lot", detail: "Proposé automatiquement" },
+        ]}
+      />
+    }
+    atouts={{
+      titre: "Des étiquettes professionnelles en quelques clics",
+      intro: "Tout ce qu'il vous faut pour étiqueter vos productions conformément aux normes.",
+      items: ATOUTS,
+    }}
+    cta={{
+      titre: "Simplifiez l'étiquetage de vos productions",
+      texte: "Essayez LockHACCP et créez vos premières étiquettes en quelques minutes.",
+      capture: {
+        src: VIDEOS_APP.etiquettes.cle,
+        alt: "Écran de production : sauce béarnaise, DLC secondaire calculée et numéro de lot proposé",
+      },
+    }}
+  >
+    <SectionDuo
+      inverse
+      surtitre="Automatique"
+      titre={
+        <>
+          Étiquettes conformes <span className="text-secondary-texte">automatiquement</span>
+        </>
+      }
+      texte="Renseignez le produit, LockHACCP calcule automatiquement la DLC selon vos règles et génère une étiquette complète avec toutes les mentions obligatoires."
+      points={[
+        "Calcul automatique des DLC/DDM",
+        "Mentions obligatoires intégrées",
+        "Gestion des allergènes",
+        "Numéro de lot automatique",
+        "Impression en un clic",
+      ]}
+      visuel={<ApercuEtiquette />}
+    />
+    <BandeauEtiqueteuses />
+  </PageFonctionnalite>
+);
 
 export default FeatureLabels;

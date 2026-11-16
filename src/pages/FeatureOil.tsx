@@ -1,289 +1,171 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Droplets, Gauge, History, AlertTriangle, FileText, TrendingDown, CheckCircle } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
-import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
-import { CONTENUS } from "@/lib/contenus-fonctionnalites";
-import { faqJsonLd } from "@/lib/seo-jsonld";
-import { APP_URL } from "@/lib/links";
+import { AlertTriangle, Droplets, FileText, Gauge, History, TrendingDown } from "lucide-react";
+import {
+  Accent,
+  CarteIllustration,
+  PageFonctionnalite,
+  SectionDuo,
+  type Atout,
+} from "@/components/fonctionnalite/PageFonctionnalite";
+import { VIDEOS_APP } from "@/lib/videos-app";
 
-const FeatureOil = () => {
-  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
-  const { ref: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
-  const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollAnimation();
+const ATOUTS: Atout[] = [
+  { icone: Gauge, titre: "Enregistrement des tests", texte: "Enregistrez les résultats de vos tests polaires avec seuils de conformité personnalisables." },
+  { icone: History, titre: "Suivi de l'historique", texte: "Consultez l'évolution de la qualité de chaque bain d'huile dans le temps." },
+  { icone: AlertTriangle, titre: "Alertes de changement", texte: "Recevez des alertes lorsque l'huile approche du seuil de remplacement." },
+  { icone: FileText, titre: "Changements tracés", texte: "Chaque changement d'huile est enregistré avec la date et la personne qui l'a fait." },
+  { icone: TrendingDown, titre: "Prêt pour le contrôle", texte: "L'historique des tests et des changements se montre en quelques secondes à l'inspecteur." },
+  { icone: Droplets, titre: "Multi-friteuses", texte: "Gérez plusieurs friteuses avec identification claire de chaque équipement." },
+];
 
-  const keyFeatures = [
-    {
-      icon: Gauge,
-      title: "Enregistrement des tests",
-      description: "Enregistrez les résultats de vos tests polaires avec seuils de conformité personnalisables."
-    },
-    {
-      icon: History,
-      title: "Suivi de l'historique",
-      description: "Consultez l'évolution de la qualité de chaque bain d'huile dans le temps."
-    },
-    {
-      icon: AlertTriangle,
-      title: "Alertes de changement",
-      description: "Recevez des alertes lorsque l'huile approche du seuil de remplacement."
-    },
-    {
-      icon: FileText,
-      title: "Changements tracés",
-      description: "Chaque changement d'huile est enregistré avec la date et la personne qui l'a fait."
-    },
-    {
-      icon: TrendingDown,
-      title: "Prêt pour le contrôle",
-      description: "L'historique des tests et des changements se montre en quelques secondes à l'inspecteur."
-    },
-    {
-      icon: Droplets,
-      title: "Multi-friteuses",
-      description: "Gérez plusieurs friteuses avec identification claire de chaque équipement."
-    }
-  ];
+const REPERES = [
+  { valeur: "25 %", titre: "Seuil réglementaire", texte: "Taux de composés polaires maximum autorisé" },
+  { valeur: "Quotidien", titre: "Fréquence recommandée", texte: "Test à effectuer chaque jour d'utilisation" },
+  { valeur: "Daté", titre: "Enregistrement", texte: "Chaque test et chaque changement, avec son auteur" },
+];
 
-  const regulations = [
-    {
-      title: "Seuil réglementaire",
-      value: "25%",
-      description: "Taux de composés polaires maximum autorisé"
-    },
-    {
-      title: "Fréquence recommandée",
-      value: "Quotidien",
-      description: "Test à effectuer chaque jour d'utilisation"
-    },
-    {
-      title: "Enregistrement",
-      value: "Daté",
-      description: "Chaque test et chaque changement, avec son auteur"
-    }
-  ];
+const ECHELLE_MAX = 30;
 
+/** Jauge d'un test : taux mesuré sur une échelle de 0 à 30 %, seuil réglementaire à 25 %. */
+function Jauge({ taux }: { taux: number }) {
+  const surveillance = taux >= 20;
   return (
-    <div className="min-h-screen bg-background">
-      <Seo title="Contrôle huile de friture HACCP" description="Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort." path="/fonctionnalites/huiles" jsonLd={faqJsonLd(CONTENUS.huiles.faq.items)} />
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={heroRef}
-            className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
-              heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-light border border-primary/10 mb-6">
-              <Droplets className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Contrôle huiles de friture</span>
-            </div>
-            
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              <span className="text-primary">Contrôle des huiles de friture</span> : maîtrisez leur qualité
-            </h1>
-            
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Testez, enregistrez et suivez la conformité de vos huiles de friture. 
-              Restez en règle avec la réglementation, sans fiche papier.
-            </p>
-            
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild>
-                <a href={APP_URL}>
-                  Essayer gratuitement
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" asChild>
-                <Link to="/demander-demo">
-                  Demander une démo
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Regulations Section */}
-      <section className="py-12 bg-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-6">
-            {regulations.map((reg, index) => (
-              <div 
-                key={reg.title}
-                className="text-center text-primary-foreground"
-              >
-                <p className="text-4xl font-heading font-bold mb-2">{reg.value}</p>
-                <p className="font-medium mb-1">{reg.title}</p>
-                <p className="text-sm text-primary-foreground/70">{reg.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Key Features */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={featuresRef}
-            className={`text-center mb-16 transition-all duration-700 ${
-              featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Un suivi complet de vos huiles de friture
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              De l'enregistrement du test à la génération du rapport, tout est simplifié.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {keyFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className={`bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 border border-border hover:border-primary/20 ${
-                    featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={benefitsRef}
-            className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-          >
-            <div className={`transition-all duration-700 ${
-              benefitsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-            }`}>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-6">
-                Pourquoi contrôler vos <span className="text-secondary-texte">huiles de friture</span> ?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Au-delà de l'obligation réglementaire, le contrôle régulier des huiles de friture 
-                garantit la qualité de vos produits et la santé de vos clients.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  "Conformité à la réglementation HACCP",
-                  "Prévention des risques pour la santé",
-                  "Amélioration du goût des produits frits",
-                  "Traçabilité complète pour les contrôles"
-                ].map((item, index) => (
-                  <div 
-                    key={item}
-                    className={`flex items-center gap-3 transition-all duration-500 ${
-                      benefitsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-                    }`}
-                    style={{ transitionDelay: `${300 + index * 100}ms` }}
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={`bg-card rounded-2xl p-6 shadow-card border border-border transition-all duration-700 ${
-              benefitsVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-            }`}>
-              <h3 className="font-heading font-bold text-foreground mb-6">Dernier test enregistré</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-green-50 rounded-xl border border-green-200">
-                  <div>
-                    <p className="font-medium text-foreground">Friteuse #1</p>
-                    <p className="text-sm text-muted-foreground">Test du 12/01/2025</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-heading font-bold text-green-600">18%</p>
-                    <p className="text-xs text-green-600">Conforme</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between p-4 bg-secondary-light rounded-xl border border-secondary/20">
-                  <div>
-                    <p className="font-medium text-foreground">Friteuse #2</p>
-                    <p className="text-sm text-muted-foreground">Test du 12/01/2025</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-heading font-bold text-secondary-texte">22%</p>
-                    <p className="text-xs text-secondary-texte">Surveillance</p>
-                  </div>
-                </div>
-                
-                <div className="p-4 bg-muted rounded-xl">
-                  <p className="text-sm text-muted-foreground mb-2">Prochains changements prévus</p>
-                  <p className="font-medium text-foreground">Friteuse #2 : dans ~3 jours</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ContenuFonctionnalite id="huiles" />
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">
-              Simplifiez le contrôle de vos huiles
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Essayez LockHACCP gratuitement et digitalisez vos contrôles d'huile de friture.
-            </p>
-            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="xl" asChild>
-                <a href={APP_URL}>
-                  Démarrer l'essai gratuit
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                <Link to="/">
-                  Retour à l'accueil
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <RelatedLinks items={[...FEATURE_RELATED.huiles]} />
-      <Footer />
+    <div>
+      <div className="relative h-3 rounded-full bg-muted">
+        <div
+          className={`barre-remplit h-full rounded-full ${surveillance ? "bg-secondary" : "bg-emerald-500"}`}
+          style={{ width: `${(taux / ECHELLE_MAX) * 100}%` }}
+        />
+        <span aria-hidden="true" className="absolute -top-1.5 h-6 w-0.5 rounded bg-red-500" style={{ left: `${(25 / ECHELLE_MAX) * 100}%` }} />
+      </div>
+      <div className="relative mt-1.5 h-4 text-[0.7rem] text-muted-foreground">
+        <span className="absolute left-0">0 %</span>
+        <span className="absolute -translate-x-1/2 whitespace-nowrap text-red-600" style={{ left: `${(25 / ECHELLE_MAX) * 100}%` }}>
+          seuil 25 %
+        </span>
+      </div>
     </div>
   );
-};
+}
+
+// Visuel du hero : le dernier test enregistré (exemple).
+function CarteTest() {
+  return (
+    <div className="relative mx-auto max-w-sm">
+      <CarteIllustration className="flotte-doux">
+        <div className="flex items-center gap-3">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-light text-secondary-texte">
+            <Droplets className="h-6 w-6" />
+          </span>
+          <div>
+            <p className="font-heading text-lg font-bold text-foreground">Friteuse n° 1</p>
+            <p className="text-sm text-muted-foreground">Test du jour · 11 h 05</p>
+          </div>
+        </div>
+        <div className="mt-7 flex items-end justify-between">
+          <div>
+            <p className="text-sm text-muted-foreground">Composés polaires</p>
+            <p className="font-heading text-6xl font-extrabold tracking-tight text-foreground">18 %</p>
+          </div>
+          <span className="mb-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700">Conforme</span>
+        </div>
+        <div className="mt-6">
+          <Jauge taux={18} />
+        </div>
+      </CarteIllustration>
+    </div>
+  );
+}
+
+// Les friteuses de l'établissement (exemple).
+function CarteFriteuses() {
+  const friteuses = [
+    { nom: "Friteuse n° 1", taux: 18, statut: "Conforme", classe: "bg-emerald-50 text-emerald-700" },
+    { nom: "Friteuse n° 2", taux: 22, statut: "Surveillance", classe: "bg-secondary-light text-secondary-texte" },
+  ];
+  return (
+    <CarteIllustration className="mx-auto max-w-md">
+      <p className="font-heading text-lg font-bold text-foreground">Dernier test enregistré</p>
+      <ul className="mt-6 space-y-6">
+        {friteuses.map((f) => (
+          <li key={f.nom}>
+            <div className="mb-3 flex items-center justify-between">
+              <span className="font-semibold text-foreground">{f.nom}</span>
+              <span className="flex items-center gap-2">
+                <span className="font-heading text-xl font-extrabold text-foreground">{f.taux} %</span>
+                <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${f.classe}`}>{f.statut}</span>
+              </span>
+            </div>
+            <Jauge taux={f.taux} />
+          </li>
+        ))}
+      </ul>
+    </CarteIllustration>
+  );
+}
+
+function BandeReperes() {
+  return (
+    <section className="pb-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {REPERES.map((r) => (
+            <div key={r.titre} className="rounded-3xl bg-secondary p-7 text-secondary-foreground">
+              <p className="font-heading text-4xl font-extrabold tracking-tight">{r.valeur}</p>
+              <p className="mt-3 font-semibold">{r.titre}</p>
+              <p className="mt-1 text-sm text-secondary-foreground/80">{r.texte}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FeatureOil = () => (
+  <PageFonctionnalite
+    id="huiles"
+    seo={{
+      title: "Contrôle huile de friture HACCP",
+      description: "Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort.",
+    }}
+    icone={Droplets}
+    etiquette="Contrôle huiles de friture"
+    titre={
+      <>
+        <Accent>Contrôle des huiles de friture</Accent> : maîtrisez leur qualité
+      </>
+    }
+    intro="Testez, enregistrez et suivez la conformité de vos huiles de friture. Restez en règle avec la réglementation, sans fiche papier."
+    visuel={<CarteTest />}
+    atouts={{
+      titre: "Un suivi complet de vos huiles de friture",
+      intro: "De l'enregistrement du test à la génération du rapport, tout est simplifié.",
+      items: ATOUTS,
+    }}
+    cta={{
+      titre: "Simplifiez le contrôle de vos huiles",
+      texte: "Essayez LockHACCP gratuitement et digitalisez vos contrôles d'huile de friture.",
+      capture: { src: VIDEOS_APP.tour.cle, alt: "Écran des températures : réfrigérateur de cuisine à 3 °C, conforme" },
+    }}
+  >
+    <BandeReperes />
+    <SectionDuo
+      surtitre="Pourquoi"
+      titre={
+        <>
+          Pourquoi contrôler vos <span className="text-secondary-texte">huiles de friture</span> ?
+        </>
+      }
+      texte="Au-delà de l'obligation réglementaire, le contrôle régulier des huiles de friture garantit la qualité de vos produits et la santé de vos clients."
+      points={[
+        "Conformité à la réglementation HACCP",
+        "Prévention des risques pour la santé",
+        "Amélioration du goût des produits frits",
+        "Traçabilité complète pour les contrôles",
+      ]}
+      visuel={<CarteFriteuses />}
+    />
+  </PageFonctionnalite>
+);
 
 export default FeatureOil;

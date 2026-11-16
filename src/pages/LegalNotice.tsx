@@ -1,22 +1,27 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
+import { Scale } from "lucide-react";
 
 const LegalNotice = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Mentions légales et hébergeur du site" description="Mentions légales de lockhaccp.fr : éditeur, hébergeurs du site, de l'application et des données, propriété intellectuelle, données personnelles." path="/mentions-legales" />
       <Navbar />
       
-      <section className="pt-32 pb-16">
+      <main className="pb-24 pt-28 sm:pt-32 lg:pb-32 lg:pt-36">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h1 className="font-heading text-4xl font-bold text-foreground mb-12">
+          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+            <Scale className="h-4 w-4" />
+            Informations légales
+          </p>
+          <h1 className="font-heading text-[clamp(2.1rem,4.4vw,3.4rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground mb-12">
             Mentions légales
           </h1>
 
-          <div className="prose prose-lg max-w-none space-y-12">
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Éditeur du site</h2>
+          <div className="prose prose-lg max-w-none space-y-4">
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Éditeur du site</h2>
               <ul className="text-muted-foreground list-none space-y-2">
                 <li><strong className="text-foreground">Nom commercial :</strong> LockHACCP</li>
                 <li><strong className="text-foreground">Statut juridique :</strong> Entreprise individuelle – Auto entrepreneur</li>
@@ -28,19 +33,19 @@ const LegalNotice = () => {
               </ul>
             </section>
 
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Hébergement</h2>
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Hébergement</h2>
               <ul className="text-muted-foreground list-none space-y-4">
                 <li>
-                  <strong className="text-foreground">Site lockhaccp.fr et application web :</strong> Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis – 
+                  <strong className="text-foreground">Site lockhaccp.fr et application web :</strong> Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis –{" "}
                   <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">vercel.com</a>
                 </li>
                 <li>
-                  <strong className="text-foreground">Base de données :</strong> Supabase Pte. Ltd., 65 Chulia Street #38-02/03, OCBC Centre, Singapour 049513 – données hébergées dans l'Union européenne – 
+                  <strong className="text-foreground">Base de données :</strong> Supabase Pte. Ltd., 65 Chulia Street #38-02/03, OCBC Centre, Singapour 049513 – données hébergées dans l'Union européenne –{" "}
                   <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">supabase.com</a>
                 </li>
                 <li>
-                  <strong className="text-foreground">Nom de domaine :</strong> Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre – 
+                  <strong className="text-foreground">Nom de domaine :</strong> Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre –{" "}
                   <a href="https://www.hostinger.fr" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:no-underline">hostinger.fr</a>
                 </li>
                 <li>
@@ -49,8 +54,8 @@ const LegalNotice = () => {
               </ul>
             </section>
 
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Propriété intellectuelle</h2>
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Propriété intellectuelle</h2>
               <p className="text-muted-foreground mb-4">
                 Tous les éléments du site lockhaccp.fr et de l'application (marque, textes, logos, visuels, structure) sont la propriété exclusive de LockHACCP. Toute reproduction ou exploitation sans autorisation est interdite.
               </p>
@@ -59,10 +64,10 @@ const LegalNotice = () => {
               </p>
             </section>
 
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Données personnelles</h2>
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Données personnelles</h2>
               <p className="text-muted-foreground mb-4">
-                Le responsable du traitement des données collectées sur le site et dans l'application est Alan TOUATI, pour LockHACCP. Les données collectées, leurs finalités, leurs durées de conservation et vos droits (accès, rectification, suppression, opposition, portabilité, limitation) sont détaillés dans la 
+                Le responsable du traitement des données collectées sur le site et dans l'application est Alan TOUATI, pour LockHACCP. Les données collectées, leurs finalités, leurs durées de conservation et vos droits (accès, rectification, suppression, opposition, portabilité, limitation) sont détaillés dans la{" "}
                 <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">politique de confidentialité</a>.
               </p>
               <p className="text-muted-foreground">
@@ -70,28 +75,28 @@ const LegalNotice = () => {
               </p>
             </section>
 
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Cookies</h2>
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Cookies</h2>
               <p className="text-muted-foreground">
-                Les cookies et traceurs utilisés sur le site sont décrits dans la section « Cookies » de la 
+                Les cookies et traceurs utilisés sur le site sont décrits dans la section « Cookies » de la{" "}
                 <a href="/politique-confidentialite" className="text-primary underline underline-offset-2 hover:no-underline">politique de confidentialité</a>.
               </p>
             </section>
 
-            <section className="bg-card p-6 rounded-2xl border border-border">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Conditions d'utilisation et liens</h2>
+            <section className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-[0_30px_70px_-50px_hsl(211_100%_20%/0.4)] sm:p-8">
+              <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-6">Conditions d'utilisation et liens</h2>
               <p className="text-muted-foreground mb-4">
-                L'utilisation de l'application LockHACCP est régie par les 
+                L'utilisation de l'application LockHACCP est régie par les{" "}
                 <a href="/cgu" className="text-primary underline underline-offset-2 hover:no-underline">conditions générales d'utilisation</a>.
               </p>
               <p className="text-muted-foreground">
-                Les liens vers des sites tiers sont fournis à titre d'information. LockHACCP n'est pas responsable de leur contenu. Pour toute question, rendez-vous sur la page 
+                Les liens vers des sites tiers sont fournis à titre d'information. LockHACCP n'est pas responsable de leur contenu. Pour toute question, rendez-vous sur la page{" "}
                 <a href="/contact" className="text-primary underline underline-offset-2 hover:no-underline">Contact</a>.
               </p>
             </section>
           </div>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

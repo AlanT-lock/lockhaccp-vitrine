@@ -1,97 +1,88 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Phone } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
-import { useParallax } from "@/hooks/useParallax";
+import { ArrowRight, Check, Mail, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { APP_URL } from "@/lib/links";
+import { VIDEOS_APP, VIDEO_HAUTEUR, VIDEO_LARGEUR } from "@/lib/videos-app";
+import { Telephone3D } from "@/components/accueil/Telephone3D";
 
-const CTASection = () => {
-  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
-  const { ref: contactRef, isVisible: contactVisible } = useScrollAnimation();
-  const { ref: bgRef1, style: bgStyle1 } = useParallax({ speed: 0.5, direction: 'up', scale: true, scaleRange: [0.9, 1.1] });
-  const { ref: bgRef2, style: bgStyle2 } = useParallax({ speed: 0.3, direction: 'down' });
+// Appel final (accueil et pages produit). Le téléphone montre une image fixe (pas une vidéo de plus).
+interface PropsCta {
+  titre?: string;
+  texte?: string;
+  capture?: { src: string; alt: string };
+}
 
-  return (
-    <section id="contact" className="py-20 lg:py-32 bg-gradient-hero relative overflow-hidden">
-      {/* Parallax background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          ref={bgRef1}
-          className="absolute -top-20 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl"
-          style={bgStyle1}
-        />
-        <div 
-          ref={bgRef2}
-          className="absolute -bottom-20 left-1/3 w-72 h-72 bg-secondary/5 rounded-full blur-3xl"
-          style={bgStyle2}
-        />
+const CAPTURE_ACCUEIL = {
+  src: VIDEOS_APP.historique.cle,
+  alt: "Nettoyage du jour : 15 surfaces sur 15 nettoyées, zones Cuisine, Plonge et Sanitaires terminées",
+};
+
+const CTASection = ({
+  titre = "Prêt à simplifier votre conformité HACCP ?",
+  texte = "Créez votre compte et tenez vos premiers relevés dès aujourd'hui. Votre Plan de Maîtrise Sanitaire gratuit paramètre l'application pour vous.",
+  capture = CAPTURE_ACCUEIL,
+}: PropsCta) => (
+  <section id="contact" className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
+    <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-5 py-14 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
+        <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
       </div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* CTA Card */}
-          <div
-            ref={ctaRef}
-            className={`relative bg-primary rounded-3xl p-8 lg:p-16 overflow-hidden transition-all duration-700 ${
-              ctaVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-95"
-            }`}
-          >
-            {/* Background decorations */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary-foreground/10 rounded-full blur-3xl" />
 
-            <div className="relative z-10 text-center max-w-3xl mx-auto">
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-                Prêt à simplifier votre conformité HACCP ?
-              </h2>
-              <p className="text-lg text-primary-foreground/80 mb-8">
-                Rejoignez les centaines de professionnels de la restauration qui ont déjà digitalisé leurs contrôles sanitaires avec LockHACCP.
-              </p>
-              <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-                <Button variant="accent" size="xl" asChild>
-                  <a href={APP_URL}>
-                    Essayer gratuitement
-                    <ArrowRight className="w-5 h-5" />
-                  </a>
-                </Button>
-                <Button
-                  size="xl"
-                  className="bg-primary-foreground/10 text-primary-foreground border-2 border-primary-foreground/20 hover:bg-primary-foreground/20"
-                  asChild
-                >
-                  <Link to="/demander-demo">
-                    Demander une démo
-                  </Link>
-                </Button>
-              </div>
-            </div>
+      <div className="relative grid grid-cols-1 items-center gap-14 lg:grid-cols-12">
+        <div className="text-center lg:col-span-7 lg:text-left">
+          <h2 className="font-heading text-[clamp(2.2rem,4.8vw,3.9rem)] font-extrabold leading-[1.02] tracking-[-0.03em] [text-wrap:balance]">
+            {/* Espace insécable avant « ? » : le point d'interrogation ne part jamais seul à la ligne. */}
+            {titre.replace(/ ([?!:;])/g, "\u00a0$1")}
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80 lg:mx-0">
+            {texte}
+          </p>
+          <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/85 lg:justify-start">
+            {["1 mois d'essai, sans carte bancaire", "Sans engagement", "Paramétrage offert"].map((t) => (
+              <li key={t} className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
+                {t}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
+            <Button variant="accent" size="xl" asChild className="group">
+              <a href={APP_URL}>
+                Essayer gratuitement
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </a>
+            </Button>
+            <Button size="xl" className="border-2 border-white/25 bg-white/10 text-white hover:bg-white/20" asChild>
+              <Link to="/demander-demo">Demander une démo</Link>
+            </Button>
           </div>
+          <div className="mt-10 flex flex-col items-center gap-3 text-sm text-white/80 sm:flex-row sm:gap-8 lg:justify-start">
+            <a href="mailto:contact@lockhaccp.fr" className="flex items-center gap-2 hover:text-white">
+              <Mail className="h-4 w-4" /> contact@lockhaccp.fr
+            </a>
+            <a href="tel:+33646640023" className="flex items-center gap-2 hover:text-white">
+              <Phone className="h-4 w-4" /> 06 46 64 00 23
+            </a>
+          </div>
+        </div>
 
-        {/* Contact info */}
-        <div 
-          ref={contactRef}
-          className="mt-16 grid sm:grid-cols-2 gap-8 text-center max-w-xl mx-auto"
-        >
-        {[
-            { icon: Mail, label: "Email", value: "contact@lockhaccp.fr" },
-            { icon: Phone, label: "Téléphone", value: "06 46 64 00 23" },
-          ].map((item, index) => (
-            <div 
-              key={item.label}
-              className={`flex flex-col items-center transition-all duration-500 ${
-                contactVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
-                <item.icon className="w-5 h-5 text-primary" />
-              </div>
-              <p className="text-sm text-muted-foreground mb-1">{item.label}</p>
-              <p className="font-medium text-foreground">{item.value}</p>
-            </div>
-          ))}
+        <div className="mx-auto hidden w-[15rem] lg:col-span-5 lg:block xl:w-[16.5rem]">
+          <Telephone3D inclinaison="gauche">
+            <img
+              src={capture.src}
+              alt={capture.alt}
+              width={VIDEO_LARGEUR}
+              height={VIDEO_HAUTEUR}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover object-top"
+            />
+          </Telephone3D>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default CTASection;
