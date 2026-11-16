@@ -68,12 +68,12 @@ const FeatureOil = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Contrôle huile de friture HACCP" description="Suivez la qualité de votre huile de friture : tests, alertes, historique. Respectez les seuils réglementaires HACCP sans effort." path="/fonctionnalites/huiles" jsonLd={faqJsonLd(CONTENUS.huiles.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-hero">
+      <section className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={heroRef}
@@ -131,7 +131,7 @@ const FeatureOil = () => {
       </section>
 
       {/* Key Features */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={featuresRef}
@@ -175,7 +175,7 @@ const FeatureOil = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={benefitsRef}
@@ -254,7 +254,7 @@ const FeatureOil = () => {
       <ContenuFonctionnalite id="huiles" />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">

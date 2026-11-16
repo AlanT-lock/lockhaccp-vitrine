@@ -111,7 +111,7 @@ const CapteursConnectes = () => {
   const { ref: avantagesRef, isVisible: avantagesVisible } = useScrollAnimation();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo
         title="Capteur de température connecté pour restaurant"
         description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
@@ -122,7 +122,7 @@ const CapteursConnectes = () => {
 
       <main>
         {/* Hero */}
-        <section className="pt-32 pb-20 bg-gradient-hero overflow-hidden">
+        <section className="pt-32 pb-20 overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div
@@ -198,7 +198,7 @@ const CapteursConnectes = () => {
         </section>
 
         {/* Installation */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div
               ref={etapesRef}
@@ -229,7 +229,7 @@ const CapteursConnectes = () => {
         </section>
 
         {/* Avantages */}
-        <section className="py-20 bg-background">
+        <section className="py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div
               ref={avantagesRef}
@@ -318,7 +318,7 @@ const CapteursConnectes = () => {
         />
 
         {/* CTA */}
-        <section className="py-20 bg-gradient-hero">
+        <section className="py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">

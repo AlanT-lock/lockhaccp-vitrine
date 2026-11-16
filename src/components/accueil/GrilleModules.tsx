@@ -56,7 +56,7 @@ const CARTE =
 
 export function GrilleModules() {
   return (
-    <section id="fonctionnalites" className="bg-white pb-24 pt-20 lg:pb-32 lg:pt-24">
+    <section id="fonctionnalites" className="pb-24 pt-20 lg:pb-32 lg:pt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-14 grid gap-6 lg:grid-cols-12 lg:items-end">
           <h2 className="font-heading text-[clamp(2.1rem,4.6vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground lg:col-span-7">

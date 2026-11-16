@@ -21,7 +21,7 @@ export function RelatedLinks({
   const visibles = items.filter((i) => !i.to.startsWith("/blog/") || enLigne.has(i.to));
   if (visibles.length === 0) return null;
   return (
-    <section className="py-16 border-t border-border bg-muted/20">
+    <section className="py-16 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-heading text-2xl font-bold text-foreground mb-8 text-center">
           {title}

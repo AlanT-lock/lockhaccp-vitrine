@@ -66,12 +66,12 @@ const FeatureTracability = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Traçabilité alimentaire HACCP sur téléphone" description="Traçabilité alimentaire HACCP : suivi des lots, DLC, fournisseurs. Restez conforme à la DDPP en cas de contrôle ou de rappel produit." path="/fonctionnalites/tracabilite" jsonLd={faqJsonLd(CONTENUS.tracabilite.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-hero">
+      <section className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={heroRef}
@@ -111,7 +111,7 @@ const FeatureTracability = () => {
       </section>
 
       {/* Key Features */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={featuresRef}
@@ -155,7 +155,7 @@ const FeatureTracability = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div 
             ref={benefitsRef}
@@ -248,7 +248,7 @@ const FeatureTracability = () => {
       </ContenuFonctionnalite>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">

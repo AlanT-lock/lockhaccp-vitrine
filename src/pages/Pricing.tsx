@@ -299,7 +299,7 @@ const Pricing = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo
         title={`Tarifs LockHACCP : logiciel HACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois`}
         description={`LockHACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois TTC en annuel (${formatPriceEUR(activePricing.mainYearly)}/an) ou ${formatPriceEUR(activePricing.mainMonthly)} au mois. PMS gratuit qui configure l'app. Essai gratuit 1 mois sans engagement.`}
@@ -313,7 +313,7 @@ const Pricing = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
+      <section className="pt-32 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div
             ref={headerRef}
@@ -351,7 +351,7 @@ const Pricing = () => {
         </div>
       </section>
 
-      <section className="py-8 bg-background border-y border-border">
+      <section className="py-8 border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <TrustBadges />
         </div>
@@ -455,7 +455,7 @@ const Pricing = () => {
       </section>
 
       {/* Ce que les autres n'ont pas */}
-      <section className="py-16 bg-muted/40 border-t border-border">
+      <section className="py-16 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
             Ce que vous ne trouverez pas ailleurs
@@ -484,7 +484,7 @@ const Pricing = () => {
       </section>
 
       {/* L'IA dans LockHACCP */}
-      <section className="py-16 bg-background border-t border-border">
+      <section className="py-16 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <h2 className="font-heading text-3xl font-bold text-foreground mb-4 text-center">
             Ce que fait l'IA pour vous
@@ -514,7 +514,7 @@ const Pricing = () => {
       </section>
 
       {/* Option Capteurs connectés */}
-      <section id="capteurs" className="py-20 bg-background border-t border-border">
+      <section id="capteurs" className="py-20 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>

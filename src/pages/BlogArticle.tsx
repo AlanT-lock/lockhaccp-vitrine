@@ -128,7 +128,7 @@ const BlogArticle = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title={meta.titreSeo ?? meta.titre} description={meta.description} path={path} jsonLd={jsonLd} />
       <Navbar />
 

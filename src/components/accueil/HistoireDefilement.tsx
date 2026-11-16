@@ -68,7 +68,7 @@ export function HistoireDefilement() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-white to-[hsl(220_33%_97%)] pb-20 pt-24 lg:pb-4 lg:pt-32">
+    <section className="relative pb-20 pt-24 lg:pb-4 lg:pt-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-3xl text-center lg:mb-8">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-secondary-texte">Une journée avec LockHACCP</p>

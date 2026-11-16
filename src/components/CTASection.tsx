@@ -7,10 +7,9 @@ import { Telephone3D } from "@/components/accueil/Telephone3D";
 
 // Accueil : appel final. Le téléphone montre une image fixe (pas une vidéo de plus).
 const CTASection = () => (
-  <section id="contact" className="bg-white px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
+  <section id="contact" className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32">
     <div className="container relative mx-auto overflow-hidden rounded-[2.5rem] bg-primary px-6 py-16 text-white sm:px-12 lg:px-16 lg:py-20">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="fond-points absolute inset-0 opacity-40 [filter:invert(1)]" />
         <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
         <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[hsl(211_100%_45%)]/40 blur-3xl" />
       </div>

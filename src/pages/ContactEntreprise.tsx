@@ -157,12 +157,12 @@ const ContactEntreprise = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Logiciel HACCP multi-établissements" description={`LockHACCP pour plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement en plus, tableau de bord consolidé.`} path="/contact-entreprise" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}]), faqJsonLd(faq)]} />
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-hero">
+      <section className="pt-32 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">

@@ -4,7 +4,7 @@ import { Seo } from "@/components/Seo";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Politique de confidentialité" description="Politique de confidentialité de LockHACCP : collecte, traitement et protection de vos données personnelles. Conformité RGPD." path="/politique-confidentialite" />
       <Navbar />
       

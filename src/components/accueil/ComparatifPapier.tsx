@@ -11,7 +11,7 @@ export interface LigneComparatif {
 
 export function ComparatifPapier({ titre, intro, lignes }: { titre: string; intro: string; lignes: LigneComparatif[] }) {
   return (
-    <section className="bg-[hsl(220_33%_97%)] py-24 lg:py-32">
+    <section className="py-24 lg:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-14 max-w-3xl text-center">
           <h2 className="font-heading text-[clamp(2.1rem,4.6vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground">

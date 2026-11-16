@@ -121,7 +121,7 @@ const BoutonGenerateur = ({ clair = false }: { clair?: boolean }) => (
 );
 
 const PlanMaitriseSanitaire = () => (
-  <div className="min-h-screen bg-background">
+  <div className="min-h-screen">
     <Seo
       title="Plan de Maîtrise Sanitaire (PMS) gratuit"
       description="Créez gratuitement votre Plan de Maîtrise Sanitaire : tableau des CCP, plan de nettoyage, traçabilité et affichages obligatoires. Dossier PDF en 10 minutes."

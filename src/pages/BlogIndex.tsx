@@ -12,7 +12,7 @@ const BlogIndex = () => {
   const [une, ...suite] = articles;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo
         title="Ressources HACCP pour restaurateurs"
         description="Contrôle sanitaire, températures, nettoyage, allergènes, formation : des réponses claires et sourcées, écrites par un formateur en hygiène alimentaire."

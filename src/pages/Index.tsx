@@ -59,7 +59,7 @@ const Index = () => {
   const faq = faqAccueil(formatPriceEUR(pricing.mainMonthly), formatPriceEUR(pricing.extraMonthly));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo
         title={`Logiciel HACCP pour restaurateurs à ${formatPriceEUR(pricing.mainMonthly)}/mois`}
         description="Logiciel HACCP pour restaurateurs : relevés de température, traçabilité, plan de nettoyage, étiquettes, sur téléphone. Essai gratuit 1 mois sans engagement."

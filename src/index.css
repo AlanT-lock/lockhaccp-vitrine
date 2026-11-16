@@ -317,12 +317,29 @@
   50% { transform: scaleX(0.88); opacity: 0.7; }
 }
 
-/* --- Accueil éditorial --- */
-.fond-points {
-  background-image: radial-gradient(hsl(211 100% 26% / 0.12) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%);
+/* --- Fond de tout le site : halos néon qui dérivent (composant FondAnime) --- */
+.halo {
+  position: absolute; border-radius: 9999px; will-change: transform;
+  width: var(--taille); height: var(--taille);
+  background: radial-gradient(circle at center, var(--couleur) 0%, transparent 68%);
+  opacity: var(--opacite);
 }
+/* Bleus à gauche, orange à droite : ils se frôlent sans se mélanger (un bleu translucide sur
+   un orange donne un gris brunâtre). Déplacements surtout verticaux, en sens opposés. */
+.halo-bleu-1   { --taille: 44rem; --couleur: hsl(211 100% 56%); --opacite: 0.34; top: -12rem; left: -14rem; animation: halo-derive-1 32s ease-in-out infinite alternate; }
+.halo-bleu-2   { --taille: 36rem; --couleur: hsl(196 100% 52%); --opacite: 0.26; bottom: -14rem; left: 6%; animation: halo-derive-2 41s ease-in-out infinite alternate; }
+.halo-orange-1 { --taille: 38rem; --couleur: hsl(22 100% 60%);  --opacite: 0.30; top: 4%; right: -12rem; animation: halo-derive-3 37s ease-in-out infinite alternate; }
+.halo-orange-2 { --taille: 30rem; --couleur: hsl(32 100% 58%);  --opacite: 0.24; bottom: -6rem; right: 8%; animation: halo-derive-4 45s ease-in-out infinite alternate; }
+@media (max-width: 640px) {
+  .halo-bleu-1 { --taille: 26rem; } .halo-bleu-2 { --taille: 22rem; }
+  .halo-orange-1 { --taille: 22rem; } .halo-orange-2 { --taille: 18rem; }
+}
+@keyframes halo-derive-1 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(10vw, 30vh) scale(1.12); } 100% { transform: translate(3vw, 58vh) scale(0.95); } }
+@keyframes halo-derive-2 { 0% { transform: translate(0, 0) scale(1.05); } 50% { transform: translate(8vw, -34vh) scale(0.92); } 100% { transform: translate(-4vw, -60vh) scale(1.08); } }
+@keyframes halo-derive-3 { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-9vw, 32vh) scale(0.9); } 100% { transform: translate(-2vw, 60vh) scale(1.1); } }
+@keyframes halo-derive-4 { 0% { transform: translate(0, 0) scale(0.95); } 50% { transform: translate(-8vw, -30vh) scale(1.1); } 100% { transform: translate(3vw, -58vh) scale(1); } }
+
+/* --- Accueil éditorial --- */
 .trait-souligne path { stroke-dasharray: 420; stroke-dashoffset: 420; animation: trait-souligne 1.1s cubic-bezier(.6,.1,.2,1) 0.5s forwards; }
 @keyframes trait-souligne { to { stroke-dashoffset: 0; } }
 
@@ -339,7 +356,7 @@
 @keyframes histoire-ecran { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .telephone-corps, .telephone-ombre, .puce-preuve, .defilement-metiers { animation: none !important; }
+  .telephone-corps, .telephone-ombre, .puce-preuve, .defilement-metiers, .halo { animation: none !important; }
   .puce-preuve { opacity: 1; }
   .trait-souligne path { stroke-dashoffset: 0; animation: none; }
 }

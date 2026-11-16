@@ -52,12 +52,12 @@ const FeatureTemperature = () => {
     description: "Le relevé se fait en quelques secondes devant l'équipement, sans fiche papier à remplir."
   }];
   const sensorBenefits = ["Plus de fiche papier oubliée", "Consigne affichée à chaque relevé", "Écart signalé tout de suite", "Action corrective tracée", "Historique prêt pour le contrôle", "Accès pour chaque membre de l'équipe"];
-  return <div className="min-h-screen bg-background">
+  return <div className="min-h-screen">
       <Seo title="Relevé de température HACCP sur téléphone" description="Relevé de température HACCP de vos frigos et congélateurs sur téléphone : rappel chaque matin, consigne par équipement, actions correctives, historique." path="/fonctionnalites/temperatures" jsonLd={faqJsonLd(CONTENUS.temperatures.faq.items)} />
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-hero overflow-hidden">
+      <section className="pt-32 pb-20 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div ref={heroRef} className={`transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -98,7 +98,7 @@ const FeatureTemperature = () => {
       </section>
 
       {/* Key Features */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={featuresRef} className={`text-center mb-16 transition-all duration-700 ${featuresVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4">
@@ -131,7 +131,7 @@ const FeatureTemperature = () => {
       </section>
 
       {/* Sensors Integration Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div ref={sensorsRef} className={`transition-all duration-700 ${sensorsVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
@@ -206,7 +206,7 @@ const FeatureTemperature = () => {
       </ContenuFonctionnalite>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero">
+      <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-primary rounded-3xl p-8 lg:p-16 text-center">
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary-foreground mb-6">

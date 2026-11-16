@@ -4,7 +4,7 @@ import { Seo } from "@/components/Seo";
 
 const TermsOfUse = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Conditions générales d'utilisation" description="Conditions générales d'utilisation de LockHACCP : accès au service, abonnement sans engagement, résiliation, responsabilités et données personnelles." path="/cgu" />
       <Navbar />
       

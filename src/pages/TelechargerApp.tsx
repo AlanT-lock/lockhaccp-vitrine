@@ -14,7 +14,7 @@ const TelechargerApp = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Télécharger l'application LockHACCP" description="Installez l'application LockHACCP sur iPhone, iPad ou Android pour vos relevés HACCP : températures, réceptions, nettoyage, traçabilité." path="/app" noindex />
       <Navbar />
       <main className="pt-32 md:pt-40 pb-16">

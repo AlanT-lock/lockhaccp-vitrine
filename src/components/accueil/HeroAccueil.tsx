@@ -16,13 +16,7 @@ const PREUVES = [
 export function HeroAccueil() {
   return (
     <section className="relative overflow-hidden pb-20 pt-24 sm:pt-32 lg:min-h-[100svh] lg:pb-24 lg:pt-36">
-      {/* Fond : trame de points et deux halos de couleur, discrets */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="fond-points absolute inset-0" />
-        <div className="absolute -right-40 top-10 h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute -left-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-secondary/15 blur-3xl" />
-      </div>
-
+      {/* Pas de fond propre : le fond animé du site (FondAnime) apparaît derrière. */}
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-8">
           <div className="text-center lg:col-span-7 lg:text-left">

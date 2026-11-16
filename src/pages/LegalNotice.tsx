@@ -4,7 +4,7 @@ import { Seo } from "@/components/Seo";
 
 const LegalNotice = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo title="Mentions légales et hébergeur du site" description="Mentions légales de lockhaccp.fr : éditeur, hébergeurs du site, de l'application et des données, propriété intellectuelle, données personnelles." path="/mentions-legales" />
       <Navbar />
       

@@ -13,7 +13,7 @@ const METIERS = [
 
 export function BandeauMetiers() {
   return (
-    <section aria-label="Métiers couverts" className="border-y border-border bg-white py-6">
+    <section aria-label="Métiers couverts" className="border-y border-border py-6">
       <p className="sr-only">LockHACCP s'adapte à votre métier : {METIERS.join(", ")}.</p>
       <div aria-hidden="true" className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
         <div className="defilement-metiers flex w-max items-center gap-10 pr-10">

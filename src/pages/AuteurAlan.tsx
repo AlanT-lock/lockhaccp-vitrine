@@ -11,7 +11,7 @@ const AuteurAlan = () => {
   const articles = articlesEnLigne();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Seo
         title="Alan Touati, formateur en hygiène alimentaire"
         description="Alan Touati est formateur en hygiène alimentaire chez SF FORMATION et créateur de LockHACCP. Ses articles sur le contrôle sanitaire, le HACCP et le PMS."
