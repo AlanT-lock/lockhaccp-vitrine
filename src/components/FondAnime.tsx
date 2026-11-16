@@ -7,8 +7,9 @@ import { useLocation } from "react-router-dom";
 const HALOS = ["halo-bleu-1", "halo-orange-1", "halo-bleu-2", "halo-orange-2"];
 
 export function FondAnime() {
-  // L'administration garde un fond neutre.
-  if (useLocation().pathname.startsWith("/admin")) return null;
+  // L'administration et le générateur de PMS gardent un fond blanc uni.
+  const chemin = useLocation().pathname;
+  if (chemin.startsWith("/admin") || chemin === "/pms" || chemin.startsWith("/pms/")) return null;
   return (
     <div aria-hidden="true" className="fond-anime pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-white">
       {HALOS.map((h) => (
