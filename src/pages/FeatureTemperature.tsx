@@ -14,8 +14,8 @@ const ATOUTS: Atout[] = [
   { icone: Bell, titre: "Rappel chaque matin", texte: "Une notification vous rappelle les relevés du jour, selon vos jours d'ouverture et vos services." },
   {
     icone: Thermometer,
-    titre: "Une consigne par équipement",
-    texte: "Chaque frigo, chambre froide ou congélateur a sa consigne : l'application indique tout de suite si le relevé est conforme.",
+    titre: "La limite toujours affichée",
+    texte: "Chaque relevé est comparé à la température à ne pas dépasser (4 °C pour un frigo ou une chambre froide) : l'application indique tout de suite s'il est conforme.",
   },
   { icone: Shield, titre: "Action corrective notée", texte: "En cas d'écart, vous indiquez ce qui a été fait. C'est exactement ce que l'inspecteur veut voir." },
   { icone: BarChart3, titre: "Historique complet", texte: "Retrouvez tous les relevés de chaque équipement, avec la date, l'heure et la personne qui l'a saisi." },
@@ -68,7 +68,7 @@ const FeatureTemperature = () => (
     seo={{
       title: "Relevé de température HACCP sur téléphone",
       description:
-        "Relevé de température HACCP de vos frigos et congélateurs sur téléphone : rappel chaque matin, consigne par équipement, actions correctives, historique.",
+        "Relevé de température HACCP de vos frigos et congélateurs sur téléphone : rappel chaque matin, limite de 4 °C affichée, actions correctives, historique.",
     }}
     icone={Thermometer}
     etiquette="Relevé de températures"
@@ -77,7 +77,7 @@ const FeatureTemperature = () => (
         <Accent>Relevé de température HACCP</Accent> en quelques secondes
       </>
     }
-    intro="Fini les fiches papier : chaque relevé de vos réfrigérateurs et congélateurs se fait sur téléphone, avec la consigne affichée et un rappel chaque matin."
+    intro="Fini les fiches papier : chaque relevé de vos réfrigérateurs et congélateurs se fait sur téléphone, avec la limite à ne pas dépasser affichée et un rappel chaque matin."
     visuel={
       <TelephoneHero
         video={VIDEOS_APP.temperatures}
@@ -110,10 +110,10 @@ const FeatureTemperature = () => (
           Un relevé en <span className="text-secondary-texte">quelques secondes</span>, devant l'équipement
         </>
       }
-      texte="Vous saisissez la température lue, l'application la compare à la consigne de l'équipement et, en cas d'écart, vous demande ce qui a été fait. Tout est daté et signé, prêt à être montré à l'inspecteur."
+      texte="Vous saisissez la température lue, l'application la compare à la limite à ne pas dépasser et, en cas d'écart, vous demande ce qui a été fait. Tout est daté et signé, prêt à être montré à l'inspecteur."
       points={[
         "Plus de fiche papier oubliée",
-        "Consigne affichée à chaque relevé",
+        "Limite affichée à chaque relevé",
         "Écart signalé tout de suite",
         "Action corrective tracée",
         "Historique prêt pour le contrôle",

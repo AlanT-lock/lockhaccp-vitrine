@@ -190,7 +190,7 @@ const TEXTES = [
 
 const OUTILS = [
   { to: "/plan-de-maitrise-sanitaire", titre: "Plan de Maîtrise Sanitaire gratuit", texte: "Le dossier de votre établissement en 10 minutes, prêt à imprimer." },
-  { to: "/fonctionnalites/temperatures", titre: "Relevés de température sur téléphone", texte: "Consigne par équipement, rappel chaque matin, actions correctives." },
+  { to: "/fonctionnalites/temperatures", titre: "Relevés de température sur téléphone", texte: "Limite de 4 °C affichée, rappel chaque matin, actions correctives." },
   { to: "/fonctionnalites/nettoyage", titre: "Planning de nettoyage", texte: "Tâches par zone, rappels et validation par l'équipe." },
   { to: "/fonctionnalites/tracabilite", titre: "Traçabilité des produits", texte: "Photo des étiquettes, recherche par date en cas de rappel." },
 ];

@@ -25,11 +25,15 @@ const ETAPES_DEPLOIEMENT = [
   { titre: "Mise en place accompagnée", texte: "Un interlocuteur unique vous accompagne pour le déploiement de chaque établissement et la prise en main par vos équipes." },
 ];
 import { getActivePricing, formatPriceEUR } from "@/lib/launch";
+import { mensuelEquivalent } from "@/lib/tarifs-affichage";
 import { Accent, TITRE_H2 } from "@/components/design/elements";
 
 const ContactEntreprise = () => {
   const maintenant = useMaintenant();
   const pricing = getActivePricing(maintenant);
+  // L'équivalent mensuel du paiement annuel est mis en avant ; le prix au mois vient ensuite.
+  const principalAnnuel = formatPriceEUR(mensuelEquivalent(pricing.mainYearly));
+  const supplementaireAnnuel = formatPriceEUR(mensuelEquivalent(pricing.extraYearly));
   const faq = [
     {
       question: "Comment suivre tous mes établissements au même endroit ?",
@@ -37,7 +41,7 @@ const ContactEntreprise = () => {
     },
     {
       question: "Combien coûte un établissement supplémentaire ?",
-      answer: `${formatPriceEUR(pricing.extraMonthly)}/mois, après le premier établissement à ${formatPriceEUR(pricing.mainMonthly)}/mois. Toutes les fonctionnalités sont incluses pour chaque site.`,
+      answer: `${supplementaireAnnuel}/mois en paiement annuel (${formatPriceEUR(pricing.extraYearly)} par an), ou ${formatPriceEUR(pricing.extraMonthly)} au mois, après le premier établissement à ${principalAnnuel}/mois en annuel. Toutes les fonctionnalités sont incluses pour chaque site.`,
     },
     {
       question: "Y a-t-il un engagement ?",
@@ -159,7 +163,7 @@ const ContactEntreprise = () => {
 
   return (
     <div className="min-h-screen">
-      <Seo title="Logiciel HACCP multi-établissements" description={`LockHACCP pour plusieurs restaurants : ${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, ${formatPriceEUR(pricing.extraMonthly)}/mois par établissement en plus, tableau de bord consolidé.`} path="/contact-entreprise" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}]), faqJsonLd(faq)]} />
+      <Seo title="Logiciel HACCP multi-établissements" description={`LockHACCP pour plusieurs restaurants : ${principalAnnuel}/mois en annuel pour le premier établissement, ${supplementaireAnnuel}/mois par établissement en plus, tableau de bord consolidé.`} path="/contact-entreprise" jsonLd={[breadcrumbJsonLd([{name:"Accueil",path:"/"},{name:"Multi-établissements",path:"/contact-entreprise"}]), faqJsonLd(faq)]} />
       <Navbar />
 
       <main>
@@ -176,25 +180,27 @@ const ContactEntreprise = () => {
                   <Accent>Logiciel HACCP multi-établissements</Accent> : un tarif simple
                 </h1>
                 <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                  Vous gérez plusieurs établissements ? LockHACCP est à {formatPriceEUR(pricing.mainMonthly)}/mois pour le
-                  premier, puis {formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire, avec un
+                  Vous gérez plusieurs établissements ? En paiement annuel, LockHACCP est à {principalAnnuel}/mois pour le
+                  premier, puis {supplementaireAnnuel}/mois pour chaque établissement supplémentaire, avec un
                   tableau de bord consolidé sur l'ensemble de vos sites. Notre équipe vous accompagne dans la mise en place.
                 </p>
                 <div className="mt-8 grid grid-cols-2 gap-3">
                   <div className="rounded-3xl border border-border/80 bg-white/90 p-5">
                     <p className="text-sm text-muted-foreground">Premier établissement</p>
                     <p className="mt-1 font-heading text-3xl font-extrabold tracking-tight text-foreground">
-                      {formatPriceEUR(pricing.mainMonthly)}
+                      {principalAnnuel}
                       <span className="text-sm font-normal text-muted-foreground">/mois</span>
                     </p>
+                    <p className="mt-1 text-xs text-muted-foreground">en annuel, ou {formatPriceEUR(pricing.mainMonthly)} au mois</p>
                   </div>
                   <div className="relative overflow-hidden rounded-3xl bg-primary p-5 text-white">
                     <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-secondary/30 blur-2xl" />
                     <p className="relative text-sm text-white/75">Chaque établissement supplémentaire</p>
                     <p className="relative mt-1 font-heading text-3xl font-extrabold tracking-tight">
-                      {formatPriceEUR(pricing.extraMonthly)}
+                      {supplementaireAnnuel}
                       <span className="text-sm font-normal text-white/70">/mois</span>
                     </p>
+                    <p className="relative mt-1 text-xs text-white/70">en annuel, ou {formatPriceEUR(pricing.extraMonthly)} au mois</p>
                   </div>
                 </div>
               </div>
@@ -359,7 +365,7 @@ const ContactEntreprise = () => {
                 {
                   icone: MapPin,
                   titre: "Un tarif clair",
-                  texte: `${formatPriceEUR(pricing.mainMonthly)}/mois pour le premier établissement, puis ${formatPriceEUR(pricing.extraMonthly)}/mois pour chaque établissement supplémentaire. Pas de négociation, pas de surprise.`,
+                  texte: `En paiement annuel, ${principalAnnuel}/mois pour le premier établissement, puis ${supplementaireAnnuel}/mois pour chaque établissement supplémentaire. Pas de négociation, pas de surprise.`,
                 },
               ].map(({ icone: Icone, titre, texte }) => (
                 <div

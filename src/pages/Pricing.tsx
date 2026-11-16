@@ -258,7 +258,7 @@ const Pricing = () => {
     },
     {
       question: "Que change l'offre Pro ?",
-      answer: `L'offre Pro, à ${formatPriceEUR(PRO_PRICING.mainMonthly)}/mois par établissement, comprend tout LockHACCP avec ${LECTURES_IA_PRO} lectures IA par mois et par établissement (étiquettes et bons de livraison). L'offre LockHACCP en comprend ${RELECTURES_IA_PAR_MOIS}. Dans les deux offres, la lecture sur l'appareil (code-barres, texte de l'étiquette) est gratuite et illimitée, et les alertes rappels produits et DLC sont incluses.`,
+      answer: `L'offre Pro, à ${formatPriceEUR(mensuelEquivalent(PRO_PRICING.mainYearly))}/mois par établissement en paiement annuel (${formatPriceEUR(PRO_PRICING.mainYearly)} par an) ou ${formatPriceEUR(PRO_PRICING.mainMonthly)} au mois, comprend tout LockHACCP avec ${LECTURES_IA_PRO} lectures IA par mois et par établissement (étiquettes et bons de livraison). L'offre LockHACCP en comprend ${RELECTURES_IA_PAR_MOIS}. Dans les deux offres, la lecture sur l'appareil (code-barres, texte de l'étiquette) est gratuite et illimitée, et les alertes rappels produits et DLC sont incluses.`,
     },
     {
       question: "Combien coûtent les capteurs de température connectés ?",

@@ -12,6 +12,7 @@ import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
 import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import { formatPriceEUR, getActivePricing, RELECTURES_IA_PAR_MOIS } from "@/lib/launch";
+import { mensuelEquivalent } from "@/lib/tarifs-affichage";
 import { APP_URL } from "@/lib/links";
 import CTASection from "@/components/CTASection";
 import { Accent, CarteIllustration, Surtitre, TITRE_H2, TelephoneHero } from "@/components/design/elements";
@@ -71,7 +72,7 @@ const FAQS: FaqItem[] = [
 ];
 
 const POINTS = [
-  { icone: Thermometer, texte: "Relevés de température avec rappels chaque matin, consigne par équipement et actions correctives", lien: "/fonctionnalites/temperatures" },
+  { icone: Thermometer, texte: "Relevés de température avec rappels chaque matin, limite de 4 °C affichée et actions correctives", lien: "/fonctionnalites/temperatures" },
   { icone: SprayCan, texte: "Plan de nettoyage par zone, tâches validées et signées", lien: "/fonctionnalites/nettoyage" },
   { icone: Package, texte: "Contrôle à réception des marchandises et traçabilité des produits en photo, export PDF", lien: "/fonctionnalites/receptions" },
   { icone: Tag, texte: "Étiquettes de production (DLC, lot, allergènes), huiles de friture et check-lists d'ouverture et de fermeture", lien: "/fonctionnalites/etiquettes" },
@@ -87,7 +88,7 @@ const APPAREILS = [
 
 /** Ce que l'inspecteur demande à voir (repris du texte de la section). */
 const ATTENDUS_INSPECTEUR = [
-  "La consigne de chaque équipement",
+  "La température à ne pas dépasser, à chaque relevé",
   "L'action corrective quand un relevé dépasse",
   "La preuve que le nettoyage est fait",
   "L'origine de chaque produit",
@@ -261,7 +262,7 @@ const ApplicationPms = () => {
                       Alan Touati
                     </Link>
                     , formateur en hygiène alimentaire chez SF FORMATION. Les écrans suivent ce que l'inspecteur de la DDPP
-                    demande à voir : la consigne de chaque équipement, l'action corrective quand un relevé dépasse, la preuve
+                    demande à voir : la température à ne pas dépasser, l'action corrective quand un relevé dépasse, la preuve
                     que le nettoyage est fait, l'origine de chaque produit.
                   </p>
                   <p>
@@ -359,13 +360,14 @@ const ApplicationPms = () => {
                 <div className="rounded-[2rem] border border-border/80 bg-white/90 p-7 sm:p-9">
                   <h2 className="font-heading text-2xl font-extrabold text-foreground">Tarif de l'application HACCP</h2>
                   <p className="mt-3 flex items-baseline gap-2">
-                    <span className="font-heading text-4xl font-extrabold tracking-tight text-foreground">{formatPriceEUR(tarif.mainMonthly)}</span>
-                    <span className="text-muted-foreground">par mois et par établissement</span>
+                    <span className="font-heading text-4xl font-extrabold tracking-tight text-foreground">{formatPriceEUR(mensuelEquivalent(tarif.mainYearly))}</span>
+                    <span className="text-muted-foreground">par mois et par établissement, en paiement annuel</span>
                   </p>
                   <p className="mt-3 leading-relaxed text-muted-foreground">
-                    {formatPriceEUR(tarif.mainMonthly)} par mois et par établissement, toutes fonctionnalités incluses, et{" "}
-                    {formatPriceEUR(tarif.extraMonthly)} par mois par établissement supplémentaire. En annuel :{" "}
-                    {tarif.annualDiscountLabel}. Sans engagement, résiliable depuis l'application, sans frais caché.
+                    {formatPriceEUR(tarif.mainYearly)} par an et par établissement, toutes fonctionnalités incluses ({tarif.annualDiscountLabel}),
+                    ou {formatPriceEUR(tarif.mainMonthly)} au mois. Chaque établissement supplémentaire :{" "}
+                    {formatPriceEUR(mensuelEquivalent(tarif.extraYearly))} par mois en annuel, ou {formatPriceEUR(tarif.extraMonthly)} au mois.
+                    Sans engagement, résiliable depuis l'application, sans frais caché.
                   </p>
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground">
                     {["Toutes fonctionnalités incluses", "Sans engagement", "Paramétrage offert"].map((t) => (

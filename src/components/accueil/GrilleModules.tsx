@@ -30,7 +30,7 @@ const GRANDS: Module[] = [
   {
     icone: Thermometer,
     titre: "Relevé de températures",
-    texte: "Frigos et congélateurs relevés en quelques secondes, consigne affichée, rappel chaque matin et action corrective en cas d'écart.",
+    texte: "Frigos et congélateurs relevés en quelques secondes, limite de 4 °C affichée, rappel chaque matin et action corrective en cas d'écart.",
     lien: "/fonctionnalites/temperatures",
     visuel: <CaptureApp src={VIDEOS_APP.tour.cle} alt="Écran des températures : réfrigérateur de cuisine à 3 °C, conforme" />,
   },

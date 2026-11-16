@@ -8,7 +8,8 @@ import { GrilleModules } from "@/components/accueil/GrilleModules";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import { faqJsonLd, organizationJsonLd, softwareAppJsonLd, websiteJsonLd } from "@/lib/seo-jsonld";
-import { getActivePricing, formatPriceEUR } from "@/lib/launch";
+import { getActivePricing, formatPriceEUR, type PricingGrid } from "@/lib/launch";
+import { mensuelEquivalent } from "@/lib/tarifs-affichage";
 import { ObligationsSection } from "@/components/ObligationsSection";
 import { ComparatifPapier } from "@/components/accueil/ComparatifPapier";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -21,7 +22,10 @@ const COMPARATIF = [
   { critere: "Le jour du contrôle sanitaire", papier: "Chercher les bonnes fiches.", application: "L'historique complet s'affiche en quelques secondes." },
 ];
 
-function faqAccueil(principal: string, supplementaire: string): FaqItem[] {
+/** Prix affichés : l'équivalent mensuel du paiement annuel en avant, le prix au mois ensuite. */
+function faqAccueil(p: PricingGrid): FaqItem[] {
+  const principal = formatPriceEUR(mensuelEquivalent(p.mainYearly));
+  const supplementaire = formatPriceEUR(mensuelEquivalent(p.extraYearly));
   return [
     {
       question: "Qu'est-ce qu'un logiciel HACCP ?",
@@ -35,7 +39,7 @@ function faqAccueil(principal: string, supplementaire: string): FaqItem[] {
     },
     {
       question: "Combien coûte LockHACCP ?",
-      answer: `${principal}/mois par établissement, toutes fonctionnalités incluses, et ${supplementaire}/mois par établissement supplémentaire. L'abonnement est sans engagement et se résilie depuis l'application.`,
+      answer: `${principal}/mois par établissement en paiement annuel (${formatPriceEUR(p.mainYearly)} par an), toutes fonctionnalités incluses, ou ${formatPriceEUR(p.mainMonthly)} au mois. Chaque établissement supplémentaire : ${supplementaire}/mois en annuel, ou ${formatPriceEUR(p.extraMonthly)} au mois. L'abonnement est sans engagement et se résilie depuis l'application.`,
     },
     {
       question: "Un logiciel HACCP remplace-t-il le Plan de Maîtrise Sanitaire ?",
@@ -44,7 +48,7 @@ function faqAccueil(principal: string, supplementaire: string): FaqItem[] {
     },
     {
       question: "Puis-je gérer plusieurs restaurants ?",
-      answer: `Oui. Chaque établissement supplémentaire coûte ${supplementaire}/mois, et l'application web propose un tableau de bord consolidé sur l'ensemble de vos sites.`,
+      answer: `Oui. Chaque établissement supplémentaire coûte ${supplementaire}/mois en paiement annuel, et l'application web propose un tableau de bord consolidé sur l'ensemble de vos sites.`,
     },
     {
       question: "Où sont hébergées mes données ?",
@@ -56,12 +60,12 @@ function faqAccueil(principal: string, supplementaire: string): FaqItem[] {
 const Index = () => {
   const maintenant = useMaintenant();
   const pricing = getActivePricing(maintenant);
-  const faq = faqAccueil(formatPriceEUR(pricing.mainMonthly), formatPriceEUR(pricing.extraMonthly));
+  const faq = faqAccueil(pricing);
 
   return (
     <div className="min-h-screen">
       <Seo
-        title={`Logiciel HACCP pour restaurateurs à ${formatPriceEUR(pricing.mainMonthly)}/mois`}
+        title={`Logiciel HACCP pour restaurateurs dès ${formatPriceEUR(mensuelEquivalent(pricing.mainYearly))}/mois`}
         description="Logiciel HACCP pour restaurateurs : relevés de température, traçabilité, plan de nettoyage, étiquettes, sur téléphone. Essai gratuit 1 mois sans engagement."
         path="/"
         jsonLd={[organizationJsonLd, websiteJsonLd, softwareAppJsonLd(maintenant), faqJsonLd(faq)]}
