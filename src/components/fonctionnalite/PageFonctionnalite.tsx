@@ -14,7 +14,7 @@ import { ContenuFonctionnalite } from "@/components/ContenuFonctionnalite";
 import { RelatedLinks, FEATURE_RELATED } from "@/components/RelatedLinks";
 import { CONTENUS, type IdFonctionnalite } from "@/lib/contenus-fonctionnalites";
 import { faqJsonLd } from "@/lib/seo-jsonld";
-import { APP_URL } from "@/lib/links";
+import { SIGNUP_URL } from "@/lib/links";
 import { Accent, CarteIllustration, ListeCoches, SectionDuo, Surtitre, TITRE_H2, TelephoneHero, type Puce } from "@/components/design/elements";
 
 // Les pages fonctionnalités importent tout depuis ce module.
@@ -116,7 +116,7 @@ export function PageFonctionnalite({
                 <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl lg:mx-0">{intro}</p>
                 <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
                   <Button variant="hero" size="xl" asChild className="group">
-                    <a href={APP_URL}>
+                    <a href={SIGNUP_URL}>
                       Essayer gratuitement
                       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </a>

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
 import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld";
-import { APP_URL } from "@/lib/links";
+import { SIGNUP_URL } from "@/lib/links";
 import { FaqSection } from "@/components/FaqSection";
 import { TrustBadges } from "@/components/TrustBadges";
 import CTASection from "@/components/CTASection";
@@ -176,7 +176,7 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
 
         {showCta && (
           <Button variant={highlighted ? "accent" : "hero"} size="lg" asChild className="group mt-7 w-full">
-            <a href={APP_URL}>
+            <a href={SIGNUP_URL}>
               {ctaLabel ?? "Essayer 14 jours gratuitement"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>

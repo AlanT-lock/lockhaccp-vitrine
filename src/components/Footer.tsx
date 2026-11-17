@@ -4,7 +4,7 @@ import { useMaintenant } from "@/hooks/useMaintenant";
 import logoWhite from "@/assets/logo-white.webp";
 import { ouvrirBandeauCookies } from "@/lib/consentement";
 import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
-import { APP_URL } from "@/lib/links";
+import { SIGNUP_URL } from "@/lib/links";
 
 // Pied de page de tout le site. Les liens (maillage interne) sont inchangés : chaque page
 // fonctionnalité, l'application, les tarifs, le PMS, le blog et les pages légales.
@@ -66,7 +66,7 @@ const Footer = () => {
             </p>
           </div>
           <a
-            href={APP_URL}
+            href={SIGNUP_URL}
             className="group inline-flex items-center gap-2 self-start rounded-full bg-white px-6 py-3.5 font-semibold text-primary transition-colors hover:bg-secondary hover:text-white lg:self-auto"
           >
             Essayer gratuitement 14 jours

@@ -13,7 +13,7 @@ import { breadcrumbJsonLd, faqJsonLd, softwareAppJsonLd } from "@/lib/seo-jsonld
 import { useMaintenant } from "@/hooks/useMaintenant";
 import { formatPriceEUR, getActivePricing, RELECTURES_IA_PAR_MOIS } from "@/lib/launch";
 import { mensuelEquivalent } from "@/lib/tarifs-affichage";
-import { APP_URL } from "@/lib/links";
+import { SIGNUP_URL } from "@/lib/links";
 import CTASection from "@/components/CTASection";
 import { Accent, CarteIllustration, Surtitre, TITRE_H2, TelephoneHero } from "@/components/design/elements";
 import { VIDEOS_APP, VIDEO_HAUTEUR, VIDEO_LARGEUR } from "@/lib/videos-app";
@@ -186,7 +186,7 @@ const ApplicationPms = () => {
                 </p>
                 <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
                   <Button variant="hero" size="xl" asChild className="group">
-                    <a href={APP_URL}>
+                    <a href={SIGNUP_URL}>
                       Essayer l'application
                       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </a>
@@ -306,7 +306,7 @@ const ApplicationPms = () => {
                   </p>
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <Button variant="accent" size="lg" asChild className="group">
-                      <a href={APP_URL}>
+                      <a href={SIGNUP_URL}>
                         Essayer 14 jours gratuitement
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </a>

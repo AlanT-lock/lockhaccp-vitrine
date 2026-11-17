@@ -65,6 +65,7 @@ describe("conversions signalées à Google Tag Manager", () => {
 
   it("reconnaît les liens à suivre", () => {
     expect(conversionPourLien("https://app.lockhaccp.fr/", null)).toEqual({ nom: "conversion_inscription" });
+    expect(conversionPourLien("https://app.lockhaccp.fr/signup", null)).toEqual({ nom: "conversion_inscription" });
     expect(conversionPourLien("https://app.lockhaccp.fr/", "connexion")).toBeNull();
     expect(conversionPourLien("https://apps.apple.com/fr/app/lockhaccp/id6747192726", null)).toEqual({
       nom: "conversion_app",

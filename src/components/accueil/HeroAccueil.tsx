@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Tag, Thermometer, SprayCan, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { APP_URL } from "@/lib/links";
+import { SIGNUP_URL } from "@/lib/links";
 import { VIDEOS_APP } from "@/lib/videos-app";
 import { EcranVideo, Telephone3D } from "./Telephone3D";
 
@@ -51,7 +51,7 @@ export function HeroAccueil() {
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
               <Button variant="hero" size="xl" asChild className="group">
-                <a href={APP_URL}>
+                <a href={SIGNUP_URL}>
                   Démarrer gratuitement
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </a>
