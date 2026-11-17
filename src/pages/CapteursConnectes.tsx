@@ -400,6 +400,7 @@ const CapteursConnectes = () => (
       <RelatedLinks
         items={[
           { to: "/fonctionnalites/temperatures", label: "Relevés de température", description: "Pour les enceintes sans capteur, le relevé sur téléphone." },
+          { to: "/blog/releve-temperature-restaurant-regles-fiche", label: "Relevé de température en restaurant : règles et fiche", description: "Seuils, fréquence et fiche à tenir." },
           { to: "/tarifs", label: "Tarifs LockHACCP", description: "L'abonnement et ses options." },
           { to: "/plan-de-maitrise-sanitaire", label: "Plan de Maîtrise Sanitaire gratuit", description: "Votre dossier PMS en 10 minutes." },
         ]}

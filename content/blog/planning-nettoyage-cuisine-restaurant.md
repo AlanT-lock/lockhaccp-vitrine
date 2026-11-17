@@ -48,6 +48,8 @@ Le planning part du plan de nettoyage : la liste des zones et des surfaces, avec
 
 Répartissez ensuite la charge. Un planning où tout tombe le vendredi soir ne sera pas tenu. Étalez les tâches hebdomadaires sur la semaine : frigos le lundi, murs le mercredi, siphons le vendredi, par exemple. Les tâches mensuelles se calent sur le jour de la semaine le plus calme de votre établissement.
 
+Le jour où vous videz un frigo pour le nettoyer, relevez sa température quand il est remis en route, avant d'y replacer les denrées. Les seuils à respecter et la fiche à tenir sont détaillés dans l'article [Relevé de température en restaurant : règles et fiche](/blog/releve-temperature-restaurant-regles-fiche).
+
 ## Un exemple pour une cuisine de restaurant
 
 Voici une journée type, à adapter à votre organisation.
