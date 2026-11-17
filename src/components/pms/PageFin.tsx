@@ -1,5 +1,5 @@
 // Page de fin du générateur : remerciement, téléchargement du dossier PMS et
-// invitation à l'essai de 1 mois de l'application (QR code, badges des stores).
+// invitation à l'essai de 14 jours de l'application (QR code, badges des stores).
 import { CheckCircle, Download, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BlocApplication } from "@/components/BlocApplication";
@@ -30,7 +30,7 @@ export function PageFin(props: { lien: string; email: string }) {
           <p className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1 text-sm font-semibold text-primary-foreground">
             <Gift className="h-4 w-4" /> Essai offert
           </p>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground">1 mois d'essai offert à l'application LockHACCP</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground">14 jours d'essai offerts à l'application LockHACCP</h3>
           <p className="text-base font-semibold text-primary">
             Votre essai démarre seulement le jour où vous créez votre compte.
           </p>

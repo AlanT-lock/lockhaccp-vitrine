@@ -39,7 +39,7 @@ const CTASection = ({
             {texte}
           </p>
           <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/85 lg:justify-start">
-            {["1 mois d'essai, sans carte bancaire", "Sans engagement", "Paramétrage offert"].map((t) => (
+            {["14 jours d'essai, sans carte bancaire", "Sans engagement", "Paramétrage offert"].map((t) => (
               <li key={t} className="flex items-center gap-1.5">
                 <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
                 {t}

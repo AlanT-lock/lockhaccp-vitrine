@@ -57,6 +57,17 @@ ${urls}
 }
 
 const euros = (n) => `${n.toFixed(2).replace(".", ",")} €`;
+const mensuelAnnuel = (annuel) => Math.round((annuel / 12) * 100) / 100;
+/** Le prix annuel (ramené au mois) en avant, le prix au mois ensuite. */
+function tarif(prix) {
+  const principal = prix.mainYearly
+    ? `${euros(mensuelAnnuel(prix.mainYearly))} par mois et par établissement en paiement annuel (${euros(prix.mainYearly)} par an), ou ${euros(prix.mainMonthly)} au mois`
+    : `${euros(prix.mainMonthly)} par mois et par établissement`;
+  const supplementaire = prix.extraYearly
+    ? `${euros(mensuelAnnuel(prix.extraYearly))} par mois en annuel (ou ${euros(prix.extraMonthly)} au mois) par établissement supplémentaire`
+    : `${euros(prix.extraMonthly)} par mois par établissement supplémentaire`;
+  return `${principal}, toutes fonctionnalités incluses ; ${supplementaire}.`;
+}
 
 export function genererLlms({ pages, descriptions, prix }) {
   const ligne = (p) => `- [${p.fil}](${canonicalAttendu(p.path)}): ${descriptions[p.path] ?? ""}`.trimEnd();
@@ -71,7 +82,7 @@ export function genererLlms({ pages, descriptions, prix }) {
 
 > LockHACCP est une application mobile et web française de gestion de l'hygiène alimentaire (HACCP) pour la restauration commerciale et collective : relevés de températures, réception des marchandises, traçabilité, plan de nettoyage, contrôle des huiles de friture, étiquettes de production et checklists, avec export des enregistrements pour les contrôles sanitaires.
 
-- Tarif : ${euros(prix.mainMonthly)} par mois et par établissement, toutes fonctionnalités incluses ; ${euros(prix.extraMonthly)} par mois par établissement supplémentaire. Essai gratuit, sans engagement.
+- Tarif : ${tarif(prix)} Essai gratuit de 14 jours, sans carte bancaire et sans engagement.
 - Générateur gratuit de Plan de Maîtrise Sanitaire (PMS) personnalisé, en ligne : ${SITE}/pms
 - Disponible sur iPhone, iPad, Android et navigateur web.
 - Contact : contact@lockhaccp.fr

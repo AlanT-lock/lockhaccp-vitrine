@@ -62,7 +62,7 @@ const TermsOfUse = () => {
                 L'accès complet à l'application prend la forme d'un abonnement par établissement. Les tarifs en vigueur sont indiqués sur la page <a href="/tarifs" className="text-primary underline underline-offset-2 hover:no-underline">Tarifs</a>. Le paiement est géré par le prestataire de paiement Stripe ; LockHACCP n'a pas accès aux données de carte bancaire.
               </p>
               <p className="text-muted-foreground mb-4">
-                Un essai gratuit de 1 mois est proposé, sans carte bancaire.
+                Un essai gratuit de 14 jours est proposé, sans carte bancaire.
               </p>
               <p className="text-muted-foreground">
                 L'abonnement est sans engagement. L'utilisateur peut le résilier à tout moment depuis l'application, sans préavis.

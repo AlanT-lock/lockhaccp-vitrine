@@ -316,7 +316,7 @@ const ContactInfo = () => {
 
 const DEMANDES = [
   { to: "/demander-demo", titre: "Voir l'application en action", texte: "Une démonstration de 30 minutes en visio, sur Google Meet, adaptée à votre établissement." },
-  { to: "/tarifs", titre: "Connaître les tarifs", texte: "Un prix par établissement, toutes fonctionnalités incluses, 1 mois d'essai gratuit et sans engagement." },
+  { to: "/tarifs", titre: "Connaître les tarifs", texte: "Un prix par établissement, toutes fonctionnalités incluses, 14 jours d'essai gratuit et sans engagement." },
   { to: "/contact-entreprise", titre: "Équiper plusieurs restaurants", texte: "Un tarif dégressif par établissement et un tableau de bord consolidé pour tous vos sites." },
   { to: "/plan-de-maitrise-sanitaire", titre: "Obtenir un Plan de Maîtrise Sanitaire", texte: "Générez gratuitement le PMS de votre établissement en répondant à un questionnaire de 10 minutes." },
 ];

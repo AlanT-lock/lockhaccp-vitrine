@@ -406,7 +406,7 @@ const PlanMaitriseSanitaire = () => (
               rappels quand une tâche est oubliée.
             </p>
             <p className="mt-6 font-semibold text-foreground">
-              Avec votre PMS, l'application est paramétrée pour vous, et le premier mois est offert.
+              Avec votre PMS, l'application est paramétrée pour vous, et vous l'essayez gratuitement pendant 14 jours.
             </p>
             <Link
               to="/fonctionnalites/temperatures"

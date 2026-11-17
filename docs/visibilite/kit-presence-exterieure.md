@@ -17,7 +17,7 @@ Préparé le 2 octobre 2026. Tout est prêt à copier-coller. Les fonctions cit�
 - **Langue** : français
 - **Pour qui** : restaurants, restauration rapide, traiteurs, boulangeries, boucheries, crèches et cuisines collectives
 - **Prix** : 24,90 € par mois et par établissement, toutes fonctions incluses ; 9,90 € par mois par établissement supplémentaire ; annuel 249 € (2 mois offerts). Sans engagement.
-- **Essai gratuit** : 1 mois, sans carte bancaire (2 mois pour les établissements qui créent leur PMS gratuit sur le site)
+- **Essai gratuit** : 14 jours, sans carte bancaire (mis à jour le 17/11/2026)
 - **En plus** : générateur gratuit de Plan de Maîtrise Sanitaire personnalisé, en ligne
 
 **Accroche (moins de 60 caractères)**
@@ -33,7 +33,7 @@ Préparé le 2 octobre 2026. Tout est prêt à copier-coller. Les fonctions cit�
 >
 > Chaque membre de l'équipe se connecte avec son code : on sait qui a fait quoi, et quand. Le jour du contrôle sanitaire, l'historique est prêt, et un récapitulatif arrive chaque semaine par e-mail.
 >
-> LockHACCP a été conçu avec un formateur en hygiène alimentaire. 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement, avec un mois d'essai gratuit.
+> LockHACCP a été conçu avec un formateur en hygiène alimentaire. 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement, avec 14 jours d'essai gratuit.
 
 **Liste des fonctions (pour les formulaires à cases)**
 Relevés de température · Contrôle à réception avec photos · Plan de nettoyage et de désinfection par zone · Contrôle des huiles de friture · Suivi des DLC avec alertes · Étiquettes de production · Checklists personnalisées · Attribution des tâches par employé et par rôle · Connexion par code personnel · Historique des enregistrements · Export PDF et Excel · Rappel quotidien · Rapport hebdomadaire par e-mail · Multi-établissements · Générateur de PMS
@@ -50,8 +50,8 @@ Champs à remplacer dans « Informations sur l'app » et dans la version en cour
 - **Mots-clés (100 caractères max, sans espaces après les virgules)** :
   `haccp,pms,hygiene,restaurant,temperature,tracabilite,nettoyage,ddpp,dlc,etiquette,cuisine,allergene` (99)
 - **Texte promotionnel (170 max, modifiable sans nouvelle version)** :
-  > Offre de lancement : 14,90 € par mois garanti à vie pour toute souscription avant le 31 octobre 2026. Essai gratuit d'un mois, sans carte bancaire.
-  (à remplacer le 1er novembre par : « Essai gratuit d'un mois, sans carte bancaire. Créez aussi votre Plan de Maîtrise Sanitaire gratuit sur lockhaccp.fr. »)
+  > Offre de lancement : 14,90 € par mois garanti à vie pour toute souscription avant le 31 octobre 2026. Essai gratuit de 14 jours, sans carte bancaire.
+  (à remplacer le 1er novembre par : « Essai gratuit de 14 jours, sans carte bancaire. Créez aussi votre Plan de Maîtrise Sanitaire gratuit sur lockhaccp.fr. »)
 - **Description** :
 
 > Fini les fiches papier HACCP qu'on oublie en plein service.
@@ -74,7 +74,7 @@ Champs à remplacer dans « Informations sur l'app » et dans la version en cour
 > Tout l'historique est dans l'application, rangé par date, exportable en PDF ou Excel.
 >
 > TARIF
-> 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement. Un mois d'essai gratuit, sans carte bancaire.
+> 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement. 14 jours d'essai gratuit, sans carte bancaire.
 >
 > Conçu avec un formateur en hygiène alimentaire. Pour les restaurants, la restauration rapide, les traiteurs, les boulangeries, les boucheries, les crèches et les cuisines collectives.
 >

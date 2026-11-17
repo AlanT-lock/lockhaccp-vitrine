@@ -35,7 +35,7 @@ function faqAccueil(p: PricingGrid): FaqItem[] {
     {
       question: "LockHACCP convient-il à un petit restaurant ?",
       answer:
-        "Oui. Un téléphone suffit, chaque membre de l'équipe se connecte avec son propre code, et l'abonnement est sans engagement, avec 1 mois d'essai gratuit.",
+        "Oui. Un téléphone suffit, chaque membre de l'équipe se connecte avec son propre code, et l'abonnement est sans engagement, avec 14 jours d'essai gratuit.",
     },
     {
       question: "Combien coûte LockHACCP ?",
@@ -66,7 +66,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Seo
         title={`Logiciel HACCP pour restaurateurs dès ${formatPriceEUR(mensuelEquivalent(pricing.mainYearly))}/mois`}
-        description="Logiciel HACCP pour restaurateurs : relevés de température, traçabilité, plan de nettoyage, étiquettes, sur téléphone. Essai gratuit 1 mois sans engagement."
+        description="Logiciel HACCP pour restaurateurs : relevés de température, traçabilité, plan de nettoyage, étiquettes, sur téléphone. Essai gratuit 14 jours sans engagement."
         path="/"
         jsonLd={[organizationJsonLd, websiteJsonLd, softwareAppJsonLd(maintenant), faqJsonLd(faq)]}
       />

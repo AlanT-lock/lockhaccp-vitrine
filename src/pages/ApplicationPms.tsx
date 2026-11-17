@@ -16,7 +16,57 @@ import { mensuelEquivalent } from "@/lib/tarifs-affichage";
 import { APP_URL } from "@/lib/links";
 import CTASection from "@/components/CTASection";
 import { Accent, CarteIllustration, Surtitre, TITRE_H2, TelephoneHero } from "@/components/design/elements";
-import { VIDEOS_APP } from "@/lib/videos-app";
+import { VIDEOS_APP, VIDEO_HAUTEUR, VIDEO_LARGEUR } from "@/lib/videos-app";
+import { SectionComparatif } from "@/components/SectionsContenu";
+import { LIEN_APP_STORE, LIEN_GOOGLE_PLAY } from "@/lib/app-store";
+
+/** Les écrans de l'application (images fixes tirées des vidéos du simulateur). */
+const ECRANS = [
+  {
+    src: VIDEOS_APP.temperatures.cle,
+    titre: "Relevé de température",
+    texte: "Au-dessus de la limite, l'application demande la mesure corrective.",
+    alt: "Écran de mesure corrective : chambre froide à 7,4 °C, produits transférés et technicien frigoriste appelé",
+  },
+  {
+    src: VIDEOS_APP.reception.cle,
+    titre: "Réception des marchandises",
+    texte: "Le bon de livraison est lu : fournisseur et produits reconnus.",
+    alt: "Écran de réception : bon de livraison lu, 5 produits, fournisseur Boucherie Martin proposé",
+  },
+  {
+    src: VIDEOS_APP.etiquettes.cle,
+    titre: "Production et étiquettes",
+    texte: "DLC secondaire calculée, numéro de lot proposé, impression.",
+    alt: "Écran de production : sauce béarnaise × 3, DLC secondaire au 18 novembre et numéro de lot proposé",
+  },
+  {
+    src: VIDEOS_APP.historique.cle,
+    titre: "Nettoyage du jour",
+    texte: "Zone par zone, les surfaces cochées et signées.",
+    alt: "Écran du nettoyage du jour : 15 surfaces sur 15 nettoyées, zones Cuisine et Plonge terminées",
+  },
+];
+
+/** Tout ce qui est compris dans l'abonnement (repris de la page Tarifs). */
+const INCLUS = [
+  "Relevés de température, avec rappels",
+  "Contrôle à réception et traçabilité",
+  "Plan de nettoyage, avec rappels",
+  "Huiles de friture et check-lists",
+  "Production et impression d'étiquettes",
+  "Historique complet et rapport de contrôle DDPP",
+];
+
+function faqs(prixAnnuel: string, prixMensuel: string): FaqItem[] {
+  return [
+    {
+      question: "Combien coûte l'application HACCP ?",
+      answer: `${prixAnnuel} par mois et par établissement en paiement annuel, ou ${prixMensuel} au mois, toutes fonctionnalités incluses. L'essai est de 14 jours, sans carte bancaire et sans engagement.`,
+    },
+    ...FAQS,
+  ];
+}
 
 const FAQS: FaqItem[] = [
   {
@@ -27,7 +77,7 @@ const FAQS: FaqItem[] = [
   {
     question: "Existe-t-il une application HACCP gratuite ?",
     answer:
-      "Le Plan de Maîtrise Sanitaire de LockHACCP est gratuit, et l'application s'essaie 1 mois sans engagement et sans carte bancaire. Ensuite, l'application est payante, avec un prix affiché sur le site. Méfiez-vous des applications « gratuites » qui facturent la mise en place, le matériel ou chaque établissement supplémentaire : comparez le coût total sur un an.",
+      "Le Plan de Maîtrise Sanitaire de LockHACCP est gratuit, et l'application s'essaie 14 jours sans engagement et sans carte bancaire. Ensuite, l'application est payante, avec un prix affiché sur le site. Méfiez-vous des applications « gratuites » qui facturent la mise en place, le matériel ou chaque établissement supplémentaire : comparez le coût total sur un an.",
   },
   {
     question: "L'application HACCP fonctionne-t-elle sur tablette et sur ordinateur ?",
@@ -67,7 +117,7 @@ const FAQS: FaqItem[] = [
   {
     question: "Combien de temps puis-je essayer l'application ?",
     answer:
-      "L'essai est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où vous créez votre compte. Si vous avez d'abord créé votre PMS gratuit sur le site avec la même adresse e-mail, l'application est paramétrée automatiquement à partir de votre PMS.",
+      "L'essai est de 14 jours, sans engagement et sans carte bancaire. Il démarre le jour où vous créez votre compte. Si vous avez d'abord créé votre PMS gratuit sur le site avec la même adresse e-mail, l'application est paramétrée automatiquement à partir de votre PMS.",
   },
 ];
 
@@ -99,17 +149,19 @@ const LIEN = "font-semibold text-primary underline underline-offset-4";
 const ApplicationPms = () => {
   const maintenant = useMaintenant();
   const tarif = getActivePricing(maintenant);
+  const prixAnnuel = formatPriceEUR(mensuelEquivalent(tarif.mainYearly));
+  const listeFaq = faqs(prixAnnuel, formatPriceEUR(tarif.mainMonthly));
 
   return (
     <div className="min-h-screen">
       <Seo
-        title="Application HACCP sur téléphone et tablette"
-        description="Application HACCP pour restaurants et métiers de bouche : températures, nettoyage, traçabilité, étiquettes. iPhone, Android, tablette. Essai 1 mois."
+        title="Application HACCP pour restaurant : prix et essai gratuit"
+        description={`Application HACCP sur iPhone, Android et tablette : températures, nettoyage, traçabilité, étiquettes DLC. Dès ${prixAnnuel}/mois en annuel, essai gratuit 14 jours.`}
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
           breadcrumbJsonLd([{ name: "Accueil", path: "/" }, { name: "Application HACCP", path: "/application-pms" }]),
-          faqJsonLd(FAQS),
+          faqJsonLd(listeFaq),
         ]}
       />
       <Navbar />
@@ -143,6 +195,18 @@ const ApplicationPms = () => {
                     <Link to="/pms">Créer mon PMS gratuit</Link>
                   </Button>
                 </div>
+                <p className="mt-6 text-foreground">
+                  <span className="font-heading text-2xl font-extrabold text-primary">Dès {prixAnnuel}/mois</span>{" "}
+                  <span className="text-muted-foreground">en annuel · 14 jours d'essai gratuit, sans carte bancaire</span>
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                  <a href={LIEN_APP_STORE} target="_blank" rel="noreferrer" aria-label="Télécharger dans l'App Store">
+                    <img src="/badges/app-store.svg" alt="Télécharger dans l'App Store" width={152} height={48} className="h-11 w-auto" />
+                  </a>
+                  <a href={LIEN_GOOGLE_PLAY} target="_blank" rel="noreferrer" aria-label="Disponible sur Google Play">
+                    <img src="/badges/google-play.png" alt="Disponible sur Google Play" width={161} height={48} className="h-11 w-auto" />
+                  </a>
+                </div>
                 <p className="mt-5 text-sm text-muted-foreground">
                   Vous préférez qu'on vous la montre ?{" "}
                   <Link to="/demander-demo" className={LIEN}>
@@ -166,6 +230,28 @@ const ApplicationPms = () => {
         <section className="border-y border-border/70 bg-white/60 py-8">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <TrustBadges />
+          </div>
+        </section>
+
+        {/* Les écrans de l'application : vraies captures */}
+        <section className="pt-20 lg:pt-28">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <Surtitre>Les écrans</Surtitre>
+              <h2 className={TITRE_H2}>L'application HACCP en images</h2>
+              <p className="mt-5 text-lg text-muted-foreground">Les vrais écrans de l'application, tels que votre équipe les utilise en cuisine.</p>
+            </div>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-6">
+              {ECRANS.map((e, i) => (
+                <li key={e.titre} className={`text-center ${i % 2 === 1 ? "lg:translate-y-8" : ""}`}>
+                  <div className="mx-auto w-full max-w-[13rem] overflow-hidden rounded-[2rem] border-[6px] border-[#12161f] bg-white shadow-[0_30px_60px_-28px_hsl(211_100%_20%/0.55)]">
+                    <img src={e.src} alt={e.alt} width={VIDEO_LARGEUR} height={VIDEO_HAUTEUR} loading="lazy" decoding="async" className="w-full" />
+                  </div>
+                  <h3 className="mt-5 font-heading text-lg font-bold text-foreground">{e.titre}</h3>
+                  <p className="mx-auto mt-1 max-w-[15rem] text-sm text-muted-foreground">{e.texte}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -196,6 +282,79 @@ const ApplicationPms = () => {
             </ul>
           </div>
         </section>
+
+        {/* Prix : l'annuel en avant */}
+        <section className="py-12 lg:py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] border border-border/80 bg-white/90 shadow-[0_30px_70px_-45px_hsl(211_100%_20%/0.45)] lg:grid-cols-2">
+              <div className="relative overflow-hidden bg-primary p-8 text-white sm:p-12">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-secondary/30 blur-3xl" />
+                <div className="relative">
+                  <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-secondary">Le prix</p>
+                  <h2 className="font-heading text-[clamp(1.9rem,3.6vw,2.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">
+                    Tarif de l'application HACCP
+                  </h2>
+                  <p className="mt-6 flex items-baseline gap-2">
+                    <span className="font-heading text-5xl font-extrabold tracking-tight">{prixAnnuel}</span>
+                    <span className="text-white/75">/mois et par établissement, en paiement annuel</span>
+                  </p>
+                  <p className="mt-4 leading-relaxed text-white/80">
+                    {formatPriceEUR(tarif.mainYearly)} par an et par établissement, toutes fonctionnalités incluses ({tarif.annualDiscountLabel}),
+                    ou {formatPriceEUR(tarif.mainMonthly)} au mois. Chaque établissement supplémentaire :{" "}
+                    {formatPriceEUR(mensuelEquivalent(tarif.extraYearly))} par mois en annuel, ou {formatPriceEUR(tarif.extraMonthly)} au mois.
+                    Sans engagement, résiliable depuis l'application, sans frais caché.
+                  </p>
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <Button variant="accent" size="lg" asChild className="group">
+                      <a href={APP_URL}>
+                        Essayer 14 jours gratuitement
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </a>
+                    </Button>
+                    <Button size="lg" asChild className="border-2 border-white/25 bg-white/10 text-white hover:bg-white/20">
+                      <Link to="/tarifs">Voir tous les tarifs</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8 sm:p-12">
+                <p className="font-heading text-lg font-bold text-foreground">Tout est compris dans l'abonnement</p>
+                <ul className="mt-6 space-y-3">
+                  {INCLUS.map((t) => (
+                    <li key={t} className="flex items-start gap-3 text-foreground">
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-light">
+                        <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                      </span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-border/80 pt-6 text-sm text-foreground">
+                  {["Sans engagement", "Paramétrage offert", "Données hébergées en Europe"].map((t) => (
+                    <li key={t} className="flex items-center gap-1.5">
+                      <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <SectionComparatif
+          titre="Fiches papier, tableur ou application HACCP : le comparatif"
+          intro="Les trois supports sont acceptés lors d'un contrôle sanitaire. Voici ce qui change au quotidien."
+          lignes={[
+            { critere: "Rappel des contrôles", papier: "Aucun : la fiche attend qu'on y pense.", application: "Une notification chaque matin, selon vos jours d'ouverture." },
+            { critere: "Qui a fait le contrôle", papier: "Des initiales, rarement l'heure exacte.", application: "Code personnel : date, heure et auteur enregistrés." },
+            { critere: "Écart de température", papier: "À noter dans la marge, souvent oublié.", application: "Mesure corrective demandée dès que la limite est dépassée." },
+            { critere: "Réceptions et traçabilité", papier: "Bons de livraison à classer, étiquettes perdues.", application: "Bon de livraison lu automatiquement, photos jointes." },
+            { critere: "Le jour du contrôle", papier: "Retrouver les bonnes fiches dans le classeur.", application: "Historique consultable en quelques secondes, export PDF." },
+            { critere: "Sans réseau", papier: "Oui.", application: "Oui, l'application fonctionne hors connexion." },
+            { critere: "Coût", papier: "Impression des fiches, temps de saisie.", application: `Dès ${prixAnnuel}/mois en annuel, 14 jours d'essai gratuit.` },
+          ]}
+        />
 
         {/* Sur téléphone, tablette ou ordinateur */}
         <section className="py-20 lg:py-28">
@@ -347,7 +506,7 @@ const ApplicationPms = () => {
                       Votre PMS paramètre l'application pour vous
                     </h2>
                     <p className="mt-4 leading-relaxed text-secondary-foreground/85">
-                      L'essai de l'application est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où
+                      L'essai de l'application est de 14 jours, sans engagement et sans carte bancaire. Il démarre le jour où
                       vous créez votre compte. Créez-le avec la même adresse e-mail que votre PMS gratuit : les réponses de
                       votre PMS sont reprises automatiquement pour paramétrer l'application.
                     </p>
@@ -356,37 +515,12 @@ const ApplicationPms = () => {
                     </div>
                   </div>
                 </div>
-
-                <div className="rounded-[2rem] border border-border/80 bg-white/90 p-7 sm:p-9">
-                  <h2 className="font-heading text-2xl font-extrabold text-foreground">Tarif de l'application HACCP</h2>
-                  <p className="mt-3 flex items-baseline gap-2">
-                    <span className="font-heading text-4xl font-extrabold tracking-tight text-foreground">{formatPriceEUR(mensuelEquivalent(tarif.mainYearly))}</span>
-                    <span className="text-muted-foreground">par mois et par établissement, en paiement annuel</span>
-                  </p>
-                  <p className="mt-3 leading-relaxed text-muted-foreground">
-                    {formatPriceEUR(tarif.mainYearly)} par an et par établissement, toutes fonctionnalités incluses ({tarif.annualDiscountLabel}),
-                    ou {formatPriceEUR(tarif.mainMonthly)} au mois. Chaque établissement supplémentaire :{" "}
-                    {formatPriceEUR(mensuelEquivalent(tarif.extraYearly))} par mois en annuel, ou {formatPriceEUR(tarif.extraMonthly)} au mois.
-                    Sans engagement, résiliable depuis l'application, sans frais caché.
-                  </p>
-                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground">
-                    {["Toutes fonctionnalités incluses", "Sans engagement", "Paramétrage offert"].map((t) => (
-                      <li key={t} className="flex items-center gap-1.5">
-                        <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button variant="outline" size="lg" asChild className="mt-7">
-                    <Link to="/tarifs">Voir tous les tarifs</Link>
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <FaqSection items={FAQS} title="Questions sur l'application HACCP" />
+        <FaqSection items={listeFaq} title="Questions sur l'application HACCP" />
 
         <CTASection
           titre="Prêt à passer vos contrôles HACCP sur téléphone ?"

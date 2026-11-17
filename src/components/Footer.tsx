@@ -69,7 +69,7 @@ const Footer = () => {
             href={APP_URL}
             className="group inline-flex items-center gap-2 self-start rounded-full bg-white px-6 py-3.5 font-semibold text-primary transition-colors hover:bg-secondary hover:text-white lg:self-auto"
           >
-            Essayer gratuitement 1 mois
+            Essayer gratuitement 14 jours
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
