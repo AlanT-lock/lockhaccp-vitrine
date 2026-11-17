@@ -75,7 +75,7 @@ describe("genererLlms", () => {
   const txt = genererLlms({
     pages,
     descriptions: { "/": "Accueil desc", "/fonctionnalites/huiles": "Huiles desc", "/blog/x": "X desc" },
-    prix: { mainMonthly: 24.9, extraMonthly: 9.9 },
+    prix: { mainMonthly: 24.9, mainYearly: 249, extraMonthly: 9.9, extraYearly: 99 },
   });
   it("commence par le titre H1 et un résumé", () => {
     expect(txt.startsWith("# LockHACCP\n\n> ")).toBe(true);
@@ -83,6 +83,10 @@ describe("genererLlms", () => {
   it("annonce le prix en vigueur au format français", () => {
     expect(txt).toContain("24,90 €");
     expect(txt).toContain("9,90 €");
+  });
+  it("met en avant le prix annuel ramené au mois et l'essai de 14 jours", () => {
+    expect(txt).toContain("20,75 € par mois et par établissement en paiement annuel (249,00 € par an)");
+    expect(txt).toContain("Essai gratuit de 14 jours");
   });
   it("range les pages par section avec URL absolue et description", () => {
     expect(txt).toContain("## Fonctionnalités\n\n- [Contrôle des huiles](https://lockhaccp.fr/fonctionnalites/huiles): Huiles desc");

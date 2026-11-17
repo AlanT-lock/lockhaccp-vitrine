@@ -24,13 +24,13 @@ const ETAPES_DEMO = [
   { titre: "Nous vous recontactons sous 24 h", texte: "Par e-mail ou par téléphone, pour fixer un créneau qui vous convient." },
   { titre: "Vous recevez un lien Google Meet", texte: "Rien à installer : la démonstration se suit depuis un ordinateur, une tablette ou un téléphone." },
   { titre: "30 minutes sur votre cas", texte: "Relevés de température, réceptions, nettoyage, traçabilité : nous montrons ce qui vous concerne et répondons à vos questions." },
-  { titre: "Vous testez pendant 1 mois", texte: "Si l'application vous convient, vous l'essayez gratuitement pendant 1 mois, sans carte bancaire et sans engagement." },
+  { titre: "Vous testez pendant 14 jours", texte: "Si l'application vous convient, vous l'essayez gratuitement pendant 14 jours, sans carte bancaire et sans engagement." },
 ];
 
 const FAQ_DEMO = [
   { question: "La démonstration est-elle payante ?", answer: "Non, elle est gratuite et ne vous engage à rien." },
   { question: "Faut-il installer quelque chose pour la démo ?", answer: "Non. Vous recevez un lien Google Meet, qui s'ouvre depuis un navigateur ou l'application Meet." },
-  { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 1 mois est accessible directement, sans carte bancaire et sans engagement." },
+  { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 14 jours est accessible directement, sans carte bancaire et sans engagement." },
   { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Oui. L'application fonctionne hors connexion, même dans une chambre froide ou une réserve où le réseau passe mal." },
   { question: "Où sont hébergées mes données ?", answer: "En Europe, chez Supabase, dans le respect du RGPD." },
 ];
@@ -150,7 +150,7 @@ const ContactDemo = () => {
     },
     {
       icon: Users,
-      title: "Essai gratuit de 1 mois",
+      title: "Essai gratuit de 14 jours",
       description: "Testez LockHACCP sans engagement avec toutes les fonctionnalités.",
     },
     {
@@ -178,7 +178,7 @@ const ContactDemo = () => {
               <div className="lg:col-span-5 lg:sticky lg:top-32">
                 <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-white/70 px-4 py-1.5 text-sm font-semibold text-secondary-texte shadow-sm">
                   <Gift className="h-4 w-4" />
-                  Essai gratuit de 1 mois inclus
+                  Essai gratuit de 14 jours inclus
                 </p>
                 <h1 className="font-heading text-[clamp(2.3rem,5vw,4rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-foreground">
                   Demandez votre <Accent>démo gratuite</Accent>

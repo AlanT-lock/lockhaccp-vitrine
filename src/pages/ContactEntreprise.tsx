@@ -49,7 +49,7 @@ const ContactEntreprise = () => {
     },
     {
       question: "Peut-on tester avant de déployer dans tout le groupe ?",
-      answer: "Oui, avec 1 mois d'essai gratuit, sans carte bancaire : vous pouvez commencer par un seul établissement.",
+      answer: "Oui, avec 14 jours d'essai gratuit, sans carte bancaire : vous pouvez commencer par un seul établissement.",
     },
     {
       question: "LockHACCP se connecte-t-il à nos autres logiciels ?",

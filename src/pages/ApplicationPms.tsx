@@ -62,7 +62,7 @@ function faqs(prixAnnuel: string, prixMensuel: string): FaqItem[] {
   return [
     {
       question: "Combien coûte l'application HACCP ?",
-      answer: `${prixAnnuel} par mois et par établissement en paiement annuel, ou ${prixMensuel} au mois, toutes fonctionnalités incluses. L'essai est de 1 mois, sans carte bancaire et sans engagement.`,
+      answer: `${prixAnnuel} par mois et par établissement en paiement annuel, ou ${prixMensuel} au mois, toutes fonctionnalités incluses. L'essai est de 14 jours, sans carte bancaire et sans engagement.`,
     },
     ...FAQS,
   ];
@@ -77,7 +77,7 @@ const FAQS: FaqItem[] = [
   {
     question: "Existe-t-il une application HACCP gratuite ?",
     answer:
-      "Le Plan de Maîtrise Sanitaire de LockHACCP est gratuit, et l'application s'essaie 1 mois sans engagement et sans carte bancaire. Ensuite, l'application est payante, avec un prix affiché sur le site. Méfiez-vous des applications « gratuites » qui facturent la mise en place, le matériel ou chaque établissement supplémentaire : comparez le coût total sur un an.",
+      "Le Plan de Maîtrise Sanitaire de LockHACCP est gratuit, et l'application s'essaie 14 jours sans engagement et sans carte bancaire. Ensuite, l'application est payante, avec un prix affiché sur le site. Méfiez-vous des applications « gratuites » qui facturent la mise en place, le matériel ou chaque établissement supplémentaire : comparez le coût total sur un an.",
   },
   {
     question: "L'application HACCP fonctionne-t-elle sur tablette et sur ordinateur ?",
@@ -117,7 +117,7 @@ const FAQS: FaqItem[] = [
   {
     question: "Combien de temps puis-je essayer l'application ?",
     answer:
-      "L'essai est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où vous créez votre compte. Si vous avez d'abord créé votre PMS gratuit sur le site avec la même adresse e-mail, l'application est paramétrée automatiquement à partir de votre PMS.",
+      "L'essai est de 14 jours, sans engagement et sans carte bancaire. Il démarre le jour où vous créez votre compte. Si vous avez d'abord créé votre PMS gratuit sur le site avec la même adresse e-mail, l'application est paramétrée automatiquement à partir de votre PMS.",
   },
 ];
 
@@ -156,7 +156,7 @@ const ApplicationPms = () => {
     <div className="min-h-screen">
       <Seo
         title="Application HACCP pour restaurant : prix et essai gratuit"
-        description={`Application HACCP sur iPhone, Android et tablette : températures, nettoyage, traçabilité, étiquettes DLC. Dès ${prixAnnuel}/mois en annuel, essai gratuit 1 mois.`}
+        description={`Application HACCP sur iPhone, Android et tablette : températures, nettoyage, traçabilité, étiquettes DLC. Dès ${prixAnnuel}/mois en annuel, essai gratuit 14 jours.`}
         path="/application-pms"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -197,7 +197,7 @@ const ApplicationPms = () => {
                 </div>
                 <p className="mt-6 text-foreground">
                   <span className="font-heading text-2xl font-extrabold text-primary">Dès {prixAnnuel}/mois</span>{" "}
-                  <span className="text-muted-foreground">en annuel · 1 mois d'essai gratuit, sans carte bancaire</span>
+                  <span className="text-muted-foreground">en annuel · 14 jours d'essai gratuit, sans carte bancaire</span>
                 </p>
                 <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                   <a href={LIEN_APP_STORE} target="_blank" rel="noreferrer" aria-label="Télécharger dans l'App Store">
@@ -307,7 +307,7 @@ const ApplicationPms = () => {
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <Button variant="accent" size="lg" asChild className="group">
                       <a href={APP_URL}>
-                        Essayer 1 mois gratuit
+                        Essayer 14 jours gratuitement
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </a>
                     </Button>
@@ -352,7 +352,7 @@ const ApplicationPms = () => {
             { critere: "Réceptions et traçabilité", papier: "Bons de livraison à classer, étiquettes perdues.", application: "Bon de livraison lu automatiquement, photos jointes." },
             { critere: "Le jour du contrôle", papier: "Retrouver les bonnes fiches dans le classeur.", application: "Historique consultable en quelques secondes, export PDF." },
             { critere: "Sans réseau", papier: "Oui.", application: "Oui, l'application fonctionne hors connexion." },
-            { critere: "Coût", papier: "Impression des fiches, temps de saisie.", application: `Dès ${prixAnnuel}/mois en annuel, 1 mois d'essai gratuit.` },
+            { critere: "Coût", papier: "Impression des fiches, temps de saisie.", application: `Dès ${prixAnnuel}/mois en annuel, 14 jours d'essai gratuit.` },
           ]}
         />
 
@@ -506,7 +506,7 @@ const ApplicationPms = () => {
                       Votre PMS paramètre l'application pour vous
                     </h2>
                     <p className="mt-4 leading-relaxed text-secondary-foreground/85">
-                      L'essai de l'application est de 1 mois, sans engagement et sans carte bancaire. Il démarre le jour où
+                      L'essai de l'application est de 14 jours, sans engagement et sans carte bancaire. Il démarre le jour où
                       vous créez votre compte. Créez-le avec la même adresse e-mail que votre PMS gratuit : les réponses de
                       votre PMS sont reprises automatiquement pour paramétrer l'application.
                     </p>

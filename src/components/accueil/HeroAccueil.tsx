@@ -69,7 +69,7 @@ export function HeroAccueil() {
             </p>
 
             <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
-              {["1 mois d'essai, sans carte bancaire", "Sans engagement", "Données hébergées en Europe"].map((t) => (
+              {["14 jours d'essai, sans carte bancaire", "Sans engagement", "Données hébergées en Europe"].map((t) => (
                 <li key={t} className="flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
                   {t}

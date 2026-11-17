@@ -126,7 +126,7 @@ export function PageFonctionnalite({
                   </Button>
                 </div>
                 <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
-                  {["1 mois d'essai, sans carte bancaire", "Sans engagement"].map((t) => (
+                  {["14 jours d'essai, sans carte bancaire", "Sans engagement"].map((t) => (
                     <li key={t} className="flex items-center gap-1.5">
                       <Check className="h-4 w-4 text-secondary" strokeWidth={3} />
                       {t}

@@ -177,7 +177,7 @@ const PricingGridCard = ({ pricing, title, badgeLabel, note, highlighted, showCt
         {showCta && (
           <Button variant={highlighted ? "accent" : "hero"} size="lg" asChild className="group mt-7 w-full">
             <a href={APP_URL}>
-              {ctaLabel ?? "Essayer 1 mois gratuit"}
+              {ctaLabel ?? "Essayer 14 jours gratuitement"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
@@ -271,7 +271,7 @@ const Pricing = () => {
     {
       question: "Y a-t-il un essai gratuit ?",
       answer:
-        "Oui, LockHACCP propose 1 mois d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
+        "Oui, LockHACCP propose 14 jours d'essai gratuit, sans engagement et sans carte bancaire. Vous pouvez tester toutes les fonctionnalités avant de vous abonner.",
     },
     {
       question: "LockHACCP est-il conforme aux exigences de la DDPP ?",
@@ -328,7 +328,7 @@ const Pricing = () => {
       highlighted={false}
       showCta
       features={PRO_FEATURES}
-      ctaLabel={PRO_EN_VENTE ? "Essayer 1 mois gratuit" : "Essayer LockHACCP gratuitement"}
+      ctaLabel={PRO_EN_VENTE ? "Essayer 14 jours gratuitement" : "Essayer LockHACCP gratuitement"}
       facturation={facturation}
     />
   );
@@ -339,7 +339,7 @@ const Pricing = () => {
     <div className="min-h-screen">
       <Seo
         title={`Tarifs LockHACCP : logiciel HACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois`}
-        description={`LockHACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois TTC en annuel (${formatPriceEUR(activePricing.mainYearly)}/an) ou ${formatPriceEUR(activePricing.mainMonthly)} au mois. PMS gratuit qui configure l'app. Essai gratuit 1 mois sans engagement.`}
+        description={`LockHACCP dès ${formatPriceEUR(mensuelEquivalent(activePricing.mainYearly))}/mois TTC en annuel (${formatPriceEUR(activePricing.mainYearly)}/an) ou ${formatPriceEUR(activePricing.mainMonthly)} au mois. PMS gratuit qui configure l'app. Essai gratuit 14 jours sans engagement.`}
         path="/tarifs"
         jsonLd={[
           softwareAppJsonLd(maintenant),
@@ -356,13 +356,13 @@ const Pricing = () => {
             <div className="mx-auto max-w-3xl text-center">
               <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
                 <ShieldCheck className="h-4 w-4" />
-                Essai gratuit de 1 mois
+                Essai gratuit de 14 jours
               </p>
               <h1 className="font-heading text-[clamp(2.3rem,5.4vw,4.3rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-foreground">
                 Tarifs du <Accent>logiciel HACCP</Accent>, adaptés à votre établissement
               </h1>
               <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-                Commencez gratuitement pendant 1 mois, sans engagement. Découvrez toutes les fonctionnalités et choisissez
+                Commencez gratuitement pendant 14 jours, sans engagement. Découvrez toutes les fonctionnalités et choisissez
                 l'offre qui vous convient.
               </p>
               <Link
@@ -638,7 +638,7 @@ const Pricing = () => {
         <FaqSection items={FAQS} title="Questions fréquentes sur les tarifs" description="Tout ce qu'il faut savoir avant de choisir votre formule." />
 
         <CTASection
-          texte="Profitez de 1 mois d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien."
+          texte="Profitez de 14 jours d'essai gratuit et découvrez comment LockHACCP peut transformer votre quotidien."
         />
 
         <RelatedLinks
