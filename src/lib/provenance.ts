@@ -2,6 +2,13 @@
 // relevée à l'arrivée sur le site et jointe à la demande de PMS : elle apparaît sur la
 // fiche du prospect dans Closera. Gardée en mémoire seulement, rien n'est enregistré sur
 // l'appareil du visiteur : elle vaut pour la visite en cours, jusqu'au rechargement de la page.
+//
+// Les paramètres d'une annonce restent dans l'adresse tant que le visiteur ne change pas de
+// page : un onglet rechargé ou rouvert (le téléphone recharge les onglets mis en veille)
+// les relit, parfois des heures après le clic. La provenance le signale (`page_rechargee`,
+// heure d'arrivée) pour qu'une demande tardive ne soit pas attribuée au jour du clic.
+
+import { lireChoix } from "./consentement";
 
 export interface Provenance {
   /** « Google Ads », « Google (recherche naturelle) », « Site : … », « Accès direct »… */
@@ -12,11 +19,36 @@ export interface Provenance {
   campagne?: string;
   /** utm_term : le mot-clé Google Ads, quand le suffixe d'URL de la campagne le transmet. */
   mot_cle?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  /** Identifiants du clic Google Ads : joints seulement avec l'accord pour la publicité. */
+  gclid?: string;
+  gbraid?: string;
+  wbraid?: string;
+}
+
+/** Ce qui part avec la demande de PMS : la provenance, annotée au moment de l'envoi. */
+export interface ProvenanceEnvoyee extends Provenance {
+  /** Arrivée sur la page (ISO 8601, UTC). */
+  arrivee_le: string;
+  /** Page rechargée, rouverte ou revenue par « Précédent » : les paramètres viennent d'un clic antérieur. */
+  page_rechargee: boolean;
+  /** Accord du visiteur pour la publicité (bandeau cookies), au moment de l'envoi. */
+  consentement_publicite: "granted" | "denied";
+}
+
+interface ProvenanceVisite {
+  provenance: Provenance;
+  arriveeLe: number;
+  pageRechargee: boolean;
 }
 
 const TAILLE_MAX = 120;
-const IDENTIFIANTS_CLIC_GOOGLE = ["gclid", "gbraid", "wbraid"];
+const TAILLE_MAX_IDENTIFIANT = 512;
+const IDENTIFIANTS_CLIC_GOOGLE = ["gclid", "gbraid", "wbraid"] as const;
 const RESEAUX_SOCIAUX = ["facebook", "instagram", "linkedin", "tiktok", "youtube", "pinterest", "x.com", "t.co"];
+/** Au-delà, la demande part longtemps après l'arrivée : l'heure d'arrivée est affichée. */
+export const DELAI_ENVOI_TARDIF_MS = 60 * 60 * 1000;
 
 const court = (s: string | null | undefined) => (s ?? "").trim().slice(0, TAILLE_MAX);
 
@@ -55,22 +87,99 @@ export function lireProvenance(adresse: string, referent: string, hoteSite = "lo
   const motCle = court(p.get("utm_term"));
   if (campagne) provenance.campagne = campagne;
   if (motCle) provenance.mot_cle = motCle;
+  if (source) provenance.utm_source = source;
+  if (support) provenance.utm_medium = support;
+  for (const k of IDENTIFIANTS_CLIC_GOOGLE) {
+    // Un identifiant tronqué serait faux : trop long, il est écarté.
+    const v = (p.get(k) ?? "").trim();
+    if (v && v.length <= TAILLE_MAX_IDENTIFIANT) provenance[k] = v;
+  }
   return provenance;
 }
 
-let provenanceVisite: Provenance | null = null;
+/** « 16/11 à 21 h 05 », heure de Paris. */
+export function heureDeParis(ms: number): string {
+  const parties = Object.fromEntries(
+    new Intl.DateTimeFormat("fr-FR", {
+      timeZone: "Europe/Paris",
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    })
+      .formatToParts(new Date(ms))
+      .map((x) => [x.type, x.value]),
+  );
+  return `${parties.day}/${parties.month} à ${parties.hour} h ${parties.minute}`;
+}
+
+/**
+ * Provenance à joindre à la demande envoyée à `maintenant`. Le canal est annoté quand la
+ * campagne n'est peut-être plus celle du jour (page rechargée, arrivée plus d'une heure
+ * avant l'envoi) : la fonction `generer-pms` l'écrit tel quel dans la note Closera.
+ * Les identifiants de clic ne partent qu'avec l'accord pour la publicité.
+ */
+export function annoterProvenance(
+  visite: ProvenanceVisite,
+  maintenant: number,
+  accordPublicite: boolean,
+): ProvenanceEnvoyee {
+  const { gclid, gbraid, wbraid, ...reste } = visite.provenance;
+  const annotations: string[] = [];
+  const tardif = maintenant - visite.arriveeLe > DELAI_ENVOI_TARDIF_MS;
+  if (visite.pageRechargee) {
+    annotations.push(`page rechargée${tardif ? ` le ${heureDeParis(visite.arriveeLe)}` : ""}, clic antérieur`);
+  } else if (tardif) {
+    annotations.push(`arrivée le ${heureDeParis(visite.arriveeLe)}`);
+  }
+  const envoyee: ProvenanceEnvoyee = {
+    ...reste,
+    canal: annotations.length ? court(`${reste.canal} (${annotations.join(", ")})`) : reste.canal,
+    arrivee_le: new Date(visite.arriveeLe).toISOString(),
+    page_rechargee: visite.pageRechargee,
+    consentement_publicite: accordPublicite ? "granted" : "denied",
+  };
+  if (accordPublicite) {
+    if (gclid) envoyee.gclid = gclid;
+    if (gbraid) envoyee.gbraid = gbraid;
+    if (wbraid) envoyee.wbraid = wbraid;
+  }
+  return envoyee;
+}
+
+/** La page a-t-elle été rechargée, rouverte (onglet mis en veille) ou revenue par « Précédent » ? */
+function pageRechargee(): boolean {
+  try {
+    if ((document as Document & { wasDiscarded?: boolean }).wasDiscarded) return true;
+    const navigation = performance.getEntriesByType?.("navigation")[0] as PerformanceNavigationTiming | undefined;
+    return navigation?.type === "reload" || navigation?.type === "back_forward";
+  } catch {
+    return false;
+  }
+}
+
+let provenanceVisite: ProvenanceVisite | null = null;
 
 /** À appeler une fois, au démarrage, avant toute navigation interne (main.tsx). */
 export function noterProvenance(): void {
   if (provenanceVisite || typeof window === "undefined") return;
   try {
-    provenanceVisite = lireProvenance(window.location.href, document.referrer);
+    provenanceVisite = {
+      provenance: lireProvenance(window.location.href, document.referrer),
+      arriveeLe: Date.now(),
+      pageRechargee: pageRechargee(),
+    };
   } catch {
     provenanceVisite = null;
   }
 }
 
-export const provenanceDeLaVisite = (): Provenance | null => provenanceVisite;
+/** Provenance à joindre à une demande envoyée maintenant, ou null si elle n'a pas été relevée. */
+export function provenanceDeLaVisite(maintenant = Date.now()): ProvenanceEnvoyee | null {
+  if (!provenanceVisite) return null;
+  return annoterProvenance(provenanceVisite, maintenant, lireChoix(maintenant)?.publicite === true);
+}
 
 export function reinitialiserProvenancePourTests(): void {
   provenanceVisite = null;

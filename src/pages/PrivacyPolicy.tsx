@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
           <h1 className="font-heading text-[clamp(2.1rem,4.4vw,3.4rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground mb-4">
             Politique de confidentialité
           </h1>
-          <p className="text-muted-foreground mb-12">Date de mise à jour : 29/09/2026</p>
+          <p className="text-muted-foreground mb-12">Date de mise à jour : 17/11/2026</p>
 
           <div className="prose prose-lg max-w-none space-y-8 rounded-[2rem] border border-white/80 bg-white/90 p-6 shadow-[0_40px_80px_-50px_hsl(211_100%_20%/0.45)] sm:p-10 lg:p-12">
             <section>
@@ -136,7 +136,7 @@ const PrivacyPolicy = () => {
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>le nom et l'adresse de votre établissement, votre adresse e-mail et votre numéro de téléphone ;</li>
                 <li>vos réponses au questionnaire (activité, équipements, nettoyage, personnel) ;</li>
-                <li>la provenance de votre visite (annonce Google, recherche Google, autre site ou accès direct) et la première page consultée. Elle est relevée à votre arrivée, gardée en mémoire le temps de la visite (aucun cookie) et jointe à votre demande.</li>
+                <li>la provenance de votre visite (annonce Google, recherche Google, autre site ou accès direct), la première page consultée et l'heure d'arrivée. Elle est relevée à votre arrivée, gardée en mémoire le temps de la visite (aucun cookie) et jointe à votre demande. Si vous êtes arrivé par une annonce Google et avez accepté les cookies publicitaires, l'identifiant du clic sur l'annonce y est joint : il sert à savoir quelle annonce a amené votre demande.</li>
               </ul>
               <p className="text-muted-foreground mt-4">Ces données servent à :</p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
