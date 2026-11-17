@@ -12,7 +12,7 @@ demande de PMS (`src/lib/provenance.ts`, champ `provenance` du corps envoyé à 
 | Colonne `pms_demandes.provenance` (jsonb) | Supabase `ndoxvlikhmmixvhuqczs` | créée le 2026-10-31 (migration `pms_demandes_provenance`) |
 | Lecture par la fonction `generer-pms`, ligne « Provenance : … » dans la note Closera | fonction Edge `generer-pms` (code hors de ce dépôt) | en ligne depuis le 2026-11-01 (version 18) |
 | Canal annoté (page rechargée, arrivée plus d'une heure avant l'envoi), heure d'arrivée, identifiant du clic Google Ads (avec l'accord pour la publicité) | ce dépôt | 2026-11-17 ; le canal annoté passe déjà par la version 18 |
-| Clic Google Ads transmis à Closera (`attribution` → `lead_attributions`, section « Clic publicitaire » de la fiche) | fonction `generer-pms` | **à déployer** : version 19, voir `generer-pms-v19.md` |
+| Clic Google Ads transmis à Closera (`attribution` → `lead_attributions`, section « Clic publicitaire » de la fiche) | fonction `generer-pms` | en ligne depuis le 2026-11-17 (version 19, voir `generer-pms-v19.md`) |
 
 La version 18 reprend la version 16 à l'identique, sauf deux fichiers :
 `_shared/pms/closera.ts` (types `Provenance`, `lireProvenance`, `decrireProvenance`, 2e ligne
@@ -55,3 +55,19 @@ Suffixes d'URL des campagnes (Google Ads) :
 | --- | --- |
 | PMS (réseau de recherche) | `utm_source=google&utm_medium=cpc&utm_campaign=pms-recherche&utm_term={keyword}` |
 | PMax – PMS gratuit | `utm_source=google&utm_medium=cpc&utm_campaign=pms-pmax` (depuis le 17/11/2026 ; Google ne fournit pas de mot-clé en Performance Max) |
+
+## Version 19 déployée par l'API (2026-11-17)
+
+Déployée depuis l'outil Supabase de Claude, qui exige le contenu de chaque fichier :
+`_shared/pms/pdf/ressources.ts` (558 Ko d'images et de police en base64) y était trop lourd.
+Il est donc versionné ici (`supabase/functions/_shared/pms/pdf/ressources.ts`, copie exacte
+de la version 18) et les quatre fichiers PDF qui l'utilisent (`rendu.ts`, `documents.ts`,
+`commun.ts`, `affiches_design.ts`) l'importent dans la version déployée depuis
+`raw.githubusercontent.com/AlanT-lock/lockhaccp-vitrine/<commit>/…`. Deno l'intègre au
+déploiement : aucun appel réseau à l'exécution. Contenu sans secret, déjà remis dans chaque PMS
+(logo, badges des stores, affiches officielles, police DejaVu Sans sous licence libre).
+
+**À reporter dans le code source de la fonction** (projet lockhaccp, avant tout prochain
+déploiement avec la CLI, sinon la version 19 est écrasée) : `closera.ts` et `traitement.ts`
+tels que décrits dans `generer-pms-v19.md` (`construireProspect(…, provenance, id)`).
+Un déploiement CLI depuis ce code source garde l'import local de `ressources.ts`.
