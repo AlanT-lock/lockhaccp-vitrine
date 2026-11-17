@@ -1,8 +1,13 @@
 # Kit de présence extérieure — LockHACCP
 
-Préparé le 2 octobre 2026. Tout est prêt à copier-coller. Les fonctions citées ont été vérifiées avec Alan (02/10/2026) : ne rien ajouter qui n'existe pas (pas de capteurs, pas de temps réel, pas de scan de codes-barres, pas d'IA).
+Préparé le 2 octobre 2026, mis à jour le 17 novembre 2026. Tout est prêt à copier-coller. Ne rien ajouter qui n'existe pas : les fonctions citées sont celles présentées sur lockhaccp.fr.
 
-**Prix à indiquer partout : 24,90 € par mois et par établissement** (tarif en vigueur à partir du 1er novembre 2026, date à laquelle la plupart des fiches seront validées). L'offre de lancement à 14,90 € peut être mentionnée seulement là où le texte peut être modifié avant le 1er novembre (fiches App Store et Google Play, LinkedIn).
+**Ce qui a changé au 17 novembre 2026 (à reporter sur les fiches déjà publiées)**
+- **Essai gratuit : 14 jours** (et non plus 1 mois), sans carte bancaire.
+- **Prix : on met toujours en avant le paiement annuel**, ramené au mois : **20,75 € par mois** (249 € par an), ou 24,90 € au mois. L'offre de lancement à 14,90 € est terminée (31 octobre 2026) : ne plus la mentionner.
+- **Établissement supplémentaire : 3,92 € par mois en annuel** (47 € par an), ou 4,90 € au mois (et non plus 9,90 €).
+- **Températures** : l'application compare chaque relevé à la limite à ne pas dépasser (4 °C pour un frigo). Ne plus écrire « une consigne par équipement ».
+- **Nouveautés à citer** : capteurs de température connectés (option, achetés et non loués), lecture automatique des bons de livraison et des étiquettes, alertes rappels produits, fonctionnement hors connexion, offre Pro.
 
 ---
 
@@ -16,27 +21,28 @@ Préparé le 2 octobre 2026. Tout est prêt à copier-coller. Les fonctions cit�
 - **Plateformes** : iPhone, iPad, Android, navigateur web
 - **Langue** : français
 - **Pour qui** : restaurants, restauration rapide, traiteurs, boulangeries, boucheries, crèches et cuisines collectives
-- **Prix** : 24,90 € par mois et par établissement, toutes fonctions incluses ; 9,90 € par mois par établissement supplémentaire ; annuel 249 € (2 mois offerts). Sans engagement.
-- **Essai gratuit** : 14 jours, sans carte bancaire (mis à jour le 17/11/2026)
-- **En plus** : générateur gratuit de Plan de Maîtrise Sanitaire personnalisé, en ligne
+- **Prix** : 20,75 € par mois et par établissement en paiement annuel (249 € par an, soit 2 mois offerts), ou 24,90 € au mois ; toutes fonctions incluses. Établissement supplémentaire : 3,92 € par mois en annuel (47 € par an), ou 4,90 € au mois. Sans engagement.
+- **Offre Pro** : 24,92 € par mois en annuel (299 € par an), ou 29,90 € au mois : la même chose avec 500 lectures automatiques par mois et par établissement (20 dans l'offre de base).
+- **Essai gratuit** : 14 jours, sans carte bancaire
+- **En plus** : générateur gratuit de Plan de Maîtrise Sanitaire personnalisé, en ligne ; capteurs de température connectés en option (passerelle 200 €, capteur 60 €, paiement unique, sans abonnement capteurs)
 
 **Accroche (moins de 60 caractères)**
 > L'hygiène alimentaire de votre cuisine, tenue sur téléphone
 
 **Description courte (moins de 160 caractères)**
-> Relevés de température, réceptions, nettoyage, huile, étiquettes : LockHACCP remplace les fiches papier HACCP de votre cuisine. 24,90 €/mois, essai gratuit.
+> Relevés de température, réceptions, nettoyage, étiquettes : LockHACCP remplace les fiches HACCP papier. Dès 20,75 €/mois, essai gratuit 14 jours.
 
 **Description longue (environ 170 mots)**
 > LockHACCP est une application française pour tenir les enregistrements d'hygiène alimentaire d'une cuisine professionnelle, sans fiches papier.
 >
-> Chaque matin, une notification rappelle les contrôles du jour. Les relevés de température se font en quelques secondes, avec la consigne de chaque frigo affichée et l'action corrective demandée en cas d'écart. À la livraison, on note la température et on photographie les étiquettes des produits. Le plan de nettoyage est découpé par zone, chaque tâche est attribuée et validée par la personne qui l'a faite. Les huiles de friture, les DLC et les checklists d'ouverture et de fermeture sont suivies au même endroit. Les étiquettes de production (nom, date, DLC, numéro de lot, allergènes) s'impriment directement sur une étiqueteuse Brother, Zebra ou Epson.
+> Chaque matin, une notification rappelle les contrôles du jour. Les relevés de température se font en quelques secondes, avec la limite à ne pas dépasser affichée (4 °C pour un frigo) et l'action corrective demandée en cas d'écart. À la livraison, une photo du bon de livraison suffit : le fournisseur et les produits sont reconnus, il reste à noter la température. Des capteurs connectés peuvent aussi relever les frigos tout seuls, avec une alerte la nuit et le week-end. Le plan de nettoyage est découpé par zone, chaque tâche est attribuée et validée par la personne qui l'a faite. Les huiles de friture, les DLC et les checklists d'ouverture et de fermeture sont suivies au même endroit. Les étiquettes de production (nom, date, DLC, numéro de lot, allergènes) s'impriment directement sur une étiqueteuse Brother, Zebra ou Epson.
 >
-> Chaque membre de l'équipe se connecte avec son code : on sait qui a fait quoi, et quand. Le jour du contrôle sanitaire, l'historique est prêt, et un récapitulatif arrive chaque semaine par e-mail.
+> Chaque membre de l'équipe se connecte avec son code : on sait qui a fait quoi, et quand. L'application fonctionne aussi sans réseau. Le jour du contrôle sanitaire, l'historique est prêt, et un récapitulatif arrive chaque semaine par e-mail.
 >
-> LockHACCP a été conçu avec un formateur en hygiène alimentaire. 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement, avec 14 jours d'essai gratuit.
+> LockHACCP a été conçu avec un formateur en hygiène alimentaire. 20,75 € par mois par établissement en paiement annuel (ou 24,90 € au mois), toutes fonctions incluses, sans engagement, avec 14 jours d'essai gratuit.
 
 **Liste des fonctions (pour les formulaires à cases)**
-Relevés de température · Contrôle à réception avec photos · Plan de nettoyage et de désinfection par zone · Contrôle des huiles de friture · Suivi des DLC avec alertes · Étiquettes de production · Checklists personnalisées · Attribution des tâches par employé et par rôle · Connexion par code personnel · Historique des enregistrements · Export PDF et Excel · Rappel quotidien · Rapport hebdomadaire par e-mail · Multi-établissements · Générateur de PMS
+Relevés de température · Capteurs de température connectés (option) · Contrôle à réception avec photos · Lecture automatique des bons de livraison et des étiquettes · Plan de nettoyage et de désinfection par zone · Contrôle des huiles de friture · Suivi des DLC avec alertes · Alertes rappels produits · Étiquettes de production · Checklists personnalisées · Attribution des tâches par employé et par rôle · Connexion par code personnel · Fonctionne hors connexion · Historique des enregistrements · Export PDF et Excel · Rappel quotidien · Rapport hebdomadaire par e-mail · Multi-établissements · Générateur de PMS
 
 ---
 
@@ -50,8 +56,7 @@ Champs à remplacer dans « Informations sur l'app » et dans la version en cour
 - **Mots-clés (100 caractères max, sans espaces après les virgules)** :
   `haccp,pms,hygiene,restaurant,temperature,tracabilite,nettoyage,ddpp,dlc,etiquette,cuisine,allergene` (99)
 - **Texte promotionnel (170 max, modifiable sans nouvelle version)** :
-  > Offre de lancement : 14,90 € par mois garanti à vie pour toute souscription avant le 31 octobre 2026. Essai gratuit de 14 jours, sans carte bancaire.
-  (à remplacer le 1er novembre par : « Essai gratuit de 14 jours, sans carte bancaire. Créez aussi votre Plan de Maîtrise Sanitaire gratuit sur lockhaccp.fr. »)
+  > Essai gratuit de 14 jours, sans carte bancaire. Dès 20,75 € par mois en annuel. Créez aussi votre Plan de Maîtrise Sanitaire gratuit sur lockhaccp.fr.
 - **Description** :
 
 > Fini les fiches papier HACCP qu'on oublie en plein service.
@@ -59,8 +64,9 @@ Champs à remplacer dans « Informations sur l'app » et dans la version en cour
 > LockHACCP tient les enregistrements d'hygiène alimentaire de votre cuisine sur téléphone ou tablette. Chaque matin, une notification vous rappelle les contrôles du jour.
 >
 > CE QUE VOUS FAITES AVEC LOCKHACCP
-> • Relevés de température de vos frigos et congélateurs, avec la consigne de chaque équipement et l'action corrective en cas d'écart
-> • Contrôle des livraisons : température, photo des étiquettes, fournisseur
+> • Relevés de température de vos frigos et congélateurs, avec la limite à ne pas dépasser affichée et l'action corrective en cas d'écart
+> • Capteurs de température connectés en option : relevés automatiques et alerte la nuit et le week-end
+> • Contrôle des livraisons : photo du bon de livraison lue automatiquement, température, photo des étiquettes
 > • Plan de nettoyage par zone, tâches attribuées et validées par la personne qui les fait
 > • Suivi des huiles de friture, avec le signal quand il faut changer l'huile
 > • Suivi des DLC, avec alerte quand un produit approche de sa date
@@ -68,20 +74,20 @@ Champs à remplacer dans « Informations sur l'app » et dans la version en cour
 > • Étiquettes de production (nom, date, DLC, lot, allergènes) imprimées sur étiqueteuse Brother, Zebra ou Epson
 >
 > POUR TOUTE L'ÉQUIPE
-> Chaque employé a son code : vous savez qui a fait quoi, et quand. Le gérant reçoit un récapitulatif chaque semaine par e-mail.
+> Chaque employé a son code : vous savez qui a fait quoi, et quand. L'application fonctionne même sans réseau, en chambre froide ou en réserve. Le gérant reçoit un récapitulatif chaque semaine par e-mail.
 >
 > LE JOUR DU CONTRÔLE
 > Tout l'historique est dans l'application, rangé par date, exportable en PDF ou Excel.
 >
 > TARIF
-> 24,90 € par mois par établissement, toutes fonctions incluses, sans engagement. 14 jours d'essai gratuit, sans carte bancaire.
+> 20,75 € par mois par établissement en paiement annuel (249 € par an), ou 24,90 € au mois. Toutes fonctions incluses, sans engagement. 14 jours d'essai gratuit, sans carte bancaire.
 >
 > Conçu avec un formateur en hygiène alimentaire. Pour les restaurants, la restauration rapide, les traiteurs, les boulangeries, les boucheries, les crèches et les cuisines collectives.
 >
 > Votre Plan de Maîtrise Sanitaire gratuit : lockhaccp.fr/plan-de-maitrise-sanitaire
 
-- **Captures** : la première capture fait 80 % du travail. Ordre conseillé : 1) relevé de température avec la consigne, 2) écran d'accueil avec les modules, 3) plan de nettoyage par zone, 4) réception avec photo d'étiquette, 5) étiquette imprimée. Une phrase courte en haut de chaque capture (« Un relevé en quelques secondes », « Rien n'est oublié : rappel chaque matin »…). Aucun nom de restaurant réel visible.
-- **Avis** : aujourd'hui 1 avis. Demander directement aux 4 abonnés (modèle au §8). Dix avis changent la conversion de la fiche.
+- **Captures** : la première capture fait 80 % du travail. Ordre conseillé : 1) relevé de température avec la limite affichée, 2) écran d'accueil avec les modules, 3) plan de nettoyage par zone, 4) réception avec photo d'étiquette, 5) étiquette imprimée. Une phrase courte en haut de chaque capture (« Un relevé en quelques secondes », « Rien n'est oublié : rappel chaque matin »…). Aucun nom de restaurant réel visible.
+- **Avis** : 1 avis au 2 octobre 2026. Demander directement aux 4 abonnés (modèle au §8). Dix avis changent la conversion de la fiche.
 
 ## 3. Google Play (Play Console > Présence sur le Store)
 
@@ -122,9 +128,9 @@ Les comparatifs qui sortent en premier sur Google sont écrits par des concurren
 >
 > Bonjour,
 >
-> J'ai lu votre article « [titre] ». Je suis formateur en hygiène alimentaire et j'ai créé LockHACCP, une application qui remplace les fiches papier HACCP en cuisine : relevés de température, réceptions, nettoyage, huiles, DLC, étiquettes.
+> J'ai lu votre article « [titre] ». Je suis formateur en hygiène alimentaire et j'ai créé LockHACCP, une application qui remplace les fiches papier HACCP en cuisine : relevés de température (avec capteurs connectés en option), réceptions, nettoyage, huiles, DLC, étiquettes.
 >
-> Deux points peuvent intéresser vos lecteurs : le prix (24,90 € par mois, toutes fonctions incluses, sans engagement) et le générateur gratuit de Plan de Maîtrise Sanitaire sur notre site, qui produit un dossier adapté à chaque métier.
+> Deux points peuvent intéresser vos lecteurs : le prix (20,75 € par mois en paiement annuel, toutes fonctions incluses, sans engagement, 14 jours d'essai gratuit) et le générateur gratuit de Plan de Maîtrise Sanitaire sur notre site, qui produit un dossier adapté à chaque métier.
 >
 > Si vous mettez l'article à jour, je peux vous envoyer des captures ou un accès d'essai.
 >
@@ -178,5 +184,5 @@ Liens :
 - [ ] Caplogiciel
 - [ ] Page LinkedIn LockHACCP
 - [ ] E-mail à La Toque, L'Hôtellerie Restauration, Zola
-- [ ] Début novembre : un partage du PMS gratuit dans 2 ou 3 groupes
-- [ ] 1er novembre : mettre à jour le texte promotionnel App Store (fin de l'offre de lancement)
+- [ ] Un partage du PMS gratuit dans 2 ou 3 groupes
+- [ ] Fiches déjà publiées (App Store, Google Play, annuaires, LinkedIn, Google Business) : essai 14 jours, prix annuel en avant, établissement supplémentaire à 3,92 € en annuel, plus d'offre de lancement, « limite de 4 °C » au lieu de « consigne par équipement »
