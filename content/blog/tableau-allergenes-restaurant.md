@@ -65,6 +65,8 @@ L'inspecteur de la DDPP, lui, vérifie que l'information écrite existe et qu'el
 
 Le tableau que vous voyez en haut de cet article fait partie du dossier PMS que génère LockHACCP : un format A4 paysage, les 14 allergènes en colonnes, une ligne par plat. Il est livré avec le reste du [dossier PMS gratuit](/plan-de-maitrise-sanitaire), prêt à imprimer.
 
+Le même dossier contient une fiche de relevé de température pour chacun de vos frigos. Pour savoir quoi y noter et à quelle fréquence, voyez [Relevé de température en restaurant : règles et fiche](/blog/releve-temperature-restaurant-regles-fiche).
+
 ## Questions fréquentes
 
 ### Un QR code vers la liste des allergènes suffit-il ?
