@@ -5,7 +5,8 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  // Fonction generer-pms : code Deno généré par le projet lockhaccp (synchroniser_vitrine.ts), copie de la version en ligne.
+  { ignores: ["dist", "supabase/functions/_shared/pms/**", "supabase/functions/generer-pms/**"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],

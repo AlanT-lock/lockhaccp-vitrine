@@ -58,16 +58,23 @@ Suffixes d'URL des campagnes (Google Ads) :
 
 ## Version 19 déployée par l'API (2026-11-17)
 
-Déployée depuis l'outil Supabase de Claude, qui exige le contenu de chaque fichier :
-`_shared/pms/pdf/ressources.ts` (558 Ko d'images et de police en base64) y était trop lourd.
-Il est donc versionné ici (`supabase/functions/_shared/pms/pdf/ressources.ts`, copie exacte
-de la version 18) et les quatre fichiers PDF qui l'utilisent (`rendu.ts`, `documents.ts`,
-`commun.ts`, `affiches_design.ts`) l'importent dans la version déployée depuis
-`raw.githubusercontent.com/AlanT-lock/lockhaccp-vitrine/<commit>/…`. Deno l'intègre au
-déploiement : aucun appel réseau à l'exécution. Contenu sans secret, déjà remis dans chaque PMS
-(logo, badges des stores, affiches officielles, police DejaVu Sans sous licence libre).
+Le code complet de la version en ligne est versionné ici : `supabase/functions/generer-pms/`
+et `supabase/functions/_shared/pms/` (copie de la version 18 téléchargée sur Supabase, plus
+`types.ts`, plus les changements de la version 19 dans `closera.ts` et `traitement.ts`).
 
-**À reporter dans le code source de la fonction** (projet lockhaccp, avant tout prochain
-déploiement avec la CLI, sinon la version 19 est écrasée) : `closera.ts` et `traitement.ts`
-tels que décrits dans `generer-pms-v19.md` (`construireProspect(…, provenance, id)`).
-Un déploiement CLI depuis ce code source garde l'import local de `ressources.ts`.
+L'outil de déploiement de Claude exige le contenu de chaque fichier (730 Ko ici, dont 558 Ko
+d'images en base64 dans `pdf/ressources.ts`) : la version déployée est un `index.ts` d'une
+ligne qui importe `supabase/functions/generer-pms/index.ts` de ce dépôt depuis
+`raw.githubusercontent.com/AlanT-lock/lockhaccp-vitrine/<commit>/…`. Deno intègre tout au
+déploiement : aucun appel réseau à l'exécution, et un commit figé (pas `main`) : une
+modification du dépôt ne change rien en ligne tant qu'on ne redéploie pas. Aucun secret dans
+ce code (`RESEND_API_KEY`, `CLOSERA_API_TOKEN`… restent dans les secrets Supabase).
+
+Déployer ensuite depuis ce dépôt avec la CLI (le `config.toml` garde `verify_jwt = false`) :
+
+```bash
+supabase functions deploy generer-pms --project-ref ndoxvlikhmmixvhuqczs
+```
+
+**À reporter dans le projet lockhaccp** (source du code généré) avant d'y redéployer, sinon la
+version 19 est écrasée : `closera.ts` et `traitement.ts` (`construireProspect(…, provenance, id)`).
