@@ -20,6 +20,7 @@ const LIENS = {
   entreprise: [
     { label: "Demander une démo", href: "/demander-demo" },
     { label: "Contact", href: "/contact" },
+    { label: "Avis et fiabilité", href: "/avis-lockhaccp" },
     { label: "Ressources", href: "/blog" },
   ],
   legal: [

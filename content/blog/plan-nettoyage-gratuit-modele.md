@@ -3,7 +3,7 @@ titre: "Plan de nettoyage cuisine gratuit : modèle HACCP et exemple à adapter"
 titreSeo: "Plan de nettoyage cuisine gratuit : modèle HACCP"
 description: "Modèle de plan de nettoyage gratuit pour cuisine : zones, rythmes, produits, nettoyage puis désinfection. Un exemple HACCP à adapter, avec sa fiche de suivi."
 date: 2026-10-16
-maj: 2026-11-15
+maj: 2026-11-23
 motCle: plan de nettoyage cuisine
 resume: "Un plan de nettoyage de cuisine répond, pour chaque surface, à cinq questions : quoi, quand, comment, avec quel produit et qui. Le modèle ci-dessous donne la structure, avec la séquence nettoyage puis désinfection. Mais un plan qui ne correspond pas à votre cuisine ne sera pas suivi et ne convaincra pas un inspecteur : servez-vous du modèle pour comprendre le format, puis faites générer un Plan de Maîtrise Sanitaire gratuit, avec un plan de nettoyage construit à partir de vos zones."
 illustration: plan-nettoyage
@@ -60,6 +60,23 @@ L'inspecteur ne vérifie pas seulement que la fiche existe : il regarde si elle 
 
 D'autres erreurs reviennent dans beaucoup de cuisines. Le torchon qui sert à tout, du plan de travail aux mains, transporte les bactéries d'un endroit à l'autre : préférez le papier à usage unique, ou des lavettes changées à chaque service et lavées à 60 °C minimum. Le seau unique pour le sol de la cuisine et celui des toilettes. Les produits transvasés dans des bouteilles sans étiquette. Et le mélange d'eau de Javel et d'un produit acide, comme un détartrant, qui dégage du chlore gazeux.
 
+## Plan de nettoyage d'une brasserie : la cuisine, mais aussi le bar
+
+Une brasserie a deux particularités que le modèle ci-dessus ne couvre pas : un bar, et un service qui ne s'arrête presque jamais. Le plan de la cuisine reste le même. Il faut lui ajouter une zone pour le bar, avec ses propres surfaces, et une zone pour les sanitaires si votre équipe les entretient.
+
+| Zone | Surface ou équipement | Rythme |
+|---|---|---|
+| Bar | Comptoir, évier du bar, machine à café, sols | Chaque jour |
+| Bar | Réfrigérateurs du bar, étagères à verres, tireuse à bière | Chaque semaine |
+| Bar | Machine à glaçons | Chaque mois |
+| Sanitaires | Toilettes, lavabos, sols, poignées | Chaque jour |
+
+Ces rythmes sont une base, à resserrer si votre fréquentation est forte. Deux équipements sont souvent oubliés. La glace finit dans le verre du client : la machine à glaçons et sa pelle se nettoient donc comme une surface en contact avec les aliments. Pour les lignes de la tireuse, suivez la notice de votre brasseur ou de votre installateur, et notez chaque nettoyage sur la fiche du bar.
+
+Le service continu complique le reste. Quand la cuisine ne ferme pas entre midi et soir, il n'y a pas de fin de service pour déclencher le nettoyage. Fixez des heures plutôt que des moments : un nettoyage des postes à 15 h et un autre à la fermeture, par exemple, avec un responsable nommé pour chacun.
+
+Dans le générateur de [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire), choisissez « Restauration commerciale » puis cochez la zone Bar : ses surfaces et leurs rythmes sont ajoutés à votre plan de nettoyage, et vous les modifiez à votre guise.
+
 ## Du plan au planning quotidien
 
 Un plan de nettoyage décrit ce qu'il faut faire. Pour le répartir dans la journée, la semaine et le mois, et désigner qui s'en charge, lisez notre guide du [planning de nettoyage en cuisine](/blog/planning-nettoyage-cuisine-restaurant). Et pour que les tâches du jour arrivent chaque matin sur le téléphone de l'équipe, validées et signées, voyez le [plan de nettoyage dans l'application LockHACCP](/fonctionnalites/nettoyage). Une démonstration est possible sur la page [demander une démo](/demander-demo).
@@ -85,6 +102,10 @@ Pour chaque surface ou équipement : le rythme, la méthode, le produit utilisé
 ### Quelle différence entre nettoyer et désinfecter ?
 
 Nettoyer enlève les salissures visibles, désinfecter détruit les micro-organismes sur une surface déjà propre. On nettoie toujours avant de désinfecter.
+
+### Quel plan de nettoyage pour une brasserie ou un bar-restaurant ?
+
+Le même que pour une cuisine de restaurant, avec une zone pour le bar en plus : comptoir, évier, machine à café et sols chaque jour ; réfrigérateurs du bar, étagères à verres et tireuse chaque semaine ; machine à glaçons chaque mois. Comme le service est continu, fixez des heures de nettoyage au lieu d'attendre la fin du service.
 
 ### Quelle différence entre un plan et un planning de nettoyage ?
 

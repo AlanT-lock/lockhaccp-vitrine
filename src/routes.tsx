@@ -22,6 +22,7 @@ export const COMPOSANTS: Record<string, ComponentType> = {
   "/fonctionnalites/etiquettes": lazy(() => import("./pages/FeatureLabels")),
   "/fonctionnalites/checklist": lazy(() => import("./pages/FeatureChecklist")),
   "/blog": lazy(() => import("./pages/BlogIndex")),
+  "/avis-lockhaccp": lazy(() => import("./pages/AvisLockhaccp")),
   "/auteur/alan-touati": lazy(() => import("./pages/AuteurAlan")),
   "/app": lazy(() => import("./pages/TelechargerApp")),
   "/politique-confidentialite": lazy(() => import("./pages/PrivacyPolicy")),

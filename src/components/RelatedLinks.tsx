@@ -59,6 +59,7 @@ export const FEATURE_RELATED = {
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },
     { to: "/blog/methode-haccp-guide-complet", label: "Guide méthode HACCP", description: "Les 7 principes expliqués." },
     { to: "/blog/releve-temperature-restaurant-regles-fiche", label: "Relevé de température : le guide", description: "Seuils, fréquence et fiche." },
+    { to: "/blog/meilleur-logiciel-haccp-comparatif", label: "Comparatif des logiciels HACCP", description: "Huit applications et leurs prix." },
   ],
   receptions: [
     { to: "/fonctionnalites/tracabilite", label: "Traçabilité alimentaire", description: "Suivi des lots et fournisseurs." },
@@ -89,6 +90,7 @@ export const FEATURE_RELATED = {
     { to: "/fonctionnalites/receptions", label: "Contrôle à réception", description: "Vérifiez vos livraisons." },
     { to: "/blog/affichages-obligatoires-restaurant-2026", label: "Affichages obligatoires", description: "Le guide complet 2026." },
     { to: "/blog/tableau-allergenes-restaurant", label: "Tableau des allergènes", description: "Obligations et modèle." },
+    { to: "/blog/meilleur-logiciel-haccp-comparatif", label: "Comparatif des logiciels HACCP", description: "Huit applications et leurs prix." },
   ],
   checklist: [
     { to: "/fonctionnalites/nettoyage", label: "Plan de nettoyage", description: "Planifiez et suivez vos tâches." },

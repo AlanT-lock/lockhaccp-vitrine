@@ -3,6 +3,7 @@ titre: "Logiciel de Plan de Maîtrise Sanitaire gratuit : comparatif"
 titreSeo: "Logiciel PMS gratuit : comparatif des solutions"
 description: "Comparatif des logiciels de Plan de Maîtrise Sanitaire gratuits ou à essai : prix affichés, essai, PMS adapté à votre cuisine, aide au paramétrage."
 date: 2026-10-16
+maj: 2026-11-23
 motCle: logiciel plan de maîtrise sanitaire gratuit
 resume: "Peu de logiciels sont entièrement gratuits : la plupart proposent un essai, un palier gratuit limité ou un tarif sur devis. Pour choisir, comparez le prix affiché, la durée d'essai, la présence d'un PMS adapté à votre établissement et l'aide au paramétrage. LockHACCP fournit gratuitement un PMS personnalisé et offre le paramétrage de l'application."
 ---
@@ -44,7 +45,7 @@ Sur le prix, HACCP Facile a un avantage de départ : son offre gratuite ne coût
 
 Essayez d'abord avec votre propre dossier : générez votre PMS, puis regardez si l'outil que vous testez le reprend sans le déformer. Vérifiez la durée d'essai réelle et ce qui est inclus dedans, ainsi que l'aide au paramétrage, car un logiciel mal paramétré n'est pas utilisé. Demandez enfin comment vous récupérez vos données si vous partez : l'export compte autant que l'import.
 
-Si votre priorité est le nettoyage, partez de notre [plan de nettoyage gratuit : modèle de cuisine à adapter](/blog/plan-nettoyage-gratuit-modele).
+Si votre priorité est le nettoyage, partez de notre [plan de nettoyage gratuit : modèle de cuisine à adapter](/blog/plan-nettoyage-gratuit-modele). Et si vous comparez surtout les prix et le matériel, le [comparatif de huit logiciels HACCP](/blog/meilleur-logiciel-haccp-comparatif) les détaille éditeur par éditeur.
 
 Pour essayer LockHACCP, [créez votre PMS gratuit](/pms) puis découvrez [l'application HACCP et PMS](/application-pms), ou [demandez une démonstration](/demander-demo).
 

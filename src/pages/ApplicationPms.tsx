@@ -482,7 +482,13 @@ const ApplicationPms = () => {
                 <ul className="mt-8 space-y-2 border-t border-border/80 pt-6 text-sm text-muted-foreground">
                   <li>
                     Vous comparez les outils ? Voyez notre{" "}
-                    <Link to="/blog/logiciel-pms-gratuit-comparatif" className={LIEN}>comparatif des logiciels PMS gratuits</Link>.
+                    <Link to="/blog/meilleur-logiciel-haccp-comparatif" className={LIEN}>comparatif de huit logiciels HACCP</Link>{" "}
+                    et celui des{" "}
+                    <Link to="/blog/logiciel-pms-gratuit-comparatif" className={LIEN}>logiciels PMS gratuits</Link>.
+                  </li>
+                  <li>
+                    Vous voulez savoir qui édite l'application ?{" "}
+                    <Link to="/avis-lockhaccp" className={LIEN}>LockHACCP est-il fiable ?</Link>
                   </li>
                   <li>
                     Pas sûr de la différence entre les deux notions ?{" "}

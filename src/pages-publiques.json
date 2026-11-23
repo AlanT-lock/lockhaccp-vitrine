@@ -16,6 +16,7 @@
   {"path": "/fonctionnalites/etiquettes", "fil": "Étiquettes DLC", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/fonctionnalites/checklist", "fil": "Checklists", "sitemap": {"changefreq": "monthly", "priority": 0.8}, "llms": true},
   {"path": "/blog", "fil": "Ressources", "sitemap": {"changefreq": "weekly", "priority": 0.7}, "llms": true},
+  {"path": "/avis-lockhaccp", "fil": "Avis et fiabilité", "sitemap": {"changefreq": "monthly", "priority": 0.7}, "llms": true, "lastmod": "2026-11-23"},
   {"path": "/auteur/alan-touati", "fil": "Alan Touati", "sitemap": {"changefreq": "monthly", "priority": 0.4}, "llms": true},
   {"path": "/app", "fil": "Télécharger l'application", "sitemap": null, "llms": false},
   {"path": "/politique-confidentialite", "fil": "Politique de confidentialité", "sitemap": {"changefreq": "yearly", "priority": 0.3}, "llms": false},
