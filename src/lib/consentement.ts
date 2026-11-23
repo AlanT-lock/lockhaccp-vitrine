@@ -1,4 +1,4 @@
-// Consentement aux cookies, choisi dans le bandeau (src/components/BandeauCookies.tsx).
+// Consentement aux cookies, choisi dans la fenêtre cookies (src/components/FenetreCookies.tsx).
 // Deux finalités, chacune refusée tant que le visiteur n'a pas accepté :
 // - « mesure » : statistiques de visite du site (src/lib/analytics.ts) ;
 // - « publicite » : Google Ads (balise de index.html), conversions et publicité ciblée.
@@ -15,7 +15,7 @@ const VALIDITE_REFUS_MS = 6 * MOIS_MS;
 export const TOUT_ACCEPTER: ChoixCookies = { mesure: true, publicite: true };
 export const TOUT_REFUSER: ChoixCookies = { mesure: false, publicite: false };
 
-export const EVENEMENT_OUVRIR_BANDEAU = "lhc:ouvrir-bandeau-cookies";
+export const EVENEMENT_OUVRIR_FENETRE_COOKIES = "lhc:ouvrir-fenetre-cookies";
 
 type FenetreGoogle = Window & {
   gtag?: (...a: unknown[]) => void;
@@ -23,7 +23,7 @@ type FenetreGoogle = Window & {
   lhcChargerGoogleTag?: (quandPret?: () => void) => void;
 };
 
-/** Choix encore valable, ou null s'il n'y en a pas (ou plus) : le bandeau doit s'afficher. */
+/** Choix encore valable, ou null s'il n'y en a pas (ou plus) : la fenêtre cookies doit s'afficher. */
 export function lireChoix(maintenant = Date.now()): ChoixCookies | null {
   try {
     const brut = localStorage.getItem(CLE);
@@ -46,7 +46,7 @@ export function enregistrerChoix(choix: ChoixCookies, maintenant = Date.now(), q
   try {
     localStorage.setItem(CLE, JSON.stringify({ ...choix, date: maintenant }));
   } catch {
-    /* stockage indisponible : le choix vaut pour cette page, le bandeau reviendra */
+    /* stockage indisponible : le choix vaut pour cette page, la fenêtre reviendra */
   }
   const w = window as FenetreGoogle;
   const etat = (accorde: boolean) => (accorde ? "granted" : "denied");
@@ -81,7 +81,7 @@ function supprimerCookiesGoogleAds(): void {
   }
 }
 
-/** Réaffiche le bandeau (lien « Gestion des cookies » du pied de page). */
-export function ouvrirBandeauCookies(): void {
-  window.dispatchEvent(new Event(EVENEMENT_OUVRIR_BANDEAU));
+/** Rouvre la fenêtre cookies (lien « Gestion des cookies » du pied de page). */
+export function ouvrirFenetreCookies(): void {
+  window.dispatchEvent(new Event(EVENEMENT_OUVRIR_FENETRE_COOKIES));
 }

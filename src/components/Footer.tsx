@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import logoWhite from "@/assets/logo-white.webp";
-import { ouvrirBandeauCookies } from "@/lib/consentement";
+import { ouvrirFenetreCookies } from "@/lib/consentement";
 import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
 import { SIGNUP_URL } from "@/lib/links";
 
@@ -82,7 +82,7 @@ const Footer = () => {
           <Colonne titre="Entreprise" liens={LIENS.entreprise} />
           <div>
             <Colonne titre="Légal" liens={LIENS.legal} />
-            <button type="button" onClick={ouvrirBandeauCookies} className={`mt-3 ${LIEN}`}>
+            <button type="button" onClick={ouvrirFenetreCookies} className={`mt-3 ${LIEN}`}>
               Gestion des cookies
             </button>
           </div>
