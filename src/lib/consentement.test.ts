@@ -26,7 +26,7 @@ describe("consentement aux cookies", () => {
     });
   });
 
-  it("aucun choix au départ : le bandeau s'affiche", () => {
+  it("aucun choix au départ : la fenêtre cookies s'affiche", () => {
     expect(lireChoix()).toBeNull();
   });
 
