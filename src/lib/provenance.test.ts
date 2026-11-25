@@ -61,32 +61,24 @@ describe("provenance jointe à la demande de PMS", () => {
   });
 
   it("envoi peu après l'arrivée : canal inchangé, heure d'arrivée jointe", () => {
-    const p = annoterProvenance(visite(), ARRIVEE + 10 * 60_000, true);
+    const p = annoterProvenance(visite(), ARRIVEE + 10 * 60_000);
     expect(p).toMatchObject({
       canal: "Google Ads",
       campagne: "pms-recherche",
       arrivee_le: "2026-11-16T20:05:00.000Z",
       page_rechargee: false,
-      consentement_publicite: "granted",
       gclid: "abc",
     });
   });
 
   it("envoi plus d'une heure après l'arrivée : l'heure d'arrivée est dans le canal", () => {
-    expect(annoterProvenance(visite(), ARRIVEE + 6 * 3600_000, true).canal).toBe("Google Ads (arrivée le 16/11 à 21 h 05)");
+    expect(annoterProvenance(visite(), ARRIVEE + 6 * 3600_000).canal).toBe("Google Ads (arrivée le 16/11 à 21 h 05)");
   });
 
   it("page rechargée ou rouverte : le clic est antérieur, avec l'heure si l'envoi est tardif", () => {
-    expect(annoterProvenance(visite(true), ARRIVEE + 60_000, true).canal).toBe("Google Ads (page rechargée, clic antérieur)");
-    expect(annoterProvenance(visite(true), ARRIVEE + 3 * 3600_000, true).canal).toBe(
+    expect(annoterProvenance(visite(true), ARRIVEE + 60_000).canal).toBe("Google Ads (page rechargée, clic antérieur)");
+    expect(annoterProvenance(visite(true), ARRIVEE + 3 * 3600_000).canal).toBe(
       "Google Ads (page rechargée le 16/11 à 21 h 05, clic antérieur)",
     );
-  });
-
-  it("sans accord pour la publicité, aucun identifiant de clic ne part", () => {
-    const p = annoterProvenance(visite(), ARRIVEE + 60_000, false);
-    expect(p.consentement_publicite).toBe("denied");
-    expect(p.gclid).toBeUndefined();
-    expect(p.campagne).toBe("pms-recherche");
   });
 });

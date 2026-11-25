@@ -48,4 +48,4 @@ Les variables d'env sont à configurer dans le dashboard Vercel pour chaque envi
 
 ## Analytics
 
-Tracking anonyme RGPD-friendly envoyé vers une edge function Supabase dédiée (projet admin séparé). Voir `src/lib/analytics.ts`.
+Statistiques de visite envoyées vers une edge function Supabase dédiée (projet admin séparé), pour tous les visiteurs. Voir `src/lib/analytics.ts`. Le site n'a pas de fenêtre cookies : Google Ads et GA4 (via Tag Manager) sont aussi actifs pour tous, voir `docs/tag-manager/README.md`.

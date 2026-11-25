@@ -8,8 +8,6 @@
 // les relit, parfois des heures après le clic. La provenance le signale (`page_rechargee`,
 // heure d'arrivée) pour qu'une demande tardive ne soit pas attribuée au jour du clic.
 
-import { lireChoix } from "./consentement";
-
 export interface Provenance {
   /** « Google Ads », « Google (recherche naturelle) », « Site : … », « Accès direct »… */
   canal: string;
@@ -21,7 +19,7 @@ export interface Provenance {
   mot_cle?: string;
   utm_source?: string;
   utm_medium?: string;
-  /** Identifiants du clic Google Ads : joints seulement avec l'accord pour la publicité. */
+  /** Identifiants du clic Google Ads. */
   gclid?: string;
   gbraid?: string;
   wbraid?: string;
@@ -33,8 +31,6 @@ export interface ProvenanceEnvoyee extends Provenance {
   arrivee_le: string;
   /** Page rechargée, rouverte ou revenue par « Précédent » : les paramètres viennent d'un clic antérieur. */
   page_rechargee: boolean;
-  /** Accord du visiteur pour la publicité (bandeau cookies), au moment de l'envoi. */
-  consentement_publicite: "granted" | "denied";
 }
 
 interface ProvenanceVisite {
@@ -118,14 +114,9 @@ export function heureDeParis(ms: number): string {
  * Provenance à joindre à la demande envoyée à `maintenant`. Le canal est annoté quand la
  * campagne n'est peut-être plus celle du jour (page rechargée, arrivée plus d'une heure
  * avant l'envoi) : la fonction `generer-pms` l'écrit tel quel dans la note Closera.
- * Les identifiants de clic ne partent qu'avec l'accord pour la publicité.
  */
-export function annoterProvenance(
-  visite: ProvenanceVisite,
-  maintenant: number,
-  accordPublicite: boolean,
-): ProvenanceEnvoyee {
-  const { gclid, gbraid, wbraid, ...reste } = visite.provenance;
+export function annoterProvenance(visite: ProvenanceVisite, maintenant: number): ProvenanceEnvoyee {
+  const reste = visite.provenance;
   const annotations: string[] = [];
   const tardif = maintenant - visite.arriveeLe > DELAI_ENVOI_TARDIF_MS;
   if (visite.pageRechargee) {
@@ -133,19 +124,12 @@ export function annoterProvenance(
   } else if (tardif) {
     annotations.push(`arrivée le ${heureDeParis(visite.arriveeLe)}`);
   }
-  const envoyee: ProvenanceEnvoyee = {
+  return {
     ...reste,
     canal: annotations.length ? court(`${reste.canal} (${annotations.join(", ")})`) : reste.canal,
     arrivee_le: new Date(visite.arriveeLe).toISOString(),
     page_rechargee: visite.pageRechargee,
-    consentement_publicite: accordPublicite ? "granted" : "denied",
   };
-  if (accordPublicite) {
-    if (gclid) envoyee.gclid = gclid;
-    if (gbraid) envoyee.gbraid = gbraid;
-    if (wbraid) envoyee.wbraid = wbraid;
-  }
-  return envoyee;
 }
 
 /** La page a-t-elle été rechargée, rouverte (onglet mis en veille) ou revenue par « Précédent » ? */
@@ -178,7 +162,7 @@ export function noterProvenance(): void {
 /** Provenance à joindre à une demande envoyée maintenant, ou null si elle n'a pas été relevée. */
 export function provenanceDeLaVisite(maintenant = Date.now()): ProvenanceEnvoyee | null {
   if (!provenanceVisite) return null;
-  return annoterProvenance(provenanceVisite, maintenant, lireChoix(maintenant)?.publicite === true);
+  return annoterProvenance(provenanceVisite, maintenant);
 }
 
 export function reinitialiserProvenancePourTests(): void {

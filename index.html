@@ -7,43 +7,27 @@
 
     <!-- Google tag (gtag.js) : campagne Google Ads (remarketing). Les conversions passent
          par Google Tag Manager : voir src/lib/conversions.ts.
-         Consentement (Consent Mode v2) : tout est refusé par défaut, et la balise Google Ads
-         (script de ~170 Ko) n'est configurée et chargée qu'avec l'accord du visiteur pour la
-         publicité, une fois la page affichée. Le choix est fait dans src/components/FenetreCookies.tsx et enregistré par
-         src/lib/consentement.ts (même clé et mêmes durées que ci-dessous).
-         Placé avant Google Tag Manager pour que les balises GTM reçoivent aussi le consentement. -->
+         Pas de fenêtre cookies : le suivi est actif pour tous les visiteurs (Consent Mode v2
+         réglé sur « accordé »). La balise Google Ads (script de ~170 Ko) est configurée tout de
+         suite et chargée une fois la page affichée.
+         Placé avant Google Tag Manager pour que les balises GTM reçoivent aussi ce réglage. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+      // Tout de suite, pour que les conversions passent après la configuration.
+      gtag('js', new Date());
+      gtag('config', 'AW-18490045299');
       (function () {
-        var c = null;
-        try {
-          c = JSON.parse(localStorage.getItem('lhc_consentement_cookies'));
-          var mois = 30.4375 * 864e5;
-          var duree = c.mesure || c.publicite ? 13 * mois : 6 * mois;
-          if (!(Date.now() - c.date < duree)) c = null;
-        } catch (e) { c = null; }
-        var publicite = !!c && c.publicite === true;
-        var mesure = !!c && c.mesure === true;
-        gtag('consent', 'default', {
-          ad_storage: publicite ? 'granted' : 'denied',
-          ad_user_data: publicite ? 'granted' : 'denied',
-          ad_personalization: publicite ? 'granted' : 'denied',
-          analytics_storage: mesure ? 'granted' : 'denied'
-        });
-        // La configuration Google Ads n'est envoyée qu'avec l'accord : sinon Google Tag Manager,
-        // qui lit aussi dataLayer, chargerait la balise et enverrait des requêtes sans cookie.
-        var configuree = false;
-        function configurer() {
-          if (configuree) return;
-          configuree = true;
-          gtag('js', new Date());
-          gtag('config', 'AW-18490045299');
-        }
-        // La balise relève le clic sur l'annonce (gclid…) dans l'adresse de la page. Si l'accord
-        // arrive après une navigation interne, il n'y est plus : on le remet le temps qu'elle le
-        // lise (adresse d'arrivée gardée en mémoire seulement), sinon les conversions ne sont pas
-        // rattachées à l'annonce.
+        // La balise relève le clic sur l'annonce (gclid…) dans l'adresse de la page. Si le
+        // visiteur a changé de page avant qu'elle soit chargée, il n'y est plus : on le remet le
+        // temps qu'elle le lise (adresse d'arrivée gardée en mémoire seulement), sinon les
+        // conversions ne sont pas rattachées à l'annonce.
         var rechercheArrivee = location.search;
         function remettreClicDansAdresse() {
           var arrivee = new URLSearchParams(rechercheArrivee);
@@ -59,42 +43,20 @@
             if (location.pathname + location.search + location.hash === modifiee) history.replaceState(history.state, '', actuelle);
           };
         }
-        var chargee = false;
-        var prete = false;
-        var quandPrete = [];
-        // `quandPret` : appelé une fois la balise chargée et le clic relevé (src/lib/consentement.ts).
-        window.lhcChargerGoogleTag = function (quandPret) {
-          // requestIdleCallback (plus bas) passe son propre argument : on ne garde qu'une fonction.
-          if (typeof quandPret === 'function') {
-            if (prete) quandPret();
-            else quandPrete.push(quandPret);
-          }
-          if (chargee) return;
-          chargee = true;
+        function charger() {
           var remettre = remettreClicDansAdresse();
-          configurer();
-          var finie = false;
-          var finir = function () {
-            if (finie) return;
-            finie = true;
-            if (remettre) remettre();
-            prete = true;
-            quandPrete.splice(0).forEach(function (f) { f(); });
-          };
-          if (remettre || quandPrete.length) {
-            gtag('event', 'lhc_balise_prete', { send_to: 'AW-18490045299', event_callback: finir, event_timeout: 3000 });
-            setTimeout(finir, 6000); // balise bloquée (bloqueur de publicité) : on n'attend pas indéfiniment
-          } else finir();
+          if (remettre) {
+            gtag('event', 'lhc_balise_prete', { send_to: 'AW-18490045299', event_callback: remettre, event_timeout: 3000 });
+            setTimeout(remettre, 6000); // balise bloquée (bloqueur de publicité) : on n'attend pas indéfiniment
+          }
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18490045299';
           document.head.appendChild(s);
-        };
-        if (!publicite) return;
-        configurer(); // tout de suite, pour que les conversions passent après la configuration
+        }
         function apresAffichage() {
-          if ('requestIdleCallback' in window) requestIdleCallback(window.lhcChargerGoogleTag, { timeout: 4000 });
-          else setTimeout(window.lhcChargerGoogleTag, 1500);
+          if ('requestIdleCallback' in window) requestIdleCallback(charger, { timeout: 4000 });
+          else setTimeout(charger, 1500);
         }
         if (document.readyState === 'complete') apresAffichage();
         else window.addEventListener('load', apresAffichage, { once: true });

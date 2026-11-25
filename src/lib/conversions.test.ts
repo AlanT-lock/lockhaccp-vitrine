@@ -1,14 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { conversionPourLien, reinitialiserPourTests, signalerConversion, traiterConversionsEnAttente } from "./conversions";
+import { conversionPourLien, reinitialiserPourTests, signalerConversion } from "./conversions";
 
-const g = globalThis as unknown as { window?: { dataLayer?: unknown[] }; localStorage?: Pick<Storage, "getItem"> };
-let consentement: { mesure: boolean; publicite: boolean } | null;
+const g = globalThis as unknown as { window?: { dataLayer?: unknown[] } };
 
 describe("conversions signalées à Google Tag Manager", () => {
   beforeEach(() => {
     g.window = { dataLayer: [] };
-    consentement = { mesure: false, publicite: true };
-    g.localStorage = { getItem: () => (consentement ? JSON.stringify({ ...consentement, date: Date.now() }) : null) };
     reinitialiserPourTests();
   });
 
@@ -27,40 +24,6 @@ describe("conversions signalées à Google Tag Manager", () => {
     signalerConversion("conversion_telephone");
     signalerConversion("conversion_telephone");
     expect(g.window?.dataLayer).toHaveLength(2);
-  });
-
-  it("rien ne part sans réponse au bandeau ni si tout est refusé", () => {
-    consentement = null;
-    signalerConversion("conversion_demo");
-    consentement = { mesure: false, publicite: false };
-    signalerConversion("conversion_pms_genere");
-    expect(g.window?.dataLayer).toEqual([]);
-  });
-
-  it("l'accord pour la mesure seule suffit (GA4 ; la balise Google Ads exige l'accord publicité)", () => {
-    consentement = { mesure: true, publicite: false };
-    signalerConversion("conversion_demo");
-    expect(g.window?.dataLayer).toEqual([{ event: "conversion_demo" }]);
-  });
-
-  it("avant toute réponse au bandeau, la conversion attend : envoyée si le visiteur accepte", () => {
-    consentement = null;
-    signalerConversion("conversion_pms_commence");
-    signalerConversion("conversion_pms_commence");
-    expect(g.window?.dataLayer).toEqual([]);
-    consentement = { mesure: false, publicite: true };
-    traiterConversionsEnAttente(true);
-    expect(g.window?.dataLayer).toEqual([{ event: "conversion_pms_commence" }]);
-    traiterConversionsEnAttente(true);
-    expect(g.window?.dataLayer).toHaveLength(1);
-  });
-
-  it("… et oubliée s'il refuse", () => {
-    consentement = null;
-    signalerConversion("conversion_pms_genere");
-    traiterConversionsEnAttente(false);
-    traiterConversionsEnAttente(true);
-    expect(g.window?.dataLayer).toEqual([]);
   });
 
   it("reconnaît les liens à suivre", () => {

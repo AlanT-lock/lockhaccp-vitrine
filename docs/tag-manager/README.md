@@ -4,15 +4,14 @@ Le site ne parle pas directement à Google pour les conversions : il signale cha
 importante à Google Tag Manager (conteneur `GTM-TZPVKN3W`), qui transmet à Google Ads et à
 Google Analytics 4. Code : `src/lib/conversions.ts`.
 
-## Consentement (bandeau cookies)
+## Consentement (pas de fenêtre cookies)
 
-- Le site ne pousse rien dans `dataLayer` sans accord pour la **mesure** ou la **publicité**.
-  Avant la réponse au bandeau, les conversions attendent en mémoire (envoyées après un accord,
-  oubliées sinon).
-- Chaque balise GTM vérifie ensuite sa propre finalité (« Exiger une autorisation
-  supplémentaire ») : les balises **Google Ads** exigent `ad_storage`, les balises **GA4**
-  `analytics_storage`. Un visiteur qui n'accepte que la mesure est donc compté dans GA4, jamais
-  dans Google Ads.
+Depuis le 25 novembre 2026, le site n'a plus de fenêtre ni de bandeau cookies : le suivi est
+actif pour tous les visiteurs. `index.html` règle le Consent Mode sur « accordé »
+(`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`) avant de charger
+Tag Manager, et le site pousse chaque conversion dans `dataLayer` dès qu'elle survient.
+Les balises GTM gardent leur vérification d'autorisation (colonne ci-dessous) : elle est
+toujours satisfaite, aucun changement n'est à faire dans le conteneur.
 
 ## État du conteneur (depuis la version 6, novembre 2026)
 
@@ -27,9 +26,6 @@ Dans GA4 (propriété 515170580), la mesure améliorée « changements de page b
 l'historique » est désactivée : c'est la balise page_view ci-dessus qui compte les pages
 (site à page unique). Événements clés GA4 : `conversion_pms_genere`, `conversion_demo`,
 `conversion_contact`, `conversion_inscription`.
-
-**Ordre de mise en ligne** si le consentement change : publier d'abord le conteneur GTM
-(les balises vérifient l'accord), ensuite seulement le site.
 
 ## Événements envoyés par le site
 
@@ -57,9 +53,8 @@ transmis à aucun outil tant qu'aucune balise ne les utilise (ex. Google Analyti
    éléments en conflit**, puis **Confirmer**.
 
 Cela crée 2 balises « Suivi des conversions Google Ads » (PMS commencé, PMS généré), déjà
-remplies (ID `18490045299` et libellés actuels) et leurs 2 déclencheurs. Pas de « Conversion Linker » : il se déclenchait sur toutes les pages
-avant tout accord (requête sans cookie vers Google), et la balise Google du site fait déjà ce
-travail après accord.
+remplies (ID `18490045299` et libellés actuels) et leurs 2 déclencheurs. Pas de « Conversion Linker » : la balise Google du site fait déjà ce
+travail.
 
 ### 2. Publier, dans cet ordre
 
@@ -70,6 +65,6 @@ travail après accord.
 
 ### 3. Vérifier
 
-Dans Tag Manager, **Prévisualiser** sur `https://lockhaccp.fr`, accepter les cookies, puis
+Dans Tag Manager, **Prévisualiser** sur `https://lockhaccp.fr`, puis
 lancer un PMS : l'événement `conversion_pms_commence` apparaît à gauche et la balise
 « Google Ads - PMS commencé » dans « Balises déclenchées ».

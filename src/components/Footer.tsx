@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useMaintenant } from "@/hooks/useMaintenant";
 import logoWhite from "@/assets/logo-white.webp";
-import { ouvrirFenetreCookies } from "@/lib/consentement";
 import { TOUTES_FONCTIONNALITES } from "@/lib/fonctionnalites-liens";
 import { SIGNUP_URL } from "@/lib/links";
 
@@ -80,12 +79,7 @@ const Footer = () => {
           <Colonne titre="Fonctionnalités" liens={TOUTES_FONCTIONNALITES.map((f) => ({ label: f.label, href: f.to }))} />
           <Colonne titre="L'application" liens={LIENS.application} />
           <Colonne titre="Entreprise" liens={LIENS.entreprise} />
-          <div>
-            <Colonne titre="Légal" liens={LIENS.legal} />
-            <button type="button" onClick={ouvrirFenetreCookies} className={`mt-3 ${LIEN}`}>
-              Gestion des cookies
-            </button>
-          </div>
+          <Colonne titre="Légal" liens={LIENS.legal} />
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/10 py-8 text-sm text-white/50 sm:flex-row sm:justify-between">
