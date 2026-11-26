@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, CheckCircle, Calendar, Gift, Users, Headphones, Clock } from "lucide-react";
-import { Accent } from "@/components/design/elements";
+import { ArrowRight, CheckCircle, Calendar, Gift, Users, Headphones, Clock, Check, Thermometer, Package, Tag, SprayCan, FileSearch, Building2, Video, Smartphone } from "lucide-react";
+import { Accent, Surtitre, TITRE_H2 } from "@/components/design/elements";
+import { APP_URL } from "@/lib/links";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -27,8 +28,29 @@ const ETAPES_DEMO = [
   { titre: "Vous testez pendant 14 jours", texte: "Si l'application vous convient, vous l'essayez gratuitement pendant 14 jours, sans carte bancaire et sans engagement." },
 ];
 
+// Ce qui est montré pendant la démo : les écrans réels de l'application (voir les vidéos du site).
+const AU_PROGRAMME = [
+  { icone: Thermometer, titre: "Les relevés de température", texte: "Le relevé en quelques secondes, la limite de 4 °C affichée et la mesure corrective demandée en cas d'écart." },
+  { icone: Package, titre: "La réception des marchandises", texte: "La photo du bon de livraison lue automatiquement, puis la température des produits frais." },
+  { icone: Tag, titre: "La production et les étiquettes DLC", texte: "La DLC secondaire calculée, le numéro de lot proposé, l'impression sur votre étiqueteuse." },
+  { icone: SprayCan, titre: "Le plan de nettoyage", texte: "Les tâches du jour par zone, cochées et signées par la personne qui les fait." },
+  { icone: FileSearch, titre: "Le jour du contrôle", texte: "L'historique de chaque contrôle, classé par date, à montrer à l'inspecteur de la DDPP." },
+  { icone: Building2, titre: "Plusieurs établissements", texte: "Si vous en avez plusieurs : le tableau de bord qui regroupe tous vos sites." },
+];
+
+// Ce qui rend la démo plus utile (conseils, pas des prérequis).
+const A_PREPARER = [
+  "La liste de vos frigos, chambres froides et congélateurs",
+  "Vos zones de nettoyage (cuisine, plonge, réserve, salle…)",
+  "Votre étiqueteuse, si vous en avez une (Brother, Zebra ou Epson)",
+  "Les remarques de votre dernier contrôle sanitaire, s'il y en a eu un",
+  "Le nombre d'établissements et de personnes qui utiliseront l'application",
+];
+
 const FAQ_DEMO = [
   { question: "La démonstration est-elle payante ?", answer: "Non, elle est gratuite et ne vous engage à rien." },
+  { question: "Combien de temps dure la démonstration ?", answer: "Environ 30 minutes, en visio sur Google Meet, centrées sur votre établissement et vos questions." },
+  { question: "Démo ou essai direct : que choisir ?", answer: "La démo convient si vous voulez être guidé et poser vos questions sur le contrôle sanitaire. L'essai direct de 14 jours convient si vous préférez découvrir l'application seul, à votre rythme. Les deux sont gratuits et sans engagement." },
   { question: "Faut-il installer quelque chose pour la démo ?", answer: "Non. Vous recevez un lien Google Meet, qui s'ouvre depuis un navigateur ou l'application Meet." },
   { question: "Puis-je essayer LockHACCP sans démonstration ?", answer: "Oui. L'essai gratuit de 14 jours est accessible directement, sans carte bancaire et sans engagement." },
   { question: "L'application fonctionne-t-elle sans connexion internet ?", answer: "Oui. L'application fonctionne hors connexion, même dans une chambre froide ou une réserve où le réseau passe mal." },
@@ -345,6 +367,82 @@ const ContactDemo = () => {
             </div>
           </div>
         </section>
+
+      {/* Au programme de la démo */}
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 grid grid-cols-1 gap-6 lg:mb-16 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <Surtitre>Au programme</Surtitre>
+              <h2 className={TITRE_H2}>Ce que nous vous montrons pendant les 30 minutes</h2>
+            </div>
+            <p className="text-lg leading-relaxed text-muted-foreground lg:col-span-5">
+              La démonstration se fait sur l'application elle-même, avec les écrans que votre équipe utilisera en cuisine. Nous
+              passons plus de temps sur ce qui vous concerne.
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {AU_PROGRAMME.map(({ icone: Icone, titre, texte }) => (
+              <li key={titre} className="rounded-3xl border border-border/80 bg-white/85 p-7">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary">
+                  <Icone className="h-6 w-6" />
+                </span>
+                <h3 className="mt-6 font-heading text-lg font-bold text-foreground">{titre}</h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{texte}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Préparer la démo + démo ou essai direct */}
+      <section className="py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="rounded-[2rem] border border-border/80 bg-white/90 p-6 sm:p-10">
+              <h2 className="font-heading text-[clamp(1.6rem,2.8vw,2.1rem)] font-extrabold tracking-[-0.02em] text-foreground">
+                Préparez votre démo en 2 minutes
+              </h2>
+              <p className="mt-3 text-muted-foreground">Rien d'obligatoire : avec ces éléments sous la main, la démo colle mieux à votre cuisine.</p>
+              <ul className="mt-6 space-y-3">
+                {A_PREPARER.map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-foreground">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-light">
+                      <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative overflow-hidden rounded-[2rem] bg-[hsl(211_100%_13%)] p-6 text-white sm:p-10">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/50 blur-3xl" />
+              <div className="relative">
+                <h2 className="font-heading text-[clamp(1.6rem,2.8vw,2.1rem)] font-extrabold tracking-[-0.02em]">Démo ou essai direct ?</h2>
+                <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-white/[0.08] p-5">
+                    <Video className="h-6 w-6 text-secondary" />
+                    <p className="mt-3 font-heading font-bold">La démo</p>
+                    <p className="mt-1 text-sm text-white/75">30 minutes guidées en visio, sur votre cas, avec vos questions sur le contrôle sanitaire.</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/[0.08] p-5">
+                    <Smartphone className="h-6 w-6 text-secondary" />
+                    <p className="mt-3 font-heading font-bold">L'essai direct</p>
+                    <p className="mt-1 text-sm text-white/75">14 jours pour découvrir l'application seul, sans carte bancaire, à votre rythme.</p>
+                  </div>
+                </div>
+                <p className="mt-6 text-sm text-white/75">Les deux sont gratuits et sans engagement.</p>
+                <Button variant="accent" size="lg" asChild className="group mt-4 h-auto min-h-12 w-full whitespace-normal py-3 text-center sm:w-auto">
+                  <a href={APP_URL}>
+                    Essayer 14 jours gratuitement
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <SectionEtapes titre="Comment se déroule la démonstration ?" etapes={ETAPES_DEMO} />
 
