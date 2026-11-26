@@ -46,7 +46,7 @@ Essayez d'abord avec votre propre dossier : générez votre PMS, puis regardez s
 
 Si votre priorité est le nettoyage, partez de notre [plan de nettoyage gratuit : modèle de cuisine à adapter](/blog/plan-nettoyage-gratuit-modele).
 
-Pour essayer LockHACCP, [créez votre PMS gratuit](/pms) puis découvrez [l'application HACCP et PMS](/application-pms), ou [demandez une démonstration](/demander-demo).
+Pour essayer LockHACCP, [créez votre PMS gratuit](/plan-de-maitrise-sanitaire) puis découvrez [l'application HACCP et PMS](/application-pms), ou [demandez une démonstration](/demander-demo).
 
 ## Questions fréquentes
 

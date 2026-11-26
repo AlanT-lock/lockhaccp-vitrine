@@ -83,7 +83,7 @@ export function genererLlms({ pages, descriptions, prix }) {
 > LockHACCP est une application mobile et web française de gestion de l'hygiène alimentaire (HACCP) pour la restauration commerciale et collective : relevés de températures, réception des marchandises, traçabilité, plan de nettoyage, contrôle des huiles de friture, étiquettes de production et checklists, avec export des enregistrements pour les contrôles sanitaires.
 
 - Tarif : ${tarif(prix)} Essai gratuit de 14 jours, sans carte bancaire et sans engagement.
-- Générateur gratuit de Plan de Maîtrise Sanitaire (PMS) personnalisé, en ligne : ${SITE}/pms
+- Générateur gratuit de Plan de Maîtrise Sanitaire (PMS) personnalisé, en ligne : ${SITE}/plan-de-maitrise-sanitaire
 - Disponible sur iPhone, iPad, Android et navigateur web.
 - Contact : contact@lockhaccp.fr
 

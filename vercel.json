@@ -7,6 +7,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/pms",
+      "destination": "/plan-de-maitrise-sanitaire",
+      "permanent": true
+    },
+    {
       "source": "/app",
       "has": [
         {

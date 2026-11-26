@@ -27,7 +27,7 @@ const EncartPms = () => (
       </p>
       <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
         <Button asChild variant="hero" size="lg" className="h-auto min-h-12 w-full whitespace-normal py-3 text-center sm:w-auto">
-          <Link to="/pms">Créer mon PMS gratuitement</Link>
+          <Link to="/plan-de-maitrise-sanitaire">Créer mon PMS gratuitement</Link>
         </Button>
         <Link
           to="/plan-de-maitrise-sanitaire"

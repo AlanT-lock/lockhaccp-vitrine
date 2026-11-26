@@ -1,6 +1,6 @@
 import { lazy, Suspense, type ReactNode } from "react";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteTracker from "./components/RouteTracker";
 import { PAGES_FIXES } from "./lib/pages";
@@ -69,6 +69,9 @@ export const AppContenu = () => (
           const Page = COMPOSANTS[path];
           return <Route key={path} path={path} element={<Page />} />;
         })}
+        {/* Ancienne adresse du générateur : il est maintenant sur la page du Plan de Maîtrise Sanitaire
+            (redirection 301 côté Vercel ; celle-ci couvre la navigation dans l'application). */}
+        <Route path="/pms" element={<Navigate to="/plan-de-maitrise-sanitaire" replace />} />
         <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

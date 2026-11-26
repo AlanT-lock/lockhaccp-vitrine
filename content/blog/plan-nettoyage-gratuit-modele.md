@@ -50,7 +50,7 @@ Le même raisonnement vaut pour tout le dossier d'hygiène : un Plan de Maîtris
 
 Commencez par dessiner votre cuisine : une feuille par zone (préparation, cuisson, plonge, stockage froid, réserve sèche, sanitaires du personnel), avec les surfaces et le matériel, y compris ce qui se démonte. Reprenez ensuite chaque ligne du modèle : supprimez ce que vous n'avez pas, ajoutez ce qui manque, et répondez pour chaque surface aux cinq questions (quoi, quand, comment, avec quoi, qui) en fixant des rythmes que votre équipe peut tenir. Terminez par la fiche de suivi, avec une case par tâche et par jour : le plan dit ce qu'il faut faire, la fiche prouve que c'est fait.
 
-C'est long à faire à la main, et c'est précisément ce qu'évite le générateur. Vous décrivez votre activité en une dizaine de minutes, et vous recevez un [Plan de Maîtrise Sanitaire](/plan-de-maitrise-sanitaire) personnalisé et gratuit, avec le plan de nettoyage construit sur vos zones et vos surfaces, le type de produit adapté à chaque surface et une fiche de suivi par zone. [Créer mon PMS gratuit](/pms).
+C'est long à faire à la main, et c'est précisément ce qu'évite le générateur. Vous décrivez votre activité en une dizaine de minutes, et vous recevez un Plan de Maîtrise Sanitaire personnalisé et gratuit, avec le plan de nettoyage construit sur vos zones et vos surfaces, le type de produit adapté à chaque surface et une fiche de suivi par zone. [Créer mon PMS gratuit](/plan-de-maitrise-sanitaire).
 
 Si vous comparez aussi les outils de suivi, voyez notre [comparatif des logiciels de Plan de Maîtrise Sanitaire gratuits](/blog/logiciel-pms-gratuit-comparatif).
 

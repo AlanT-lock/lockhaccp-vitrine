@@ -436,7 +436,7 @@ const Pricing = () => {
 
             <div className="mx-auto mt-8 flex max-w-5xl flex-col items-stretch gap-4 md:flex-row">
               <Link
-                to="/pms"
+                to="/plan-de-maitrise-sanitaire"
                 className="group flex flex-1 items-center gap-4 rounded-2xl border border-border/80 bg-white/85 p-5 transition-colors hover:border-secondary/50"
               >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-white">

@@ -192,7 +192,7 @@ const ApplicationPms = () => {
                     </a>
                   </Button>
                   <Button variant="heroOutline" size="xl" asChild>
-                    <Link to="/pms">Créer mon PMS gratuit</Link>
+                    <Link to="/plan-de-maitrise-sanitaire">Créer mon PMS gratuit</Link>
                   </Button>
                 </div>
                 <p className="mt-6 text-foreground">
@@ -474,7 +474,7 @@ const ApplicationPms = () => {
                   </p>
                 </div>
                 <Button variant="hero" size="lg" asChild className="group mt-8">
-                  <Link to="/pms">
+                  <Link to="/plan-de-maitrise-sanitaire">
                     Créer mon PMS gratuit
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
