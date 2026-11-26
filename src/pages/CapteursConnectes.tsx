@@ -78,12 +78,12 @@ const AVANTAGES = [
   {
     icon: Moon,
     titre: "Alertes la nuit et le week-end",
-    texte: "Une panne à 2 h du matin ? Vous recevez une notification, un e-mail et un SMS, et non pas une mauvaise surprise le lendemain.",
+    texte: "Une panne à 2 h du matin ? Vous recevez une notification et un e-mail, et non pas une mauvaise surprise le lendemain.",
   },
   {
     icon: Bell,
     titre: "Un deuxième contact prévenu",
-    texte: "Si personne ne répond « Je m'en occupe » dans les 30 minutes, une deuxième personne reçoit un SMS.",
+    texte: "Si personne ne répond « Je m'en occupe » dans les 30 minutes, une deuxième personne est prévenue par e-mail.",
   },
   {
     icon: ClipboardCheck,
@@ -110,8 +110,8 @@ const AVANTAGES = [
 /** Visuel du hero : une alerte en pleine nuit, et la façon dont elle remonte (exemple). */
 function AlerteDeNuit() {
   const etapes = [
-    { heure: "2 h 14", texte: "Notification, e-mail et SMS au gérant" },
-    { heure: "2 h 44", texte: "SMS au deuxième contact" },
+    { heure: "2 h 14", texte: "Notification et e-mail au gérant" },
+    { heure: "2 h 44", texte: "E-mail au deuxième contact" },
     { heure: "2 h 51", texte: "« Je m'en occupe », porte mal fermée", fait: true },
   ];
   return (
@@ -175,7 +175,7 @@ const CapteursConnectes = () => (
   <div className="min-h-screen">
     <Seo
       title="Capteur de température connecté pour restaurant"
-      description={`Capteurs de température connectés pour vos frigos : alertes SMS la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
+      description={`Capteurs de température connectés pour vos frigos : alertes la nuit, relevés HACCP automatiques. Kit : passerelle ${formatPriceEUR(PRIX_PASSERELLE)} + ${formatPriceEUR(PRIX_CAPTEUR)} par capteur, sans abonnement.`}
       path={CHEMIN_CAPTEURS}
       jsonLd={[capteursProductJsonLd(), faqJsonLd(FAQ_CAPTEURS)]}
     />

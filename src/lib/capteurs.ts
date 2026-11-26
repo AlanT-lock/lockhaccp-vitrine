@@ -47,7 +47,7 @@ export const POINTS_CAPTEURS = [
   "Le matériel vous appartient",
   "Livraison comprise, sous 10 jours maximum",
   "Kit préconfiguré : branchez la passerelle sur votre box, posez un capteur dans chaque enceinte",
-  "Alertes par notification, e-mail et SMS, même la nuit et le week-end",
+  "Alertes par notification et e-mail, même la nuit et le week-end",
   "Relevés écrits tout seuls dans votre registre des températures",
 ];
 
@@ -75,7 +75,7 @@ export const FAQ_CAPTEURS = [
   {
     question: "Qui reçoit les alertes ?",
     answer:
-      "Vous choisissez jusqu'à deux personnes. La première reçoit une notification, un e-mail et un SMS. Si personne ne répond « Je m'en occupe » dans les 30 minutes, la deuxième personne reçoit à son tour un SMS et un e-mail.",
+      "Vous choisissez jusqu'à deux personnes. La première reçoit une notification et un e-mail. Si personne ne répond « Je m'en occupe » dans les 30 minutes, la deuxième personne est prévenue à son tour par e-mail.",
   },
   {
     question: "Et pendant un dégivrage ou une livraison ?",
@@ -110,7 +110,7 @@ export function capteursProductJsonLd(enVente: boolean = CAPTEURS_EN_VENTE): Rec
     "@type": "Product",
     name: "Capteur de température connecté LockHACCP",
     description:
-      "Capteur de température connecté pour frigos et congélateurs de restaurant, vendu en kit avec sa passerelle (200 €, une par établissement), alertes par notification, e-mail et SMS, relevés automatiques dans le registre HACCP.",
+      "Capteur de température connecté pour frigos et congélateurs de restaurant, vendu en kit avec sa passerelle (200 €, une par établissement), alertes par notification et e-mail, relevés automatiques dans le registre HACCP.",
     image: "https://lockhaccp.fr/og-image.png",
     brand: { "@type": "Brand", name: "LockHACCP" },
     offers: {
