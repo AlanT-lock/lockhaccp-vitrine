@@ -1,3 +1,4 @@
+import { useState, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, FileText, Folder, FolderOpen, Gift } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -6,6 +7,7 @@ import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { FaqSection } from "@/components/FaqSection";
 import Classeur from "@/components/pms/Classeur";
+import { QuestionnairePms } from "@/components/pms/QuestionnairePms";
 import { faqJsonLd } from "@/lib/seo-jsonld";
 import { METIERS } from "@/lib/pms/genere/metiers";
 import { ARBORESCENCE, FAQ_PMS, NB_DOCUMENTS_EXEMPLE } from "@/lib/pms/presentation";
@@ -16,7 +18,8 @@ import tableauCcp from "@/assets/pms/tableau-ccp-petit.webp";
 import releveTemperature from "@/assets/pms/releve-temperature-petit.webp";
 import planNettoyage from "@/assets/pms/plan-nettoyage-petit.webp";
 
-const GENERATEUR = "/pms";
+// Le générateur est sur cette page même (bloc #questionnaire) : /pms redirige ici.
+const ANCRE_QUESTIONNAIRE = "questionnaire";
 const ACTION = "Créer mon PMS gratuitement";
 
 const TEXTES_DE_REFERENCE = [
@@ -114,17 +117,30 @@ const ERREURS_PMS = [
 
 const texteCellule = (c: Cellule) => (typeof c === "string" ? c : c.texte);
 
-const BoutonGenerateur = () => (
-  <Button asChild size="xl" variant="hero" className="group w-full sm:w-auto">
-    <Link to={GENERATEUR}>
+/** Remonte en douceur jusqu'au questionnaire, en haut de la page. */
+function allerAuQuestionnaire(e: MouseEvent<HTMLAnchorElement>) {
+  const cible = document.getElementById(ANCRE_QUESTIONNAIRE);
+  if (!cible) return;
+  e.preventDefault();
+  cible.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+const BoutonGenerateur = ({ variante = "hero", className = "" }: { variante?: "hero" | "accent"; className?: string }) => (
+  <Button asChild size="xl" variant={variante} className={`group w-full sm:w-auto ${className}`}>
+    <a href={`#${ANCRE_QUESTIONNAIRE}`} onClick={allerAuQuestionnaire}>
       {ACTION}
       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-    </Link>
+    </a>
   </Button>
 );
 
-const PlanMaitriseSanitaire = () => (
-  <div className="min-h-screen">
+const PlanMaitriseSanitaire = () => {
+  // Pendant le questionnaire (après le choix du métier), la présentation s'efface : le visiteur
+  // ne voit que les questions, sur fond blanc uni, à la même adresse.
+  const [enCours, setEnCours] = useState(false);
+
+  return (
+  <div className={`min-h-screen ${enCours ? "bg-background" : ""}`}>
     <Seo
       title="Plan de Maîtrise Sanitaire (PMS) gratuit"
       description="Créez gratuitement votre Plan de Maîtrise Sanitaire : tableau des CCP, plan de nettoyage, traçabilité et affichages obligatoires. Dossier PDF en 10 minutes."
@@ -134,43 +150,76 @@ const PlanMaitriseSanitaire = () => (
     <Navbar />
 
     <main id="main-content">
-      {/* En-tête : la promesse à gauche, le vrai dossier à droite */}
-      <section className="pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
-        <div className="container mx-auto grid gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8">
-          <div className="min-w-0 lg:col-span-5">
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
-              <Gift className="h-4 w-4" />
-              Gratuit, sans carte bancaire
-            </p>
-            <h1 className="font-heading text-[clamp(2.3rem,4.6vw,3.7rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground">
-              <Accent>Plan de Maîtrise Sanitaire gratuit</Accent>, fait pour votre établissement
-            </h1>
-            <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted-foreground">
-              Répondez à quelques questions sur votre métier et vos équipements. Vous recevez par e-mail le
-              tableau des CCP, le plan de nettoyage, les fiches de traçabilité et les affichages obligatoires,
-              prêts à imprimer.
-            </p>
-            <div className="mt-8">
-              <BoutonGenerateur />
+      {/* En-tête : la promesse à gauche, le questionnaire du générateur à droite */}
+      <section className={enCours ? "pb-16 pt-28 sm:pt-32 lg:pt-36" : "pb-16 pt-28 sm:pt-32 lg:pb-20 lg:pt-36"}>
+        <div
+          className={
+            enCours
+              ? "container mx-auto max-w-3xl px-4 sm:px-6"
+              : "container mx-auto grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-start lg:gap-10 lg:px-8"
+          }
+        >
+          {!enCours && (
+            <div className="min-w-0 lg:col-span-5 lg:pt-6">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm">
+                <Gift className="h-4 w-4" />
+                Gratuit, sans carte bancaire
+              </p>
+              <h1 className="font-heading text-[clamp(2.3rem,4.6vw,3.7rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-foreground">
+                <Accent>Plan de Maîtrise Sanitaire gratuit</Accent>, fait pour votre établissement
+              </h1>
+              <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted-foreground">
+                Répondez à quelques questions sur votre métier et vos équipements. Vous recevez par e-mail le
+                tableau des CCP, le plan de nettoyage, les fiches de traçabilité et les affichages obligatoires,
+                prêts à imprimer.
+              </p>
+              {/* Sur mobile, le questionnaire est plus bas : un bouton y mène directement. */}
+              <div className="mt-7 lg:hidden">
+                <BoutonGenerateur />
+              </div>
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/80">
+                {["Environ 10 minutes", "Dossier PDF par e-mail", "Sans carte bancaire"].map((t) => (
+                  <li key={t} className="flex items-center gap-2">
+                    <Check className="h-4 w-4 text-primary" aria-hidden="true" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-8 max-w-[30rem] border-l-2 border-secondary pl-4 text-sm leading-relaxed text-muted-foreground">
+                Contenu conçu avec SF FORMATION, organisme de formation à l'hygiène alimentaire certifié Qualiopi.
+              </p>
             </div>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/80">
-              {["Environ 10 minutes", "Dossier PDF par e-mail", "Sans carte bancaire"].map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" aria-hidden="true" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 max-w-[30rem] border-l-2 border-secondary pl-4 text-sm leading-relaxed text-muted-foreground">
-              Contenu conçu avec SF FORMATION, organisme de formation à l'hygiène alimentaire certifié Qualiopi.
-            </p>
-          </div>
+          )}
 
-          <div className="min-w-0 lg:col-span-7">
-            <Classeur />
-            <p className="mt-4 text-center text-xs text-muted-foreground lg:text-left">
+          <div id={ANCRE_QUESTIONNAIRE} className={enCours ? "scroll-mt-28" : "min-w-0 scroll-mt-28 lg:col-span-7"}>
+            <div className="rounded-[2rem] border border-white/80 bg-white/95 p-5 shadow-[0_40px_80px_-45px_hsl(211_100%_20%/0.5)] sm:p-8">
+              {enCours ? (
+                <p className="mb-6 font-heading text-lg font-bold text-foreground">Votre Plan de Maîtrise Sanitaire gratuit</p>
+              ) : (
+                <h2 className="mb-6 font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground sm:text-[1.7rem]">
+                  Créez votre PMS : choisissez votre métier
+                </h2>
+              )}
+              <QuestionnairePms onEnCours={setEnCours} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {!enCours && (
+      <>
+      {/* Les vraies pages d'un dossier généré */}
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto grid grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+          <div className="lg:col-span-4">
+            <Surtitre>Le résultat</Surtitre>
+            <h2 className={TITRE_H2}>Les vraies pages de votre futur dossier</h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
               Pages réelles d'un dossier généré pour un restaurant : 2 services, 4 équipements froids, 1 friteuse.
             </p>
+          </div>
+          <div className="min-w-0 lg:col-span-8">
+            <Classeur />
           </div>
         </div>
       </section>
@@ -499,10 +548,10 @@ const PlanMaitriseSanitaire = () => (
               </ul>
               <div className="mt-10 flex justify-center lg:justify-start">
                 <Button variant="accent" size="xl" asChild className="group">
-                  <Link to={GENERATEUR}>
+                  <a href={`#${ANCRE_QUESTIONNAIRE}`} onClick={allerAuQuestionnaire}>
                     {ACTION}
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  </a>
                 </Button>
               </div>
             </div>
@@ -518,10 +567,13 @@ const PlanMaitriseSanitaire = () => (
           </div>
         </div>
       </section>
+      </>
+      )}
     </main>
 
     <Footer />
   </div>
-);
+  );
+};
 
 export default PlanMaitriseSanitaire;

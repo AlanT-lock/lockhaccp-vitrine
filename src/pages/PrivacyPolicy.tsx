@@ -131,7 +131,7 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="font-heading text-2xl font-extrabold tracking-[-0.02em] text-foreground mb-4">10. Générateur de PMS gratuit</h2>
               <p className="text-muted-foreground">
-                Lorsque vous demandez votre Plan de Maîtrise Sanitaire (PMS) gratuit sur lockhaccp.fr/pms, nous collectons :
+                Lorsque vous demandez votre Plan de Maîtrise Sanitaire (PMS) gratuit sur lockhaccp.fr/plan-de-maitrise-sanitaire, nous collectons :
               </p>
               <ul className="text-muted-foreground list-disc list-inside mt-2 space-y-1">
                 <li>le nom et l'adresse de votre établissement, votre adresse e-mail et votre numéro de téléphone ;</li>

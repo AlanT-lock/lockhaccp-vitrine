@@ -65,7 +65,7 @@ export function PlanningNettoyageExemple() {
             .
           </p>
           <Button variant="hero" size="lg" className="mt-6" asChild>
-            <Link to="/pms">
+            <Link to="/plan-de-maitrise-sanitaire">
               Générer mon plan de nettoyage gratuit
               <ArrowRight className="w-5 h-5" />
             </Link>
